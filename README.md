@@ -4,6 +4,10 @@ Public marketing site for **MIZ OKI 3.5** (mizoki3.com), served by Flask + Gunic
 
 This folder is the Cloud Build context for `.github/workflows/deploy-homepage.yml` in the monorepo (`MIZOKICloudRun`). Quote the path in shells: `"# MIZ OKI 3.5"`.
 
+## Current external whitepaper
+
+The [Operating Knowledge Intelligence external whitepaper v3.1 (23 September 2026)](https://github.com/MIZOKI-3-5/MIZOKICloudRun/blob/main/docs/whitepapers/MIZ_OKI_3.5_Operating_Knowledge_Intelligence_Whitepaper.md) and its [sharing PDF](https://github.com/MIZOKI-3-5/MIZOKICloudRun/blob/main/docs/whitepapers/MIZ_OKI_3.5_Operating_Knowledge_Intelligence_Whitepaper.pdf) describe implemented capabilities, recorded operational evidence, activation boundaries, and remaining acceptance gates. The owner-authored master roadmap r3.6 is a separate plan of record. Documentation changes do not publish the marketing website; its existing release workflow still applies.
+
 ## 🔒 SOURCE OF TRUTH & DEPLOY GOVERNANCE (LOCKED 2026-07-30)
 
 **This document and `CLAUDE.md` are the ONLY sources of truth for this site.**
@@ -180,3 +184,4 @@ approval. Full build & launch record:
   and route in BOTH deploy pipelines. `/media` is deliberately not in the
   sitemap yet; extend the drift guard to the 8 sub-pages in both repos
   together.
+
