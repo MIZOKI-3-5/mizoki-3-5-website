@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog — MIZ OKI 3.5</title>
+    <title>Journal — MIZ OKI 3.5</title>
     <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
     <link rel="alternate icon" href="/assets/img/favicon.ico" sizes="16x16 32x32 48x48" />
     <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png" />
-    <meta name="description" content="Research and field notes from MIZ OKI 3.5 on threshold-aware media buying, decision intelligence, and causal autonomous systems.">
+    <meta name="description" content="Founder letters, research and field notes on causal evidence, business economics and governed decisions from MIZ OKI 3.5.">
     <link rel="canonical" href="https://mizoki3.com/blog">
-    <link rel="alternate" type="application/rss+xml" title="MIZ OKI 3.5 Blog (RSS)" href="/blog/feed.xml">
-    <link rel="alternate" type="application/json" title="MIZ OKI 3.5 Blog (JSON Feed)" href="/blog/feed.json">
+    <link rel="alternate" type="application/rss+xml" title="MIZ OKI 3.5 Journal (RSS)" href="/blog/feed.xml">
+    <link rel="alternate" type="application/json" title="MIZ OKI 3.5 Journal (JSON Feed)" href="/blog/feed.json">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="MIZ OKI 3.5 Blog">
-    <meta property="og:description" content="Research and field notes on threshold-aware media buying, decision intelligence, and causal autonomous systems.">
+    <meta property="og:title" content="MIZ OKI 3.5 Journal">
+    <meta property="og:description" content="Founder letters, research and field notes on causal evidence, business economics and governed decisions.">
     <meta property="og:url" content="https://mizoki3.com/blog">
     <meta property="og:image" content="https://mizoki3.com/assets/img/blog/meta-relu/og_meta_relu_1200x627.png">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="MIZ OKI 3.5 Blog">
-    <meta name="twitter:description" content="Research and field notes on threshold-aware media buying, decision intelligence, and causal autonomous systems.">
+    <meta name="twitter:title" content="MIZ OKI 3.5 Journal">
+    <meta name="twitter:description" content="Founder letters, research and field notes on causal evidence, business economics and governed decisions.">
     <meta name="twitter:image" content="https://mizoki3.com/assets/img/blog/meta-relu/og_meta_relu_1200x627.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -354,6 +354,16 @@
             .nav-cta .btn-ghost { display: none; }
             .quick-stats { grid-template-columns: 1fr; }
         }
+
+        .anchor-alias { display:block; scroll-margin-top:7rem; }
+        .founder-series { scroll-margin-top:7rem; margin-bottom:4rem; }
+        .founder-series h2, .research-title { font-family:'Instrument Serif',Georgia,serif; font-weight:400; font-size:2.5rem; margin-bottom:1rem; }
+        .series-intro { color:var(--text-secondary); max-width:660px; margin-bottom:2rem; font-size:1.08rem; }
+        .founder-series .post-card { border-radius:2px; }
+        .founder-series .posts-grid { gap:1.1rem; }
+        .post-card h3 { overflow-wrap:anywhere; }
+        a:focus-visible { outline:2px solid var(--accent-cyan); outline-offset:4px; }
+        @media(max-width:600px) { nav { padding:1rem; } .blog-container { padding-left:1.2rem; padding-right:1.2rem; } }
     </style>
 </head>
 <body>
@@ -361,15 +371,15 @@
         <div class="nav-container">
             <a href="/" class="logo">MIZ OKI <span class="logo-version">3.5</span></a>
             <div class="nav-links">
-                <a href="/how-it-works.html">How It Works</a>
-                <a href="/platform.html">Platform</a>
-                <a href="/industries.html">Industries</a>
+                <a href="/#pipeline">How It Works</a>
+                <a href="/#what">Platform</a>
+                <a href="/#divisions">Divisions</a>
                 <a href="/pricing.html">Pricing</a>
-                <a href="/blog" class="active">Blog</a>
+                <a href="/blog" class="active">Journal</a>
             </div>
             <div class="nav-cta">
                 <a href="/login" class="btn btn-ghost">Login</a>
-                <a href="/roi.html" class="btn btn-ghost">ROI Calculator</a>
+                <a href="/demo" class="btn btn-ghost">Live Demos</a>
                 <a href="/walkthrough.html" class="btn btn-primary">Get Demo</a>
             </div>
         </div>
@@ -378,14 +388,14 @@
     <section class="page-header">
         <span class="eyebrow">Editorial Hub</span>
         <h1>MIZ OKI 3.5 <span class="headline-gradient">Journal</span></h1>
-        <p>Threshold-aware media buying, decision intelligence, and causal operating guidance for teams building above the activation line.</p>
+        <p>Founder letters, research, and field notes on the decisions behind the next dollar.</p>
         <div class="quick-stats">
             <div class="stat">
                 <strong>7-stage SRPVDAL</strong>
                 <span>Framework-guided reasoning from signal to action.</span>
             </div>
             <div class="stat">
-                <strong>Decision Control Plane</strong>
+                <strong>Decision Gates</strong>
                 <span>Execution constraints, arbitration, and policy memory.</span>
             </div>
             <div class="stat">
@@ -395,7 +405,43 @@
         </div>
     </section>
 
-    <div class="blog-container">
+    <main class="blog-container">
+        <!-- Alias: /blog#journal links keep landing on the letters. -->
+        <span id="journal" class="anchor-alias" aria-hidden="true"></span>
+        <section id="the-next-dollar" class="founder-series" aria-labelledby="series-title">
+            <span class="eyebrow">New · Nine founder letters</span>
+            <h2 id="series-title">The Next Dollar</h2>
+            <p class="series-intro">Causal evidence. Business economics. Earned authority. Boris Mizhen on what it takes to make a commercial decision worth defending.</p>
+            <div class="posts-grid"><article class="post-card"><span class="post-tag">Letter 01 · Founder letters</span>
+    <h3><a href="/blog/the-number-your-bank-account-reports">The number your bank account reports</a></h3>
+    <p>MIZ OKI connects causal evidence, contribution economics and decision authority so teams can govern the next dollar with a record they can inspect.</p><div class="post-meta"><span>Boris Mizhen</span><span>·</span><span>3 min read</span></div></article>
+<article class="post-card"><span class="post-tag">Letter 02 · Founder letters</span>
+    <h3><a href="/blog/before-you-raise-bids-check-the-checkout">Before you raise bids check the checkout</a></h3>
+    <p>Follow a fictional acquisition-cost spike through evidence, causal qualification, contribution and approval in the MIZ OKI Decision Studio.</p><div class="post-meta"><span>Boris Mizhen</span><span>·</span><span>3 min read</span></div></article>
+<article class="post-card"><span class="post-tag">Letter 03 · Founder letters</span>
+    <h3><a href="/blog/doorman-problem">The doorman problem</a></h3>
+    <p>A retargeting conversion is not automatically an incremental conversion. Learn how holdouts, uncertainty and contribution change the budget decision.</p><div class="post-meta"><span>Boris Mizhen</span><span>·</span><span>3 min read</span></div></article>
+<article class="post-card"><span class="post-tag">Letter 04 · Founder letters</span>
+    <h3><a href="/blog/when-your-best-seller-loses-money">When your best seller loses money</a></h3>
+    <p>See how a synthetic SKU can report strong ROAS while losing contribution, and why verified costs must precede profit-based advertising decisions.</p><div class="post-meta"><span>Boris Mizhen</span><span>·</span><span>3 min read</span></div></article>
+<article class="post-card"><span class="post-tag">Letter 05 · Founder letters</span>
+    <h3><a href="/blog/what-the-system-refuses-to-learn">What the system refuses to learn</a></h3>
+    <p>MIZ OKI&#x27;s intent design uses consented, limited signals and explicit exclusions. See why a forecast must earn evidence before it can influence action.</p><div class="post-meta"><span>Boris Mizhen</span><span>·</span><span>3 min read</span></div></article>
+<article class="post-card"><span class="post-tag">Letter 06 · Founder letters</span>
+    <h3><a href="/blog/the-decision-to-do-nothing">The decision to do nothing</a></h3>
+    <p>A good recommendation still needs authority. Explore how MIZ OKI demonstrates policy checks, withheld actions and the limits of rollback.</p><div class="post-meta"><span>Boris Mizhen</span><span>·</span><span>3 min read</span></div></article>
+<article class="post-card"><span class="post-tag">Letter 07 · Founder letters</span>
+    <h3><a href="/blog/your-business-should-remember-why">Your business should remember why</a></h3>
+    <p>MIZ OKI&#x27;s Decision Graph design aims to preserve why choices were made, who approved them and what followed. Cross-domain learning remains on the roadmap.</p><div class="post-meta"><span>Boris Mizhen</span><span>·</span><span>3 min read</span></div></article>
+<article class="post-card"><span class="post-tag">Letter 08 · Founder letters</span>
+    <h3><a href="/blog/when-media-becomes-a-business-decision">When a media decision becomes a business decision</a></h3>
+    <p>The Nexus demonstration follows one commercial shock across Signal, Capital, Risk, Counsel and Estate while preserving a shared decision trace.</p><div class="post-meta"><span>Boris Mizhen</span><span>·</span><span>3 min read</span></div></article>
+<article class="post-card"><span class="post-tag">Letter 09 · Founder letters</span>
+    <h3><a href="/blog/autonomy-is-earned">Autonomy is earned</a></h3>
+    <p>MIZ OKI&#x27;s pilot begins with observation, advances through reviewed recommendations and considers bounded actions only when the evidence and gates permit.</p><div class="post-meta"><span>Boris Mizhen</span><span>·</span><span>3 min read</span></div></article></div>
+        </section>
+        <h2 class="research-title">Research and playbooks</h2>
+
         <article class="featured-post">
             <div class="featured-image">
                 <span class="featured-image-text">Featured Research</span>
@@ -418,20 +464,9 @@
         </article>
 
         <div class="posts-grid">
-            <article class="post-card">
-                <span class="post-tag">Field Notes</span>
-                <h3><a href="/blog/doorman-problem">The Doorman Problem: What Your Retargeting Dashboard Can't Tell You</a></h3>
-                <p>A composite field note on the question platform ROAS never answers: which conversions did the ads actually cause?</p>
-                <div class="post-meta">
-                    <span>MIZ OKI Research</span>
-                    <span>•</span>
-                    <span>3 min read</span>
-                </div>
-            </article>
-
-            <article class="post-card">
+<article class="post-card">
                 <span class="post-tag">Architecture</span>
-                <h3><a href="/blog/decision-control-plane">Why Agents Need a Decision Control Plane</a></h3>
+                <h3><a href="/blog/decision-control-plane">Why Agents Need Decision Gates</a></h3>
                 <p>Why autonomous systems need explicit arbitration between action proposal, validation, and approval.</p>
                 <div class="post-meta">
                     <span>Boris Mizhen</span>
@@ -452,20 +487,9 @@
             </article>
 
             <article class="post-card">
-                <span class="post-tag">Case Study</span>
-                <h3><a href="/case-studies.html">Learning Limited Reduction in Practice</a></h3>
-                <p>See how MIZ OKI 3.5 ties threshold-aware execution to measured CPA stability and faster learning cycles.</p>
-                <div class="post-meta">
-                    <span>MIZ OKI Team</span>
-                    <span>•</span>
-                    <span>6 min read</span>
-                </div>
-            </article>
-
-            <article class="post-card">
                 <span class="post-tag">Platform</span>
-                <h3><a href="/platform.html">How MIZ OKI 3.5 Operationalizes This</a></h3>
-                <p>See how the Decision Control Plane, validation layer, and causal graph operationalize media buying signals.</p>
+                <h3><a href="/#what">How MIZ OKI 3.5 Operationalizes This</a></h3>
+                <p>See how the decision gates, validation layer, and causal graph operationalize media buying signals.</p>
                 <div class="post-meta">
                     <span>MIZ OKI Team</span>
                     <span>•</span>
@@ -476,20 +500,19 @@
 
         <div class="newsletter-section">
             <h2>Continue the Main-Domain Journey</h2>
-            <p>Move from threshold-aware insight into platform detail, ROI modeling, and a working MIZ OKI 3.5 walkthrough.</p>
+            <p>Move from threshold-aware insight into platform detail, pricing, and a working MIZ OKI 3.5 walkthrough.</p>
             <div class="newsletter-form">
-                <a href="/platform.html" class="btn btn-ghost">Explore Platform</a>
-                <a href="/roi.html" class="btn btn-ghost">Run ROI Model</a>
+                <a href="/#what" class="btn btn-ghost">Explore Platform</a>
+                <a href="/pricing" class="btn btn-ghost">See Pricing</a>
                 <a href="/walkthrough.html" class="btn btn-primary">Request Demo</a>
             </div>
         </div>
-    </div>
+    </main>
 
     <footer>
         <div class="footer-container">
             <div class="footer-bottom">
                 <span>© 2026 MIZ OKI. All rights reserved.</span>
-                <span>SOC 2 Type II Certified • GDPR Compliant • HIPAA Ready</span>
             </div>
         </div>
     </footer>

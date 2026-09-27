@@ -1,6 +1,7 @@
 """Decision Concierge (Executive Briefing guide agent) — behavior + claims lint."""
 from __future__ import annotations
 
+import importlib.util
 import pathlib
 import re
 import tempfile
@@ -8,6 +9,11 @@ import unittest
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
 GUIDE_JS = REPO_ROOT / "executive-briefing" / "js" / "guide.js"
+
+_cq_spec = importlib.util.spec_from_file_location(
+    "content_qa_briefing", REPO_ROOT / "scripts" / "content_qa.py")
+content_qa = importlib.util.module_from_spec(_cq_spec)
+_cq_spec.loader.exec_module(content_qa)
 
 from app import create_app  # noqa: E402
 from mizoki_runtime import briefing_guide, create_runtime  # noqa: E402
@@ -179,6 +185,40 @@ class GuideClaimsDisciplineTestCase(unittest.TestCase):
     def test_required_stance_present(self) -> None:
         self.assertIn("I'll suggest; you commit", self.speakable)
         self.assertIn("how fast you start", self.speakable)
+
+
+class BriefingStageClaimsTestCase(unittest.TestCase):
+    """The briefing's own stages (app.js) carry no trust chip the tree cannot back.
+
+    The concierge copy above was already held to this; the stage renderer was
+    not, and Stage 05 shipped "SOC 2 Type II", "SSO / SCIM" and "Data residency
+    options" chips until 2026-09-25. docs/product/SECURITY_PACKET_v1.md §9
+    records no SOC 2 report (row 2) and no residency mechanism (row 7, D-14);
+    SCIM has no implementation anywhere in the tree. content_qa reads HTML and
+    Markdown, not the JavaScript that renders this page, so this test is the
+    gate for it.
+    """
+
+    def test_stage_renderer_names_no_unbacked_attestation(self) -> None:
+        # content_qa scans executive-briefing/js/data.js, not this renderer, so
+        # this test is the renderer's only attestation gate. It applies the
+        # shared rule (content_qa.attestation_hits) rather than a partial copy:
+        # the #1156 copy listed SOC 2 / ISO 27001 / HIPAA and missed PCI DSS,
+        # "GDPR compliant/certified" and ISO 42001 (review follow-up).
+        js = (REPO_ROOT / "executive-briefing" / "js" / "app.js").read_text(encoding="utf-8")
+        self.assertEqual([], [m.group(0) for m in content_qa.attestation_hits(js)])
+        # The same chip row also named SSO/SCIM and data-residency options,
+        # which no shipped surface backs; they are not attestations, so they
+        # stay pinned here by name.
+        for pattern in (r"\bscim\b", r"data residency options"):
+            self.assertIsNone(re.search(pattern, js, re.IGNORECASE), pattern)
+
+    def test_the_renderer_gate_fires_on_every_attestation_family(self) -> None:
+        # Both directions (rule 01): the shared rule must catch each family
+        # the partial copy missed, so a green renderer test means something.
+        for claim in ("PCI DSS compliant checkout", "GDPR Compliant",
+                      "ISO 42001 certified", "SOC 2 Type II"):
+            self.assertTrue(content_qa.attestation_hits(f"'<span>{claim}</span>'"), claim)
 
     def test_mobile_sheet_cannot_block_the_briefing(self) -> None:
         """2026-07-31 regression: on phones the open rail covered #mb-start —

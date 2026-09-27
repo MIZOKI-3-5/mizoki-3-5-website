@@ -139,7 +139,13 @@
         .hero-stats {
             display: flex;
             gap: 2rem;
-            margin-bottom: 2rem;
+            margin-bottom: 0.6rem;
+        }
+        .hero-stat-note {
+            font-size: 0.75rem;
+            line-height: 1.5;
+            color: var(--text-muted);
+            margin: 0 0 2rem;
         }
         .hero-stat {
             text-align: center;
@@ -392,59 +398,6 @@
             color: var(--accent-cyan);
         }
 
-        /* Testimonial */
-        .testimonial-section {
-            padding: 5rem 2rem;
-            background: var(--bg-secondary);
-        }
-        .testimonial-container {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .testimonial-quote {
-            font-family: 'Instrument Serif', Georgia, serif;
-            font-size: 1.5rem;
-            line-height: 1.5;
-            margin-bottom: 2rem;
-        }
-        .testimonial-quote::before {
-            content: '"';
-            color: var(--accent-cyan);
-        }
-        .testimonial-quote::after {
-            content: '"';
-            color: var(--accent-cyan);
-        }
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-        }
-        .testimonial-avatar {
-            width: 50px;
-            height: 50px;
-            background: var(--bg-tertiary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1rem;
-            color: var(--text-muted);
-        }
-        .testimonial-info {
-            text-align: left;
-        }
-        .testimonial-name {
-            font-weight: 500;
-        }
-        .testimonial-title {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-
         /* FAQ Section */
         .faq-section {
             padding: 5rem 2rem;
@@ -586,17 +539,16 @@
         <div class="nav-container">
             <a href="/index.html" class="logo">MIZ OKI <span class="logo-version">3.5</span></a>
             <div class="nav-links">
-                <a href="/how-it-works.html">How It Works</a>
-                <a href="/platform.html">Platform</a>
-                <a href="/security.html">Security</a>
-                <a href="/industries.html">Industries</a>
+                <a href="/#pipeline">How It Works</a>
+                <a href="/#what">Platform</a>
+                <a href="/#enterprise">Assurance</a>
+                <a href="/#divisions">Divisions</a>
                 <a href="/pricing.html">Pricing</a>
-                <a href="/case-studies.html">Case Studies</a>
-                <a href="/blog/">Blog</a>
+                <a href="/demo">Live Demos</a>
+                <a href="/blog/">Journal</a>
             </div>
             <div class="nav-cta">
                 <a href="/login" class="btn btn-ghost">Login</a>
-                <a href="/roi.html" class="btn btn-ghost">ROI Calculator</a>
                 <a href="/walkthrough.html" class="btn btn-primary">Get Demo</a>
             </div>
         </div>
@@ -605,7 +557,7 @@
     <section class="hero">
         <div class="hero-content">
             <h1>See Verifiable Autonomous Decision Intelligence in Action</h1>
-            <p>In 30 minutes, we'll show you how MIZ OKI 3.5 transforms decision-making with the SRPVDAL pipeline, Decision Control Plane, and full validation before execution. This technical walkthrough is the evaluator's track — architecture, controls, evidence, and operating workflow.</p>
+            <p>In 30 minutes, we'll show you how MIZ OKI 3.5 transforms decision-making with the SRPVDAL pipeline, deterministic decision gates, and full validation before execution. This technical walkthrough is the evaluator's track — architecture, controls, evidence, and operating workflow.</p>
             <div style="margin: 18px 0 6px;">
                 <a href="/demo" class="btn btn-primary">Try the live demos →</a>
             </div>
@@ -624,6 +576,7 @@
                     <div class="hero-stat-label">Faster Decisions</div>
                 </div>
             </div>
+            <p class="hero-stat-note">Design targets — "2-4 wks to production" and "63× faster decisions" are design targets for a fully configured deployment, not measured results.</p>
         </div>
         <div class="demo-form-container">
             <div class="form-header">
@@ -704,7 +657,7 @@
                 </div>
                 <div class="chapter-card">
                     <div class="chapter-time">5:30</div>
-                    <div class="chapter-title">Decision Control Plane</div>
+                    <div class="chapter-title">Decision Gates</div>
                 </div>
                 <div class="chapter-card">
                     <div class="chapter-time">9:00</div>
@@ -759,7 +712,7 @@
                 <div class="agenda-card">
                     <div class="agenda-number">02</div>
                     <h3>Platform Capabilities</h3>
-                    <p>See how the 7-stage SRPVDAL pipeline and Decision Control Plane work together.</p>
+                    <p>See how the 7-stage SRPVDAL pipeline and decision gates work together.</p>
                     <ul>
                         <li>Live decision workflow</li>
                         <li>Validation Layer in action</li>
@@ -780,19 +733,6 @@
         </div>
     </section>
 
-    <section class="testimonial-section">
-        <div class="testimonial-container">
-            <p class="testimonial-quote">The demo showed us exactly how MIZ OKI would handle our specific media buying challenges. Within 20 minutes, I understood how we could reduce Learning Limited campaigns by 70%. We signed within the week.</p>
-            <div class="testimonial-author">
-                <div class="testimonial-avatar">VP</div>
-                <div class="testimonial-info">
-                    <div class="testimonial-name">VP of Growth</div>
-                    <div class="testimonial-title">Fortune 500 DTC Brand</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section class="faq-section">
         <div class="faq-container">
             <div class="faq-header">
@@ -802,7 +742,7 @@
             <div class="faq-item open">
                 <div class="faq-question">How long is the demo?</div>
                 <div class="faq-answer">
-                    The standard demo is 30 minutes: 10 minutes understanding your challenges, 15 minutes showing the platform, and 5 minutes discussing next steps. We can extend to 45-60 minutes for deeper technical dives.
+                    The standard demo is 30 minutes: the first ten minutes understanding your challenges, the next fifteen showing the platform, and the last five discussing next steps. We can extend to 45-60 minutes for deeper technical dives.
                 </div>
             </div>
 
@@ -842,8 +782,8 @@
             <p>Schedule your demo or explore our resources at your own pace</p>
             <div class="cta-buttons">
                 <a href="#" onclick="document.querySelector('.demo-form-container input').focus(); window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="btn btn-primary">Schedule Demo</a>
-                <a href="/roi.html" class="btn btn-ghost">Calculate ROI First</a>
-                <a href="/case-studies.html" class="btn btn-ghost">Read Case Studies</a>
+                <a href="/pricing" class="btn btn-ghost">See Pricing</a>
+                <a href="/demo" class="btn btn-ghost">Run a Live Demo</a>
             </div>
         </div>
     </section>
@@ -857,18 +797,17 @@
                 </div>
                 <div class="footer-col">
                     <h4>Platform</h4>
-                    <a href="/how-it-works.html">How It Works</a>
-                    <a href="/platform.html">Architecture</a>
-                    <a href="/security.html">Security</a>
-                    <a href="/industries.html">Industries</a>
+                    <a href="/#pipeline">How It Works</a>
+                    <a href="/#what">Architecture</a>
+                    <a href="/#enterprise">Assurance</a>
+                    <a href="/#divisions">Divisions</a>
                 </div>
                 <div class="footer-col">
                     <h4>Resources</h4>
-                    <a href="/case-studies.html">Case Studies</a>
-                <a href="/blog/">Blog</a>
-                    <a href="/resources.html">Documentation</a>
-                    <a href="/roi.html">ROI Calculator</a>
-                    <a href="#">API Reference</a>
+                    <a href="/demo">Live Demos</a>
+                <a href="/blog/">Journal</a>
+                    <a href="/executive-briefing/">Executive Briefing</a>
+                    <a href="/pricing">Pricing</a>
                 </div>
                 <div class="footer-col">
                     <h4>Company</h4>
@@ -880,7 +819,6 @@
             </div>
             <div class="footer-bottom">
                 <span>© 2026 MIZ OKI. All rights reserved.</span>
-                <span>SOC 2 Type II Certified • GDPR Compliant • HIPAA Ready</span>
             </div>
         </div>
     </footer>

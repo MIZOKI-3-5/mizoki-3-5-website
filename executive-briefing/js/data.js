@@ -37,10 +37,11 @@ MIZOKI.DOMAINS = {
     short: "Signal",
     icon: "signalIcon",
     headline: "Every media dollar governed like capital — gated, guarded, and provable.",
-    promise: "MIZ OKI's most mature domain — the engine the platform was built on. Incrementality-measured budget moves pass a ReLU gate and hard guardrails before they touch a platform, with provenance and a rollback token on every action.",
+    promise: "MIZ OKI's most mature domain — the engine the platform was built on — told in three acts: PROVE what your spend caused, PROFIT on what an order truly nets, ANTICIPATE who is entering the market (the profit and anticipate acts are Preview · in development). Incrementality-measured budget moves pass a ReLU gate and hard guardrails before they touch a platform, with provenance and a rollback token on every action.",
     statusQuo: [
       "Platform-reported ROAS counts conversions that would have happened anyway",
       "The doorman problem: retargeting pays to open doors customers were already walking through — and the dashboard books it as return",
+      "Revenue up, cash down: checkout revenue can't see component costs, packing, shipping, fees, or the returns that quietly turn winners into losers",
       "Budget shifts ride gut feel and last-click, not measured lift",
       "Creative fatigue is discovered after CPA has already spiked",
     ],
@@ -78,10 +79,11 @@ MIZOKI.DOMAINS = {
       },
     ],
     proof: [
-      { metric: "24%", label: "of spend identified as non-incremental and redeployed" },
-      { metric: "1.8×", label: "incremental ROAS versus the last-click view" },
-      { metric: "9 of 10", label: "budget moves cleared the gate — the tenth was vetoed" },
+      { metric: "24%", label: "of spend identified as non-incremental and redeployed (composite)" },
+      { metric: "1.8×", label: "incremental ROAS versus the last-click view (composite)" },
+      { metric: "9 of 10", label: "budget moves cleared the gate — the tenth was vetoed (composite)" },
       { metric: "9 of 14", label: "geo-test markets proved lift — doubled down where it worked, cut where it didn't, budget survived (composite)" },
+      { metric: "−$2 to $16", label: "what the hero bundle truly netted per order once a third boomeranged; the boring single SKU netted $31 and almost never returned (composite scenario — net-yield pricing is Preview · in development)" },
     ],
     pilotScope: [
       "Two channels (Meta + Google) on one P&L",
@@ -91,6 +93,7 @@ MIZOKI.DOMAINS = {
     boardTalkingPoints: [
       "Media spend becomes a governed capital allocation, not a faith-based line item",
       "Every move carries provenance and a rollback token",
+      "Act III, anticipatory intent, stays Preview · in development — and when it ships, acting on a predicted account always runs against a held-out comparison, so the prediction never grades itself",
       "The platform's most mature domain — it runs these playbooks on its own media",
       "The privacy review that killed the last intent-data vendor approves this one — consent before storage, sensitive categories refused at the schema, no audio anywhere, erasure that cascades",
     ],
@@ -162,7 +165,7 @@ MIZOKI.DOMAINS = {
     short: "Logistics",
     icon: "truck",
     headline: "Turn every exception into a controlled decision — before it hits the dock.",
-    promise: "MIZ OKI surfaces delay, cost, and SLA risk across carriers and nodes so leadership acts on one operating picture — governed by the Decision Control Plane.",
+    promise: "MIZ OKI surfaces delay, cost, and SLA risk across carriers and nodes so leadership acts on one operating picture — governed by the decision gates.",
     statusQuo: [
       "Exception handling lives in email, spreadsheets, and carrier portals",
       "SLA breaches are discovered after customers escalate",
@@ -202,8 +205,8 @@ MIZOKI.DOMAINS = {
       },
     ],
     proof: [
-      { metric: "31%", label: "fewer SLA misses in 60 days" },
-      { metric: "18%", label: "lower exception handling cost" },
+      { metric: "31%", label: "fewer SLA misses in 60 days (composite)" },
+      { metric: "18%", label: "lower exception handling cost (composite)" },
       { metric: "4.6×", label: "faster decision cycle on critical lanes (composite)" },
     ],
     pilotScope: [
@@ -223,7 +226,7 @@ MIZOKI.DOMAINS = {
     short: "HR",
     icon: "users",
     headline: "See attrition, capacity, and hiring risk before they show up in the P&L.",
-    promise: "MIZ OKI connects flight-risk signals, open reqs, and team load so leaders intervene early — with DCP policy and VAL checks on every recommended action.",
+    promise: "MIZ OKI connects flight-risk signals, open reqs, and team load so leaders intervene early — with decision-gate policy and VAL checks on every recommended action.",
     statusQuo: [
       "Flight risk is anecdotal until exit interviews",
       "Hiring plans lag behind actual capacity shortfalls",
@@ -263,8 +266,8 @@ MIZOKI.DOMAINS = {
       },
     ],
     proof: [
-      { metric: "22%", label: "reduction in regrettable attrition" },
-      { metric: "19 days", label: "faster critical-role fill" },
+      { metric: "22%", label: "reduction in regrettable attrition (composite)" },
+      { metric: "19 days", label: "faster critical-role fill (composite)" },
       { metric: "3.1×", label: "more interventions before resignation (composite)" },
     ],
     pilotScope: [
@@ -324,8 +327,8 @@ MIZOKI.DOMAINS = {
       },
     ],
     proof: [
-      { metric: "35%", label: "faster variance explanation" },
-      { metric: "90 bps", label: "margin recovery in pilot units" },
+      { metric: "35%", label: "faster variance explanation (composite)" },
+      { metric: "90 bps", label: "margin recovery in composite scenario units" },
       { metric: "2.4×", label: "more spend interventions in-quarter (composite)" },
     ],
     pilotScope: [
@@ -345,7 +348,7 @@ MIZOKI.DOMAINS = {
     short: "Ops",
     icon: "gauge",
     headline: "Run the plant and the plan from one decision surface.",
-    promise: "MIZ OKI connects throughput, quality, and labor so plant and network leaders clear constraints in hours — with CSE scenarios and DCP authority bounds.",
+    promise: "MIZ OKI connects throughput, quality, and labor so plant and network leaders clear constraints in hours — with CSE scenarios and decision-gate authority bounds.",
     statusQuo: [
       "Shift handoffs lose context every 8–12 hours",
       "Constraint ownership is unclear across sites",
@@ -385,8 +388,8 @@ MIZOKI.DOMAINS = {
       },
     ],
     proof: [
-      { metric: "9%", label: "OEE lift on pilot lines" },
-      { metric: "41%", label: "faster constraint clearance" },
+      { metric: "9%", label: "OEE lift in the composite scenario" },
+      { metric: "41%", label: "faster constraint clearance (composite)" },
       { metric: "27%", label: "fewer quality escapes (composite)" },
     ],
     pilotScope: [
@@ -446,8 +449,8 @@ MIZOKI.DOMAINS = {
       },
     ],
     proof: [
-      { metric: "16%", label: "lower logo churn in pilot book" },
-      { metric: "2.2×", label: "faster critical escalation path" },
+      { metric: "16%", label: "lower logo churn in the composite book (illustrative)" },
+      { metric: "2.2×", label: "faster critical escalation path (composite)" },
       { metric: "11%", label: "higher net revenue retention (composite)" },
     ],
     pilotScope: [
@@ -507,8 +510,8 @@ MIZOKI.DOMAINS = {
       },
     ],
     proof: [
-      { metric: "28%", label: "less expedite spend" },
-      { metric: "12 pts", label: "fill-rate improvement on A-items" },
+      { metric: "28%", label: "less expedite spend (composite)" },
+      { metric: "12 pts", label: "fill-rate improvement on A-items (composite)" },
       { metric: "40%", label: "faster shortage response (composite)" },
     ],
     pilotScope: [

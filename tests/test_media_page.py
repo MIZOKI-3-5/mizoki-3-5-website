@@ -190,12 +190,17 @@ class MediaPageTestCase(unittest.TestCase):
 
     def test_final_cta_uses_mailto_lead_path(self) -> None:
         # The in-repo contact form posts to a placeholder endpoint, so the
-        # approved destination is the pilot mailto: link.
-        self.assertIn(
-            'href="mailto:contact@mizoki3.com?subject=MIZ%20OKI%20Media%20Pilot"',
-            self.page,
-        )
+        # approved destination is the pilot mailto: link — which, since the
+        # A/B/C test-design fix (2026-08-22), rides the tracked /go/pilot
+        # redirect so the click is measurable. Both directions pinned: the
+        # page links the tracker, AND the tracker still resolves to the
+        # approved mailto destination (relocated, not deleted).
+        self.assertIn('href="/go/pilot?cta=media-final"', self.page)
         self.assertIn("Discuss a MIZ OKI Media Pilot", self.page)
+        redirect = self.client.get("/go/pilot?cta=media-final")
+        self.assertEqual(302, redirect.status_code)
+        self.assertTrue(redirect.headers["Location"].startswith(
+            "mailto:contact@mizoki3.com?subject=MIZ%20OKI%20Media%20Pilot"))
 
     # ------------------------------------------------ Part 2 structure ---
 
@@ -336,13 +341,11 @@ class MediaPageTestCase(unittest.TestCase):
 
     def test_film_caption_and_transcript(self) -> None:
         self.assertIn(
-            "This film demonstrates how MIZ OKI Media transforms fragmented "
-            "commercial signals into governed business decisions.",
+            "From moved signal to recorded outcome — every stage traced, every constraint enforced, every decision accountable.",
             self.page,
         )
         self.assertIn('href="/media/assets/mizoki-media-transcript.html"', self.page)
-        # The film is honestly framed as the silent preview render it is.
-        self.assertIn("silent preview render", self.page)
+        self.assertIn('href="/animation"', self.page)
         # The transcript serves over the asset route and quotes the preview
         # render's on-screen text verbatim.
         response = self.client.get("/media/assets/mizoki-media-transcript.html")
@@ -412,7 +415,11 @@ class MediaPageTestCase(unittest.TestCase):
 
     def test_page_metadata(self) -> None:
         self.assertIn("<title>MIZ OKI Media | Causal Growth Control</title>", self.page)
-        self.assertIn('<link rel="canonical" href="https://mizoki3.com/media">', self.page)
+        # A/B/C test-design fix (2026-08-22): this page is variant C of the
+        # /signal test — canonical + og:url point at the ONE indexed landing
+        # and this URL serves noindex,follow.
+        self.assertIn('<link rel="canonical" href="https://mizoki3.com/signal">', self.page)
+        self.assertIn('<meta name="robots" content="noindex,follow">', self.page)
         self.assertIn('property="og:title" content="MIZ OKI Media — Causal Growth Control"', self.page)
         self.assertIn('property="og:image" content="https://mizoki3.com/media/assets/mizoki-signal-preview.png"', self.page)
         self.assertIn('name="twitter:card" content="summary_large_image"', self.page)
@@ -443,15 +450,28 @@ class MediaPageTestCase(unittest.TestCase):
         self.assertNotIn('<script src=', self.page)
         # Every subresource the page loads is site-local (the only absolute
         # URLs are its own canonical/OG metadata and the footer home link).
+        # Owner directive 2026-09-16: the one sanctioned off-origin link is the
+        # public Decision Studio's own /media page (a plain <a>, never a
+        # subresource). Bounded to that exact URL; any other origin still fails.
         for attr, url in re.findall(r'(src|poster|href)="(https?://[^"]+)"', self.page):
+            if attr == "href" and url == "https://decisionstudio.mizoki3.com/media":
+                continue
             self.assertTrue(
                 url.startswith("https://mizoki3.com"),
                 f"external origin in {attr}: {url}",
             )
 
-    def test_existing_surfaces_do_not_link_into_media(self) -> None:
-        # Comparison stays one-way: /media links out, nothing links in.
-        for path in ("/", "/marketing", "/signal", "/demo"):
+    def test_media_linkage_matches_the_approved_product_nav(self) -> None:
+        # Baseline moved with the owner-approved unified product experience
+        # (#836, 2026-08-25; serving via dispatch run #107): the homepage now
+        # deliberately links /media. The surviving isolation is A/B/C arm
+        # hygiene — the experiment variants (/marketing is arm B, /signal is
+        # arm A) and /demo never link into /media.
+        home = self.client.get("/")
+        home_body = home.get_data(as_text=True)
+        home.close()
+        self.assertIn('href="/media"', home_body)
+        for path in ("/marketing", "/signal", "/demo"):
             response = self.client.get(path)
             body = response.get_data(as_text=True)
             response.close()
@@ -581,6 +601,10 @@ class MediaSiteTestCase(unittest.TestCase):
             self.assertNotIn("fonts.googleapis.com", page, slug)
             self.assertNotIn("<script src=", page, slug)
             for attr, url in re.findall(r'(src|href)="(https?://[^"]+)"', page):
+                # Owner directive 2026-09-16: the shared nav's one off-origin link
+                # is the public Decision Studio's /media page (exact URL, <a> only).
+                if attr == "href" and url == "https://decisionstudio.mizoki3.com/media":
+                    continue
                 self.assertTrue(url.startswith("https://mizoki3.com"),
                                 f"{slug}: external origin in {attr}: {url}")
 
@@ -733,14 +757,78 @@ class MediaSiteTestCase(unittest.TestCase):
         for section in ('id="architecture"', 'id="governance"'):
             self.assertIn(section, self.home, section)
 
-    def test_classic_site_still_untouched(self) -> None:
+    def test_classic_surfaces_serve_and_variants_stay_media_free(self) -> None:
+        # Same baseline move as above (#836 / run #107): "/" now carries the
+        # product nav into /media by design, so it asserts positively; the
+        # A/B/C variant and demo surfaces keep the negative pin.
         for path in ("/", "/marketing", "/signal", "/demo", "/pricing"):
             response = self.client.get(path)
             self.assertEqual(200, response.status_code, path)
             body = response.get_data(as_text=True)
             response.close()
-            self.assertNotIn('href="/media"', body, path)
-            self.assertNotIn('href="/media/', body, path)
+            if path == "/":
+                self.assertIn('href="/media"', body, path)
+            else:
+                self.assertNotIn('href="/media"', body, path)
+                self.assertNotIn('href="/media/', body, path)
+
+    def test_animation_routes_and_navigation(self) -> None:
+        for path in ("/animation", "/animation.html", "/ecosystem-animation", "/media/ecosystem"):
+            response = self.client.get(path)
+            self.assertEqual(200, response.status_code, path)
+            self.assertIn("text/html", response.mimetype)
+            content = response.get_data(as_text=True)
+            self.assertIn("EcosystemAnimation", content, path)
+            response.close()
+
+        # Nav and caption link in /media
+        self.assertIn('<a href="/animation">Animation</a>', self.home)
+        self.assertIn('Launch interactive animation player', self.home)
+
+        # Nav and footer link in root /
+        root_resp = self.client.get("/")
+        root_body = root_resp.get_data(as_text=True)
+        root_resp.close()
+        self.assertIn('<a href="/animation" class="hide-m">ANIMATION</a>', root_body)
+        self.assertIn('<a href="/animation">Animation</a>', root_body)
+
+        # Nav and footer link in /marketing
+        mkt_resp = self.client.get("/marketing")
+        mkt_body = mkt_resp.get_data(as_text=True)
+        mkt_resp.close()
+        self.assertIn('<a href="/animation">Animation</a>', mkt_body)
+
+        # Nav and footer link in /signal
+        sig_resp = self.client.get("/signal")
+        sig_body = sig_resp.get_data(as_text=True)
+        sig_resp.close()
+        self.assertIn('<a href="/animation">Animation</a>', sig_body)
+
+        # Intent source Home.tsx carries the link
+        intent_source = (BASE_DIR / "intent-site" / "src" / "Home.tsx").read_text(encoding="utf-8")
+        self.assertIn('href="/animation"', intent_source)
+
+        # Voice-Over audio endpoints and player controller
+        for audio_path in ("/animation/audio", "/animation/ecosystem-vo-v1.mp3", "/media/assets/ecosystem-vo-v1.mp3"):
+            audio_resp = self.client.get(audio_path)
+            self.assertEqual(200, audio_resp.status_code, audio_path)
+            self.assertEqual("audio/mpeg", audio_resp.mimetype)
+            self.assertGreater(len(audio_resp.data), 100000)
+            self.assertEqual("bytes", audio_resp.headers.get("Accept-Ranges"))
+            audio_resp.close()
+
+        wav_resp = self.client.get("/animation/ecosystem-vo-v1.wav")
+        self.assertEqual(200, wav_resp.status_code)
+        self.assertEqual("audio/wav", wav_resp.mimetype)
+        self.assertGreater(len(wav_resp.data), 1000000)
+        wav_resp.close()
+
+        anim_resp = self.client.get("/animation")
+        anim_content = anim_resp.get_data(as_text=True)
+        self.assertIn("mzm-vo-controller", anim_content)
+        self.assertIn("/animation/audio", anim_content)
+        anim_resp.close()
+
 
 
 if __name__ == "__main__":

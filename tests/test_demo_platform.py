@@ -98,14 +98,16 @@ class UrlRepairTestCase(_AppTestCase):
         self.assertEqual("/admin/login", response.headers["Location"])
 
     def test_division_pages_wired_to_demos(self) -> None:
-        # /signal is a SELF-CONTAINED page (owner-supplied 2026-08-02: all
-        # styles inline, no shared stylesheet) — the contract's intent is
-        # root-absolute URL hygiene + demo wiring, which still applies.
+        # /signal left this table 2026-08-20: the ORACLE pre-conversion
+        # preview (owner-approved replacement, deploy run #63, 2026-08-19)
+        # is a standalone noindex page that deliberately links only its own
+        # anchors — no /demo wiring by design. Its serving, hygiene, and
+        # honesty contract lives in test_signal_capability_site.py. The four
+        # remaining divisions keep the full wiring contract.
         for page, demo_href, wants_shared_css in (
                 ("/estate", "/demo/estate", True),
                 ("/capital", "/demo/capital", True),
                 ("/risk", "/demo/risk", True),
-                ("/signal", "/demo/signal", False),
                 ("/counsel", "/demo/counsel", True)):
             body = self.client.get(page).get_data(as_text=True)
             self.assertIn(f'href="{demo_href}"', body, page)
@@ -346,14 +348,22 @@ class ContactTestCase(_AppTestCase):
 
 
 class HomepageLiveTeaserTestCase(_AppTestCase):
-    """The homepage teaser runs against the real demo runtime — never a mock."""
+    """Teaser machinery stays real (never a mock); the homepage moved on.
 
-    def test_homepage_serves_teaser_and_driver(self) -> None:
+    The dossier homepage replaced the embedded live teaser (owner-approved
+    swap) — this class's first assertion pinned the pre-swap page and rode
+    along as "the 2 pre-existing homepage failures" from July until adapted
+    to the served reality on 2026-08-20. The page's interactive proof is now
+    the ACT-991 gauge widget; the teaser driver and its engine scenarios
+    remain real, served, and pinned by the other two tests.
+    """
+
+    def test_homepage_serves_the_dossier_decision_widget(self) -> None:
         body = self.client.get("/").get_data(as_text=True)
-        self.assertIn('id="liveTeaser"', body)
-        self.assertIn('src="/assets/js/home-demo.js"', body)
-        for element_id in ("ltScenarios", "ltStages", "ltLog", "ltRun", "ltTruth"):
-            self.assertIn(f'id="{element_id}"', body, element_id)
+        self.assertIn("ACT-991", body)
+        self.assertIn('id="arc"', body)
+        # The swap is complete — the old teaser must not half-return.
+        self.assertNotIn('id="liveTeaser"', body)
 
     def test_home_demo_js_targets_real_endpoints_with_fixed_seed(self) -> None:
         script = (REPO_ROOT / "assets" / "js" / "home-demo.js").read_text(encoding="utf-8")
@@ -400,8 +410,9 @@ class PricingPageTestCase(_AppTestCase):
         response = self.client.get("/pricing.html")
         self.assertEqual(200, response.status_code)
         body = response.get_data(as_text=True)
-        # Modern MIZOKI3 design system, not the legacy MIZ OKI shell.
-        self.assertIn("MIZOKI<span class=\"three\">3</span>", body)
+        # Modern design system (accent-numeral logo), not the legacy MIZ OKI shell.
+        # Re-pointed by the sitewide wordmark sweep: same `.three` logo, now MIZ OKI 3.5.
+        self.assertIn("MIZ&nbsp;OKI&nbsp;<span class=\"three\">3.5</span>", body)
         self.assertNotIn('href="base.css"', body)
         self.assertNotIn('href="style.css"', body)
 
@@ -414,7 +425,7 @@ class PricingPageTestCase(_AppTestCase):
 
     def test_ctas_are_live_not_placeholders(self) -> None:
         body = self.client.get("/pricing.html").get_data(as_text=True)
-        self.assertIn("mailto:hello@mizoki3.com", body)
+        self.assertIn("mailto:briefing@mediaintelligence.ai", body)
         self.assertIn('href="/demo"', body)
         self.assertNotIn('href="#"', body)
         # No fabricated performance claims on the pricing surface.
@@ -470,8 +481,15 @@ class DemoMetaTestCase(_AppTestCase):
         xml.dom.minidom.parse(str(base / "favicon.svg"))
 
     def test_every_page_declares_the_icon_set(self) -> None:
-        """Every served page — static file or Flask template — links all three."""
-        for path in ("/", "/pricing", "/demo", "/demo/capital", "/walkthrough",
+        """Every served page — static file or Flask template — links all three.
+
+        "/" left the list 2026-08-20: the canon-pinned dossier homepage ships
+        its own head without the <link> set (owner-approved swap; the test is
+        adapted, never the canon-locked page), and app.py serves /favicon.ico
+        and /apple-touch-icon.png at the root paths clients request regardless
+        of link tags, so browsers still resolve the icons.
+        """
+        for path in ("/pricing", "/demo", "/demo/capital", "/walkthrough",
                      "/blog", "/counsel", "/admin/login", "/contact"):
             # follow_redirects: /blog/ style paths 302 to their canonical form.
             body = self.client.get(path, follow_redirects=True).get_data(as_text=True)

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Why Agents Need a Decision Control Plane — MIZ OKI</title>
+    <title>Why Agents Need Decision Gates — MIZ OKI</title>
     <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
     <link rel="alternate icon" href="/assets/img/favicon.ico" sizes="16x16 32x32 48x48" />
     <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png" />
@@ -342,15 +342,15 @@
         <div class="nav-container">
             <a href="../index.html" class="logo">MIZ OKI <span class="logo-version">3.5</span></a>
             <div class="nav-links">
-                <a href="../how-it-works.html">How It Works</a>
-                <a href="../platform.html">Platform</a>
-                <a href="../industries.html">Industries</a>
+                <a href="/#pipeline">How It Works</a>
+                <a href="/#what">Platform</a>
+                <a href="/#divisions">Divisions</a>
                 <a href="../pricing.html">Pricing</a>
-                <a href="index.html">Blog</a>
+                <a href="index.html">Journal</a>
             </div>
             <div class="nav-cta">
                 <a href="/login" class="btn btn-ghost">Login</a>
-                <a href="../roi.html" class="btn btn-ghost">ROI Calculator</a>
+                <a href="/demo" class="btn btn-ghost">Live Demos</a>
                 <a href="../walkthrough.html" class="btn btn-primary">Get Demo</a>
             </div>
         </div>
@@ -359,10 +359,10 @@
     <article>
         <header class="article-header">
             <div class="breadcrumb">
-                <a href="index.html">Blog</a> / Architecture
+                <a href="index.html">Journal</a> / Architecture
             </div>
             <span class="post-tag">Architecture</span>
-            <h1>Why Agents Need a Decision Control Plane</h1>
+            <h1>Why Agents Need Decision Gates</h1>
             <p class="article-subtitle">The architectural innovation that separates action proposal from authorization—and why it's essential for enterprise AI</p>
             <div class="article-meta">
                 <div class="author-avatar">BM</div>
@@ -378,7 +378,7 @@
 
             <p>The answer isn't better prompts or more guardrails. It's a fundamental architectural change: <strong>separating action proposal from action authorization</strong>.</p>
 
-            <p>This is what we call the <strong>Decision Control Plane (DCP)</strong>—and it's the difference between AI that assists and AI that actually runs parts of your business.</p>
+            <p>This is what we call <strong>the decision gates</strong>—and they're the difference between AI that assists and AI that actually runs parts of your business.</p>
 
             <hr>
 
@@ -408,7 +408,7 @@
                     </ul>
                 </div>
                 <div class="comparison-card good">
-                    <h4>DCP Solutions</h4>
+                    <h4>Decision-Gate Solutions</h4>
                     <ul>
                         <li>Every action verified before execution</li>
                         <li>Alternatives simulated and compared</li>
@@ -421,37 +421,37 @@
 
             <hr>
 
-            <h2>What is a Decision Control Plane?</h2>
+            <h2>What Are Decision Gates?</h2>
 
-            <p>The Decision Control Plane is a centralized authority that sits between agent proposals and execution. Think of it like air traffic control for AI decisions.</p>
+            <p>The decision gates are the centralized authority sitting between agent proposals and execution. Think of them as air traffic control for AI decisions.</p>
 
             <div class="highlight-box">
-                <p><strong>Agents propose. The DCP authorizes.</strong><br>This separation is not optional—it's a fundamental architectural constraint.</p>
+                <p><strong>Agents propose. The gates authorize.</strong><br>This separation is not optional—it's a fundamental architectural constraint.</p>
             </div>
 
             <p>When an agent wants to take an action, it doesn't execute directly. Instead:</p>
 
             <ol>
-                <li><strong>Agent submits proposal</strong> to the DCP with reasoning and expected outcomes</li>
-                <li><strong>DCP evaluates</strong> using multiple factors (confidence, risk, policy, alternatives)</li>
-                <li><strong>DCP decides</strong>: Approve, Modify, Defer, Reject, or Escalate</li>
+                <li><strong>Agent submits proposal</strong> to the gates with reasoning and expected outcomes</li>
+                <li><strong>The gates evaluate</strong> using multiple factors (confidence, risk, policy, alternatives)</li>
+                <li><strong>The gates decide</strong>: Approve, Modify, Defer, Reject, or Escalate</li>
                 <li><strong>Only authorized actions execute</strong></li>
                 <li><strong>Everything is logged</strong> to the knowledge graph</li>
             </ol>
 
-            <p>Critically: <strong>agents cannot bypass the DCP</strong>. This isn't a suggestion or a soft constraint—it's enforced at the architectural level.</p>
+            <p>Critically: <strong>agents cannot bypass the gates</strong>. This isn't a suggestion or a soft constraint—it's enforced at the architectural level.</p>
 
             <hr>
 
-            <h2>The Authorization Algorithm</h2>
+            <h2>The Authorization Decision</h2>
 
-            <p>The DCP doesn't just rubber-stamp proposals. It evaluates them using a multi-factor authorization algorithm:</p>
+            <p>The gates don't rubber-stamp proposals. Every proposed action is evaluated against four deterministic gates — identity, policy alignment, context sufficiency, and hard constraints:</p>
 
             <div class="formula-box">
-                <code>Authorization_Score = α(Causal_Confidence) + β(Validation_Agreement) + γ(Simulation_Delta) + δ(Policy_Compliance) + ε(Historical_Performance)</code>
+                <code>Authorize ⟺ Identity ∧ Policy_Alignment ∧ Context_Sufficiency ∧ Hard_Constraints — all gates must pass; any single breach vetoes</code>
             </div>
 
-            <p>Where:</p>
+            <p>The evidence each gate reads:</p>
             <ul>
                 <li><strong>Causal Confidence</strong>: How certain is the causal reasoning behind this action?</li>
                 <li><strong>Validation Agreement</strong>: Do independent Verifier agents agree with the proposal?</li>
@@ -460,13 +460,13 @@
                 <li><strong>Historical Performance</strong>: How have similar actions performed in the past?</li>
             </ul>
 
-            <p>The weights (α, β, γ, δ, ε) are learned from outcomes and adapt based on domain and risk profile.</p>
+            <p>Evaluation is per gate and deterministic — there is no blended score that lets strong confidence trade off a breached constraint. Autonomy is promoted per action class only at Brier ≤ 0.20, AUC ≥ 0.72, and stable lift across at least two purchase cycles — and the promotion decision is human.</p>
 
             <hr>
 
             <h2>The Validation Layer: Disagreement as Signal</h2>
 
-            <p>Before the DCP makes its decision, proposals pass through a Validation Layer with specialized agents:</p>
+            <p>Before the gates make their decision, proposals pass through a Validation Layer with specialized agents:</p>
 
             <ul>
                 <li><strong>Planner Agents</strong>: Propose actions based on causal reasoning</li>
@@ -507,7 +507,7 @@
 
             <h2>Why This Matters for Enterprise</h2>
 
-            <p>The DCP architecture solves the three biggest blockers to enterprise AI adoption:</p>
+            <p>The decision-gate architecture solves the three biggest blockers to enterprise AI adoption:</p>
 
             <h3>1. Trust</h3>
             <p>When every decision is verified before execution, explained with causal reasoning, and logged with full provenance, trust isn't a leap of faith—it's earned through transparency.</p>
@@ -516,7 +516,7 @@
             <p>Policy constraints are enforced at runtime, not audited after the fact. When regulators ask "why did the system do this?", you have a complete answer.</p>
 
             <h3>3. Governance</h3>
-            <p>Human oversight doesn't mean human bottlenecks. The DCP can handle 89% of decisions autonomously while escalating the 11% that genuinely need human judgment.</p>
+            <p>Human oversight doesn't mean human bottlenecks. The gates are designed to route roughly 89% of decisions autonomously while escalating the ~11% that genuinely need human judgment—a design target, not a measured result.</p>
 
             <hr>
 
@@ -530,21 +530,21 @@
 
             <ul>
                 <li>AI proposes with full reasoning</li>
-                <li>The DCP validates with independent analysis</li>
+                <li>The gates validate with independent analysis</li>
                 <li>Simulations test alternatives</li>
                 <li>Policies constrain the envelope</li>
                 <li>Execution happens only when verified</li>
                 <li>Everything is logged for learning and audit</li>
             </ul>
 
-            <p>That's what it takes to run parts of a business autonomously. That's why agents need a Decision Control Plane.</p>
+            <p>That's what it takes to run parts of a business autonomously. That's why agents need decision gates.</p>
 
             <div class="cta-section">
-                <h2>See the Decision Control Plane in Action</h2>
+                <h2>See the Decision Gates in Action</h2>
                 <p>Request a demo to see how MIZ OKI 3.5 separates proposal from authorization for verifiable autonomous operation.</p>
                 <div class="cta-buttons">
                     <a href="../walkthrough.html" class="btn btn-primary">Get Demo</a>
-                    <a href="../how-it-works.html" class="btn btn-ghost">Technical Deep Dive</a>
+                    <a href="/#pipeline" class="btn btn-ghost">Technical Deep Dive</a>
                 </div>
             </div>
         </div>
@@ -554,7 +554,6 @@
         <div class="footer-container">
             <div class="footer-bottom">
                 <span>© 2026 MIZ OKI. All rights reserved.</span>
-                <span>SOC 2 Type II Certified • GDPR Compliant • HIPAA Ready</span>
             </div>
         </div>
     </footer>

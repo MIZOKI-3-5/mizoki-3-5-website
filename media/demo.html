@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="MIZ OKI Media executive demo — five acts on a synthetic tenant: the lie in platform ROAS, anticipatory intent signals, causal proof, net-yield profit, and governed restraint. Every figure illustrative and status-labeled.">
+<meta name="robots" content="noindex">
+<title>MIZ OKI Media Executive Demo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --bg:#0A1418; --panel:#0B1E26; --raised:#102830; --deep:#071014;
+    --rule:rgba(220,233,237,.10); --rule2:rgba(220,233,237,.18);
+    --ink:#EAF2F4; --ink2:#9FB3B9; --ink3:#5E6E75;
+    --cyan:#3FDCF2; --purple:#9D7BE8; --green:#41D695; --amber:#D9A83C; --red:#FF6B7C; --blue:#5FA0DC;
+    --cyan-dim:rgba(63,220,242,.14); --purple-dim:rgba(157,123,232,.14); --green-dim:rgba(65,214,149,.14);
+    --amber-dim:rgba(217,168,60,.14); --red-dim:rgba(255,107,124,.12); --blue-dim:rgba(95,160,220,.14);
+    --serif:"Instrument Serif",Georgia,"Times New Roman",serif;
+    --sans:"DM Sans",-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    --mono:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    --fs:1rem;
+  }
+  html{color-scheme:dark;overflow-x:hidden}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:var(--fs);line-height:1.55;-webkit-font-smoothing:antialiased}
+  body.boardroom{--fs:1.18rem}
+  a{color:var(--cyan)}
+  button{font:inherit;color:inherit;cursor:pointer}
+  :focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+  .skip{position:absolute;left:-999px;top:10px;z-index:99;background:var(--cyan);color:var(--bg);padding:8px 12px;border-radius:6px;font-weight:600;text-decoration:none}
+  .skip:focus{left:10px}
+  .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .serif{font-family:var(--serif);font-weight:400}
+
+  /* ---------- shell ---------- */
+  .app{display:grid;grid-template-columns:232px 1fr;min-height:100vh}
+  .rail{border-right:1px solid var(--rule);background:var(--deep);padding:22px 18px;display:flex;flex-direction:column;gap:18px;position:sticky;top:0;height:100vh}
+  .brand{font-family:var(--mono);font-weight:700;letter-spacing:.08em;font-size:.82rem;color:var(--ink)}
+  .brand small{display:block;color:var(--cyan);font-weight:500;letter-spacing:.16em;font-size:.62rem;margin-top:4px}
+  .acts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+  .acts button{display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:baseline;width:100%;text-align:left;background:none;border:0;border-left:2px solid transparent;padding:9px 10px;color:var(--ink2);border-radius:0}
+  .acts button .n{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;color:var(--ink3)}
+  .acts button .t{font-size:.9rem}
+  .acts button .q{display:block;font-size:.72rem;color:var(--ink3);margin-top:2px;line-height:1.3}
+  .acts button:hover{color:var(--ink);background:rgba(255,255,255,.02)}
+  .acts button[aria-current="true"]{color:var(--ink);border-left-color:var(--cyan);background:var(--cyan-dim)}
+  .acts button[aria-current="true"] .n{color:var(--cyan)}
+  .rail .foot{margin-top:auto;font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;color:var(--ink3);line-height:1.7}
+  .rail .foot b{color:var(--amber);font-weight:600}
+
+  .stagewrap{min-width:0}
+  .topbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding:14px 28px;border-bottom:1px solid var(--rule);background:rgba(10,20,24,.92);position:sticky;top:0;z-index:5;backdrop-filter:blur(8px)}
+  .topbar .wm{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;color:var(--amber);border:1px dashed rgba(217,168,60,.5);padding:4px 9px;border-radius:2px}
+  .topbar .grow{flex:1}
+  .sel{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.72rem;color:var(--ink2);letter-spacing:.04em}
+  .sel{display:inline-flex;align-items:center;gap:6px;min-width:0;max-width:100%}
+  .sel select{min-width:0;max-width:100%;background:var(--panel);color:var(--ink);border:1px solid var(--rule2);border-radius:2px;padding:6px 10px;font-family:var(--mono);font-size:.74rem}
+  .tb{background:transparent;border:1px solid var(--rule2);color:var(--ink2);border-radius:2px;padding:6px 11px;font-family:var(--mono);font-size:.7rem;letter-spacing:.06em}
+  .tb:hover{color:var(--ink);border-color:var(--ink3)}
+  .tb[aria-pressed="true"]{color:var(--cyan);border-color:rgba(63,220,242,.6);background:var(--cyan-dim)}
+  .tb kbd{font-family:inherit;color:var(--ink3);margin-left:6px}
+
+  .stage{padding:34px 28px 80px;max-width:1180px}
+  .act{display:none}
+  .act.on{display:block;animation:rise .35s ease}
+  @keyframes rise{from{opacity:.001;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .acthead{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:end;margin-bottom:26px}
+  .eyebrow{font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);margin:0 0 10px}
+  .eyebrow.purple{color:var(--purple)}
+  h1,h2{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;text-wrap:balance;margin:0}
+  h1{font-size:clamp(2.1rem,3.6vw,3.2rem);line-height:1.05}
+  h2{font-size:clamp(1.5rem,2.6vw,2.15rem);line-height:1.1}
+  h2 em,h1 em{color:var(--cyan);font-style:italic}
+  h3{font-family:var(--sans);font-weight:600;font-size:.98rem;margin:0 0 6px}
+  .lede{color:var(--ink2);max-width:62ch;margin:12px 0 0;font-size:1.02em}
+  .scope{color:var(--ink3);max-width:62ch;margin:10px 0 0;font-size:.88em}
+  .qline{font-family:var(--serif);font-style:italic;font-size:1.2em;color:var(--ink2);max-width:40ch;text-align:right}
+
+  /* chips */
+  .chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;padding:3px 8px;border-radius:2px;border:1px solid var(--rule2);color:var(--ink2);white-space:nowrap}
+  .chip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+  .chip.live{color:var(--green);border-color:rgba(65,214,149,.5)}
+  .chip.partial{color:var(--cyan);border-color:rgba(63,220,242,.5)}
+  .chip.build{color:var(--amber);border-color:rgba(217,168,60,.5)}
+  .chip.proposed{color:var(--purple);border-color:rgba(157,123,232,.5)}
+  .chip.veto{color:var(--red);border-color:rgba(255,107,124,.5)}
+  .chip.plain::before{display:none}
+
+  /* panels */
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g21{grid-template-columns:1.35fr 1fr}
+  .g12{grid-template-columns:1fr 1.35fr}
+  .panel{background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:20px 22px;min-width:0}
+  .panel.raised{background:var(--raised)}
+  .panel .ph{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+  .panel .ph h3{margin:0}
+  .hint{color:var(--ink3);font-size:.82rem;margin:0 0 12px}
+  .note{color:var(--ink3);font-family:var(--mono);font-size:.68rem;line-height:1.6;margin-top:12px}
+  .callout{border-left:3px solid var(--cyan);background:var(--deep);padding:14px 18px;border-radius:0 3px 3px 0;margin-top:16px}
+  .callout .k{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);margin-bottom:6px}
+  .callout p{margin:0;color:var(--ink);font-family:var(--serif);font-size:1.15em;line-height:1.4}
+  .callout.veto{border-color:var(--red)} .callout.veto .k{color:var(--red)}
+  .callout.purple{border-color:var(--purple)} .callout.purple .k{color:var(--purple)}
+  .callout.green{border-color:var(--green)} .callout.green .k{color:var(--green)}
+
+  /* stat tiles */
+  .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  .tile{background:var(--deep);border:1px solid var(--rule);border-radius:3px;padding:14px 16px}
+  .tile .l{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
+  .tile .v{font-family:var(--mono);font-size:1.55rem;line-height:1.1;margin-top:6px;font-variant-numeric:tabular-nums}
+  .tile .s{font-size:.74rem;color:var(--ink3);margin-top:4px}
+  .v.good{color:var(--green)} .v.bad{color:var(--red)} .v.cyan{color:var(--cyan)} .v.amber{color:var(--amber)} .v.purple{color:var(--purple)}
+
+  /* controls */
+  .ctl{display:flex;flex-direction:column;gap:6px;margin:10px 0}
+  .ctl label{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;color:var(--ink2);text-transform:uppercase}
+  .ctl label output{color:var(--ink);font-weight:600}
+  input[type=range]{width:100%;accent-color:var(--cyan);height:22px;background:transparent}
+  .btn{display:inline-flex;align-items:center;gap:8px;border-radius:2px;padding:10px 18px;font-family:var(--mono);font-size:.76rem;letter-spacing:.06em;border:1px solid transparent;text-decoration:none}
+  .btn.primary{background:var(--cyan);color:#04141a;font-weight:600}
+  .btn.primary:hover{background:#6ee7f7}
+  .btn.ghost{background:transparent;border-color:var(--rule2);color:var(--ink)}
+  .btn.ghost:hover{border-color:var(--ink3)}
+  .btn.danger{background:transparent;border-color:rgba(255,107,124,.55);color:var(--red)}
+  .btn.danger:hover{background:var(--red-dim)}
+  .btn:disabled{opacity:.45;cursor:default}
+  .seg{display:inline-flex;flex-wrap:wrap;border:1px solid var(--rule2);border-radius:2px;overflow:hidden}
+  .seg button{background:transparent;border:0;padding:7px 12px;font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--ink2)}
+  .seg button+button{border-left:1px solid var(--rule2)}
+  .seg button[aria-pressed="true"]{background:var(--cyan-dim);color:var(--cyan)}
+  .seg button:disabled{color:var(--ink3);cursor:not-allowed}
+  .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+
+  /* ledger table */
+  table{width:100%;border-collapse:collapse;font-size:.86rem}
+  th{text-align:left;font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);font-weight:500;padding:6px 8px;border-bottom:1px solid var(--rule2)}
+  td{padding:9px 8px;border-bottom:1px solid var(--rule);vertical-align:middle}
+  td.num,th.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+  tr.excluded td{color:var(--ink3);font-style:italic}
+  .tscroll{overflow-x:auto}
+  .bar{position:relative;height:14px;background:rgba(220,233,237,.06);border-radius:2px;min-width:140px}
+  .bar i{position:absolute;top:0;bottom:0;border-radius:2px}
+  .bar .zero{position:absolute;top:-3px;bottom:-3px;width:1px;background:var(--ink3)}
+  .pos{color:var(--green)} .neg{color:var(--red)}
+
+  /* checks */
+  .checks{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+  .checks li{display:grid;grid-template-columns:22px 1fr auto;gap:10px;align-items:baseline;padding:8px 10px;border:1px solid var(--rule);border-radius:2px;background:var(--deep);font-size:.86rem;opacity:.35;transition:opacity .3s}
+  .checks li.on{opacity:1}
+  .checks li .m{font-family:var(--mono);font-weight:700}
+  .checks li.ok .m{color:var(--green)} .checks li.bad .m{color:var(--red)} .checks li.pend .m{color:var(--amber)}
+  .checks li .d{font-size:.74rem;color:var(--ink3);display:block}
+  .checks li .r{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
+  .checks li.ok .r{color:var(--green)} .checks li.bad .r{color:var(--red)} .checks li.pend .r{color:var(--amber)}
+
+  /* timeline */
+  .tl{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+  .tl li{display:grid;grid-template-columns:78px 150px 1fr;gap:12px;padding:8px 10px;border-left:2px solid var(--rule2);opacity:.25;transition:opacity .35s,border-color .35s;font-size:.84rem}
+  .tl li.on{opacity:1;border-left-color:var(--purple)}
+  .tl li .t{font-family:var(--mono);font-size:.7rem;color:var(--ink3)}
+  .tl li .e{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--purple)}
+  .tl li.flag .e{color:var(--amber)}
+  .tl li .d{color:var(--ink2)}
+  .stages{display:flex;gap:6px;flex-wrap:wrap}
+  .stg{flex:1 1 120px;border:1px solid var(--rule);border-radius:2px;padding:10px 12px;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);background:var(--deep)}
+  .stg span{display:block;font-size:.58rem;color:var(--ink3);letter-spacing:.16em;margin-bottom:4px}
+  .stg.hot{border-color:rgba(157,123,232,.6);color:var(--purple)}
+  .gauge{font-family:var(--mono);font-size:2.4rem;line-height:1;color:var(--purple);font-variant-numeric:tabular-nums}
+  .gauge small{font-size:.9rem;color:var(--ink3)}
+  .track{height:8px;background:rgba(220,233,237,.07);border-radius:2px;overflow:hidden;margin-top:10px}
+  .track i{display:block;height:100%;background:var(--purple);width:0;transition:width .5s ease}
+  .reject{border:1px solid rgba(255,107,124,.5);background:var(--red-dim);border-radius:3px;padding:14px 16px;margin-top:12px}
+  .reject .k{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;color:var(--red);font-weight:700}
+  pre.code{background:var(--deep);border:1px solid var(--rule);border-radius:2px;padding:12px 14px;font-family:var(--mono);font-size:.72rem;color:var(--ink2);overflow-x:auto;margin:10px 0 0;line-height:1.55}
+  pre.code .x{color:var(--red);text-decoration:line-through}
+  pre.code .ok{color:var(--green)}
+
+  /* charts */
+  .chart{width:100%;height:auto;display:block}
+  .chart text{font-family:var(--mono);font-size:11px;fill:var(--ink3)}
+  .chart .ink{fill:var(--ink)} .chart .ink2{fill:var(--ink2)}
+  .chart .grid{stroke:var(--rule);stroke-width:1}
+  .chart .axis{stroke:var(--rule2);stroke-width:1}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;font-family:var(--mono);font-size:.66rem;color:var(--ink2);margin-top:8px}
+  .legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px;background:var(--c)}
+
+  /* verdict */
+  .verdict{border:1px solid var(--rule2);border-radius:3px;padding:18px 20px;background:var(--deep);margin-top:14px}
+  .verdict .v{font-family:var(--serif);font-size:1.7em;line-height:1.05}
+  .verdict.withhold{border-color:rgba(255,107,124,.6)} .verdict.withhold .v{color:var(--red)}
+  .verdict.auth{border-color:rgba(65,214,149,.6)} .verdict.auth .v{color:var(--green)}
+  .verdict.route{border-color:rgba(217,168,60,.6)} .verdict.route .v{color:var(--amber)}
+  .verdict p{margin:8px 0 0;color:var(--ink2);font-size:.9rem}
+
+  /* pilot */
+  .phases{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .phase{background:var(--deep);border:1px solid var(--rule);border-radius:3px;padding:18px}
+  .phase .d{font-family:var(--mono);font-size:.64rem;letter-spacing:.18em;color:var(--cyan);text-transform:uppercase}
+  .phase h3{font-family:var(--serif);font-weight:400;font-size:1.35rem;margin:6px 0 10px}
+  .phase ul{margin:0;padding-left:18px;color:var(--ink2);font-size:.86rem;line-height:1.6}
+  .phase .gate{margin-top:12px;padding-top:10px;border-top:1px dashed var(--rule2);font-size:.78rem;color:var(--ink3)}
+
+  /* talk track drawer */
+  .drawer{visibility:hidden;position:fixed;right:0;top:0;bottom:0;width:min(380px,92vw);background:var(--deep);border-left:1px solid var(--rule2);padding:22px 22px 30px;transform:translateX(105%);transition:transform .3s ease;z-index:20;overflow-y:auto}
+  .drawer.open{transform:none;visibility:visible}
+  .drawer h4{font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin:0 0 12px}
+  .drawer ol{margin:0;padding-left:18px;color:var(--ink2);font-size:.9rem;line-height:1.6;display:grid;gap:8px}
+  .drawer .close{position:absolute;top:14px;right:14px}
+  .drawer .closer{margin-top:18px;padding:12px 14px;border-left:3px solid var(--amber);background:var(--panel);font-family:var(--serif);font-size:1.1rem;color:var(--ink)}
+
+  .footnav{display:flex;justify-content:space-between;gap:10px;margin-top:34px;padding-top:18px;border-top:1px solid var(--rule)}
+
+  /* cover */
+  .cover-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:26px;align-items:start}
+  .thesis{font-family:var(--serif);font-size:clamp(1.4rem,2.2vw,1.9rem);line-height:1.3;color:var(--ink);margin:18px 0 0}
+  .thesis em{color:var(--cyan);font-style:italic}
+  .arclist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+  .arclist li{display:grid;grid-template-columns:34px 1fr auto;gap:12px;align-items:center;padding:10px 12px;background:var(--deep);border:1px solid var(--rule);border-radius:2px}
+  .arclist .n{font-family:var(--mono);color:var(--cyan);font-size:.72rem}
+  .arclist .q{color:var(--ink2);font-size:.82rem}
+  .keys{font-family:var(--mono);font-size:.68rem;color:var(--ink3);line-height:1.9}
+  .keys kbd{border:1px solid var(--rule2);border-radius:2px;padding:1px 6px;color:var(--ink2);font-family:inherit}
+
+  .sr{position:absolute;left:-9999px}
+
+  @media (max-width:980px){
+    .g2,.g3,.g21,.g12,.cover-grid{grid-template-columns:1fr}
+    .phases{grid-template-columns:1fr}
+    .acthead{grid-template-columns:1fr}
+    .qline{text-align:left;max-width:none}
+  }
+  @media (max-width:900px){
+    .app{grid-template-columns:minmax(0,1fr)}
+    .rail{position:static;height:auto;border-right:0;border-bottom:1px solid var(--rule);padding:14px 16px}
+    .acts{flex-direction:row;overflow-x:auto;gap:4px;padding-bottom:4px;min-width:0;max-width:100%}
+    .rail{min-width:0;max-width:100vw}
+    .acts button{grid-template-columns:auto;gap:2px;border-left:0;border-bottom:2px solid transparent;padding:8px 10px;white-space:nowrap}
+    .acts button .q{display:none}
+    .acts button[aria-current="true"]{border-bottom-color:var(--cyan)}
+    .rail .foot{display:none}
+    .stage,.topbar{padding-left:16px;padding-right:16px}
+    .tl li{grid-template-columns:64px 1fr}
+    .tl li .d{grid-column:1/-1}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#stage">Skip to content</a>
+<div class="app">
+  <aside class="rail" aria-label="Demo acts">
+    <div class="brand">MIZ OKI MEDIA<small>EXECUTIVE DEMO · r1.1</small></div>
+    <ul class="acts" id="actRail"></ul>
+    <div class="foot">
+      TENANT · demo-fixtures<br><b>SYNTHETIC</b> — every figure illustrative<br>
+      MEASUREMENT_WRITEBACK · OFF<br>NET_YIELD_WRITEBACK · OFF<br>autonomy · recommend-only
+    </div>
+  </aside>
+
+  <div class="stagewrap">
+    <div class="topbar">
+      <span class="wm">SYNTHETIC TENANT · NOT CUSTOMER DATA</span>
+      <span class="grow"></span>
+      <label class="sel" for="scale">scale
+        <select id="scale">
+          <option value="1">DTC · $250k/mo · illustrative</option>
+          <option value="4.8">Mid-market · $1.2M/mo · illustrative</option>
+          <option value="24">Enterprise · $6M/mo · illustrative</option>
+        </select>
+      </label>
+      <button class="tb" id="cutBtn" aria-pressed="false" title="Acts 1 and 5 only">5-min cut</button>
+      <button class="tb" id="boardBtn" aria-pressed="false">Boardroom<kbd>B</kbd></button>
+      <button class="tb" id="notesBtn" aria-pressed="false">Talk track<kbd>N</kbd></button>
+    </div>
+
+    <main class="stage" id="stage" tabindex="-1">
+
+      <!-- ===================== COVER ===================== -->
+      <section class="act on" id="act-0" data-act="0">
+        <p class="eyebrow">MIZ OKI Media · Causal Growth Control · executive demo</p>
+        <h1>Other tools optimize the number your ad platform reports.<br>We optimize the number <em>your bank account</em> reports.</h1>
+        <div class="cover-grid" style="margin-top:26px">
+          <div>
+            <p class="lede">Twenty minutes, five acts, one synthetic brand. Each act answers a question a CFO or CMO actually asks, with a control you can touch. Nothing on this screen is a customer result — it is the demo tenant, watermarked, deterministic, and labeled with what is live today and what is still being built.</p>
+            <p class="scope">Net yield and the ORACLE intent surfaces are Preview · in development. Every figure on every act is illustrative — the synthetic tenant demo-fixtures, never a customer result.</p>
+            <p class="thesis">The system is designed to be trusted with authority it does not yet have — <em>by demonstrating restraint with the authority it does.</em></p>
+            <div class="row" style="margin-top:22px">
+              <button class="btn primary" data-go="1">Start Act 1 →</button>
+              <button class="btn ghost" data-go="5">Jump to The Restraint</button>
+              <a class="btn ghost" href="/media/pilot">The 90-day pilot ↗</a>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="ph"><h3>The arc</h3><span class="chip plain">20 min · exec cut 5 min</span></div>
+            <ul class="arclist">
+              <li><span class="n">01</span><span><b>The Lie</b><span class="q"> · Is our ROAS real?</span></span><span class="chip build">Net yield</span></li>
+              <li><span class="n">02</span><span><b>The Signals</b><span class="q"> · What do you see before the click — and refuse to see?</span></span><span class="chip build">ORACLE</span></li>
+              <li><span class="n">03</span><span><b>The Proof</b><span class="q"> · Which conversions did we cause?</span></span><span class="chip partial">Causal</span></li>
+              <li><span class="n">04</span><span><b>The Profit</b><span class="q"> · Where does the next dollar go?</span></span><span class="chip partial">Dosage</span></li>
+              <li><span class="n">05</span><span><b>The Restraint</b><span class="q"> · What stops it doing something stupid?</span></span><span class="chip live">DCP</span></li>
+              <li><span class="n">06</span><span><b>The 90 Days</b><span class="q"> · How do we start, and what is real today?</span></span><span class="chip live">Pilot</span></li>
+            </ul>
+            <p class="keys" style="margin:14px 0 0"><kbd>←</kbd> <kbd>→</kbd> move between acts · <kbd>N</kbd> talk track · <kbd>B</kbd> boardroom type · <kbd>1–6</kbd> jump</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== ACT 1 · THE LIE ===================== -->
+      <section class="act" id="act-1" data-act="1">
+        <div class="acthead">
+          <div>
+            <p class="eyebrow">Act 1 · The Lie · 3 min</p>
+            <h2>Same campaign. <em>4.2× reported ROAS.</em> Negative contribution after returns.</h2>
+            <p class="lede">The systems that spend the money also grade the results. Every platform reports the conversions it believes it caused; none of them subtracts refunds, cost of goods, fees or fulfillment. Automating on top of a self-graded number automates the error.</p>
+            <p class="scope">Net yield is Preview · in development (writeback OFF). Every figure on this stage is illustrative — the synthetic tenant, never a customer result.</p>
+          </div>
+          <div class="qline">“Is our ROAS real?”</div>
+        </div>
+
+        <div class="grid g21">
+          <div class="panel">
+            <div class="ph"><h3>Profit-Leak Report · top SKUs</h3><div class="row"><span class="chip build">Net yield · in build</span><span class="chip plain" id="viewChip">bank view</span></div></div>
+            <div class="row" style="margin-bottom:12px">
+              <div class="seg" role="group" aria-label="View">
+                <button id="viewPlatform" aria-pressed="false">What the platform reports</button>
+                <button id="viewBank" aria-pressed="true">What the bank sees</button>
+              </div>
+            </div>
+            <div class="tscroll">
+              <table id="leakTable">
+                <thead><tr><th>SKU</th><th class="num">Ad spend</th><th class="num">Reported ROAS</th><th class="num">Returns</th><th>Contribution after all costs</th><th class="num">Result</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <p class="note">Method: revenue − refunds/returns (actuals only until one cycle per SKU) − COGS − payment fees − fulfillment − ad spend. A row missing a required cost is excluded and named; a cost is never invented to complete the arithmetic. Source: net_yield + order_economics · demo-fixtures.</p>
+          </div>
+
+          <div class="grid" style="align-content:start">
+            <div class="panel raised">
+              <div class="ph"><h3>Touch it: the hero SKU</h3><span class="chip plain">SKU-DEMO-7742</span></div>
+              <div class="ctl">
+                <label for="rr">Return rate <output id="rrOut">58%</output></label>
+                <input type="range" id="rr" min="0" max="70" value="58" step="1" aria-describedby="rrHelp">
+                <span class="hint" id="rrHelp">Drag it. The platform's 4.2× never moves; the contribution line does.</span>
+              </div>
+              <div class="tiles">
+                <div class="tile"><div class="l">Reported ROAS</div><div class="v cyan">4.2×</div><div class="s">what the dashboard says</div></div>
+                <div class="tile"><div class="l">Contribution</div><div class="v" id="heroContrib">−$620</div><div class="s" id="heroBreak">breakeven at 44% returns</div></div>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="ph"><h3>This month, whole catalog</h3></div>
+              <div class="tiles">
+                <div class="tile"><div class="l">SKUs analyzed</div><div class="v">847</div></div>
+                <div class="tile"><div class="l">Advertised into a loss</div><div class="v bad">23</div></div>
+                <div class="tile"><div class="l">Loss after returns</div><div class="v bad" id="leakTotal">−$14,280</div></div>
+                <div class="tile"><div class="l">Median return rate</div><div class="v">42%</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout"><span class="k">Closer</span><p>We don't optimize the number the dashboard reports. We optimize the number the bank account reports — and we show you which SKUs your ads are currently paying to lose money on.</p></div>
+      </section>
+
+      <!-- ===================== ACT 2 · THE SIGNALS ===================== -->
+      <section class="act" id="act-2" data-act="2">
+        <div class="acthead">
+          <div>
+            <p class="eyebrow purple">Act 2 · The Signals · 4 min</p>
+            <h2>Anticipatory intent from content-free signal. <em>Never mind-reading.</em></h2>
+            <p class="lede">ORACLE reads how a consented session behaves — viewport deceleration, dwell, tab blur and return, form lifecycle — and forms a calibrated, expiring hypothesis about where that session is heading. It never reads what was typed, said, or looked at. What the system refuses to learn matters as much as what it learns.</p>
+            <p class="scope">Intent Engine v2 is Preview · in development — cells 33–36 are deployed and observe-only; nothing here acts. Every figure on this stage is illustrative.</p>
+          </div>
+          <div class="qline">“What do you see before the click — and what do you refuse to see?”</div>
+        </div>
+
+        <div class="grid g21">
+          <div class="panel">
+            <div class="ph"><h3>A consented session, replayed</h3><div class="row"><span class="chip live">Cells 33–36 · live · observe-only</span><span class="chip build">Intent Engine v2 · shadow · in build</span></div></div>
+            <div class="row" style="margin-bottom:12px">
+              <button class="btn primary" id="playSession">▶ Play session</button>
+              <button class="btn ghost" id="resetSession">Reset</button>
+              <label class="sel" for="consent">consent
+                <select id="consent">
+                  <option value="behavioral">behavioral · granted</option>
+                  <option value="analytics">analytics-only</option>
+                </select>
+              </label>
+            </div>
+            <ul class="tl" id="sessionTl"></ul>
+            <div id="consentBlock" class="reject" hidden>
+              <span class="k">NO CONSENT · NO EVENT</span>
+              <p style="margin:6px 0 0;color:var(--ink2);font-size:.86rem">Analytics-only consent rejects every behavioral signal at the collector. Nothing is persisted, nothing is scored, nothing is "stored and unsurfaced". The consent gate precedes persistence — it is architecture, not a setting.</p>
+            </div>
+          </div>
+
+          <div class="grid" style="align-content:start">
+            <div class="panel raised">
+              <div class="ph"><h3>Session outcome forecast</h3><span class="chip build">I-02 · shadow</span></div>
+              <div class="gauge"><span id="forecastVal">0.00</span> <small>± <span id="forecastCi">—</span></small></div>
+              <div class="track"><i id="forecastBar"></i></div>
+              <p class="hint" style="margin-top:8px">Probability of a stage transition inside the session horizon. Served with its uncertainty and an explanation path — never as a bare number.</p>
+              <div class="stages" id="intentStages">
+                <div class="stg"><span>stage 01</span>Awareness</div>
+                <div class="stg"><span>stage 02</span>Consideration</div>
+                <div class="stg"><span>stage 03</span>In-market</div>
+                <div class="stg"><span>stage 04</span>Purchase-imminent</div>
+              </div>
+              <ul class="checks" id="intentFacts" style="margin-top:12px">
+                <li id="fHes"><span class="m">·</span><span>Hesitation head<span class="d">high attention, no click — surfaces a posture recommendation, not a push</span></span><span class="r">—</span></li>
+                <li id="fCre"><span class="m">·</span><span>Matched creative rank<span class="d">“technical proof” variant ranked #1 — logged, <b>not applied</b> (flag off)</span></span><span class="r">—</span></li>
+                <li id="fTtl"><span class="m">·</span><span>Hypothesis TTL<span class="d">expires with the session; no cross-session profile is written</span></span><span class="r">—</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid g2" style="margin-top:16px">
+          <div class="panel">
+            <div class="ph"><h3>The O-1 moment</h3><span class="chip live">Privacy lock · live · owner ruling</span></div>
+            <p class="hint">Try to give the system something it must not have. This payload is what a keystroke-dynamics vendor would send. Press the button on stage.</p>
+            <pre class="code">{ "signal_type": "keystroke_dynamics",
+  "dwell_ms": [112, 98, 143], "flight_ms": [61, 77],
+  "cadence_profile": "…", "field": "card_number" }</pre>
+            <div class="row" style="margin-top:12px">
+              <button class="btn danger" id="sendKeys">Send keystroke-dynamics payload</button>
+              <button class="btn ghost" id="sendLifecycle">Send form_started (lifecycle)</button>
+            </div>
+            <div id="o1Result"></div>
+          </div>
+          <div class="panel">
+            <div class="ph"><h3>Bright lines — rejected at the schema, not in a policy PDF</h3></div>
+            <ul class="checks">
+              <li class="on bad"><span class="m">✕</span><span>Keystroke dynamics<span class="d">raw keyboard, entered text, dwell/flight time, typing profiles</span></span><span class="r">refused</span></li>
+              <li class="on bad"><span class="m">✕</span><span>Audio of any kind<span class="d">rejected at Pydantic validation — no flag can enable it</span></span><span class="r">refused</span></li>
+              <li class="on bad"><span class="m">✕</span><span>Gaze, biometrics, fine-grained location<span class="d">coarse consent-scoped region only</span></span><span class="r">refused</span></li>
+              <li class="on bad"><span class="m">✕</span><span>Sensitive-topic inference<span class="d">health, sexuality, religion, financial distress, minors — never predicted, stored or surfaced</span></span><span class="r">deny-list</span></li>
+              <li class="on ok"><span class="m">✓</span><span>Content-free lifecycle only<span class="d">form_started · field_focused · form_completed · form_abandoned</span></span><span class="r">permitted</span></li>
+            </ul>
+            <div class="callout purple"><span class="k">Why it sells</span><p>A capability you can be pressured into enabling is a liability on every security review. A capability the schema refuses is an asset.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== ACT 3 · THE PROOF ===================== -->
+      <section class="act" id="act-3" data-act="3">
+        <div class="acthead">
+          <div>
+            <p class="eyebrow">Act 3 · The Proof · 4 min</p>
+            <h2>Anticipation is never credit. <em>Prediction never grades itself.</em></h2>
+            <p class="lede">Attribution answers "which touchpoints preceded the sale?" Only a registered experiment answers "which spend caused a sale that would not otherwise have happened?" — the only question with budget implications. Register the holdout first, estimate second, refute third. An estimate that fails refutation is withheld, not softened.</p>
+            <p class="scope">Every figure on this stage is illustrative — the synthetic tenant demo-fixtures, never a customer result. The causal core is PARTIAL; ghost bids are PROPOSED.</p>
+          </div>
+          <div class="qline">“Which conversions did we actually cause?”</div>
+        </div>
+
+        <div class="row" style="margin-bottom:14px">
+          <span class="mono" style="font-size:.7rem;color:var(--ink3);letter-spacing:.1em">CAMPAIGN</span>
+          <div class="seg" role="group" aria-label="Campaign">
+            <button id="campA" aria-pressed="true">Prospecting · Meta Advantage+</button>
+            <button id="campB" aria-pressed="false">Brand search · retargeting</button>
+          </div>
+        </div>
+
+        <div class="grid g3">
+          <div class="panel">
+            <div class="ph"><h3>1 · Register the holdout</h3><span class="chip partial">Causal core · partial</span></div>
+            <div class="row" style="margin-bottom:6px">
+              <div class="seg" role="group" aria-label="Method">
+                <button id="mQual" aria-pressed="true">Qualified holdout</button>
+                <button id="mGeo" aria-pressed="false">Geo holdout</button>
+                <button id="mGhost" disabled title="Ghost bids are an implementation plan — PROPOSED, not shipped, not claimed">Ghost bid · proposed</button>
+              </div>
+            </div>
+            <div class="ctl"><label for="hold">Holdout share <output id="holdOut">15%</output></label><input type="range" id="hold" min="10" max="20" value="15" step="1"></div>
+            <div class="ctl"><label for="mde">Minimum detectable effect <output id="mdeOut">0.6 pt</output></label><input type="range" id="mde" min="3" max="12" value="6" step="1"></div>
+            <button class="btn primary" id="registerBtn">Register holdout</button>
+            <pre class="code" id="regRecord" hidden></pre>
+            <p class="note">Registered <b>before</b> the first impression — never retroactively. Assignment is a deterministic hash of customer + experiment; ACT cells consult the assignment before serving. Intention-to-treat: measured on assignment, not delivery.</p>
+          </div>
+
+          <div class="panel">
+            <div class="ph"><h3>2 · Estimate with uncertainty</h3><span class="chip partial">X-/DR-learner · CATE</span></div>
+            <svg class="chart" id="liftChart" viewBox="0 0 360 200" role="img" aria-label="Conversion rate, treated vs holdout, with confidence intervals"></svg>
+            <div class="tiles" style="margin-top:8px">
+              <div class="tile"><div class="l">Lift (pt)</div><div class="v cyan" id="liftVal">—</div><div class="s" id="liftCi">95% CI —</div></div>
+              <div class="tile"><div class="l">Platform ROAS → iROAS</div><div class="v" id="roasPair">—</div><div class="s">the ledger's number, not the platform's</div></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="ph"><h3>3 · Refutation battery</h3><span class="chip partial">DoWhy</span></div>
+            <ul class="checks" id="refute">
+              <li id="rPlacebo"><span class="m">·</span><span>Placebo treatment<span class="d">a fake treatment must show no effect</span></span><span class="r">—</span></li>
+              <li id="rRandom"><span class="m">·</span><span>Random common cause<span class="d">estimate must survive an added confounder</span></span><span class="r">—</span></li>
+              <li id="rSubset"><span class="m">·</span><span>Data subset<span class="d">estimate must hold on random halves</span></span><span class="r">—</span></li>
+              <li id="rIdent"><span class="m">·</span><span>Deterministic identity only<span class="d">probabilistic household edges excluded from causal math</span></span><span class="r">—</span></li>
+            </ul>
+            <button class="btn ghost" id="refuteBtn" style="margin-top:12px" disabled>Run refutation</button>
+            <div class="verdict" id="proofVerdict" hidden></div>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top:16px">
+          <div class="ph"><h3>Causal Credit Ledger · this campaign, this cycle</h3><span class="chip partial">unified.causal_credit_ledger · partial</span></div>
+          <div class="grid g12">
+            <div>
+              <svg class="chart" id="ledgerChart" viewBox="0 0 420 120" role="img" aria-label="Conversions claimed by the platform split into caused and anticipated"></svg>
+              <div class="legend"><span style="--c:var(--cyan)">caused — lift CI excludes 0 and the model had not already scored in-market</span><span style="--c:var(--ink3)">anticipated — would have happened anyway</span></div>
+            </div>
+            <div id="ledgerText"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== ACT 4 · THE PROFIT ===================== -->
+      <section class="act" id="act-4" data-act="4">
+        <div class="acthead">
+          <div>
+            <p class="eyebrow">Act 4 · The Profit · 4 min</p>
+            <h2>Your profit-maximizing spend is <em id="dstarHead">$4,048</em> a day. Not your budget.</h2>
+            <p class="lede">Net yield turns platform revenue into contribution after every downstream cost. The dosage curve then asks the marginal question: at what daily spend does the last dollar of incremental margin equal the last dollar of cost? It answers with confidence intervals — and refuses to extrapolate past the spend it has actually observed.</p>
+            <p class="scope">Net yield is Preview · in development (writeback OFF). Every figure on this stage is illustrative — d* included; the dosage lane is advisory.</p>
+          </div>
+          <div class="qline">“Where does the next dollar go?”</div>
+        </div>
+
+        <div class="grid g12">
+          <div class="panel">
+            <div class="ph"><h3>Net-yield waterfall · hero campaign, month</h3><span class="chip build">Net yield · in build · writeback off</span></div>
+            <svg class="chart" id="waterfall" viewBox="0 0 420 260" role="img" aria-label="Waterfall from gross revenue to contribution"></svg>
+            <ul class="checks" style="margin-top:10px">
+              <li class="on pend"><span class="m">!</span><span>Discount liability<span class="d">not declared by the tenant — row <b>excluded</b>, named as an onboarding gap; never estimated</span></span><span class="r">excluded</span></li>
+            </ul>
+          </div>
+          <div class="panel raised">
+            <div class="ph"><h3>Dosage curve · cumulative contribution vs daily spend</h3><span class="chip partial">continuous dosage · partial · advisory</span></div>
+            <svg class="chart" id="dosage" viewBox="0 0 520 260" role="img" aria-label="Cumulative contribution against daily spend with confidence band"></svg>
+            <div class="ctl">
+              <label for="budget">Your daily budget <output id="budgetOut">$8,000</output></label>
+              <input type="range" id="budget" min="1000" max="11000" value="8000" step="100">
+            </div>
+            <div class="tiles">
+              <div class="tile"><div class="l">Profit-max spend d*</div><div class="v cyan" id="dstarVal">$4,048</div><div class="s">τ(d)·margin = marginal cost</div></div>
+              <div class="tile"><div class="l">At your budget</div><div class="v" id="budgetVerdict">—</div><div class="s" id="budgetNote">—</div></div>
+            </div>
+            <p class="note">Method: r_learner_local_marginal_moment_wls_v1 · observed support <span id="supportRange">$1,200–$9,500</span>/day. Outside support the curve returns <b>no estimate</b>. Advisory posture: NET_YIELD_WRITEBACK is off; nothing here bids.</p>
+          </div>
+        </div>
+        <div class="callout"><span class="k">Closer</span><p>Every other tool spends to the budget. This one spends to the profit-maximizing dollar — and tells you, with intervals, how much of today's budget is past it.</p></div>
+      </section>
+
+      <!-- ===================== ACT 5 · THE RESTRAINT ===================== -->
+      <section class="act" id="act-5" data-act="5">
+        <div class="acthead">
+          <div>
+            <p class="eyebrow">Act 5 · The Restraint · 4 min</p>
+            <h2>A decision the system was <em>proudest not to make.</em></h2>
+            <p class="lede">Every proposed move runs the Decision Control Plane: does a ValidationPassport exist with enough evidence, does the DEL score clear the floor, is authority granted for this action class, does any hard constraint veto? Below the floor the answer is a deterministic WITHHOLD with the constraint named. No confidence buys its way past a hard constraint.</p>
+            <p class="scope">Every dollar figure on this stage is illustrative — the synthetic tenant, never a customer result. The DEL formula and the 80.0 platform floor are the shipped operating defaults, not scenario numbers.</p>
+          </div>
+          <div class="qline">“What stops it from doing something stupid?”</div>
+        </div>
+
+        <div class="grid g12">
+          <div class="panel">
+            <div class="ph"><h3>Proposed action</h3><span class="chip live">DCP · threshold gate · live</span></div>
+            <div class="grid" id="actionList" style="gap:8px"></div>
+            <div class="panel raised" style="margin-top:14px;padding:16px 18px">
+              <div class="ph"><h3>Governance challenge</h3><span class="chip live">floors never lowered</span></div>
+              <div class="ctl">
+                <label for="floor">Tenant DEL threshold <output id="floorOut">80.0</output></label>
+                <input type="range" id="floor" min="70" max="100" value="80" step="1">
+              </div>
+              <p class="hint" id="floorMsg">Try to drag it below 80. Tenants may raise a floor; the platform floor of DEL ≥ 80 cannot be lowered by anyone — including us.</p>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="ph"><h3>ValidationPassport</h3><span class="chip plain mono" id="passportId">VP-—</span></div>
+            <ul class="checks" id="passport"></ul>
+            <div class="grid g2" style="margin-top:14px;align-items:start">
+              <div>
+                <svg class="chart" id="delChart" viewBox="0 0 300 170" role="img" aria-label="DEL score against the authorization floor"></svg>
+                <div class="legend"><span style="--c:var(--green)">shipped · threshold gate at the floor</span><span style="--c:var(--purple)">proposed canon · clipped shape (not claimed)</span></div>
+                <p class="note">Shipped score: 100 × (0.5 · passport pass rate + 0.3 · evidence completeness + 0.2 · verification weight), HMAC-signed at the DCP. The clipped-ReLU <i>shape</i> (margin-proportional authority, per-class cap) is PROPOSED CANON — drawn dashed, not claimed.</p>
+              </div>
+              <div>
+                <div class="tiles"><div class="tile"><div class="l">DEL score</div><div class="v" id="delVal">—</div><div class="s" id="delSub">floor 80.0</div></div></div>
+                <div class="verdict" id="dcpVerdict"><div class="v">—</div><p>Pick an action.</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid g2" style="margin-top:16px">
+          <div class="panel">
+            <div class="ph"><h3>Restraint Ledger · this month</h3><span class="chip partial">WITHHOLD verdicts + passports</span></div>
+            <p class="hint">Decisions the system declined to make, with the reason. No competitor can show you their refusals.</p>
+            <div class="tscroll"><table id="restraintTable"><thead><tr><th>When</th><th>Proposal</th><th>Withheld by</th><th class="num">Spend not moved</th></tr></thead><tbody></tbody></table></div>
+          </div>
+          <div class="panel">
+            <div class="ph"><h3>F4 micro-geo reservation · live, halting at approval</h3><span class="chip live">F4 · live · armed 2026-08-24</span></div>
+            <p class="hint">The one frontier that cannot be observe-only — reserving a geography is an action — so its control is per-action human approval until two clean cycles. Watch a demo-tenant reservation hit every gate.</p>
+            <button class="btn ghost" id="f4Btn">Submit reservation · DEMO-XX · $0 cap</button>
+            <ul class="checks" id="f4Gates" style="margin-top:12px">
+              <li id="g1"><span class="m">·</span><span>flag_gate<span class="d">F4_CALIBRATION is not "true" for the demo tenant — nothing submitted</span></span><span class="r">—</span></li>
+              <li id="g2"><span class="m">·</span><span>approval_gate<span class="d">routes to the L2 decision queue — human approval required</span></span><span class="r">—</span></li>
+              <li id="g3"><span class="m">·</span><span>two_key_gate<span class="d">actuator not registered — an approved decision still cannot execute</span></span><span class="r">—</span></li>
+            </ul>
+            <div class="callout green" id="f4Close" hidden><span class="k">Even our docs pass through the gate</span><p>At deploy, the canon gate corrected our own whitepaper's stale datastore reference before it could publish. Restraint is not a feature we bolted on. It is how the platform is built — including how it builds itself.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== CLOSE · THE 90 DAYS ===================== -->
+      <section class="act" id="act-6" data-act="6">
+        <div class="acthead">
+          <div>
+            <p class="eyebrow">Close · The 90 Days · 1 min</p>
+            <h2>Most platforms sell Gate 3 on day one. <em>The sequence is the product.</em></h2>
+            <p class="lede">Autonomy is earned per account and per action class — never a global switch. The pilot's product is evidence about your own decisions; whichever exit you choose, you keep it.</p>
+          </div>
+          <div class="qline">“How do we start — and what is real today?”</div>
+        </div>
+
+        <div class="phases">
+          <div class="phase"><div class="d">Days 1–30</div><h3>Observe</h3><ul><li>Connect scoped media, commerce and site sources</li><li>Validate identities, timestamps, unit economics</li><li>No recommendations, no actions</li></ul><div class="gate">Gate: evidence-quality review. Nothing advances until the evidence base is trusted.</div></div>
+          <div class="phase"><div class="d">Days 31–60</div><h3>Validate</h3><ul><li>First registered holdout; estimates produced and refuted</li><li>Counterfactuals including no-action</li><li>Humans execute everything</li></ul><div class="gate">Gate: recommendation-quality review scored against ground truth.</div></div>
+          <div class="phase"><div class="d">Days 61–90</div><h3>Recommend → bounded control</h3><ul><li>Narrow, reversible, human-approved actions</li><li>Predicted vs realized scored openly</li><li>Executive scorecard</li></ul><div class="gate">Exit: Expand · Extend · Stop — decided on the record, never renewed by default.</div></div>
+        </div>
+
+        <div class="grid g2" style="margin-top:16px">
+          <div class="panel">
+            <div class="ph"><h3>Autonomy gates — no override path</h3></div>
+            <div class="tiles">
+              <div class="tile"><div class="l">Calibration</div><div class="v">Brier ≤ 0.20</div></div>
+              <div class="tile"><div class="l">Discrimination</div><div class="v">AUC ≥ 0.72</div></div>
+              <div class="tile"><div class="l">Durability</div><div class="v">≥ 2 cycles</div><div class="s">stable lift, purchase cycles</div></div>
+            </div>
+            <p class="note">A model that misses any threshold recommends. It does not act. Today the AUC gate cannot even be scored: the live tables hold zero admissible forward labels — so the intent cell observes. That gap is on this slide on purpose.</p>
+          </div>
+          <div class="panel">
+            <div class="ph"><h3>What is real today</h3><span class="chip plain">OFFERING_MAP v2.3 · §B.6</span></div>
+            <div class="tscroll"><table>
+              <tbody>
+                <tr><td>SRPVDAL loop · Decision Control Plane · DEL scoring · audit ledger</td><td class="num"><span class="chip live">live</span></td></tr>
+                <tr><td>Connector gateway · canonical envelope · O-1 privacy lock</td><td class="num"><span class="chip live">live</span></td></tr>
+                <tr><td>F4 micro-geo calibration (pilot armed 2026-08-24 · every reservation L2-approval-gated · bounded autonomy after 2 clean cycles, 0 complete)</td><td class="num"><span class="chip live">live</span></td></tr>
+                <tr><td>Causal proof core · credit ledger · measurement rails</td><td class="num"><span class="chip partial">partial</span></td></tr>
+                <tr><td>ORACLE cells 33–36 · intent edges (observe-only / shadow)</td><td class="num"><span class="chip partial">partial</span></td></tr>
+                <tr><td>Intent Engine v2 · Net Yield lane · F1 F2 F3 F5</td><td class="num"><span class="chip build">in build</span></td></tr>
+                <tr><td>Ghost bids · clipped-ReLU authorization shape · ad control plane</td><td class="num"><span class="chip proposed">proposed</span></td></tr>
+              </tbody>
+            </table></div>
+            <p class="note">IN BUILD rows — Intent Engine v2, the Net Yield lane, F1, F2, F3, F5 — are Preview · in development. Every label here is OFFERING_MAP v2.3 §B.6 on the day this page shipped, never this deck's opinion.</p>
+          </div>
+        </div>
+
+        <div class="callout"><span class="k">Ask</span><p>Tell us the decision that costs you the most when it goes ungoverned. We scope the two pilot decision classes around it, start observe-only, and put the first registered holdout in front of you by day 31.</p></div>
+        <div class="row" style="margin-top:18px">
+          <a class="btn primary" href="/media/pilot">Design a 90-day pilot ↗</a>
+          <a class="btn ghost" href="/media/decision-graph">The Decision Graph ↗</a>
+          <button class="btn ghost" data-go="0">Back to start</button>
+        </div>
+      </section>
+
+      <div class="footnav">
+        <button class="btn ghost" id="prevBtn">← Previous</button>
+        <span class="mono" style="font-size:.68rem;color:var(--ink3);align-self:center;letter-spacing:.12em" id="posLabel"></span>
+        <button class="btn ghost" id="nextBtn">Next →</button>
+      </div>
+    </main>
+  </div>
+</div>
+
+<aside class="drawer" id="drawer" aria-label="Talk track">
+  <button class="tb close" id="drawerClose">close</button>
+  <h4 id="drawerTitle">Talk track</h4>
+  <ol id="drawerList"></ol>
+  <div class="closer" id="drawerCloser"></div>
+</aside>
+
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var reduced = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var NS = "http://www.w3.org/2000/svg";
+  var K = 1; // tenant scale — multiplies dollar figures only
+
+  function money(n, opts) {
+    opts = opts || {};
+    var v = n * (opts.raw ? 1 : K);
+    var sign = v < 0 ? "−" : "";
+    v = Math.abs(v);
+    var s;
+    if (opts.compact && v >= 1e6) s = "$" + (v / 1e6).toFixed(v >= 1e7 ? 0 : 1) + "M";
+    else if (opts.compact && v >= 1e4) s = "$" + Math.round(v / 1e3) + "k";
+    else s = "$" + Math.round(v).toLocaleString("en-US");
+    return sign + s;
+  }
+  function pct(x, d) { return (x * 100).toFixed(d == null ? 0 : d) + "%"; }
+  function el(tag, attrs, text) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
+  function setCheck(li, state, label) {
+    li.classList.remove("ok", "bad", "pend");
+    li.classList.add("on");
+    if (state) li.classList.add(state);
+    li.querySelector(".m").textContent = state === "ok" ? "✓" : state === "bad" ? "✕" : state === "pend" ? "!" : "·";
+    li.querySelector(".r").textContent = label || "";
+  }
+  function resetCheck(li) {
+    li.classList.remove("ok", "bad", "pend", "on");
+    li.querySelector(".m").textContent = "·";
+    li.querySelector(".r").textContent = "—";
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Navigation                                                          */
+  /* ------------------------------------------------------------------ */
+  var ACTS = [
+    { n: "00", t: "Cover", q: "The thesis" },
+    { n: "01", t: "The Lie", q: "Is our ROAS real?" },
+    { n: "02", t: "The Signals", q: "What do you see before the click?" },
+    { n: "03", t: "The Proof", q: "Which conversions did we cause?" },
+    { n: "04", t: "The Profit", q: "Where does the next dollar go?" },
+    { n: "05", t: "The Restraint", q: "What stops it doing something stupid?" },
+    { n: "06", t: "The 90 Days", q: "How do we start?" }
+  ];
+  var TALK = [
+    { lines: ["Frame the room: this is the synthetic demo tenant, watermarked. Nothing here is a customer result.", "One sentence of positioning, then go straight to Act 1 — do not tour the architecture.", "If time is short: Acts 1 and 5 only (the 5-min cut button)."], closer: "We optimize the number your bank account reports." },
+    { lines: ["Open on the platform view. Ask the CFO which SKU looks best. Switch to the bank view.", "Drag the return-rate slider on SKU-7742 — the 4.2× never moves, the contribution line does.", "Point at the excluded row: we did not invent a cost to finish the math. That is the discipline.", "Scale selector: pick their size so the loss number is in their units."], closer: "Twenty-three SKUs are paying to lose money this month, and every dashboard calls them winners." },
+    { lines: ["Play the session. Narrate the tokens as behavior, not identity: deceleration, dwell, tab-return.", "Watch the forecast climb with its interval. Say the words: anticipatory intent, never mind-reading.", "Flip consent to analytics-only and replay: no consent, no event.", "Then the O-1 moment: send the keystroke payload. Let the red card sit on screen for a beat.", "Label honesty: the cells are live; the Intent Engine v2 is shadow. Say it before they ask."], closer: "What the system refuses to learn is the strongest thing on this slide." },
+    { lines: ["Register the holdout first. Read the record aloud: estimand declared, power, hash assignment, before first impression.", "Estimate: intervals, never points. Then run refutation on Prospecting — it passes.", "Switch to Brand search. Platform says 6.8×. Refutation fails. The estimate is WITHHELD.", "The ledger split is the product: anticipated is never credit."], closer: "Showing our system catch our own weak estimate outsells any passing metric." },
+    { lines: ["Waterfall: name every subtraction. Then the excluded discount-liability row — excluded, not estimated.", "Dosage curve: drag their budget. Read d* with its interval. Drag past support — no estimate.", "Say the posture: advisory. NET_YIELD_WRITEBACK is off. Nothing here bids."], closer: "Your profit-maximizing spend is a number with an interval — not a budget line someone inherited." },
+    { lines: ["Pick the +25% budget action. Watch the passport, the DEL score, the WITHHOLD with its named constraint.", "Pick the +12% action: authorized — bounded, reversible, and still routed to a human for spend.", "Pick the stockout action: F3 vetoes upstream of any adapter, regardless of confidence.", "Governance challenge: try to lower the floor. It refuses. Tenants raise floors; nobody lowers them.", "Submit the F4 reservation: three HALTs. Then the deploy-gate story on our own whitepaper."], closer: "The system is designed to be trusted with authority it does not yet have, by demonstrating restraint with the authority it does." },
+    { lines: ["Three gates, three exits. Read the unscored-gate line on purpose — no admissible forward labels yet is why we observe today.", "Point at the status table: every label came from the offering map, not from this deck.", "Ask for the most expensive ungoverned decision. Scope the pilot around it."], closer: "Most platforms sell Gate 3 on day one. The sequence is the product." }
+  ];
+  var current = 0, cut = false;
+  var rail = $("actRail");
+  ACTS.forEach(function (a, i) {
+    var li = document.createElement("li");
+    var b = document.createElement("button");
+    b.setAttribute("data-go", i);
+    b.innerHTML = '<span class="n">' + a.n + '</span><span><span class="t">' + a.t + '</span><span class="q">' + a.q + '</span></span>';
+    li.appendChild(b); rail.appendChild(li);
+  });
+  function go(i) {
+    i = Math.max(0, Math.min(ACTS.length - 1, i));
+    current = i;
+    document.querySelectorAll(".act").forEach(function (s) { s.classList.toggle("on", +s.getAttribute("data-act") === i); });
+    rail.querySelectorAll("button").forEach(function (b) { b.setAttribute("aria-current", +b.getAttribute("data-go") === i ? "true" : "false"); });
+    $("posLabel").textContent = ACTS[i].n + " / 06 · " + ACTS[i].t.toUpperCase();
+    $("prevBtn").disabled = i === 0; $("nextBtn").disabled = i === ACTS.length - 1;
+    $("drawerTitle").textContent = "Talk track · " + ACTS[i].t;
+    var ol = $("drawerList"); clear(ol);
+    TALK[i].lines.forEach(function (l) { var li = document.createElement("li"); li.textContent = l; ol.appendChild(li); });
+    $("drawerCloser").textContent = TALK[i].closer;
+    window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+    try { localStorage.setItem("mizoki-exec-demo-act", String(i)); } catch (e) { }
+  }
+  function step(d) {
+    var order = cut ? [0, 1, 5, 6] : [0, 1, 2, 3, 4, 5, 6];
+    var idx = order.indexOf(current); if (idx < 0) idx = 0;
+    go(order[Math.max(0, Math.min(order.length - 1, idx + d))]);
+  }
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-go]"); if (b) go(+b.getAttribute("data-go"));
+  });
+  $("prevBtn").addEventListener("click", function () { step(-1); });
+  $("nextBtn").addEventListener("click", function () { step(1); });
+  document.addEventListener("keydown", function (e) {
+    if (e.target && /^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName)) return;
+    if (e.key === "ArrowRight" || e.key === "PageDown") step(1);
+    else if (e.key === "ArrowLeft" || e.key === "PageUp") step(-1);
+    else if (/^[0-6]$/.test(e.key)) go(+e.key);
+    else if (e.key.toLowerCase() === "n") toggleDrawer();
+    else if (e.key.toLowerCase() === "b") toggleBoard();
+    else if (e.key === "Escape") setDrawer(false);
+  });
+  function setDrawer(open) { $("drawer").classList.toggle("open", open); $("notesBtn").setAttribute("aria-pressed", open ? "true" : "false"); }
+  function toggleDrawer() { setDrawer(!$("drawer").classList.contains("open")); }
+  function toggleBoard() { var on = document.body.classList.toggle("boardroom"); $("boardBtn").setAttribute("aria-pressed", on ? "true" : "false"); }
+  $("notesBtn").addEventListener("click", toggleDrawer);
+  $("drawerClose").addEventListener("click", function () { setDrawer(false); });
+  $("boardBtn").addEventListener("click", toggleBoard);
+  $("cutBtn").addEventListener("click", function () { cut = !cut; $("cutBtn").setAttribute("aria-pressed", cut ? "true" : "false"); });
+  $("scale").addEventListener("change", function () { K = parseFloat(this.value) || 1; renderAll(); });
+
+  /* ------------------------------------------------------------------ */
+  /* ACT 1 — The Lie                                                     */
+  /* ------------------------------------------------------------------ */
+  var SKUS = [
+    { sku: "SKU-DEMO-7742", spend: 2800, roas: 4.2, rr: 0.58, cogs: 0.30, fee: 0.029, ful: 0.08, why: "58% return rate wipes 4.2× reported ROAS", hero: true },
+    { sku: "SKU-DEMO-1180", spend: 3200, roas: 3.4, rr: 0.12, cogs: 0.32, fee: 0.029, ful: 0.06, why: "low returns, healthy margin — a real winner" },
+    { sku: "SKU-DEMO-3391", spend: 1900, roas: 3.1, rr: 0.44, cogs: 0.40, fee: 0.029, ful: 0.06, why: "high COGS + 44% returns = negative contribution" },
+    { sku: "SKU-DEMO-9105", spend: 950, roas: 2.8, rr: 0.39, cogs: 0.30, fee: 0.029, ful: 0.12, why: "shipping cost exceeds margin after returns" },
+    { sku: "SKU-DEMO-5527", spend: 1500, roas: 2.1, rr: 0.08, cogs: 0.35, fee: 0.029, ful: 0.05, why: "the dashboard's “worst” ROAS — and it makes money" },
+    { sku: "SKU-DEMO-2200", spend: 1100, roas: 3.6, rr: 0.21, excluded: "unit_cost not declared — row excluded, not estimated" }
+  ];
+  function contribution(s, rr) {
+    if (rr == null) rr = s.rr;
+    var rev = s.spend * s.roas, kept = rev * (1 - rr);
+    return kept - kept * s.cogs - rev * s.fee - rev * s.ful - s.spend;
+  }
+  function breakeven(s) {
+    // solve contribution(rr)=0 for rr
+    var rev = s.spend * s.roas, fixed = rev * s.fee + rev * s.ful + s.spend;
+    var keptNeeded = fixed / (1 - s.cogs);
+    return Math.max(0, Math.min(1, 1 - keptNeeded / rev));
+  }
+  var view = "bank";
+  function renderLeak() {
+    var tb = $("leakTable").querySelector("tbody"); clear(tb);
+    var heroRR = +$("rr").value / 100;
+    var max = 0;
+    SKUS.forEach(function (s) { if (!s.excluded) max = Math.max(max, view === "platform" ? s.spend * s.roas : Math.abs(contribution(s, s.hero ? heroRR : null))); });
+    SKUS.forEach(function (s) {
+      var tr = document.createElement("tr");
+      var rr = s.hero ? heroRR : s.rr;
+      if (s.excluded) {
+        tr.className = "excluded";
+        tr.innerHTML = "<td>" + s.sku + "</td><td class='num'>" + money(s.spend) + "</td><td class='num'>" + s.roas.toFixed(1) + "×</td><td class='num'>" + pct(s.rr) + "</td><td colspan='2'>" + s.excluded + "</td>";
+        tb.appendChild(tr); return;
+      }
+      var c = contribution(s, rr), rev = s.spend * s.roas;
+      var val = view === "platform" ? rev : c;
+      var w = Math.round(Math.abs(val) / max * 50);
+      var barHtml = view === "platform"
+        ? "<div class='bar'><span class='zero' style='left:50%'></span><i style='left:50%;width:" + w + "%;background:var(--cyan)'></i></div>"
+        : "<div class='bar'><span class='zero' style='left:50%'></span><i style='" + (val >= 0 ? "left:50%;" : "right:50%;") + "width:" + w + "%;background:" + (val >= 0 ? "var(--green)" : "var(--red)") + "'></i></div>";
+      var result = view === "platform"
+        ? "<span class='pos'>" + money(rev) + " revenue</span>"
+        : "<span class='" + (c >= 0 ? "pos" : "neg") + "'>" + money(c) + "</span>";
+      tr.innerHTML = "<td><b>" + s.sku + "</b><span class='hint' style='display:block;margin:0'>" + (view === "platform" ? "“scale it”" : s.why) + "</span></td><td class='num'>" + money(s.spend) + "</td><td class='num'>" + s.roas.toFixed(1) + "×</td><td class='num'>" + pct(rr) + "</td><td>" + barHtml + "</td><td class='num'>" + result + "</td>";
+      tb.appendChild(tr);
+    });
+    var hero = SKUS[0], hc = contribution(hero, heroRR);
+    var hv = $("heroContrib"); hv.textContent = money(hc); hv.className = "v " + (hc >= 0 ? "good" : "bad");
+    $("heroBreak").textContent = "breakeven at " + pct(breakeven(hero)) + " returns";
+    $("leakTotal").textContent = money(-14280);
+    $("viewChip").textContent = view === "platform" ? "platform view" : "bank view";
+  }
+  $("rr").addEventListener("input", function () { $("rrOut").textContent = this.value + "%"; renderLeak(); });
+  $("viewPlatform").addEventListener("click", function () { view = "platform"; this.setAttribute("aria-pressed", "true"); $("viewBank").setAttribute("aria-pressed", "false"); renderLeak(); });
+  $("viewBank").addEventListener("click", function () { view = "bank"; this.setAttribute("aria-pressed", "true"); $("viewPlatform").setAttribute("aria-pressed", "false"); renderLeak(); });
+
+  /* ------------------------------------------------------------------ */
+  /* ACT 2 — The Signals                                                 */
+  /* ------------------------------------------------------------------ */
+  var SESSION = [
+    { t: "00:01.420", e: "content region", d: "Session baseline established across declared page regions", p: 0.18, ci: 0.14 },
+    { t: "00:03.000", e: "VDI signal", d: "Technical diagram · viewport deceleration vs the session's own baseline", p: 0.31, ci: 0.13 },
+    { t: "00:05.110", e: "tab hidden", d: "Content-free lifecycle event — nothing about where they went", p: 0.34, ci: 0.12 },
+    { t: "00:08.760", e: "return", d: "Price-region dwell, 3.2× baseline", p: 0.52, ci: 0.11 },
+    { t: "00:11.240", e: "inline expansion", d: "Spec table opened; pause on the shipping row", p: 0.61, ci: 0.10 },
+    { t: "00:14.600", e: "form_started", d: "Lifecycle only — field classes coarse and allowlisted; no keys, no text", p: 0.70, ci: 0.09 },
+    { t: "00:17.030", e: "form_abandoned", d: "High attention, no submit → hesitation head fires", p: 0.74, ci: 0.09, flag: true }
+  ];
+  var sessTimer = null;
+  function buildSession() {
+    var ul = $("sessionTl"); clear(ul);
+    SESSION.forEach(function (s, i) {
+      var li = document.createElement("li"); li.id = "s" + i; if (s.flag) li.className = "flag";
+      li.innerHTML = "<span class='t'>T+" + s.t + "</span><span class='e'>" + s.e + "</span><span class='d'>" + s.d + "</span>";
+      ul.appendChild(li);
+    });
+  }
+  function setForecast(p, ci) {
+    $("forecastVal").textContent = p.toFixed(2); $("forecastCi").textContent = ci == null ? "—" : ci.toFixed(2);
+    $("forecastBar").style.width = Math.round(p * 100) + "%";
+    var st = $("intentStages").children;
+    for (var i = 0; i < st.length; i++) st[i].classList.remove("hot");
+    if (p >= 0.65) st[2].classList.add("hot"); else if (p >= 0.4) st[1].classList.add("hot"); else if (p > 0) st[0].classList.add("hot");
+  }
+  function resetSession() {
+    clearTimeout(sessTimer); buildSession(); setForecast(0, null);
+    ["fHes", "fCre", "fTtl"].forEach(function (id) { resetCheck($(id)); });
+    $("consentBlock").hidden = true; $("playSession").disabled = false;
+  }
+  function playSession() {
+    resetSession();
+    if ($("consent").value === "analytics") { $("consentBlock").hidden = false; return; }
+    $("playSession").disabled = true;
+    var i = 0;
+    function tick() {
+      if (i >= SESSION.length) { $("playSession").disabled = false; return; }
+      var s = SESSION[i]; $("s" + i).classList.add("on"); setForecast(s.p, s.ci);
+      if (s.flag) {
+        setCheck($("fHes"), "pend", "flagged");
+        setCheck($("fCre"), "ok", "logged · not applied");
+        setCheck($("fTtl"), "ok", "session-bound");
+      }
+      i++; sessTimer = setTimeout(tick, reduced ? 0 : 650);
+    }
+    tick();
+  }
+  $("playSession").addEventListener("click", playSession);
+  $("resetSession").addEventListener("click", resetSession);
+  $("sendKeys").addEventListener("click", function () {
+    $("o1Result").innerHTML = "<div class='reject'><span class='k'>REJECTED · DISALLOWED_KEYSTROKE_DYNAMICS</span><p style='margin:6px 0 0;color:var(--ink2);font-size:.86rem'>Refused at the collector and again at ingestion. Discarded at ingest — not stored and unsurfaced. This is a permanent owner ruling (O-1), not a configuration default; no flag can flip it.</p><pre class='code'>422 Unprocessable Entity\nsignal_type: <span class='x'>keystroke_dynamics</span>  → schema: not in allowlist\nfield: card_number → sensitive field class → emits nothing</pre></div>";
+  });
+  $("sendLifecycle").addEventListener("click", function () {
+    if ($("consent").value === "analytics") {
+      $("o1Result").innerHTML = "<div class='reject'><span class='k'>REJECTED · CONSENT_SCOPE</span><p style='margin:6px 0 0;color:var(--ink2);font-size:.86rem'>Analytics-only consent carries no behavioral basis, so the lifecycle event is refused at the collector — nothing persisted, nothing scored. Widen consent in the selector to replay it.</p></div>";
+      return;
+    }
+    $("o1Result").innerHTML = "<div class='callout green' style='margin-top:12px'><span class='k'>ACCEPTED · form_started</span><p style='font-size:.95em'>Content-free lifecycle event with a coarse, allowlisted field class. Consent scope verified before persistence. Sequence id issued; buffer purges at session end.</p></div>";
+  });
+
+  /* ------------------------------------------------------------------ */
+  /* ACT 3 — The Proof                                                   */
+  /* ------------------------------------------------------------------ */
+  var CAMPS = {
+    A: { name: "Prospecting · Meta Advantage+", id: "camp_prospect_a", treated: 0.039, holdout: 0.032, ci: [0.002, 0.012], n: 4820, claimed: 1000, roas: 3.4, pass: true, caused: 610, alreadyInMarket: 0.12 },
+    B: { name: "Brand search · retargeting", id: "camp_brand_rt", treated: 0.118, holdout: 0.113, ci: [-0.004, 0.014], n: 1260, claimed: 1000, roas: 6.8, pass: false, caused: 0, alreadyInMarket: 0.71 }
+  };
+  var camp = "A", method = "qualified", registered = false;
+  function campSel(id) {
+    camp = id; registered = false;
+    $("campA").setAttribute("aria-pressed", id === "A" ? "true" : "false");
+    $("campB").setAttribute("aria-pressed", id === "B" ? "true" : "false");
+    $("regRecord").hidden = true; $("refuteBtn").disabled = true; $("proofVerdict").hidden = true;
+    ["rPlacebo", "rRandom", "rSubset", "rIdent"].forEach(function (i) { resetCheck($(i)); });
+    renderLift(); renderLedger(false);
+  }
+  $("campA").addEventListener("click", function () { campSel("A"); });
+  $("campB").addEventListener("click", function () { campSel("B"); });
+  $("mQual").addEventListener("click", function () { method = "qualified"; this.setAttribute("aria-pressed", "true"); $("mGeo").setAttribute("aria-pressed", "false"); });
+  $("mGeo").addEventListener("click", function () { method = "geo"; this.setAttribute("aria-pressed", "true"); $("mQual").setAttribute("aria-pressed", "false"); });
+  $("hold").addEventListener("input", function () { $("holdOut").textContent = this.value + "%"; });
+  $("mde").addEventListener("input", function () { $("mdeOut").textContent = (this.value / 10).toFixed(1) + " pt"; });
+  $("registerBtn").addEventListener("click", function () {
+    var c = CAMPS[camp];
+    var hold = +$("hold").value, mde = +$("mde").value / 10;
+    var power = Math.min(0.95, 0.62 + hold * 0.012 + mde * 0.03).toFixed(2);
+    $("regRecord").hidden = false;
+    $("regRecord").textContent =
+      "experiment_id : exp_" + c.id + "_" + hold + "\nmethod        : " + (method === "geo" ? "geo_holdout (matched markets, owner-configured donors)" : "qualified_holdout (pre-registered)") +
+      "\nholdout_pct   : " + hold + "%   assignment: sha256(customer_id + experiment_id) → arm" +
+      "\nestimand      : ITT lift in CVR, 1 purchase cycle, deterministic identities only" +
+      "\nmde           : " + mde.toFixed(1) + " pt   power: " + power + "   contamination check: pass" +
+      "\nregistered_at : before first impression ✓   " + (c.pass ? "" : "\nnote          : model already scored 71% of this cohort in-market at exposure");
+    registered = true; $("refuteBtn").disabled = false;
+  });
+  function renderLift() {
+    var c = CAMPS[camp], svg = $("liftChart"); clear(svg);
+    var W = 360, H = 200, L = 46, R = 16, T = 22, B = 34;
+    var max = Math.max(c.treated, c.holdout) * 1.35;
+    var y = function (v) { return T + (H - T - B) * (1 - v / max); };
+    // grid
+    [0, 0.25, 0.5, 0.75, 1].forEach(function (f) {
+      var v = max * f; svg.appendChild(el("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), "class": "grid" }));
+      svg.appendChild(el("text", { x: L - 6, y: y(v) + 4, "text-anchor": "end" }, pct(v, 1)));
+    });
+    svg.appendChild(el("line", { x1: L, x2: W - R, y1: y(0), y2: y(0), "class": "axis" }));
+    var bars = [{ l: "treated", v: c.treated, col: "var(--cyan)" }, { l: "holdout", v: c.holdout, col: "var(--ink3)" }];
+    var bw = 70, gap = 60, x0 = L + ((W - L - R) - (bw * 2 + gap)) / 2;
+    bars.forEach(function (b, i) {
+      var x = x0 + i * (bw + gap);
+      var r = el("rect", { x: x, y: y(b.v), width: bw, height: y(0) - y(b.v), fill: b.col, rx: 3 }); svg.appendChild(r);
+      // ci whisker: +/- half-width derived from CI width
+      var hw = (c.ci[1] - c.ci[0]) / 2 / 1.6;
+      svg.appendChild(el("line", { x1: x + bw / 2, x2: x + bw / 2, y1: y(b.v + hw), y2: y(b.v - hw), stroke: "var(--ink)", "stroke-width": 1.5 }));
+      svg.appendChild(el("line", { x1: x + bw / 2 - 8, x2: x + bw / 2 + 8, y1: y(b.v + hw), y2: y(b.v + hw), stroke: "var(--ink)", "stroke-width": 1.5 }));
+      svg.appendChild(el("line", { x1: x + bw / 2 - 8, x2: x + bw / 2 + 8, y1: y(b.v - hw), y2: y(b.v - hw), stroke: "var(--ink)", "stroke-width": 1.5 }));
+      svg.appendChild(el("text", { x: x + bw / 2, y: H - 14, "text-anchor": "middle", "class": "ink2" }, b.l + " · n=" + Math.round(c.n * (i === 0 ? 0.85 : 0.15)).toLocaleString()));
+      svg.appendChild(el("text", { x: x + bw / 2, y: y(b.v + hw) - 6, "text-anchor": "middle", "class": "ink" }, pct(b.v, 1)));
+    });
+    svg.appendChild(el("text", { x: L, y: 12, "class": "ink2" }, "conversion rate · " + c.name));
+    var lift = (c.treated - c.holdout) * 100;
+    $("liftVal").textContent = (lift >= 0 ? "+" : "") + lift.toFixed(1) + " pt";
+    $("liftVal").className = "v " + (c.ci[0] > 0 ? "cyan" : "amber");
+    $("liftCi").textContent = "95% CI " + (c.ci[0] * 100).toFixed(1) + " to " + (c.ci[1] * 100).toFixed(1) + " pt" + (c.ci[0] <= 0 ? " — crosses zero" : "");
+    var iroas = c.pass ? (c.roas * c.caused / c.claimed).toFixed(1) + "×" : "withheld";
+    $("roasPair").textContent = c.roas.toFixed(1) + "× → " + iroas;
+    $("roasPair").className = "v " + (c.pass ? "cyan" : "amber");
+  }
+  function renderLedger(afterRefute) {
+    var c = CAMPS[camp], svg = $("ledgerChart"); clear(svg);
+    var W = 420, x0 = 10, w = W - 20, y0 = 30, h = 34;
+    var caused = afterRefute && c.pass ? c.caused : 0, anticipated = c.claimed - caused;
+    svg.appendChild(el("text", { x: x0, y: 16, "class": "ink2" }, "platform claims " + c.claimed.toLocaleString() + " conversions"));
+    svg.appendChild(el("rect", { x: x0, y: y0, width: w, height: h, fill: "rgba(220,233,237,.08)", rx: 3 }));
+    if (caused) svg.appendChild(el("rect", { x: x0, y: y0, width: w * caused / c.claimed - 2, height: h, fill: "var(--cyan)", rx: 3 }));
+    if (!afterRefute) svg.appendChild(el("text", { x: x0 + w / 2, y: y0 + 22, "text-anchor": "middle" }, "ledger writes nothing until the estimate survives refutation"));
+    else {
+      if (caused) svg.appendChild(el("text", { x: x0 + 8, y: y0 + 22, style: "fill:#04141a;font-weight:700" }, caused + " caused"));
+      svg.appendChild(el("text", { x: x0 + w - 8, y: y0 + 22, "text-anchor": "end", "class": "ink" }, anticipated + " anticipated" + (c.pass ? "" : " · no credit")));
+    }
+    svg.appendChild(el("text", { x: x0, y: y0 + h + 22, "class": "ink2" }, afterRefute ? (c.pass ? "credit recorded · " + pct(caused / c.claimed) + " of claimed conversions were caused" : "credit withheld · CI crosses 0 · 71% already in-market") : "awaiting registered holdout + refutation"));
+    svg.appendChild(el("text", { x: x0, y: y0 + h + 40 }, "iROAS — not platform ROAS — drives DECIDE"));
+    var t = $("ledgerText");
+    if (!afterRefute) t.innerHTML = "<p class='hint'>The ledger is immutable and only ever written from a registered experiment that survived refutation. Until then this campaign has <b>no</b> causal credit — whatever the platform dashboard says.</p>";
+    else if (c.pass) t.innerHTML = "<div class='callout'><span class='k'>What changes</span><p>Platform ROAS 3.4× becomes iROAS " + (c.roas * c.caused / c.claimed).toFixed(1) + "×. That is the number budget follows. Thirty-nine percent of “conversions” were shoppers already on their way back.</p></div>";
+    else t.innerHTML = "<div class='callout veto'><span class='k'>What changes</span><p>The platform's 6.8× on brand search is mostly anticipation. Two cycles below the iROAS hurdle and this spend becomes a reallocation candidate — expect iROAS ≪ platform ROAS on brand and retargeting. That is the product working.</p></div>";
+  }
+  $("refuteBtn").addEventListener("click", function () {
+    if (!registered) return;
+    var c = CAMPS[camp];
+    var seq = [["rPlacebo", "ok", "p = 0.61"], ["rRandom", c.pass ? "ok" : "ok", c.pass ? "p = 0.48" : "p = 0.22"], ["rSubset", c.pass ? "ok" : "bad", c.pass ? "stable" : "unstable · p = 0.03"], ["rIdent", "ok", "enforced"]];
+    var i = 0;
+    ["rPlacebo", "rRandom", "rSubset", "rIdent"].forEach(function (id) { resetCheck($(id)); });
+    $("proofVerdict").hidden = true;
+    (function tick() {
+      if (i < seq.length) { setCheck($(seq[i][0]), seq[i][1], seq[i][2]); i++; setTimeout(tick, reduced ? 0 : 420); return; }
+      var v = $("proofVerdict"); v.hidden = false;
+      if (c.pass) { v.className = "verdict auth"; v.innerHTML = "<div class='v'>Estimate qualified</div><p>Lift CI excludes zero; all refutations pass. Written to the credit ledger with intervals — never a point estimate.</p>"; }
+      else { v.className = "verdict withhold"; v.innerHTML = "<div class='v'>Estimate WITHHELD</div><p>Data-subset refutation failed and the CI crosses zero. Flagged, not shipped. No credit is recorded and no budget move is recommended on it.</p>"; }
+      renderLedger(true);
+    })();
+  });
+
+  /* ------------------------------------------------------------------ */
+  /* ACT 4 — The Profit                                                  */
+  /* ------------------------------------------------------------------ */
+  var WF = [
+    { l: "Gross", v: 118400, kind: "start" },
+    { l: "Returns", v: -41440 },
+    { l: "COGS", v: -24500 },
+    { l: "Fees", v: -3434 },
+    { l: "Fulfil.", v: -9472 },
+    { l: "Ad spend", v: -28200 },
+    { l: "Contrib.", kind: "end" }
+  ];
+  function renderWaterfall() {
+    var svg = $("waterfall"); clear(svg);
+    var W = 420, H = 260, L = 54, R = 12, T = 18, B = 48;
+    var run = 0, steps = [];
+    WF.forEach(function (s) {
+      if (s.kind === "start") { steps.push({ l: s.l, a: 0, b: s.v, col: "var(--cyan)" }); run = s.v; }
+      else if (s.kind === "end") { steps.push({ l: s.l, a: 0, b: run, col: run >= 0 ? "var(--green)" : "var(--red)", end: true }); }
+      else { steps.push({ l: s.l, a: run, b: run + s.v, col: "var(--red)" }); run += s.v; }
+    });
+    var max = WF[0].v * 1.08;
+    var y = function (v) { return T + (H - T - B) * (1 - v / max); };
+    [0, 0.25, 0.5, 0.75, 1].forEach(function (f) { var v = max * f; svg.appendChild(el("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), "class": "grid" })); svg.appendChild(el("text", { x: L - 6, y: y(v) + 4, "text-anchor": "end" }, money(v, { compact: true }))); });
+    var n = steps.length, bw = (W - L - R) / n - 8;
+    steps.forEach(function (s, i) {
+      var x = L + i * ((W - L - R) / n) + 4, top = Math.min(s.a, s.b), bot = Math.max(s.a, s.b);
+      svg.appendChild(el("rect", { x: x, y: y(bot), width: bw, height: Math.max(2, y(top) - y(bot)), fill: s.col, rx: 3 }));
+      if (i < n - 1) svg.appendChild(el("line", { x1: x + bw, x2: x + bw + 8, y1: y(s.b), y2: y(s.b), stroke: "var(--ink3)", "stroke-dasharray": "2 3" }));
+      var val = s.end ? s.b : (s.b - s.a);
+      svg.appendChild(el("text", { x: x + bw / 2, y: y(bot) - 5, "text-anchor": "middle", "class": "ink" }, money(val, { compact: true })));
+      var words = s.l.split(" ");
+      words.forEach(function (wd, j) { svg.appendChild(el("text", { x: x + bw / 2, y: H - 30 + j * 12, "text-anchor": "middle" }, wd)); });
+    });
+  }
+  var DSTAR = 4047.62, SUP = [1200, 9500];
+  var PSTAR = 4200, CURV = 3000 / (5452 * 5452);
+  function cumProfit(d) { return PSTAR - CURV * (d - DSTAR) * (d - DSTAR); } // concave, peak at d*, positive across support
+  function renderDosage() {
+    var svg = $("dosage"); clear(svg);
+    var W = 520, H = 260, L = 56, R = 14, T = 18, B = 40;
+    var dmax = 11000, pmax = 5000;
+    var x = function (d) { return L + (W - L - R) * d / dmax; };
+    var y = function (p) { return T + (H - T - B) * (1 - p / pmax); };
+    [0, 0.25, 0.5, 0.75, 1].forEach(function (f) { var v = pmax * f; svg.appendChild(el("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), "class": "grid" })); svg.appendChild(el("text", { x: L - 6, y: y(v) + 4, "text-anchor": "end" }, money(v))); });
+    [2000, 4000, 6000, 8000, 10000].forEach(function (d) { svg.appendChild(el("text", { x: x(d), y: H - 20, "text-anchor": "middle" }, money(d, { compact: true }))); });
+    svg.appendChild(el("text", { x: L, y: H - 6 }, "daily spend"));
+    // support shading outside
+    svg.appendChild(el("rect", { x: L, y: T, width: x(SUP[0]) - L, height: H - T - B, fill: "rgba(220,233,237,.04)" }));
+    svg.appendChild(el("rect", { x: x(SUP[1]), y: T, width: W - R - x(SUP[1]), height: H - T - B, fill: "rgba(220,233,237,.04)" }));
+    svg.appendChild(el("text", { x: W - R, y: H - B - 20, "text-anchor": "end" }, "no estimate"));
+    svg.appendChild(el("text", { x: W - R, y: H - B - 8, "text-anchor": "end" }, "outside support"));
+    // band + line within support
+    var up = "", lo = "", ln = "";
+    for (var d = SUP[0]; d <= SUP[1]; d += 100) {
+      var p = cumProfit(d), w = 380 + Math.abs(d - DSTAR) * 0.11;
+      ln += (d === SUP[0] ? "M" : "L") + x(d).toFixed(1) + "," + y(p).toFixed(1) + " ";
+      up += (d === SUP[0] ? "M" : "L") + x(d).toFixed(1) + "," + y(p + w).toFixed(1) + " ";
+    }
+    for (var d2 = SUP[1]; d2 >= SUP[0]; d2 -= 100) { var p2 = cumProfit(d2), w2 = 260 + Math.abs(d2 - DSTAR) * 0.09; lo += "L" + x(d2).toFixed(1) + "," + y(Math.max(0, p2 - w2)).toFixed(1) + " "; }
+    svg.appendChild(el("path", { d: up + lo + "Z", fill: "rgba(63,220,242,.12)" }));
+    svg.appendChild(el("path", { d: ln, fill: "none", stroke: "var(--cyan)", "stroke-width": 2 }));
+    // d*
+    svg.appendChild(el("line", { x1: x(DSTAR), x2: x(DSTAR), y1: T, y2: H - B, stroke: "var(--cyan)", "stroke-dasharray": "3 3" }));
+    svg.appendChild(el("circle", { cx: x(DSTAR), cy: y(cumProfit(DSTAR)), r: 5, fill: "var(--cyan)", stroke: "var(--bg)", "stroke-width": 2 }));
+    svg.appendChild(el("text", { x: x(DSTAR) + 8, y: T + 14, "class": "ink" }, "d* = " + money(DSTAR)));
+    // budget marker
+    var bud = +$("budget").value;
+    svg.appendChild(el("line", { x1: x(bud), x2: x(bud), y1: T, y2: H - B, stroke: "var(--amber)", "stroke-width": 1.5 }));
+    svg.appendChild(el("text", { x: x(bud) + (bud > 9000 ? -6 : 6), y: T + 40, "text-anchor": bud > 9000 ? "end" : "start", style: "fill:var(--amber)" }, "your budget"));
+    if (bud >= SUP[0] && bud <= SUP[1]) svg.appendChild(el("circle", { cx: x(bud), cy: y(cumProfit(bud)), r: 5, fill: "var(--amber)", stroke: "var(--bg)", "stroke-width": 2 }));
+    // tiles
+    $("budgetOut").textContent = money(bud);
+    $("dstarVal").textContent = money(DSTAR); $("dstarHead").textContent = money(DSTAR);
+    $("supportRange").textContent = money(SUP[0]) + "–" + money(SUP[1]);
+    var bv = $("budgetVerdict"), bn = $("budgetNote");
+    if (bud < SUP[0] || bud > SUP[1]) { bv.textContent = "no estimate"; bv.className = "v amber"; bn.textContent = "outside observed support — the curve refuses to extrapolate"; }
+    else {
+      var loss = cumProfit(DSTAR) - cumProfit(bud);
+      if (Math.abs(bud - DSTAR) < 150) { bv.textContent = "at optimum"; bv.className = "v good"; bn.textContent = "within the interval of d*"; }
+      else if (bud > DSTAR) { bv.textContent = money(-loss) + "/day"; bv.className = "v bad"; bn.textContent = money(bud - DSTAR) + "/day is spent past the profit-maximizing point"; }
+      else { bv.textContent = money(-loss) + "/day"; bv.className = "v amber"; bn.textContent = money(DSTAR - bud) + "/day of profitable headroom is unspent"; }
+    }
+  }
+  $("budget").addEventListener("input", renderDosage);
+
+  /* ------------------------------------------------------------------ */
+  /* ACT 5 — The Restraint                                               */
+  /* ------------------------------------------------------------------ */
+  var CHECKS = [
+    { id: "consent", l: "Consent scope", d: "behavioral consent verified for every signal used" },
+    { id: "quality", l: "Data quality", d: "envelope schema-valid, provenance stamped" },
+    { id: "calib", l: "Calibration", d: "model Brier ≤ 0.20 on this decision stream" },
+    { id: "causal", l: "Causal evidence", d: "registered holdout, refutation passed" },
+    { id: "policy", l: "Policy · guardrail clamps", d: "budget ±20%, bid ±30%, 15-conversion floor" },
+    { id: "supply", l: "Supply-chain veto (F3)", d: "no spend into a declared stockout" },
+    { id: "treasury", l: "Treasury floor (F5)", d: "config-declared floor; fails closed if absent" },
+    { id: "rollback", l: "Reversibility", d: "rollback token minted before dispatch" }
+  ];
+  var ACTIONS = [
+    { id: "a1", title: "+25% budget → audience_hv", ev_usd: 6200, sub: "expected value {ev} · confidence 0.78 · n=30", fails: { policy: "Proposed budget change 25% exceeds the 20% cap." }, ev: 0.9, ver: 0.85, cls: "spend" },
+    { id: "a2", title: "+12% budget → campaign_7", ev_usd: 8400, sub: "expected value {ev} · confidence 0.86 · n=48", fails: {}, ev: 0.92, ver: 0.9, cls: "spend" },
+    { id: "a3", title: "Scale spend into SKU-DEMO-4410", sub: "hero SKU · confidence 0.91 · inventory: 0 units, restock in 11 days", fails: { supply: "declared_stockout — spend into a stockout is vetoed upstream of any adapter." }, ev: 0.95, ver: 0.92, cls: "spend" },
+    { id: "a4", title: "Retarget the hesitation segment now", sub: "high-VDI, no click · forecast 0.74 ± 0.09", fails: { causal: "No registered holdout for this cohort — activation on intent without one is forbidden." }, ev: 0.55, ver: 0.7, cls: "activation" }
+  ];
+  var floor = 80, dcpRun = 0, dcpTimer = null, lastDCP = null;
+  function actionSub(a) { return a.ev_usd ? a.sub.replace("{ev}", money(a.ev_usd)) : a.sub; }
+  function renderActionList() {
+    var box = $("actionList"); clear(box);
+    ACTIONS.forEach(function (a) {
+      var b = document.createElement("button"); b.className = "btn ghost"; b.style.justifyContent = "space-between"; b.style.textAlign = "left"; b.id = a.id;
+      b.innerHTML = "<span><b style='font-family:var(--sans);letter-spacing:0;font-size:.95rem'>" + a.title + "</b><span class='hint' style='display:block;margin:2px 0 0;font-family:var(--sans);letter-spacing:0'>" + actionSub(a) + "</span></span><span class='mono' style='font-size:.62rem;color:var(--ink3)'>run ›</span>";
+      b.addEventListener("click", function () { runDCP(a); });
+      box.appendChild(b);
+    });
+  }
+  function renderActions() {
+    renderActionList();
+    var ul = $("passport"); clear(ul);
+    CHECKS.forEach(function (c) { var li = document.createElement("li"); li.id = "pc_" + c.id; li.innerHTML = "<span class='m'>·</span><span>" + c.l + "<span class='d'>" + c.d + "</span></span><span class='r'>—</span>"; ul.appendChild(li); });
+    renderDEL(null, null);
+  }
+  function renderDEL(score, hard) {
+    var svg = $("delChart"); clear(svg);
+    var W = 300, H = 170, L = 34, R = 10, T = 14, B = 30;
+    var x = function (s) { return L + (W - L - R) * s / 100; };
+    var y = function (a) { return T + (H - T - B) * (1 - a / 20); };
+    svg.appendChild(el("line", { x1: L, x2: W - R, y1: y(0), y2: y(0), "class": "axis" }));
+    [0, 20, 40, 60, 80, 100].forEach(function (s) { svg.appendChild(el("text", { x: x(s), y: H - 12, "text-anchor": "middle" }, s)); });
+    svg.appendChild(el("text", { x: L, y: 10, "class": "ink2" }, "DEL score → authority"));
+    // shipped: step at floor
+    svg.appendChild(el("path", { d: "M" + x(0) + "," + y(0) + " L" + x(floor) + "," + y(0) + " L" + x(floor) + "," + y(20) + " L" + x(100) + "," + y(20), fill: "none", stroke: "var(--green)", "stroke-width": 2 }));
+    // proposed: clipped relu, dashed
+    svg.appendChild(el("path", { d: "M" + x(0) + "," + y(0) + " L" + x(floor) + "," + y(0) + " L" + x(100) + "," + y(20), fill: "none", stroke: "var(--purple)", "stroke-width": 1.5, "stroke-dasharray": "4 4" }));
+    svg.appendChild(el("line", { x1: x(floor), x2: x(floor), y1: T + 12, y2: y(0), stroke: "var(--ink3)", "stroke-dasharray": "2 3" }));
+    svg.appendChild(el("text", { x: x(floor), y: T + 24, "text-anchor": "middle" }, "floor " + floor.toFixed(1)));
+    if (score != null) {
+      var col = hard ? "var(--red)" : score >= floor ? "var(--green)" : "var(--red)";
+      var auth = hard ? 0 : score >= floor ? 20 : 0;
+      svg.appendChild(el("circle", { cx: x(score), cy: y(auth), r: 6, fill: col, stroke: "var(--bg)", "stroke-width": 2 }));
+      svg.appendChild(el("text", { x: x(score), y: y(auth) - 10, "text-anchor": "middle", "class": "ink" }, score.toFixed(1)));
+    }
+  }
+  function runDCP(a) {
+    var run = ++dcpRun; clearTimeout(dcpTimer); lastDCP = null;
+    var vp = "VP-" + (400 + ACTIONS.indexOf(a) * 37 + 91);
+    $("passportId").textContent = vp;
+    CHECKS.forEach(function (c) { resetCheck($("pc_" + c.id)); });
+    var i = 0, passes = 0, hardFail = null;
+    (function tick() {
+      if (run !== dcpRun) return;
+      if (i < CHECKS.length) {
+        var c = CHECKS[i]; var f = a.fails[c.id];
+        if (f) { setCheck($("pc_" + c.id), "bad", "veto"); $("pc_" + c.id).querySelector(".d").textContent = f; hardFail = hardFail || { id: c.id, l: c.l, f: f }; }
+        else { setCheck($("pc_" + c.id), "ok", "pass"); passes++; }
+        i++; dcpTimer = setTimeout(tick, reduced ? 0 : 260); return;
+      }
+      lastDCP = { a: a, passes: passes, hardFail: hardFail };
+      settleDCP(a, passes, hardFail);
+    })();
+  }
+  function settleDCP(a, passes, hardFail) {
+      var passRate = passes / CHECKS.length;
+      var score = 100 * (0.5 * passRate + 0.3 * a.ev + 0.2 * a.ver);
+      $("delVal").textContent = score.toFixed(1);
+      $("delVal").className = "v " + (hardFail ? "bad" : score >= floor ? "good" : "bad");
+      $("delSub").textContent = "floor " + floor.toFixed(1) + " · " + passes + "/" + CHECKS.length + " checks";
+      renderDEL(score, !!hardFail);
+      var v = $("dcpVerdict");
+      if (hardFail) {
+        v.className = "verdict withhold";
+        v.innerHTML = "<div class='v'>WITHHOLD</div><p><b>" + hardFail.l + ":</b> " + hardFail.f + " A DEL score never overrides a failed hard constraint — the proposal routes to a human with its reasoning and a smaller alternative, never silently dropped.</p>";
+      } else if (score < floor) {
+        v.className = "verdict withhold";
+        v.innerHTML = "<div class='v'>WITHHOLD</div><p>DEL " + score.toFixed(1) + " is below the floor of " + floor.toFixed(1) + ". Deterministic denial: no partial execution, no probabilistic leakage.</p>";
+      } else {
+        v.className = "verdict route";
+        v.innerHTML = "<div class='v'>AUTHORIZED · bounded</div><p>DEL " + score.toFixed(1) + " clears the floor and every hard constraint passes. Passport HMAC-signed. This is a spend-affecting action class at recommend-only autonomy, so it routes to the L2 approval queue — a named human, then the actuator's independent re-check, before anything moves. Rollback token already minted.</p>";
+      }
+  }
+  $("floor").addEventListener("input", function () {
+    var v = +this.value;
+    if (v < 80) { this.value = 80; v = 80; $("floorMsg").innerHTML = "<span style='color:var(--red)'>Refused.</span> The platform floor is DEL ≥ 80.0 and is not configurable downward — by the tenant, by an approver, or by us. Adaptive envelopes can only move a threshold <b>up</b> in volatile regimes."; }
+    else if (v > 80) $("floorMsg").textContent = "Raised to " + v + ". Tenants may tighten. Every decision below it now withholds — and the withhold is written to the ledger with the floor that stopped it.";
+    else $("floorMsg").textContent = "Try to drag it below 80. Tenants may raise a floor; the platform floor of DEL ≥ 80 cannot be lowered by anyone — including us.";
+    floor = v; $("floorOut").textContent = v.toFixed(1);
+    if (lastDCP) settleDCP(lastDCP.a, lastDCP.passes, lastDCP.hardFail); else renderDEL(null, null);
+  });
+  var RESTRAINT = [
+    { w: "Sep 02", p: "+25% budget → audience_hv", by: "budget_swing_cap (20%)", s: 6200 },
+    { w: "Sep 04", p: "Scale into SKU-DEMO-4410", by: "F3 declared_stockout veto", s: 11400 },
+    { w: "Sep 05", p: "Bid −35% → form_fastlane", by: "bid_swing_cap (30%)", s: 5200 },
+    { w: "Sep 06", p: "Suppress seg_lapsed_90", by: "sample_floor (12 < 15)", s: 1400 },
+    { w: "Sep 08", p: "Brand-search reallocation", by: "refutation failed · estimate withheld", s: 18900 },
+    { w: "Sep 09", p: "Retarget hesitation segment", by: "no registered holdout", s: 3300 },
+    { w: "Sep 10", p: "Geo expansion DEMO-YY", by: "F4 approval_gate · awaiting L2", s: 2500 }
+  ];
+  function renderRestraint() {
+    var tb = $("restraintTable").querySelector("tbody"); clear(tb); var tot = 0;
+    RESTRAINT.forEach(function (r) { tot += r.s; var tr = document.createElement("tr"); tr.innerHTML = "<td class='mono' style='font-size:.72rem;color:var(--ink3)'>" + r.w + "</td><td>" + r.p + "</td><td class='mono' style='font-size:.72rem;color:var(--red)'>" + r.by + "</td><td class='num'>" + money(r.s) + "</td>"; tb.appendChild(tr); });
+    var tr = document.createElement("tr"); tr.innerHTML = "<td></td><td><b>7 decisions withheld</b></td><td></td><td class='num'><b>" + money(tot) + "</b></td>"; tb.appendChild(tr);
+  }
+  $("f4Btn").addEventListener("click", function () {
+    ["g1", "g2", "g3"].forEach(function (g) { resetCheck($(g)); }); $("f4Close").hidden = true;
+    var i = 0, ids = ["g1", "g2", "g3"];
+    (function tick() { if (i < ids.length) { setCheck($(ids[i]), "bad", "HALT"); i++; setTimeout(tick, reduced ? 0 : 500); return; } $("f4Close").hidden = false; })();
+  });
+
+  /* ------------------------------------------------------------------ */
+  function renderAll() { renderLeak(); renderLift(); renderLedger(false); renderWaterfall(); renderDosage(); renderRestraint(); renderActionList(); }
+  buildSession(); setForecast(0, null); renderActions(); renderAll();
+  var start = 0; try { start = +localStorage.getItem("mizoki-exec-demo-act") || 0; } catch (e) { }
+  go(start);
+})();
+
+</script>
+
+</body>
+</html>

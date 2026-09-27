@@ -1,0 +1,23 @@
+{
+  "_comment": "Ratchet baseline for content_qa.py rule H (stat attribution, Run 1 item 1.D; lettered H because WS-4's evidence-class rule already holds G). Each entry is a pre-existing external statistic on a served/customer surface with no inline source + month/year, verified 2026-09-02 and HELD for the named owner. Keyed by (path, normalized line) so an unrelated edit does not release it; a stale row fails the scan. Only ever shrinks; never admits a new unsourced statistic.",
+  "entries": [
+    {
+      "key": "shopify.html::906b548c6500d693",
+      "path": "shopify.html",
+      "line_no": 74,
+      "excerpt": "after a real pilot writes verified numbers. Returns of 25-40% in apparel are an industry",
+      "reason": "HELD — site-visible copy (rule 10: in-session confirmation before any served change) and canon-locked marketing surface; the fix is `(Syncost, <Mon YYYY>)` inline on the §02 sentence, which needs the citation date the repo does not hold. Owner decision R-1(a) / R-5 in the Run-1 build report.",
+      "owner": "owner (site-visible)",
+      "verified": "2026-09-02"
+    },
+    {
+      "key": "docs/marketing/shopify-app-listing-copy.md::4c65a199735f3b22",
+      "path": "docs/marketing/shopify-app-listing-copy.md",
+      "line_no": 31,
+      "excerpt": "25–40% in apparel are an industry statistic, not a customer result.)",
+      "reason": "HELD — customer-facing listing copy (same sentence as shopify.html §02); marketing copy edits belong to the Wave 1 WS-1 lane / owner. Same fix: inline source + month/year.",
+      "owner": "wave1-orchestrator / WS-1 (owner)",
+      "verified": "2026-09-02"
+    }
+  ]
+}

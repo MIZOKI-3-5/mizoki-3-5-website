@@ -89,7 +89,12 @@
       {% endfor %}
     {% endwith %}
 
+    {% if rate_limited %}
+      <div class="flash error">Too many sign-in attempts. Try again in {{ retry_after }} second{{ '' if retry_after == 1 else 's' }}.</div>
+    {% endif %}
+
     <form method="POST" action="{{ url_for('admin_login_post') }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
       <label for="email">Email</label>
       <input id="email" name="email" type="email" autocomplete="username" required autofocus>
 

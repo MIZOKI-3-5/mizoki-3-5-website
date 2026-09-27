@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIZ OKI 3.5 — Stop Managing Dashboards. Start Governing Ad Growth.</title>
+<meta name="description" content="MIZ OKI 3.5 is the autonomous AI control plane for high-scale media buyers. Structured Signal Evidence in, root-cause diagnosis out, margin-safe actions executed through the 7-Stage Decision Control System.">
+<meta name="theme-color" content="#0A1418">
+<meta property="og:title" content="MIZ OKI 3.5 — Stop Managing Dashboards. Start Governing Ad Growth.">
+<meta property="og:description" content="Connect ad platforms, web stack, analytics and inventory. Catch cross-stack signals, diagnose true CPA drivers, and execute margin-safe campaign actions through one governed control system.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mizoki3.com/mizuki3">
+<meta property="og:image" content="https://mizoki3.com/og-image.png">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="/assets/img/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="canonical" href="https://mizoki3.com/mizuki3">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0A1418;        /* dossier ground */
+  --ink-2:#0E1B20;      /* raised panel */
+  --ink-3:#0C1A1F;      /* terminal well */
+  --rule:#1B2E34;       /* hairline */
+  --seam:#3FDCF2;       /* platform cyan seam */
+  --go:#41D695;         /* gate pass */
+  --veto:#FF6B7C;       /* gate fail / veto */
+  --caution:#E4A34A;    /* held / anticipated */
+  --paper:#DCE6E6;      /* body text */
+  --paper-dim:#7E9599;  /* captions */
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --serif:"Instrument Serif",Georgia,"Times New Roman",serif;
+  --sans:"DM Sans","Helvetica Neue",Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body.mzk{margin:0;background:var(--ink);color:var(--paper);font-family:var(--sans);
+  font-size:17px;line-height:1.6;letter-spacing:-.005em;
+  background-image:linear-gradient(180deg,#0C171C 0%,var(--ink) 60%)}
+.mzk .wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+.mzk a{color:inherit}
+.mzk h1,.mzk h2{font-family:var(--serif);font-weight:400;letter-spacing:-.02em;line-height:1.06;margin:0}
+.mzk h1{font-size:clamp(2.5rem,6vw,4.3rem)}
+.mzk h2{font-size:clamp(1.7rem,3.4vw,2.6rem)}
+.mzk h3{font-size:1.05rem;letter-spacing:-.01em;line-height:1.2;margin:0;font-weight:600}
+.mzk em{font-style:italic;color:var(--seam)}
+
+/* ---- filing marks: the site's dossier grammar ---- */
+.mzk .mark{font-family:var(--mono);font-size:.66rem;letter-spacing:.20em;
+  text-transform:uppercase;color:var(--paper-dim)}
+.mzk .sec-mark{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.mzk .sec-mark::after{content:"";flex:1;height:1px;background:var(--rule)}
+
+/* ---- masthead ---- */
+.mzk .strip{border-bottom:1px solid var(--rule);background:rgba(10,20,24,.92);
+  position:sticky;top:0;z-index:20;backdrop-filter:blur(9px)}
+.mzk .strip .wrap{display:flex;align-items:center;justify-content:space-between;
+  gap:18px;min-height:56px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+.mzk .brand{font-family:var(--mono);font-size:.82rem;letter-spacing:.24em;
+  text-decoration:none;font-weight:600}
+.mzk nav.primary{display:flex;gap:20px;flex-wrap:wrap}
+.mzk nav.primary a{font-family:var(--mono);font-size:.66rem;letter-spacing:.17em;
+  text-transform:uppercase;color:var(--paper-dim);text-decoration:none}
+.mzk nav.primary a:hover,.mzk nav.primary a:focus-visible{color:var(--seam)}
+
+/* ---- sections ---- */
+.mzk section{padding:86px 0;border-bottom:1px solid var(--rule)}
+.mzk .lede{font-size:1.16rem;color:var(--paper-dim);max-width:62ch;margin:22px 0 0}
+
+/* ---- hero ---- */
+.mzk .hero{padding:92px 0 72px}
+.mzk .hero h1{margin:14px 0 0;max-width:19ch}
+.mzk .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:38px}
+.mzk .btn{display:inline-block;font-family:var(--mono);font-size:.7rem;letter-spacing:.15em;
+  text-transform:uppercase;text-decoration:none;padding:14px 22px;border:1px solid var(--seam);
+  color:var(--seam);background:transparent;cursor:pointer;transition:background .18s,color .18s}
+.mzk .btn:hover,.mzk .btn:focus-visible{background:var(--seam);color:var(--ink)}
+.mzk .btn.ghost{border-color:var(--rule);color:var(--paper-dim)}
+.mzk .btn.ghost:hover,.mzk .btn.ghost:focus-visible{border-color:var(--paper-dim);
+  background:transparent;color:var(--paper)}
+.mzk .proof{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);
+  border:1px solid var(--rule);margin-top:56px}
+.mzk .proof div{background:var(--ink-2);padding:22px 24px}
+.mzk .proof .val{font-family:var(--mono);font-size:1.5rem;font-weight:600;color:var(--seam);
+  letter-spacing:-.02em}
+.mzk .proof .mark{margin-top:6px;display:block}
+.mzk .proof-foot{margin-top:14px;font-size:.85rem;color:var(--paper-dim)}
+
+/* ---- problem vs solution matrix ---- */
+.mzk .vs{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);
+  border:1px solid var(--rule);margin-top:34px}
+.mzk .vs .head{padding:14px 22px;background:var(--ink-2);font-family:var(--mono);
+  font-size:.68rem;letter-spacing:.16em;text-transform:uppercase}
+.mzk .vs .head.old{color:var(--caution)}
+.mzk .vs .head.new{color:var(--seam)}
+.mzk .vs .cell{background:var(--ink);padding:24px 22px}
+.mzk .vs .cell p{margin:8px 0 0;font-size:.94rem;color:var(--paper-dim)}
+.mzk .vs .cell .mark{letter-spacing:.14em}
+.mzk .vs .cell.old .mark{color:var(--caution)}
+.mzk .vs .cell.new .mark{color:var(--seam)}
+
+/* ---- plain-english modules ---- */
+.mzk .grid{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:34px}
+.mzk .g2{grid-template-columns:repeat(2,1fr)}
+.mzk .g4{grid-template-columns:repeat(4,1fr)}
+.mzk .gcell{background:var(--ink);padding:26px 24px}
+.mzk .gcell h3{margin-bottom:9px}
+.mzk .gcell p{margin:0;font-size:.92rem;color:var(--paper-dim)}
+
+/* ---- 7-stage accordion ---- */
+.mzk .stages{margin-top:34px;border:1px solid var(--rule)}
+.mzk details.stage{border-bottom:1px solid var(--rule);background:var(--ink)}
+.mzk details.stage:last-child{border-bottom:none}
+.mzk details.stage summary{display:flex;align-items:center;gap:18px;padding:18px 22px;
+  cursor:pointer;list-style:none}
+.mzk details.stage summary::-webkit-details-marker{display:none}
+.mzk .st-num{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;color:var(--paper-dim);
+  border:1px solid var(--rule);padding:5px 8px;flex:0 0 auto}
+.mzk details[open] .st-num{color:var(--ink);background:var(--seam);border-color:var(--seam)}
+.mzk .st-name{font-family:var(--mono);font-size:.78rem;letter-spacing:.2em;font-weight:600}
+.mzk .st-tag{font-size:.9rem;color:var(--paper-dim);margin-left:auto;text-align:right}
+.mzk details.stage .st-body{padding:0 22px 22px 74px}
+.mzk details.stage .st-body p{margin:0;font-size:.95rem;color:var(--paper-dim);max-width:70ch}
+.mzk details.stage summary:hover .st-name,.mzk details.stage summary:focus-visible .st-name{color:var(--seam)}
+.mzk details[open] .st-name{color:var(--seam)}
+
+/* ---- simulator widget ---- */
+.mzk .sim{display:flex;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  margin-top:36px;height:650px}
+.mzk .sim-controls{flex:0 0 40%;background:var(--ink-2);padding:22px;overflow-y:auto}
+.mzk .sim-monitor{flex:1;background:var(--ink-3);display:flex;flex-direction:column;min-width:0}
+.mzk .sim fieldset{border:none;margin:0 0 20px;padding:0}
+.mzk .sim legend{font-family:var(--mono);font-size:.64rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--paper-dim);padding:0;margin-bottom:10px}
+.mzk .scn{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:1px solid var(--rule);
+  margin-bottom:8px;cursor:pointer;transition:border-color .15s}
+.mzk .scn:hover{border-color:var(--paper-dim)}
+.mzk .scn input{accent-color:var(--seam);margin-top:4px}
+.mzk .scn .t{font-size:.92rem;font-weight:600}
+.mzk .scn .d{font-size:.8rem;color:var(--paper-dim)}
+.mzk .scn:has(input:checked){border-color:var(--seam);background:rgba(63,220,242,.05)}
+.mzk .dial{margin-bottom:16px}
+.mzk .dial.dim{opacity:.38}
+.mzk .dial .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.mzk .dial label{font-size:.88rem}
+.mzk .dial output{font-family:var(--mono);font-size:.82rem;color:var(--seam)}
+.mzk .dial input[type=range]{width:100%;accent-color:var(--seam);margin-top:6px;height:22px}
+.mzk .dial .unused{display:none;font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--paper-dim)}
+.mzk .dial.dim .unused{display:inline}
+.mzk .pol{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--rule);
+  margin-bottom:8px}
+.mzk .pol input{accent-color:var(--go)}
+.mzk .pol .t{font-size:.9rem}
+.mzk .pol .v{font-family:var(--mono);font-size:.78rem;color:var(--go);margin-left:auto}
+.mzk .readout{border:1px solid var(--rule);background:var(--ink);padding:14px 16px;margin-bottom:18px}
+.mzk .readout .r{display:flex;justify-content:space-between;gap:12px;padding:4px 0;
+  font-size:.86rem;color:var(--paper-dim)}
+.mzk .readout .r b{font-family:var(--mono);font-weight:600;color:var(--paper);font-size:.82rem}
+.mzk .readout .r b.warn{color:var(--caution)}
+.mzk .readout .r b.bad{color:var(--veto)}
+.mzk .readout .r b.ok{color:var(--go)}
+.mzk .run-row{display:flex;gap:10px;align-items:center}
+.mzk #mzkRun{width:100%}
+
+/* terminal */
+.mzk .term-head{display:flex;align-items:center;gap:8px;padding:12px 16px;
+  border-bottom:1px solid var(--rule);flex:0 0 auto}
+.mzk .term-head .dot{width:9px;height:9px;border-radius:50%;background:var(--rule)}
+.mzk .term-head .dot.r{background:#5a3038}.mzk .term-head .dot.y{background:#5a4a2a}
+.mzk .term-head .dot.g{background:#2a5a44}
+.mzk .term-head .ttl{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--paper-dim);margin-left:8px}
+.mzk .phases{display:flex;flex-wrap:wrap;gap:6px;padding:12px 16px;border-bottom:1px solid var(--rule);flex:0 0 auto}
+.mzk .ph{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;padding:5px 8px;
+  border:1px solid var(--rule);color:var(--paper-dim)}
+.mzk .ph.lit{border-color:var(--seam);color:var(--seam)}
+.mzk .ph.done{border-color:var(--go);color:var(--go)}
+.mzk .ph.blocked{border-color:var(--veto);color:var(--veto)}
+.mzk .log{flex:1;overflow-y:auto;padding:14px 16px;font-family:var(--mono);font-size:.76rem;
+  line-height:1.75;min-height:0}
+.mzk .log .ln{white-space:pre-wrap;word-break:break-word;color:var(--paper-dim)}
+.mzk .log .ln .ts{color:#4a6067;margin-right:8px}
+.mzk .log .ln.sys{color:var(--paper)}
+.mzk .log .ln.ok{color:var(--go)}
+.mzk .log .ln.warn{color:var(--caution)}
+.mzk .log .ln.bad{color:var(--veto)}
+.mzk .log .ln.seam{color:var(--seam)}
+.mzk .gatebar{padding:12px 16px;border-top:1px solid var(--rule);display:none;flex:0 0 auto;
+  align-items:center;gap:12px;flex-wrap:wrap}
+.mzk .gatebar.show{display:flex}
+.mzk .gatebar .tier{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--caution)}
+.mzk .gatebar .tier.auto{color:var(--go)}
+.mzk #mzkApprove{border-color:var(--go);color:var(--go)}
+.mzk #mzkApprove:hover,.mzk #mzkApprove:focus-visible{background:var(--go);color:var(--ink)}
+.mzk .ticker{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);
+  border-top:1px solid var(--rule);flex:0 0 auto}
+.mzk .ticker div{background:var(--ink-3);padding:14px 16px}
+.mzk .ticker .tv{font-family:var(--mono);font-size:1.25rem;font-weight:600;color:var(--go)}
+.mzk .ticker .tv.held{color:var(--caution)}
+.mzk .sim-foot{margin-top:14px;font-size:.85rem;color:var(--paper-dim)}
+
+/* ---- walkthrough player ---- */
+.mzk .player{border:1px solid var(--rule);background:var(--ink-2);margin-top:36px}
+.mzk .screen{position:relative;aspect-ratio:16/9;background:var(--ink-3);overflow:hidden}
+.mzk .scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:18px;opacity:0;transition:opacity .45s;padding:24px;text-align:center;
+  pointer-events:none}
+.mzk .scene.on{opacity:1;pointer-events:auto}
+.mzk .scene .k{font-family:var(--serif);font-size:clamp(1.4rem,3.4vw,2.3rem);line-height:1.1}
+.mzk .scene .art{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.mzk .chip{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;padding:6px 10px;
+  border:1px solid var(--rule);color:var(--paper-dim)}
+.mzk .chip.hot{border-color:var(--seam);color:var(--seam)}
+.mzk .chip.good{border-color:var(--go);color:var(--go)}
+.mzk .chip.hurt{border-color:var(--veto);color:var(--veto)}
+.mzk .scene .cap{font-size:.9rem;color:var(--paper-dim);max-width:52ch}
+.mzk .playbar{display:flex;align-items:center;gap:14px;padding:12px 16px;border-top:1px solid var(--rule)}
+.mzk .playbar .pbtn{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;
+  text-transform:uppercase;background:none;border:1px solid var(--seam);color:var(--seam);
+  padding:9px 14px;cursor:pointer}
+.mzk .playbar .pbtn:hover,.mzk .playbar .pbtn:focus-visible{background:var(--seam);color:var(--ink)}
+.mzk .track{flex:1;height:4px;background:var(--rule);position:relative;cursor:pointer}
+.mzk .track .fill{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--seam)}
+.mzk .track .mk{position:absolute;top:-3px;width:2px;height:10px;background:var(--paper-dim)}
+.mzk .clock{font-family:var(--mono);font-size:.72rem;color:var(--paper-dim);flex:0 0 auto}
+.mzk .chapters{display:flex;flex-wrap:wrap;gap:8px;padding:12px 16px;border-top:1px solid var(--rule)}
+.mzk .chapters button{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;background:none;
+  border:1px solid var(--rule);color:var(--paper-dim);padding:7px 10px;cursor:pointer}
+.mzk .chapters button:hover,.mzk .chapters button:focus-visible{border-color:var(--seam);color:var(--seam)}
+.mzk .chapters button.now{border-color:var(--seam);color:var(--seam)}
+.mzk .tx-head{display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:12px 16px;border-top:1px solid var(--rule)}
+.mzk #mzkTranscript{display:none;border-top:1px solid var(--rule);padding:6px 16px 18px}
+.mzk #mzkTranscript.open{display:block}
+.mzk .tx-scene{padding:12px 0;border-bottom:1px solid var(--rule)}
+.mzk .tx-scene:last-child{border-bottom:none}
+.mzk .tx-scene button{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;background:none;
+  border:none;color:var(--seam);padding:0;cursor:pointer;text-transform:uppercase}
+.mzk .tx-scene.now{background:rgba(63,220,242,.04)}
+.mzk .tx-scene p{margin:6px 0 0;font-size:.9rem;color:var(--paper-dim)}
+
+/* ---- footer ---- */
+.mzk footer{padding:56px 0 72px}
+.mzk footer .wrap{display:flex;justify-content:space-between;gap:26px;flex-wrap:wrap}
+.mzk footer a{color:var(--paper-dim);text-decoration:none;font-size:.9rem;display:block;padding:4px 0}
+.mzk footer a:hover,.mzk footer a:focus-visible{color:var(--seam)}
+
+.mzk a:focus-visible,.mzk .btn:focus-visible,.mzk button:focus-visible,
+.mzk summary:focus-visible{outline:2px solid var(--seam);outline-offset:3px}
+
+@media (max-width:980px){
+  .mzk .sim{flex-direction:column;height:auto}
+  .mzk .sim-controls{flex:none}
+  .mzk .sim-monitor{min-height:480px}
+  .mzk .log{min-height:200px;max-height:300px}
+}
+@media (max-width:820px){
+  .mzk .g2,.mzk .g4{grid-template-columns:1fr}
+  .mzk .proof{grid-template-columns:1fr}
+  .mzk .vs{grid-template-columns:1fr}
+  .mzk .vs .head.old{order:0}.mzk .vs .cell.old{order:1}
+  .mzk .vs .head.new{order:2}.mzk .vs .cell.new{order:3}
+  .mzk section{padding:62px 0}
+  .mzk .st-tag{display:none}
+  .mzk details.stage .st-body{padding-left:22px}
+}
+@media (prefers-reduced-motion:reduce){.mzk *{transition:none!important;animation:none!important}
+  html{scroll-behavior:auto}}
+</style>
+</head>
+<body class="mzk">
+
+<div class="strip">
+  <div class="wrap">
+    <a class="brand" href="/">MIZ OKI 3.5</a>
+    <nav class="primary" aria-label="Primary">
+      <a href="#stages">7 Stages</a>
+      <a href="#simulator">Simulator</a>
+      <a href="#walkthrough">Walkthrough</a>
+      <a href="/demo">Live Demos</a>
+      <a href="/pricing">Pricing</a>
+    </nav>
+  </div>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="wrap">
+    <p class="mark">MIZ OKI 3.5 — Operating Knowledge Intelligence</p>
+    <h1>Stop Managing Dashboards. <em>Start Governing Ad Growth.</em></h1>
+    <p class="lede">The first autonomous AI control plane built for high-scale media buyers. MIZ OKI connects your ad platforms, web stack, analytics, and inventory to catch cross-stack signals, diagnose true CPA drivers, and execute margin-safe campaign actions automatically.</p>
+    <div class="cta-row">
+      <a class="btn" href="#simulator">Launch Interactive Scenario Simulator ▸</a>
+      <a class="btn ghost" href="#walkthrough">Watch 90-Sec Platform Walkthrough</a>
+    </div>
+    <div class="proof">
+      <div><span class="val">$100M+</span><span class="mark">Ad Spend Analyzed</span></div>
+      <div><span class="val">Sub-100ms</span><span class="mark">Signal Latency</span></div>
+      <div><span class="val">100%</span><span class="mark">Policy Compliance</span></div>
+    </div>
+    <p class="proof-foot">Compliance is structural, not aspirational — every action clears the safety gate before it can touch a dollar, so nothing ships outside your policy envelope.</p>
+  </div>
+</section>
+
+<!-- ═══ §01 · PROBLEM VS SOLUTION ═══ -->
+<section id="why">
+  <div class="wrap">
+    <p class="mark sec-mark">§01 · The gap</p>
+    <h2>Your dashboard reports symptoms. <em>It cannot name the cause.</em></h2>
+    <p class="lede">Dashboards tell you CPA moved. They cannot tell you whether the ads broke, the landing page slowed, the hero SKU sold out, or the pixel drifted — so teams guess, and the guess spends money.</p>
+    <div class="vs">
+      <div class="head old">Dashboard symptom management</div>
+      <div class="head new">MIZ OKI 3.5 root-cause intelligence</div>
+
+      <div class="cell old">
+        <p class="mark">CPA spikes 40% overnight</p>
+        <p>Open five tabs. Blame the creative, then the audience, then the bid strategy. Pause things until the chart calms down — and never learn what actually happened.</p>
+      </div>
+      <div class="cell new">
+        <p class="mark">The cause gets named</p>
+        <p>The Cross-Stack Root Cause Engine correlates the spike with a 2.1-second landing-page slowdown deployed that morning. The ads were never the problem — and they never get paused for it.</p>
+      </div>
+
+      <div class="cell old">
+        <p class="mark">ROAS "looks fine" while a hero SKU sells out</p>
+        <p>Spend keeps buying clicks into a dead product page for days. The waste never shows up as a red number — it hides inside a blended average.</p>
+      </div>
+      <div class="cell new">
+        <p class="mark">Inventory sits next to delivery</p>
+        <p>Channel Intelligence Modules read stock levels beside ad delivery in real time, pause what cannot convert, and shift budget to in-stock winners before waste compounds.</p>
+      </div>
+
+      <div class="cell old">
+        <p class="mark">A pixel change drifts attribution</p>
+        <p>Reported numbers quietly inflate. The team scales into the mirage, and margin pays for the difference.</p>
+      </div>
+      <div class="cell new">
+        <p class="mark">Truth gets re-baselined</p>
+        <p>Every event lands as Structured Signal Evidence — one comparable record across ads, web, analytics and inventory — so decisions execute on verified lift, and every outcome is written to Compounding ROI Memory.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ §02 · PLAIN-ENGLISH MODULES ═══ -->
+<section id="modules">
+  <div class="wrap">
+    <p class="mark sec-mark">§02 · Under the hood, in plain English</p>
+    <h2>Four moving parts. <em>Zero jargon required.</em></h2>
+    <div class="grid g4">
+      <div class="gcell">
+        <h3>Structured Signal Evidence</h3>
+        <p>Every event from every system — ad platforms, web stack, analytics, inventory — normalized into one clean, comparable record. Evidence you can line up side by side, whatever stack produced it.</p>
+      </div>
+      <div class="gcell">
+        <h3>Cross-Stack Root Cause Engine</h3>
+        <p>The diagnosis layer. It tests candidate causes against each other across your whole stack and names the true driver of a metric move — with the receipts attached.</p>
+      </div>
+      <div class="gcell">
+        <h3>Channel Intelligence Modules</h3>
+        <p>Specialist operators for each surface — search, social, commerce, lifecycle — that know their channel's levers and act only inside the shared safety envelope.</p>
+      </div>
+      <div class="gcell">
+        <h3>Compounding ROI Memory</h3>
+        <p>Every decision and its measured outcome, recorded permanently. The system's judgment compounds week over week — and the record never forgets, never rewrites.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ §03 · 7-STAGE DECISION CONTROL SYSTEM ═══ -->
+<section id="stages">
+  <div class="wrap">
+    <p class="mark sec-mark">§03 · The 7-Stage Decision Control System</p>
+    <h2>One governed loop, <em>from raw signal to booked outcome.</em></h2>
+    <p class="lede">Sense, Reason, Plan, Validate, Decide, Act, Learn. Seven stages between "something moved" and "the right thing happened about it" — every one of them inspectable, every one of them governed.</p>
+    <div class="stages">
+      <details class="stage" open>
+        <summary><span class="st-num">01</span><span class="st-name">SENSE</span><span class="st-tag">24/7 Full-Stack Radar</span></summary>
+        <div class="st-body"><p>Monitors Google Ads, Meta, Shopify, and your infrastructure around the clock. Every event lands as Structured Signal Evidence — one clean, comparable record per signal — so a page-speed regression and a CPM shift can sit in the same evidence file.</p></div>
+      </details>
+      <details class="stage">
+        <summary><span class="st-num">02</span><span class="st-name">REASON</span><span class="st-tag">Root Cause AI</span></summary>
+        <div class="st-body"><p>Identifies why a metric fluctuated — a site-speed drop versus creative fatigue — by testing candidate causes against the Cross-Stack Root Cause Engine instead of eyeballing charts. The verdict names a driver, not a vibe.</p></div>
+      </details>
+      <details class="stage">
+        <summary><span class="st-num">03</span><span class="st-name">PLAN</span><span class="st-tag">Actionable Strategy</span></summary>
+        <div class="st-body"><p>Generates the concrete move: bid shifts, budget reallocations, or campaign pauses — sized, sequenced, and costed. A plan here is an executable instruction, not a slide.</p></div>
+      </details>
+      <details class="stage">
+        <summary><span class="st-num">04</span><span class="st-name">VALIDATE</span><span class="st-tag">Safety Brakes</span></summary>
+        <div class="st-body"><p>Checks every plan against budget limits, brand rules, and margin thresholds before it can touch a dollar. A plan that fails here is stopped, not softened — the veto is a first-class outcome.</p></div>
+      </details>
+      <details class="stage">
+        <summary><span class="st-num">05</span><span class="st-name">DECIDE</span><span class="st-tag">1-Click Approvals</span></summary>
+        <div class="st-body"><p>Low-risk tweaks clear automatically inside your policy envelope. Anything bigger routes to Slack or Teams for a one-click human decision — with the evidence and the projected outcome attached.</p></div>
+      </details>
+      <details class="stage">
+        <summary><span class="st-num">06</span><span class="st-name">ACT</span><span class="st-tag">Hands-Free Execution</span></summary>
+        <div class="st-body"><p>Pushes approved changes directly through the ad-platform APIs. No tab-switching, no copy-paste, no 2 a.m. bid babysitting — and every dispatch is logged with what it changed.</p></div>
+      </details>
+      <details class="stage">
+        <summary><span class="st-num">07</span><span class="st-name">LEARN</span><span class="st-tag">Compounding ROI Memory</span></summary>
+        <div class="st-body"><p>Records what each action actually did, so the next decision starts smarter than the last. Outcomes feed back into diagnosis and planning — the system's judgment compounds, and the ledger never forgets.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ §04 · SCENARIO SIMULATOR ═══ -->
+<section id="simulator">
+  <div class="wrap">
+    <p class="mark sec-mark">§04 · Decision Control Simulator</p>
+    <h2>Run a governed decision <em>yourself.</em></h2>
+    <p class="lede">Pick a failure every media buyer knows. Drag the dials. Watch the control system catch it, name the cause, propose the fix, brake-check it against your policies — then wait for your approval before a simulated dollar moves.</p>
+
+    <div class="sim" id="mzkSim">
+      <div class="sim-controls">
+        <fieldset>
+          <legend>Scenario</legend>
+          <label class="scn"><input type="radio" name="mzkScenario" value="latency" checked>
+            <span><span class="t">Landing Page Latency Spike</span><br>
+            <span class="d">A deploy slows the money page. Conversion decays while spend keeps flowing.</span></span></label>
+          <label class="scn"><input type="radio" name="mzkScenario" value="inventory">
+            <span><span class="t">SKU Out-of-Stock</span><br>
+            <span class="d">The hero product runs dry while its ad sets keep buying clicks.</span></span></label>
+          <label class="scn"><input type="radio" name="mzkScenario" value="pixel">
+            <span><span class="t">Pixel Attribution Drift</span><br>
+            <span class="d">Reported ROAS inflates after a tag change. The scale-up would buy a mirage.</span></span></label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Parameters</legend>
+          <div class="dial" id="mzkDialLat">
+            <div class="row"><label for="mzkLat">Page latency <span class="unused">· not used in this scenario</span></label>
+              <output id="mzkLatOut" for="mzkLat">3.2s</output></div>
+            <input type="range" id="mzkLat" min="0.5" max="6.0" step="0.1" value="3.2"
+              aria-label="Page latency in seconds, 0.5 to 6.0">
+          </div>
+          <div class="dial" id="mzkDialInv">
+            <div class="row"><label for="mzkInv">Inventory units <span class="unused">· not used in this scenario</span></label>
+              <output id="mzkInvOut" for="mzkInv">120</output></div>
+            <input type="range" id="mzkInv" min="0" max="1000" step="10" value="120"
+              aria-label="Inventory units, 0 to 1000">
+          </div>
+          <div class="dial" id="mzkDialBud">
+            <div class="row"><label for="mzkBud">Daily budget</label>
+              <output id="mzkBudOut" for="mzkBud">$8,000</output></div>
+            <input type="range" id="mzkBud" min="1000" max="20000" step="250" value="8000"
+              aria-label="Daily budget in dollars, 1,000 to 20,000">
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Safety policies</legend>
+          <label class="pol"><input type="checkbox" id="mzkFloor" checked>
+            <span class="t">Target ROAS Floor</span><span class="v">2.2×</span></label>
+          <label class="pol"><input type="checkbox" id="mzkCap" checked>
+            <span class="t">Max Auto-Shift</span><span class="v">$5,000</span></label>
+        </fieldset>
+
+        <div class="readout" aria-live="polite">
+          <div class="r"><span>At-risk spend / day</span><b id="mzkRoRisk">—</b></div>
+          <div class="r"><span id="mzkRoTruthLabel">Effective ROAS</span><b id="mzkRoTruth">—</b></div>
+          <div class="r"><span>Proposed action</span><b id="mzkRoAction">—</b></div>
+          <div class="r"><span>Decision tier</span><b id="mzkRoTier">—</b></div>
+        </div>
+
+        <div class="run-row">
+          <button class="btn" id="mzkRun" type="button">Run the decision ▸</button>
+        </div>
+      </div>
+
+      <div class="sim-monitor">
+        <div class="term-head">
+          <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+          <span class="ttl">decision-monitor — live run</span>
+        </div>
+        <div class="phases" id="mzkPhases" aria-hidden="true">
+          <span class="ph" data-ph="sense">SENSE</span>
+          <span class="ph" data-ph="reason">REASON</span>
+          <span class="ph" data-ph="plan">PLAN</span>
+          <span class="ph" data-ph="validate">VALIDATE</span>
+          <span class="ph" data-ph="decide">DECIDE</span>
+          <span class="ph" data-ph="act">ACT</span>
+          <span class="ph" data-ph="learn">LEARN</span>
+        </div>
+        <div class="log" id="mzkLog" role="log" aria-live="polite" aria-label="Decision run log">
+          <div class="ln"><span class="ts">idle</span>awaiting run — choose a scenario, set the dials, press Run.</div>
+        </div>
+        <div class="gatebar" id="mzkGate">
+          <span class="tier" id="mzkTier">routed for approval</span>
+          <button class="btn" id="mzkApprove" type="button">Approve Strategy ▸</button>
+        </div>
+        <div class="ticker">
+          <div><span class="mark">Wasted Spend Prevented / day</span><br><span class="tv" id="mzkPrevented">$0</span></div>
+          <div><span class="mark">ROAS Preserved</span><br><span class="tv" id="mzkRoasKept">—</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="sim-foot mark">Interactive simulation · deterministic model · illustrative figures — not customer data. Same run inputs, same result, every time.</p>
+  </div>
+</section>
+
+<!-- ═══ §05 · 90-SECOND WALKTHROUGH ═══ -->
+<section id="walkthrough">
+  <div class="wrap">
+    <p class="mark sec-mark">§05 · Platform walkthrough</p>
+    <h2>Ninety seconds, <em>start to finish.</em></h2>
+    <p class="lede">The whole story — from dashboard chaos to governed, compounding decisions — as a guided storyboard with a full transcript. Prefer a hands-on tour? The <a href="/walkthrough" style="color:var(--seam)">guided walkthrough</a> and the <a href="/demo" style="color:var(--seam)">live desks</a> run on the production runtime.</p>
+
+    <div class="player" id="mzkPlayer" data-duration="90">
+      <div class="screen" id="mzkScreen">
+        <div class="scene on" data-t="0">
+          <p class="mark">0:00 · Scene 1</p>
+          <p class="k">The Media Buyer's Dilemma</p>
+          <div class="art">
+            <span class="chip hurt">CPA +40%</span><span class="chip">DASH 1</span>
+            <span class="chip">DASH 2</span><span class="chip">DASH 3</span><span class="chip hurt">?</span>
+          </div>
+          <p class="cap">Five dashboards, one question nobody can answer: why did it move?</p>
+        </div>
+        <div class="scene" data-t="15">
+          <p class="mark">0:15 · Scene 2</p>
+          <p class="k">What Are Real Signals?</p>
+          <div class="art">
+            <span class="chip">ADS</span><span class="chip">WEB VITALS</span>
+            <span class="chip">INVENTORY</span><span class="chip">ANALYTICS</span>
+            <span class="chip hot">→ STRUCTURED SIGNAL EVIDENCE</span>
+          </div>
+          <p class="cap">Every stack speaks its own dialect. Evidence lands in one language.</p>
+        </div>
+        <div class="scene" data-t="35">
+          <p class="mark">0:35 · Scene 3</p>
+          <p class="k">Causal Reasoning in Action</p>
+          <div class="art">
+            <span class="chip">CREATIVE FATIGUE ✕</span><span class="chip">AUDIENCE ✕</span>
+            <span class="chip hot">PAGE LATENCY ✓ named driver</span>
+          </div>
+          <p class="cap">Candidate causes are tested against each other — the verdict comes with receipts.</p>
+        </div>
+        <div class="scene" data-t="55">
+          <p class="mark">0:55 · Scene 4</p>
+          <p class="k">Governed Action &amp; 1-Click Approvals</p>
+          <div class="art">
+            <span class="chip good">BUDGET LIMIT ✓</span><span class="chip good">BRAND RULES ✓</span>
+            <span class="chip good">MARGIN FLOOR ✓</span><span class="chip hot">APPROVE ▸</span>
+          </div>
+          <p class="cap">Safety Brakes first. Low-risk moves clear automatically; big moves wait for your click.</p>
+        </div>
+        <div class="scene" data-t="75">
+          <p class="mark">1:15 · Scene 5</p>
+          <p class="k">Compounding ROI Memory</p>
+          <div class="art">
+            <span class="chip good">OUTCOME RECORDED</span><span class="chip good">NEXT DECISION SMARTER</span>
+            <span class="chip hot">MEMORY COMPOUNDS</span>
+          </div>
+          <p class="cap">Every result is written down. The system never starts from zero again.</p>
+        </div>
+      </div>
+      <div class="playbar">
+        <button class="pbtn" id="mzkPlay" type="button" aria-label="Play the 90 second walkthrough">▶ Play</button>
+        <div class="track" id="mzkTrack" role="slider" aria-label="Walkthrough position" tabindex="0"
+          aria-valuemin="0" aria-valuemax="90" aria-valuenow="0">
+          <div class="fill" id="mzkFill"></div>
+          <span class="mk" style="left:16.6%"></span><span class="mk" style="left:38.8%"></span>
+          <span class="mk" style="left:61.1%"></span><span class="mk" style="left:83.3%"></span>
+        </div>
+        <span class="clock" id="mzkClock">0:00 / 1:30</span>
+      </div>
+      <div class="chapters" id="mzkChips" aria-label="Scene navigation">
+        <button type="button" data-seek="0" class="now">0:00 · The Media Buyer's Dilemma</button>
+        <button type="button" data-seek="15">0:15 · What Are Real Signals?</button>
+        <button type="button" data-seek="35">0:35 · Causal Reasoning in Action</button>
+        <button type="button" data-seek="55">0:55 · Governed Action &amp; 1-Click Approvals</button>
+        <button type="button" data-seek="75">1:15 · Compounding ROI Memory</button>
+      </div>
+      <div class="tx-head">
+        <span class="mark">Full transcript</span>
+        <button class="pbtn" id="mzkTx" type="button" aria-expanded="false" aria-controls="mzkTranscript">Open transcript</button>
+      </div>
+      <div id="mzkTranscript">
+        <div class="tx-scene" data-t="0">
+          <button type="button" data-seek="0">0:00 — The Media Buyer's Dilemma</button>
+          <p>"It's 8 a.m. and CPA is up forty percent. You have five dashboards, three theories, and zero proof. Every hour you spend guessing, the budget keeps spending too. This is symptom management — and it is how most ad accounts are actually run."</p>
+        </div>
+        <div class="tx-scene" data-t="15">
+          <button type="button" data-seek="15">0:15 — What Are Real Signals?</button>
+          <p>"MIZ OKI listens to all of it at once — ad platforms, page speed, inventory, analytics. Every event is captured as Structured Signal Evidence: one clean, comparable record, whatever system it came from. Sub-100ms from event to evidence."</p>
+        </div>
+        <div class="tx-scene" data-t="35">
+          <button type="button" data-seek="35">0:35 — Causal Reasoning in Action</button>
+          <p>"Then the Cross-Stack Root Cause Engine goes to work. Creative fatigue? Tested. Audience saturation? Tested. The 2.1-second landing-page slowdown that shipped at 9:14? That one holds. The verdict names the true driver — with the evidence attached."</p>
+        </div>
+        <div class="tx-scene" data-t="55">
+          <button type="button" data-seek="55">0:55 — Governed Action &amp; 1-Click Approvals</button>
+          <p>"A plan is only a plan until it clears the Safety Brakes: budget limits, brand rules, margin thresholds. Low-risk moves execute automatically inside your policy envelope. Bigger moves arrive in Slack with the evidence and one button. You stay the decider — without doing the digging."</p>
+        </div>
+        <div class="tx-scene" data-t="75">
+          <button type="button" data-seek="75">1:15 — Compounding ROI Memory</button>
+          <p>"And every outcome — what was done, what it changed — is written to Compounding ROI Memory. The next decision starts smarter than the last. That's the difference between running ads and governing ad growth. MIZ OKI 3.5 — stop managing dashboards."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ §06 · CLOSE ═══ -->
+<section id="next">
+  <div class="wrap">
+    <p class="mark sec-mark">§06 · Next step</p>
+    <h2>See it run on the <em>live runtime.</em></h2>
+    <p class="lede">The simulator above is a deterministic model. The six demo desks run the production decision engines — raw events in, governed decisions out, including the vetoes most demos hide. No signup, no sales call.</p>
+    <div class="cta-row">
+      <a class="btn" href="/demo">Open the live desks ▸</a>
+      <a class="btn ghost" href="/contact?source=mizuki3-landing">Talk to the team</a>
+      <a class="btn ghost" href="/executive-briefing/">Executive briefing · ~9 min</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <p class="mark">MIZ OKI 3.5 · Operating Knowledge Intelligence</p>
+      <p style="max-width:36ch;color:var(--paper-dim);font-size:.9rem;margin:10px 0 0">
+        One governed control system for ad growth: evidence in, root cause named, margin-safe action out, memory compounding.</p>
+    </div>
+    <div>
+      <p class="mark">Domains</p>
+      <a href="/signal">Signal</a><a href="/counsel">Counsel</a>
+      <a href="/capital">Capital</a><a href="/risk">Risk</a><a href="/estate">Estate</a>
+    </div>
+    <div>
+      <p class="mark">Platform</p>
+      <a href="/demo">Live demo</a><a href="/walkthrough">Guided walkthrough</a>
+      <a href="/executive-briefing/">Executive briefing</a><a href="/pricing">Pricing</a>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:34px;padding-top:20px;border-top:1px solid var(--rule)">
+    <p class="mark">© 2026 MIZOKI3 · MediaIntelligence.ai · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p>
+  </div>
+</footer>
+
+<script src="/assets/js/mizuki3-simulator.js?v=20260824" defer></script>
+</body>
+</html>

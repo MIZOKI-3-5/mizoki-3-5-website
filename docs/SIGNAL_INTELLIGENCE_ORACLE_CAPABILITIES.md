@@ -8,6 +8,26 @@ never "mind-reading"; calibrated probabilities, never certainties; targets are
 labeled design targets, never guaranteed; no audio ever; consent-first.
 -->
 
+<!--
+CORRECTION 2026-08-11 (owner cell-registry ruling; INTEGRATION PROMPT v2.3 F7):
+the original mapping "Cell 28 = Intent Scoring API, Cell 34 = intent graph,
+Cell 35 = Incrementality & Causal Credit" was IN ERROR. Corrected throughout to
+the measured service bindings: Cell 33 = intent-signal-ingest, Cell 34 =
+intent-scoring-api, Cell 35 = intent-graph, Cell 36 = intent-causal;
+Cell 37 = Data Injector & External Intelligence Gateway (market-signal-ingest).
+Cell 28 remains a legacy production cell (A/B Testing), not an intent cell.
+Number authority: docs/architecture/CELL_REGISTRY.md in MIZOKICloudRun.
+Backend references (Neo4j / TigerGraph) predate the 2026-08-09 Neo4j
+retirement (KG backend is Firestore) and are left for the repo-wide
+compliance sweep. External copy references services by NAME, never number.
+
+CORRECTION 2026-09-02 (cell count): the "37-cell" compute line below reflects
+the 2026-08-11 count. The owner's 2026-08-16 ruling added Cells 38–39 (CRE
+Prospecting), so the registered fleet is 39 cells (32 production + 4 LII +
+Cell 37 gateway + Cells 38–39). Body left as supplied; CELL_REGISTRY.md v1.1
+remains the number authority.
+-->
+
 # MIZ OKI 3.5 — Signal Intelligence Division
 
 ## Marketing Capabilities Documentation
@@ -34,7 +54,7 @@ labeled design targets, never guaranteed; no audio ever; consent-first.
 
 Signal Intelligence runs on the same production architecture as the rest of MIZ OKI 3.5:
 
-- **Compute:** 32-cell FastAPI microservices platform on **Google Cloud Run** (region `us-central1`), each cell independently deployable and scalable.
+- **Compute:** 37-cell FastAPI microservices platform (32 production cells + LII Cells 33–36 + Cell 37 — number authority: MIZOKICloudRun docs/architecture/CELL_REGISTRY.md) on **Google Cloud Run** (region `us-central1`), each cell independently deployable and scalable.
 - **Data:** a unified **BigQuery** dataset as the analytical backbone; **Firestore** for operational evidence; **Neo4j / TigerGraph** knowledge graphs for the temporal-causal and intent graphs.
 - **ML:** **BigQuery ML → Vertex AI Vector Search** for embeddings and approximate-nearest-neighbor retrieval.
 - **Frontend:** **React / TypeScript / MUI** with **D3 and Cytoscape** for graph and journey visualization.
@@ -50,9 +70,9 @@ Signal Intelligence runs on the same production architecture as the rest of MIZ 
   - **Cell 3-1** — knowledge-graph visualization bridge.
 - **The ORACLE / LII cells (newly incorporated flagship):**
   - **Cell 33** — micro-signal ingestion with a hard consent gate.
-  - **Cell 28** — Intent Scoring API.
-  - **Cell 34** — Neo4j intent graph.
-  - **Cell 35** — Incrementality & Causal Credit.
+  - **Cell 34** — Intent Scoring API.
+  - **Cell 35** — Neo4j intent graph.
+  - **Cell 36** — Incrementality & Causal Credit.
 - **Boss agent:** an AI assistant with MCP tools (Gmail, Google Calendar, Google Drive, Chrome automation, scheduled tasks) that can query intent, run experiments, and prepare approval packages on the marketer’s behalf.
 
 > **Note on ground truth:** The division inherits MIZ OKI 3.5’s core constructs from the master positioning document — the Canonical Event Envelope, the Temporal-Causal Knowledge Base, Domain Intelligence Cells, the Decision Control Plane, and the Immutable Learning Ledger. Signal Intelligence is an application of that operating system to the marketing signal problem, not a separate stack.
@@ -78,7 +98,7 @@ Every signal — regardless of source — becomes a **Canonical Event** with ten
 
 ### 3.3 Identity resolution — deterministic-first, household graph
 
-Signal Intelligence resolves signals to people and households using a **deterministic-first** strategy (exact matches on authenticated identifiers such as email or login), then extends reach with **probabilistic** matching (statistical inference from device, IP, and behavioral signals) only where governance permits. This mirrors best-in-class CDP practice: as CDP.com’s identity-graph glossary puts it, “Deterministic matching…offers near-100% accuracy but limited reach, since it requires an authenticated event to create a link. Probabilistic matching uses statistical models to infer connections based on signals like IP address, device characteristics, location, and behavioral patterns.” Cell 34’s intent graph explicitly labels each household link as **deterministic vs. probabilistic**, so a marketer always knows the confidence behind a “household” rollup.
+Signal Intelligence resolves signals to people and households using a **deterministic-first** strategy (exact matches on authenticated identifiers such as email or login), then extends reach with **probabilistic** matching (statistical inference from device, IP, and behavioral signals) only where governance permits. This mirrors best-in-class CDP practice: as CDP.com’s identity-graph glossary puts it, “Deterministic matching…offers near-100% accuracy but limited reach, since it requires an authenticated event to create a link. Probabilistic matching uses statistical models to infer connections based on signals like IP address, device characteristics, location, and behavioral patterns.” Cell 35’s intent graph explicitly labels each household link as **deterministic vs. probabilistic**, so a marketer always knows the confidence behind a “household” rollup.
 
 ### 3.4 Consent-first architecture
 
@@ -90,13 +110,13 @@ Micro-signal ingestion (Cell 33) sits behind a **hard consent gate**: no consent
 
 ### 4.1 CAC-reduction levers
 
-1. **Stop paying for anticipated conversions.** ORACLE’s causal credit ledger (Cell 35) separates conversions marketing *caused* from those it merely *anticipated*. Spend that only “claims credit” for organic demand is the first budget to cut — directly lowering CAC without lowering volume.
+1. **Stop paying for anticipated conversions.** ORACLE’s causal credit ledger (Cell 36) separates conversions marketing *caused* from those it merely *anticipated*. Spend that only “claims credit” for organic demand is the first budget to cut — directly lowering CAC without lowering volume.
 1. **Reallocate to proven-incremental channels.** Budget planning (Decide Cells 13–18) shifts spend toward channels and campaigns with the highest *incremental* ROAS (iROAS), not the highest platform-reported ROAS.
 1. **Target in-market people/accounts earlier.** Intent-stage scoring lets you concentrate acquisition spend on “in-market” and “purchase-imminent” segments instead of spraying awareness budget across cold audiences.
 
 ### 4.2 Attribution — multi-touch *and* causal
 
-Signal Intelligence runs multi-touch attribution (Reason Cells 6–12) to map path-to-conversion across channels, then **calibrates it against causal experiments** (Cells 26–27, 35). This is the emerging industry consensus — the “trifecta” of MTA + MMM + incrementality — where incrementality acts as the causal “calibration layer.” The incrementality vendor Measured (measured.com) frames controlled experiments as the gold standard that calibrates correlational attribution, noting that “iROAS is typically lower than platform-reported ROAS because it isolates true causal impact.” Northbeam similarly positions its 2026 incrementality launch as completing “the trifecta of digital attribution,” with incrementality as the “calibration layer between the mainstays of MTA and MMM.”
+Signal Intelligence runs multi-touch attribution (Reason Cells 6–12) to map path-to-conversion across channels, then **calibrates it against causal experiments** (Cells 26–27, 36). This is the emerging industry consensus — the “trifecta” of MTA + MMM + incrementality — where incrementality acts as the causal “calibration layer.” The incrementality vendor Measured (measured.com) frames controlled experiments as the gold standard that calibrates correlational attribution, noting that “iROAS is typically lower than platform-reported ROAS because it isolates true causal impact.” Northbeam similarly positions its 2026 incrementality launch as completing “the trifecta of digital attribution,” with incrementality as the “calibration layer between the mainstays of MTA and MMM.”
 
 ### 4.3 Budget reallocation from anticipated-vs-caused insight
 
@@ -116,7 +136,7 @@ Intent-stage classification (awareness / consideration / in-market / purchase-im
 
 ### 5.1 Journey mapping in the knowledge graph
 
-Cell 34’s Neo4j **intent graph** models the journey as a living graph of **Customer / Household / Topic / Product / Campaign** nodes connected by **SHOWED_INTEREST** edges (a person/household showed interest in a topic/product) and **PRECEDES** co-occurrence edges (interest in X tends to precede interest in Y). Rendered in the Command Center with D3/Cytoscape, this replaces the flat “funnel” with an honest map of how interest actually propagates.
+Cell 35’s Neo4j **intent graph** models the journey as a living graph of **Customer / Household / Topic / Product / Campaign** nodes connected by **SHOWED_INTEREST** edges (a person/household showed interest in a topic/product) and **PRECEDES** co-occurrence edges (interest in X tends to precede interest in Y). Rendered in the Command Center with D3/Cytoscape, this replaces the flat “funnel” with an honest map of how interest actually propagates.
 
 ### 5.2 Journey timelines with predicted-next-interest overlays
 
@@ -147,9 +167,9 @@ ORACLE infers *latent* intent — intent that hasn’t yet expressed itself as a
 - **Two-tower embeddings** (a customer/query tower and a topic-product/candidate tower) learned in BigQuery ML, retrieving candidate interests via approximate-nearest-neighbor search in Vertex AI Vector Search — the “candidate generation” step that reduces a huge catalog of possible interests to a manageable shortlist in milliseconds.
 - **Sequence models** that read the ordered micro-signal stream to rank and time predictions — the “ranking” step.
 
-### 6.2 The Intent Scoring API (Cell 28)
+### 6.2 The Intent Scoring API (Cell 34)
 
-Cell 28 serves, at sub-100ms latency:
+Cell 34 serves, at sub-100ms latency:
 
 - **Intent vectors** (the dense embedding of a customer’s current intent state).
 - **Predicted next interests** with **calibrated probabilities**.
@@ -168,7 +188,7 @@ Where the signal base supports it, the same architecture infers churn risk and e
 
 ### 6.5 KG-based predictions
 
-The intent graph (Cell 34) powers predictions that pure embeddings cannot:
+The intent graph (Cell 35) powers predictions that pure embeddings cannot:
 
 - **PRECEDES co-occurrence edges** enable “customers who showed interest in X next showed interest in Y” reasoning.
 - **Explanation paths** give every prediction a human-readable trace through nodes and edges — the antidote to the “black box” complaint.
@@ -184,7 +204,7 @@ Consistent with MIZ OKI governance, ORACLE ships in **observe-only** mode by def
 
 -----
 
-## 7. Causal Measurement & Incrementality (Cells 26–27, 35)
+## 7. Causal Measurement & Incrementality (Cells 26–27, 36)
 
 This is the “proof” half of “crystal ball plus proof,” and the reason Signal Intelligence beats last-click, platform self-attribution, and correlation-only intent vendors.
 
@@ -207,7 +227,7 @@ Every causal estimate is **stress-tested** with DoWhy refuters before it is trus
 
 ### 7.4 The caused-vs-anticipated credit ledger
 
-Cell 35 maintains a **causal credit ledger** that classifies each conversion as **caused** (marketing produced net-new outcome, proven by experiment) or **anticipated** (ORACLE predicted the customer would convert anyway), each with a **confidence interval**. This is the artifact that turns intent prediction from a liability (“you’re just taking credit for demand that already existed”) into an asset (“here is exactly what we caused, and here is what we would have gotten for free”).
+Cell 36 maintains a **causal credit ledger** that classifies each conversion as **caused** (marketing produced net-new outcome, proven by experiment) or **anticipated** (ORACLE predicted the customer would convert anyway), each with a **confidence interval**. This is the artifact that turns intent prediction from a liability (“you’re just taking credit for demand that already existed”) into an asset (“here is exactly what we caused, and here is what we would have gotten for free”).
 
 ### 7.5 Why this beats the alternatives
 
@@ -227,7 +247,7 @@ Cell 35 maintains a **causal credit ledger** that classifies each conversion as 
 
 ### 8.2 API, SDK, and real-time feeds
 
-- **Intent Signal API** (Cell 28) for synchronous scoring.
+- **Intent Signal API** (Cell 34) for synchronous scoring.
 - **Python SDK** for data scientists and analysts.
 - **Pub/Sub real-time feed** for event-driven activation.
 - **SSE dashboards** for live streaming to the UI.
@@ -290,7 +310,7 @@ Each playbook ties to the 40% CAC / 35% ROAS / 67% ROI targets (labeled per clai
 The “regions” requirement maps to **geographic and segment-level intent aggregation** plus **geo-experimentation**:
 
 - **Geo/segment intent heatmaps.** Because intent is scored per person/household and rolled up through the intent graph, Signal Intelligence can aggregate calibrated intent by region, DMA, or segment — a heatmap of “where is in-market demand concentrating right now.”
-- **Geo experimentation.** The same regional structure powers geo holdouts (Cell 35): the platform identifies statistically representative test markets and matched control markets, runs the treatment, and compares aggregate conversion behavior — the rigorous way to measure channels that can’t be held out at the user level. (This is the same method Wayfair documents for measuring incrementality across ~210 DMAs while holding out only a small, precisely-matched share of market.)
+- **Geo experimentation.** The same regional structure powers geo holdouts (Cell 36): the platform identifies statistically representative test markets and matched control markets, runs the treatment, and compares aggregate conversion behavior — the rigorous way to measure channels that can’t be held out at the user level. (This is the same method Wayfair documents for measuring incrementality across ~210 DMAs while holding out only a small, precisely-matched share of market.)
 - **Segment-level uplift.** X-Learner/DR-Learner estimate heterogeneous effects, so lift can be read per segment/region — revealing where a channel is genuinely incremental versus where it is wasted.
 
 -----
@@ -332,9 +352,9 @@ The “regions” requirement maps to **geographic and segment-level intent aggr
 
 **Stage 1 — Sense & See (Weeks 0–6).** Stand up Cells 1–5 + Cell 33 ingestion for your two highest-spend channels (typically Google Ads and one programmatic/CTV source) plus ESP and CRM. Turn on deterministic-first identity resolution and the consent gate. **Benchmark to advance:** ≥ 80% attribution/identity coverage and a populated intent graph. *Ship ORACLE in observe-only.*
 
-**Stage 2 — Score & Explain (Weeks 6–12).** Enable Cell 28 intent scoring and the Command Center Intent Scores Grid + Predicted Journey Timeline for one marketing function (recommend Demand Gen or Lifecycle). **Benchmark to advance / promote a model past observe-only:** **Brier ≤ 0.20, AUC ≥ 0.72, stable lift across ≥ 2 purchase cycles.** If a model fails these, keep it advisory and retrain.
+**Stage 2 — Score & Explain (Weeks 6–12).** Enable Cell 34 intent scoring and the Command Center Intent Scores Grid + Predicted Journey Timeline for one marketing function (recommend Demand Gen or Lifecycle). **Benchmark to advance / promote a model past observe-only:** **Brier ≤ 0.20, AUC ≥ 0.72, stable lift across ≥ 2 purchase cycles.** If a model fails these, keep it advisory and retrain.
 
-**Stage 3 — Prove (Weeks 8–16, overlapping).** Launch Cell 35 incrementality with a ghost-bid or geo holdout on your single most-questioned channel (usually branded search or retargeting). Require DoWhy refutation to pass before any estimate informs budget. **Benchmark to reallocate budget:** a refutation-passing iROAS with a confidence interval that excludes your target hurdle rate.
+**Stage 3 — Prove (Weeks 8–16, overlapping).** Launch Cell 36 incrementality with a ghost-bid or geo holdout on your single most-questioned channel (usually branded search or retargeting). Require DoWhy refutation to pass before any estimate informs budget. **Benchmark to reallocate budget:** a refutation-passing iROAS with a confidence interval that excludes your target hurdle rate.
 
 **Stage 4 — Act & Compound (Quarter 2+).** Move budget on the caused-vs-anticipated ledger; wire Pub/Sub + Boss-agent MCP workflows for in-market alerting; expand predictive audiences from proven-incremental seeds. **Benchmarks that change the plan:** if measured iROAS on a reallocated channel drops below hurdle for two cycles, revert; if a promoted model’s Brier degrades above 0.20, demote to observe-only.
 

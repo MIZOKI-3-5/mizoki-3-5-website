@@ -137,7 +137,7 @@ Goal: reduce CPA while keeping delivery stable.
 
 ## 6) How to use a Knowledge Graph + “bias agents” to do this autonomously
 
-If you’re building automation (or using an autonomous platform like **MIZ OKI 3.0™**), the goal is simple:
+If you’re building automation (or using an autonomous platform like **MIZ OKI 3.5™**), the goal is simple:
 
 **Encode the causal playbook, then bias execution toward fast activation.**
 

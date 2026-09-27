@@ -194,9 +194,17 @@
 
         .metrics-section h2 {
             font-size: 2rem;
-            margin-bottom: 40px;
+            margin-bottom: 16px;
             text-transform: uppercase;
             letter-spacing: 2px;
+        }
+
+        .metrics-note {
+            max-width: 720px;
+            margin: 0 auto 40px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            opacity: 0.75;
         }
 
         .metrics-grid {
@@ -310,8 +318,8 @@
 
         <div class="features-grid">
             <div class="feature-card">
-                <h3>Decision Control Plane</h3>
-                <p>Centralized authority that authorizes all autonomous agent proposals. Agents propose, but the DCP authorizes. This separation enables governed autonomy.</p>
+                <h3>Decision Gates</h3>
+                <p>Centralized authority that authorizes all autonomous agent proposals. Agents propose, but the gates authorize. This separation enables governed autonomy.</p>
             </div>
             <div class="feature-card">
                 <h3>Validation & Arbitration</h3>
@@ -328,7 +336,8 @@
         </div>
 
         <div class="metrics-section">
-            <h2>Performance Metrics</h2>
+            <h2>Performance Metrics — design targets</h2>
+            <p class="metrics-note">Every figure below is a design target: the performance the architecture is built to reach, not a measured production result. TRUTH.md Article 2.4 — a published figure stays a design target until a benchmark or pilot artifact exists.</p>
             <div class="metrics-grid">
                 <div class="metric">
                     <span class="value">50-75x</span>
