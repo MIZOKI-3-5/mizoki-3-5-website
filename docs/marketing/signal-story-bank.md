@@ -70,7 +70,7 @@
 | Shopify app listing / partner copy | 7 lead, then 1 | One-liner + story 7 opener |
 | Executive briefing (~9 min) | Acts: PROVE (1) → PROFIT (7) → ANTICIPATE (6); 4 & 5 as supporting beats | One per act |
 | Sales discovery call | Match persona pain, one story max, then ask "which of these is your Tuesday?" |
-| Blog / LinkedIn | One story per post, ledger grammar intact |
+| Journal / LinkedIn | One story per post, ledger grammar intact |
 | Demo hub intro | Story 1 as the setup for the Signal Factory run |
 
 ## Upgrade path

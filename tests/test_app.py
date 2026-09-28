@@ -1,9 +1,11 @@
 import json
 import os
+import re
 import tempfile
 import unittest
 from pathlib import Path
 
+import app as app_module
 from app import create_app
 from mizoki_runtime import create_runtime
 
@@ -277,6 +279,197 @@ class AdminAuthAndAPIGateTestCase(unittest.TestCase):
         self.assertIn(b"Local admin login is disabled", r.data)
 
 
+class LoginGateHardeningTestCase(unittest.TestCase):
+    """CSRF + attempt-throttling + constant-time compare on the sign-in form.
+
+    MIZ-SEC 2026-08-22. `/admin/login` is public, unauthenticated, and since
+    the 2026-08-21 internal-docs directive it is the only gate in front of
+    `/docs/internal` (production infrastructure identifiers and build
+    instructions). It previously accepted unlimited attempts at full speed,
+    carried no CSRF token, and compared passwords with `==`.
+
+    Pinned in BOTH directions per `.claude/rules/01-verification-discipline.md`:
+    every case that must be REFUSED has a sibling proving the legitimate flow
+    still succeeds — a gate that also blocks the operator is the opposite
+    failure, and just as bad.
+    """
+
+    DEMO_USERS = {"admin@mizoki3.com": "test-pw"}
+
+    def _make_app(self, *, enforce_csrf: bool = True, enforce_rate: bool = False,
+                  login_per_min: int = 5):
+        temp_dir = tempfile.TemporaryDirectory()
+        self.addCleanup(temp_dir.cleanup)
+        old_users = os.environ.get("MIZOKI_DEMO_USERS_JSON")
+        os.environ["MIZOKI_DEMO_USERS_JSON"] = json.dumps(self.DEMO_USERS)
+
+        def _restore():
+            if old_users is None:
+                os.environ.pop("MIZOKI_DEMO_USERS_JSON", None)
+            else:
+                os.environ["MIZOKI_DEMO_USERS_JSON"] = old_users
+
+        self.addCleanup(_restore)
+        runtime = create_runtime(base_dir=REPO_ROOT, data_dir=Path(temp_dir.name))
+        app = create_app(runtime=runtime)
+        app.config.update(
+            TESTING=True,
+            LOGIN_CSRF_ENFORCE_IN_TESTS=enforce_csrf,
+            LOGIN_RATE_LIMIT_ENFORCE_IN_TESTS=enforce_rate,
+        )
+        if enforce_rate:
+            # Rebuild the limiter so the tightened budget actually applies.
+            app.extensions["demo_rate_limiter"] = app_module.DemoRateLimiter(
+                per_min=app.config["DEMO_RATE_PER_MIN"],
+                burst=app.config["DEMO_RATE_BURST"],
+                telemetry_per_min=app.config["DEMO_TELEMETRY_RATE_PER_MIN"],
+                login_per_min=login_per_min,
+            )
+        return app.test_client()
+
+    @staticmethod
+    def _token(client) -> str:
+        """Fetch the sign-in page and read the token out of the rendered form."""
+        html = client.get("/admin/login").data.decode()
+        match = re.search(r'name="csrf_token" value="([^"]+)"', html)
+        assert match, "sign-in form rendered no csrf_token field"
+        return match.group(1)
+
+    # ----- CSRF: the form must carry a token ------------------------------
+    def test_login_form_renders_a_csrf_token(self) -> None:
+        client = self._make_app()
+        self.assertTrue(self._token(client))
+
+    def test_login_with_valid_csrf_token_succeeds(self) -> None:
+        """The direction that matters most: the gate must not lock the operator out."""
+        client = self._make_app()
+        token = self._token(client)
+        r = client.post("/admin/login", data={
+            "email": "admin@mizoki3.com", "password": "test-pw", "csrf_token": token,
+        })
+        self.assertEqual(302, r.status_code)
+        self.assertIn("/admin/", r.headers["Location"])
+        self.assertEqual(200, client.get("/admin").status_code)
+
+    def test_login_without_csrf_token_is_refused(self) -> None:
+        client = self._make_app()
+        self._token(client)  # establish a session, then omit the field
+        r = client.post("/admin/login", data={
+            "email": "admin@mizoki3.com", "password": "test-pw",
+        })
+        self.assertEqual(302, r.status_code)
+        self.assertIn("/admin/login", r.headers["Location"])
+        # Refused means NO session was granted — not merely a redirect.
+        self.assertEqual(302, client.get("/admin").status_code)
+
+    def test_login_with_wrong_csrf_token_is_refused(self) -> None:
+        client = self._make_app()
+        self._token(client)
+        r = client.post("/admin/login", data={
+            "email": "admin@mizoki3.com", "password": "test-pw",
+            "csrf_token": "not-the-right-token",
+        })
+        self.assertEqual(302, r.status_code)
+        self.assertEqual(302, client.get("/admin").status_code)
+
+    def test_csrf_token_is_rotated_after_sign_in(self) -> None:
+        """Session fixation: a token planted before sign-in must not survive it."""
+        client = self._make_app()
+        before = self._token(client)
+        client.post("/admin/login", data={
+            "email": "admin@mizoki3.com", "password": "test-pw", "csrf_token": before,
+        })
+        with client.session_transaction() as sess:
+            self.assertIsNone(sess.get("_csrf_token"))
+
+    # ----- Attempt throttling ---------------------------------------------
+    def test_sign_in_attempts_are_throttled(self) -> None:
+        client = self._make_app(enforce_csrf=False, enforce_rate=True, login_per_min=3)
+        for i in range(3):
+            r = client.post("/admin/login", data={
+                "email": "admin@mizoki3.com", "password": "wrong",
+            })
+            self.assertEqual(302, r.status_code, f"attempt {i + 1} should be allowed")
+        blocked = client.post("/admin/login", data={
+            "email": "admin@mizoki3.com", "password": "wrong",
+        })
+        self.assertEqual(429, blocked.status_code)
+        self.assertIn("Retry-After", blocked.headers)
+        self.assertIn(b"Too many sign-in attempts", blocked.data)
+
+    def test_throttle_also_covers_the_second_login_post_path(self) -> None:
+        """/login has no form but checks the same passwords — one door is not a gate."""
+        client = self._make_app(enforce_csrf=False, enforce_rate=True, login_per_min=2)
+        for _ in range(2):
+            client.post("/login", data={"email": "x@y.z", "password": "wrong"})
+        blocked = client.post("/login", data={"email": "x@y.z", "password": "wrong"})
+        self.assertEqual(429, blocked.status_code)
+
+    def test_throttle_does_not_touch_the_form_get(self) -> None:
+        """Reloading the sign-in page is not an attempt and must never 429."""
+        client = self._make_app(enforce_csrf=False, enforce_rate=True, login_per_min=2)
+        for _ in range(8):
+            self.assertEqual(200, client.get("/admin/login").status_code)
+
+    def test_throttle_does_not_touch_unrelated_posts(self) -> None:
+        client = self._make_app(enforce_csrf=False, enforce_rate=True, login_per_min=1)
+        client.post("/admin/login", data={"email": "a@b.c", "password": "x"})
+        # A different POST path must not be drawing down the login bucket.
+        r = client.post("/api/demo/telemetry", json={"event": "ping"})
+        self.assertNotEqual(429, r.status_code)
+
+    # ----- Constant-time, hashed credential comparison ---------------------
+    #
+    # `_check_demo_credentials` operates on werkzeug hashes, never plaintext
+    # (MIZ-SEC 2026-08-26: MIZOKI_DEMO_USERS_JSON values are now hashed at
+    # rest in process memory too, not just compared in constant time). Run
+    # DEMO_USERS through the same normalizer `_load_demo_users` uses so these
+    # tests exercise the real hash-verification path.
+    HASHED_DEMO_USERS = app_module._normalize_demo_users(DEMO_USERS)
+
+    def test_credential_check_accepts_the_real_password(self) -> None:
+        self.assertTrue(app_module._check_demo_credentials(
+            self.HASHED_DEMO_USERS, "admin@mizoki3.com", "test-pw"))
+
+    def test_credential_check_rejects_a_wrong_password(self) -> None:
+        self.assertFalse(app_module._check_demo_credentials(
+            self.HASHED_DEMO_USERS, "admin@mizoki3.com", "test-pX"))
+
+    def test_credential_check_rejects_an_unknown_email(self) -> None:
+        self.assertFalse(app_module._check_demo_credentials(
+            self.HASHED_DEMO_USERS, "nobody@example.com", "test-pw"))
+
+    def test_credential_check_rejects_the_placeholder_itself(self) -> None:
+        """The unknown-email dummy must never be usable as a password."""
+        self.assertFalse(app_module._check_demo_credentials(
+            self.HASHED_DEMO_USERS, "nobody@example.com", app_module._ABSENT_USER_PLACEHOLDER))
+
+    def test_credential_check_survives_a_non_ascii_password(self) -> None:
+        """A form field is arbitrary input — a non-ASCII password must never
+        turn into a 500, hashed comparison or not."""
+        self.assertFalse(app_module._check_demo_credentials(
+            self.HASHED_DEMO_USERS, "admin@mizoki3.com", "pass\u00e9\u00e9word"))
+        self.assertFalse(app_module._check_demo_credentials(
+            self.HASHED_DEMO_USERS, "\u00fcser@example.com", "\u00e9"))
+
+    def test_demo_users_are_never_stored_as_plaintext(self) -> None:
+        """The actual security property: no configured password survives
+        `_load_demo_users`/`_normalize_demo_users` as a raw comparable string."""
+        for stored in self.HASHED_DEMO_USERS.values():
+            self.assertTrue(stored.startswith(app_module._HASH_PREFIXES))
+            self.assertNotIn("test-pw", stored)
+
+    def test_normalize_demo_users_passes_through_an_already_hashed_value(self) -> None:
+        """A secret rotated to a real werkzeug hash must not be re-hashed
+        (that would hash a hash, not verify the intended password)."""
+        pre_hashed = app_module.generate_password_hash(
+            "test-pw", method=app_module._DEMO_PASSWORD_HASH_METHOD)
+        normalized = app_module._normalize_demo_users({"admin@mizoki3.com": pre_hashed})
+        self.assertEqual(pre_hashed, normalized["admin@mizoki3.com"])
+        self.assertTrue(app_module._check_demo_credentials(
+            normalized, "admin@mizoki3.com", "test-pw"))
+
+
 class BlogFeedTestCase(unittest.TestCase):
     """Cover the new RSS / JSON Feed routes."""
 
@@ -294,7 +487,7 @@ class BlogFeedTestCase(unittest.TestCase):
         r = self.client.get("/blog/feed.xml")
         self.assertEqual(200, r.status_code)
         self.assertTrue(r.content_type.startswith("application/rss+xml"))
-        self.assertEqual(4, r.data.count(b"<item>"))
+        self.assertEqual(12, r.data.count(b"<item>"))
 
     def test_json_feed_returns_jsonfeed_envelope(self) -> None:
         r = self.client.get("/blog/feed.json")
@@ -303,12 +496,12 @@ class BlogFeedTestCase(unittest.TestCase):
         self.assertEqual(
             "https://jsonfeed.org/version/1.1", body["version"]
         )
-        self.assertEqual(4, len(body["items"]))
+        self.assertEqual(12, len(body["items"]))
 
     def test_posts_manifest_passthrough(self) -> None:
         r = self.client.get("/blog/posts.json")
         self.assertEqual(200, r.status_code)
-        self.assertEqual(4, len(r.get_json()["posts"]))
+        self.assertEqual(12, len(r.get_json()["posts"]))
 
 
 class GoogleAdsApiTestCase(unittest.TestCase):

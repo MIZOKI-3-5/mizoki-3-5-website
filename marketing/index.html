@@ -1,562 +1,668 @@
-<!DOCTYPE html>
+<!doctype html>
+<!-- marketing-growth-control-v1.3 · variant B of the /signal A/B/C test (SITE A/B/C TEST — DESIGN FIX r1.0): SEO canonical is https://mizoki3.com/signal — at its own /marketing URL this page serves noindex,follow, and the /signal route replaces those tags with the canonical serving posture. Pre-registration: docs/marketing/abtest-preregistration-signal-landing.md -->
 <html lang="en">
+<!--
+  marketing-growth-control-v1.3 · built 2026-08-19
+  Source: docs/marketing-growth-control-v1.3/ package (visual sha256
+  45740b1a2d712bf97747bb98505860859cedc0c3dc679871696a3a4e890e89f5, audited
+  clean by two independent sessions) + minimal named edits (print stylesheet,
+  noscript note, the §6.12 pilot-labels paragraph, this comment). Status
+  sources: docs/CANON_STATUS.md,
+  docs/OFFERING_MAP.md v2.3 §B.6, whitepaper r3.5.2 amendment (rulings
+  2026-08-19-A/B). Final sha256 of THIS file is recorded in
+  docs/reports/MARKETING_GROWTH_CONTROL_BUILD_2026-08-19.md — never inside
+  the hashed file itself.
+-->
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MIZOKI3 — Marketing · Stop Managing Dashboards. Start Governing Ad Growth.</title>
-  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
-  <link rel="alternate icon" href="/assets/img/favicon.ico" sizes="16x16 32x32 48x48" />
-  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png" />
-  <meta name="description" content="MIZ OKI 3.5 for high-scale media buyers: an autonomous AI control plane that turns Structured Signal Evidence into margin-safe campaign actions. The Cross-Stack Root Cause Engine diagnoses true CPA drivers, the 7-Stage Governed Decision System validates every move before it ships, and Compounding ROI Memory makes each decision smarter than the last." />
-  <link rel="canonical" href="https://mizoki3.com/marketing" />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="MIZOKI3 — Stop Managing Dashboards. Start Governing Ad Growth." />
-  <meta property="og:description" content="The autonomous AI control plane for high-scale media buyers. Structured Signal Evidence in, root-cause diagnosis, margin-safe execution, Compounding ROI Memory." />
-  <meta property="og:url" content="https://mizoki3.com/marketing" />
-  <meta property="og:image" content="https://mizoki3.com/og-image.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/css/styles.css" />
-  <link rel="stylesheet" href="/assets/css/marketing.css?v=20260802" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="MIZ OKI Signal connects cross-stack evidence to causal diagnosis, qualified incrementality, governed decisions, and outcome memory.">
+  <meta name="robots" content="noindex,follow">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mizoki3.com/signal">
+  <meta property="og:title" content="MIZ OKI Signal — Causal Growth Control | MIZ OKI 3.5">
+  <meta property="og:description" content="MIZ OKI Signal connects cross-stack evidence to causal diagnosis, qualified incrementality, governed decisions, and outcome memory.">
+  <meta name="theme-color" content="#071317">
+  <link rel="canonical" href="https://mizoki3.com/signal">
+  <title>MIZ OKI Signal — Causal Growth Control | MIZ OKI 3.5</title>
+  <style>
+    :root {
+      --paper:#f4f6f3; --card:#fbfcfa; --ink:#0b1e26; --muted:#5e6e75;
+      --line:rgba(11,30,38,.16); --teal:#076c7b; --cyan:#3fdcf2;
+      --pass:#1f8a5b; --amber:#b07a18; --veto:#c8273a; --dark:#071317;
+      --serif:Georgia,"Times New Roman",serif;
+      --sans:"Helvetica Neue",Arial,sans-serif;
+      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans); }
+    body::before { content:""; position:fixed; inset:0; pointer-events:none; opacity:.2; z-index:99; background-image:linear-gradient(rgba(11,30,38,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(11,30,38,.018) 1px,transparent 1px); background-size:28px 28px; }
+    a { color:inherit; text-decoration:none; }
+    a, button { -webkit-tap-highlight-color:transparent; }
+    a:focus-visible, button:focus-visible { outline:3px solid var(--cyan); outline-offset:4px; }
+    [id] { scroll-margin-top:88px; }
+    .skip { position:fixed; top:10px; left:10px; z-index:200; padding:11px 15px; background:var(--dark); color:#fff; font:700 10px var(--mono); transform:translateY(-180%); transition:transform .15s ease; }
+    .skip:focus { transform:translateY(0); }
+    .wrap { width:min(1480px,100%); margin-inline:auto; }
+    header { position:sticky; top:0; z-index:80; min-height:76px; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:24px; padding:0 4vw; border-bottom:1px solid var(--line); background:rgba(244,246,243,.96); backdrop-filter:blur(16px); }
+    .wordmark { width:max-content; font-size:22px; font-weight:850; letter-spacing:-.05em; }
+    .wordmark b { color:var(--teal); }
+    nav { display:flex; justify-content:center; gap:28px; }
+    nav a, .header-cta { font:700 9px var(--mono); letter-spacing:.12em; text-transform:uppercase; }
+    nav a:hover { color:var(--teal); }
+    .header-cta { justify-self:end; padding:12px 15px; border:1px solid var(--ink); transition:.16s ease; }
+    .header-cta:hover { background:var(--ink); color:#fff; }
+    .hero { min-height:790px; display:grid; grid-template-columns:minmax(0,1.08fr) minmax(460px,.92fr); align-items:center; gap:7vw; padding:88px 4vw 96px; }
+    .eyebrow,.kicker { margin:0 0 27px; color:var(--teal); font:700 10px var(--mono); letter-spacing:.15em; text-transform:uppercase; }
+    .eyebrow { display:flex; align-items:center; gap:11px; }
+    .eyebrow::before { content:""; width:7px; height:7px; border-radius:50%; background:var(--teal); box-shadow:0 0 0 5px rgba(7,108,123,.12); }
+    h1,.section-head h2,.section-head-dark h2,.measurement-copy h2,.pilot-copy h2,.platform h2,.final h2 { margin:0; font-family:var(--serif); font-weight:400; letter-spacing:-.05em; line-height:.97; }
+    h1 { font-size:clamp(56px,5.55vw,91px); }
+    h1 em,.section-head-dark h2 em,.final h2 em { color:var(--teal); font-weight:400; }
+    .lede { max-width:760px; margin:32px 0 0; color:#45565d; font-size:17px; line-height:1.7; }
+    .brand-lockup { display:flex; flex-wrap:wrap; gap:8px 18px; margin-top:25px; color:var(--muted); font:700 9px/1.5 var(--mono); letter-spacing:.08em; text-transform:uppercase; }
+    .brand-lockup b { color:var(--ink); }
+    .actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:34px; }
+    .button { min-height:52px; display:inline-flex; align-items:center; justify-content:center; gap:18px; padding:0 21px; border:1px solid var(--ink); font:700 9px var(--mono); letter-spacing:.1em; text-transform:uppercase; transition:transform .17s ease,box-shadow .17s ease,background .17s ease; }
+    .button.primary { background:var(--ink); color:#fff; }
+    .button:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(11,30,38,.15); }
+    .powered-note { margin:28px 0 0; padding-top:20px; border-top:1px solid var(--line); color:var(--muted); font:700 9px var(--mono); letter-spacing:.08em; text-transform:uppercase; }
+    .decision-card { overflow:hidden; border:1px solid rgba(63,220,242,.22); background:var(--dark); color:#fff; box-shadow:16px 18px 0 rgba(11,30,38,.08),0 28px 75px rgba(7,19,23,.18); }
+    .card-head { min-height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 17px; border-bottom:1px solid rgba(255,255,255,.12); color:rgba(255,255,255,.58); font:700 8px var(--mono); letter-spacing:.11em; }
+    .card-head strong { color:var(--cyan); }
+    .incident { min-height:240px; padding:30px 28px; background-image:linear-gradient(rgba(63,220,242,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(63,220,242,.05) 1px,transparent 1px); background-size:28px 28px; }
+    .incident small,.plan small,.verdict-row small { color:var(--cyan); font:700 8px var(--mono); letter-spacing:.12em; }
+    .incident h2 { margin:42px 0 18px; font:400 37px/1.04 var(--serif); letter-spacing:-.04em; }
+    .incident p,.plan p { margin:0; color:rgba(255,255,255,.64); font-size:12px; line-height:1.6; }
+    .card-metrics { display:grid; grid-template-columns:repeat(3,1fr); border-block:1px solid rgba(255,255,255,.12); }
+    .card-metrics div { padding:17px; border-right:1px solid rgba(255,255,255,.12); }
+    .card-metrics div:last-child { border:0; }
+    .card-metrics small,.card-metrics strong { display:block; }
+    .card-metrics small { margin-bottom:11px; color:rgba(255,255,255,.46); font:700 7px var(--mono); }
+    .card-metrics strong { font:700 8px/1.4 var(--mono); }
+    .amber { color:#e2a943; }
+    .plan { padding:22px 28px; }
+    .plan p { margin-top:12px; }
+    .verdict-row { display:flex; align-items:center; justify-content:space-between; padding:18px 28px; border-top:1px solid rgba(200,39,58,.6); background:rgba(200,39,58,.08); }
+    .verdict-row strong { display:block; margin-top:7px; font-size:12px; }
+    .verdict-row > span { padding:7px 9px; background:var(--veto); font:700 7px var(--mono); letter-spacing:.08em; }
+    .status { min-height:52px; display:grid; grid-template-columns:repeat(5,1fr); border-block:1px solid var(--line); background:var(--card); }
+    .status span { display:flex; align-items:center; justify-content:center; gap:10px; padding:15px; border-right:1px solid var(--line); font:700 8px var(--mono); letter-spacing:.1em; text-transform:uppercase; text-align:center; }
+    .status span:last-child { border:0; }
+    .status i { width:6px; height:6px; flex:0 0 auto; border-radius:50%; background:var(--teal); }
+    .status .warn { background:var(--amber); } .status .stop { background:var(--veto); }
+    .section { padding:118px 4vw; }
+    .section-head,.section-head-dark { display:grid; grid-template-columns:1.25fr .75fr; gap:7vw; align-items:end; margin-bottom:62px; }
+    .section-head h2,.section-head-dark h2,.measurement-copy h2,.pilot-copy h2,.platform h2 { font-size:clamp(48px,4.75vw,76px); }
+    .section-head > p,.section-head-dark > p { max-width:520px; margin:0; color:var(--muted); font-size:16px; line-height:1.65; }
+    .four-grid { display:grid; grid-template-columns:repeat(4,1fr); border-block:1px solid var(--ink); }
+    .four-grid article { min-height:300px; padding:20px; border-right:1px solid var(--line); }
+    .four-grid article:last-child { border:0; }
+    .number { color:var(--teal); font:700 9px var(--mono); }
+    .four-grid h3 { margin:80px 0 20px; font:400 31px var(--serif); }
+    .four-grid p,.boundary-grid p,.evidence-grid p { color:var(--muted); font-size:12px; line-height:1.65; }
+    .dark { background:var(--dark); color:#fff; }
+    .dark .kicker { color:var(--cyan); }
+    .section-head-dark > p { color:rgba(255,255,255,.58); }
+    .graph-chain { display:grid; grid-template-columns:repeat(7,1fr); border-block:1px solid rgba(63,220,242,.42); }
+    .graph-node { position:relative; min-height:165px; display:flex; flex-direction:column; justify-content:space-between; padding:18px; border-right:1px solid rgba(255,255,255,.14); }
+    .graph-node:last-child { border:0; }
+    .graph-node small { color:rgba(255,255,255,.46); font:700 8px var(--mono); }
+    .graph-node strong { color:var(--cyan); font:400 21px var(--serif); }
+    .graph-node b { position:absolute; right:-8px; top:calc(50% - 10px); z-index:2; width:16px; height:20px; display:grid; place-items:center; background:var(--dark); color:rgba(63,220,242,.55); font-weight:400; }
+    .graph-map { margin:28px 0 0; padding:17px 20px; border:1px solid rgba(63,220,242,.34); color:var(--cyan); font:700 9px/1.6 var(--mono); letter-spacing:.07em; text-align:center; text-transform:uppercase; }
+    .definitions { display:grid; grid-template-columns:repeat(3,1fr); margin-top:44px; border-top:1px solid rgba(255,255,255,.14); }
+    .definitions article { padding:24px 20px 0 0; }
+    .definitions span { color:var(--cyan); font:700 8px var(--mono); letter-spacing:.12em; }
+    .definitions p { color:rgba(255,255,255,.62); font-size:12px; line-height:1.65; }
+    .graph-note { max-width:960px; margin:66px auto 0; color:rgba(255,255,255,.8); font:400 25px/1.45 var(--serif); text-align:center; }
+    .contract { background:#f2f4f1; }
+    .contract-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:1px; padding:1px; background:var(--line); }
+    .contract-item { min-height:235px; padding:20px; background:var(--card); }
+    .contract-item h3 { margin:62px 0 15px; font:400 22px/1.08 var(--serif); }
+    .contract-item p { margin:0; color:var(--muted); font-size:11px; line-height:1.62; }
+    .eligibility-strip { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; margin-top:42px; padding:1px; background:var(--ink); }
+    .eligibility-strip div { min-height:118px; padding:19px; background:#e6ebea; }
+    .eligibility-strip small { display:block; color:var(--teal); font:700 8px var(--mono); letter-spacing:.09em; }
+    .eligibility-strip strong { display:block; margin-top:27px; font:400 18px var(--serif); }
+    .contract-note,.measurement-rule,.roadmap-note { margin:18px 0 0; padding:18px 20px; border-left:3px solid var(--teal); background:var(--card); color:var(--muted); font-size:12px; line-height:1.65; }
+    .intent { background:#e7edeb; }
+    .intent-grid { display:grid; grid-template-columns:repeat(5,1fr); border-block:1px solid var(--ink); }
+    .intent-grid article { min-height:305px; padding:20px; border-right:1px solid var(--line); background:rgba(255,255,255,.32); }
+    .intent-grid article:last-child { border:0; }
+    .intent-grid header { position:static; min-height:0; display:flex; justify-content:space-between; gap:10px; padding:0; border:0; background:none; backdrop-filter:none; }
+    .intent-grid header small { color:var(--muted); font:700 7px/1.4 var(--mono); text-align:right; }
+    .intent-grid h3 { margin:66px 0 20px; font:400 18px/1.18 var(--serif); }
+    .intent-grid p { color:var(--muted); font-size:11px; line-height:1.65; }
+    .sequence { display:grid; grid-template-columns:1fr auto 1fr auto 1fr auto 1fr auto 1.15fr; align-items:stretch; margin-top:44px; border:1px solid var(--ink); background:var(--card); }
+    .sequence div { min-height:120px; display:flex; flex-direction:column; justify-content:center; padding:16px; }
+    .sequence b { display:grid; place-items:center; color:var(--teal); font-weight:400; }
+    .sequence small { color:var(--teal); font:700 7px var(--mono); }
+    .sequence strong { margin:12px 0 7px; font:700 8px var(--mono); letter-spacing:.05em; }
+    .sequence span { color:var(--muted); font-size:10px; }
+    .sequence .hypothesis { background:var(--dark); color:#fff; }
+    .sequence .hypothesis small { color:var(--cyan); }
+    .sequence .hypothesis span { color:rgba(255,255,255,.58); }
+    .controls { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:18px; }
+    .control { min-height:188px; display:flex; flex-direction:column; padding:24px; border:1px solid var(--ink); background:var(--card); }
+    .control.inverse { background:var(--dark); color:#fff; }
+    .control > p { margin:0; color:var(--teal); font:700 8px var(--mono); letter-spacing:.1em; }
+    .control.inverse > p { color:var(--cyan); }
+    .control h3 { margin:26px 0 12px; font:400 25px var(--serif); }
+    .control span { color:var(--muted); font-size:11px; line-height:1.55; }
+    .control.inverse span { color:rgba(255,255,255,.58); }
+    .control code { width:max-content; max-width:100%; margin-top:auto; padding:8px 9px; background:rgba(200,39,58,.1); color:var(--veto); font:700 8px var(--mono); overflow-wrap:anywhere; }
+    .control.inverse code { background:rgba(200,39,58,.17); color:#ff7b89; }
+    .tabs { display:grid; grid-template-columns:repeat(6,1fr); }
+    .tabs button { min-height:64px; display:flex; align-items:center; gap:18px; padding:0 19px; border:1px solid var(--ink); border-right:0; background:transparent; color:var(--ink); cursor:pointer; font:700 10px var(--mono); letter-spacing:.08em; text-transform:uppercase; }
+    .tabs button:last-child { border-right:1px solid var(--ink); }
+    .tabs button[aria-selected="true"] { background:var(--teal); color:#fff; }
+    .tabs span { opacity:.58; font-size:8px; }
+    .console { display:grid; grid-template-columns:repeat(3,1fr); background:var(--dark); color:#fff; }
+    .trace-column { min-height:350px; padding:31px; border-right:1px solid rgba(255,255,255,.14); }
+    .trace-column:last-child { border:0; }
+    .trace-column > p { margin:0; color:var(--cyan); font:700 8px var(--mono); letter-spacing:.12em; }
+    .trace-column h3 { min-height:135px; margin:55px 0 25px; font:400 25px/1.3 var(--serif); }
+    .trace-column ul { margin:0; padding:0; list-style:none; }
+    .trace-column li { padding:9px 0; border-top:1px solid rgba(255,255,255,.11); color:rgba(255,255,255,.58); font-size:11px; }
+    .badge { display:inline-flex; padding:9px 10px; border:1px solid rgba(176,122,24,.65); color:#e2a943; font:700 8px var(--mono); letter-spacing:.08em; }
+    .badge.veto { border-color:rgba(200,39,58,.65); color:#ff7b89; }
+    .loop { display:grid; grid-template-columns:repeat(7,1fr); border:1px solid var(--ink); border-top:0; background:var(--card); }
+    .loop article { min-height:190px; padding:18px; border-right:1px solid var(--line); }
+    .loop article:last-child { border:0; }
+    .loop h3 { margin:43px 0 14px; font:400 21px var(--serif); }
+    .loop p { margin:0; color:var(--muted); font-size:10px; line-height:1.55; }
+    .disclosure { margin:16px 0 0; color:var(--muted); font:700 8px/1.6 var(--mono); letter-spacing:.05em; text-align:right; text-transform:uppercase; }
+    .jobs-grid { display:grid; grid-template-columns:repeat(3,1fr); border:1px solid rgba(255,255,255,.2); }
+    .job { min-height:430px; padding:24px; border-right:1px solid rgba(255,255,255,.14); border-bottom:1px solid rgba(255,255,255,.14); }
+    .job:nth-child(3n) { border-right:0; } .job:nth-last-child(-n+3) { border-bottom:0; }
+    .job-title { display:flex; align-items:baseline; gap:18px; padding-bottom:22px; border-bottom:1px solid rgba(255,255,255,.14); }
+    .job-title span { color:var(--cyan); font:700 8px var(--mono); }
+    .job-title h3 { margin:0; font:400 28px var(--serif); }
+    .job dl { margin:29px 0 0; }
+    .job dl div { display:grid; grid-template-columns:84px 1fr; gap:15px; padding:12px 0; border-top:1px solid rgba(255,255,255,.1); }
+    .job dt { color:rgba(255,255,255,.50); font:700 7px var(--mono); letter-spacing:.08em; text-transform:uppercase; }
+    .job dd { margin:0; color:rgba(255,255,255,.72); font-size:11px; line-height:1.45; }
+    .boundary { background:#e9ece9; }
+    .boundary-grid { display:grid; grid-template-columns:repeat(4,1fr); }
+    .boundary-grid article { min-height:300px; padding:24px; border:1px solid var(--line); border-right:0; background:var(--card); }
+    .boundary-grid article:last-child { border-right:1px solid var(--line); }
+    .boundary-grid i { width:34px; height:34px; display:grid; place-items:center; border-radius:50%; background:rgba(200,39,58,.09); color:var(--veto); font:normal 20px var(--sans); }
+    .boundary-grid h3 { margin:65px 0 18px; font:400 24px var(--serif); }
+    .claim { margin:38px 0 0; padding:22px; border-left:3px solid var(--teal); background:var(--card); font:400 24px/1.45 var(--serif); }
+    .measurement { display:grid; grid-template-columns:.8fr 1.2fr; gap:8vw; }
+    .measurement-copy > p:not(.kicker) { color:var(--muted); font-size:15px; line-height:1.7; }
+    .ledger { border:1px solid var(--ink); background:var(--card); }
+    .ledger div { min-height:108px; display:grid; grid-template-columns:.8fr 1fr 1fr; align-items:center; gap:18px; padding:18px 22px; border-bottom:1px solid var(--line); }
+    .ledger div:last-child { border:0; }
+    .ledger span { font:700 8px var(--mono); letter-spacing:.1em; }
+    .ledger strong { font:400 19px var(--serif); }
+    .ledger small { color:var(--muted); font:700 8px var(--mono); }
+    .ledger .no-action { background:var(--dark); color:#fff; }
+    .ledger .no-action small { color:rgba(255,255,255,.58); }
+    .measurement-stack { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; margin-top:36px; padding:1px; background:var(--ink); }
+    .measurement-stack article { min-height:238px; padding:23px; background:var(--card); }
+    .measurement-stack span,.roadmap-grid span { color:var(--teal); font:700 8px var(--mono); letter-spacing:.1em; }
+    .measurement-stack h3 { margin:65px 0 16px; font:400 23px var(--serif); }
+    .measurement-stack p { margin:0; color:var(--muted); font-size:11px; line-height:1.65; }
+    .evidence { background:#edf0ed; }
+    .evidence-grid { display:grid; grid-template-columns:repeat(3,1fr); border-block:1px solid var(--ink); }
+    .evidence-grid article { min-height:260px; padding:24px; border-right:1px solid var(--line); }
+    .evidence-grid article:last-child { border:0; }
+    .evidence-grid h3 { margin:72px 0 18px; font:400 24px var(--serif); }
+    .roadmap { background:#102329; color:#fff; }
+    .roadmap-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:1px; padding:1px; background:rgba(255,255,255,.18); }
+    .roadmap-grid article { min-height:335px; padding:22px; background:#102329; }
+    .roadmap-grid span { color:var(--cyan); }
+    .roadmap-grid small { display:block; margin-top:8px; color:rgba(255,255,255,.46); font:700 7px var(--mono); letter-spacing:.08em; }
+    .roadmap-grid h3 { margin:74px 0 18px; font:400 23px/1.08 var(--serif); }
+    .roadmap-grid p { margin:0; color:rgba(255,255,255,.6); font-size:11px; line-height:1.65; }
+    .roadmap-note { border-color:var(--cyan); background:rgba(255,255,255,.06); color:rgba(255,255,255,.68); }
+    .passport-anatomy { display:grid; grid-template-columns:.72fr 1.28fr; gap:7vw; align-items:start; }
+    .passport-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; padding:1px; background:var(--line); }
+    .passport-grid article { min-height:190px; padding:22px; background:var(--card); }
+    .passport-grid span { color:var(--teal); font:700 8px var(--mono); letter-spacing:.1em; text-transform:uppercase; }
+    .passport-grid h3 { margin:44px 0 12px; font:400 23px var(--serif); }
+    .passport-grid p { margin:0; color:var(--muted); font:11px/1.65 var(--sans); }
+    .net-yield { margin-top:38px; border:1px solid var(--ink); background:var(--card); }
+    .yield-row { display:grid; grid-template-columns:1fr auto 1.35fr; align-items:center; gap:18px; min-height:88px; padding:18px 22px; border-bottom:1px solid var(--line); }
+    .yield-row:last-child { border-bottom:0; background:var(--dark); color:#fff; }
+    .yield-row span { font:700 8px var(--mono); letter-spacing:.09em; text-transform:uppercase; }
+    .yield-row b { color:var(--teal); font-weight:400; }
+    .yield-row small { color:var(--muted); font:700 8px/1.55 var(--mono); }
+    .yield-row:last-child small { color:rgba(255,255,255,.62); }
+    .frontier-lock { display:block; margin-top:20px; padding-top:15px; border-top:1px solid rgba(63,220,242,.18); color:#fff!important; font:700 8px/1.65 var(--mono)!important; }
+    .pilot { display:grid; grid-template-columns:.8fr 1.2fr; gap:8vw; }
+    .pilot-copy > p:not(.kicker) { color:var(--muted); font-size:15px; line-height:1.7; }
+    .pilot-phases { border-top:1px solid var(--ink); }
+    .pilot-phases article { display:grid; grid-template-columns:110px 150px 1fr; gap:22px; padding:28px 0; border-bottom:1px solid var(--line); }
+    .pilot-phases span { color:var(--teal); font:700 8px var(--mono); }
+    .pilot-phases h3 { margin:0; font:400 25px var(--serif); }
+    .pilot-phases p { margin:0; color:var(--muted); font-size:12px; line-height:1.65; }
+    .platform { display:grid; grid-template-columns:1.2fr .8fr; align-items:end; gap:8vw; background:#dfe6e5; }
+    .platform p:not(.kicker) { color:var(--muted); font-size:15px; line-height:1.7; }
+    .platform .button { justify-self:end; }
+    .final { min-height:610px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:110px 4vw; background:var(--dark); color:#fff; text-align:center; }
+    .final .kicker { color:var(--cyan); }
+    .final h2 { max-width:1080px; font-size:clamp(55px,5.7vw,92px); }
+    .final h2 em { color:var(--cyan); }
+    .final > p:not(.kicker) { max-width:650px; margin:28px 0 0; color:rgba(255,255,255,.6); line-height:1.65; }
+    .button.light { border-color:#fff; background:#fff; color:var(--dark); }
+    .button.outline { border-color:rgba(255,255,255,.65); color:#fff; }
+    footer { min-height:100px; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:20px; padding:0 4vw; border-top:1px solid rgba(255,255,255,.1); background:var(--dark); color:#fff; }
+    footer p { color:rgba(255,255,255,.5); font:italic 14px var(--serif); }
+    footer div { justify-self:end; display:flex; flex-wrap:wrap; gap:18px; color:rgba(255,255,255,.45); font:700 7px var(--mono); text-transform:uppercase; }
+    @media (max-width:1120px) {
+      .hero { grid-template-columns:1fr; }
+      .decision-card { max-width:760px; }
+      .four-grid,.boundary-grid,.contract-grid,.roadmap-grid { grid-template-columns:repeat(2,1fr); }
+      .graph-chain { grid-template-columns:repeat(4,1fr); }
+      .graph-node { border-bottom:1px solid rgba(255,255,255,.14); }
+      .intent-grid { grid-template-columns:repeat(2,1fr); }
+      .intent-grid article { border-bottom:1px solid var(--line); }
+      .loop { grid-template-columns:repeat(4,1fr); }
+      .jobs-grid { grid-template-columns:repeat(2,1fr); }
+      .job,.job:nth-child(3n) { border-right:1px solid rgba(255,255,255,.14); border-bottom:1px solid rgba(255,255,255,.14); }
+      .job:nth-child(2n) { border-right:0; }
+      .job:nth-last-child(-n+2) { border-bottom:0; }
+    }
+    @media (max-width:840px) {
+      header { min-height:66px; grid-template-columns:1fr auto; }
+      nav { display:none; }
+      .header-cta { font-size:0; }
+      .header-cta::before { content:"Pilot"; font-size:9px; }
+      .hero,.section,.platform { padding:82px 5vw; }
+      .hero h1 { font-size:clamp(50px,13vw,76px); }
+      .section-head,.section-head-dark,.measurement,.pilot,.platform { grid-template-columns:1fr; gap:45px; }
+      .section-head h2,.section-head-dark h2,.measurement-copy h2,.pilot-copy h2,.platform h2 { font-size:clamp(44px,10vw,66px); }
+      .console { grid-template-columns:1fr; }
+      .trace-column { min-height:auto; border-right:0; border-bottom:1px solid rgba(255,255,255,.14); }
+      .trace-column h3 { min-height:auto; margin-top:28px; }
+      .definitions { grid-template-columns:1fr; }
+      .sequence { grid-template-columns:1fr; }
+      .sequence div { min-height:90px; }
+      .sequence > b { padding:5px; transform:rotate(90deg); }
+      .controls,.evidence-grid,.measurement-stack { grid-template-columns:1fr; }
+      .evidence-grid article { min-height:210px; border-right:0; border-bottom:1px solid var(--line); }
+      .platform .button { justify-self:start; }
+      footer { grid-template-columns:1fr; padding:28px 5vw; text-align:center; }
+      footer > * { justify-self:center!important; }
+    }
+    @media (max-width:580px) {
+      .actions { flex-direction:column; }
+      .button { width:100%; }
+      .card-metrics,.status,.four-grid,.boundary-grid,.graph-chain,.contract-grid,.eligibility-strip,.intent-grid,.tabs,.loop,.jobs-grid,.roadmap-grid { grid-template-columns:1fr; }
+      .card-metrics div,.status span,.four-grid article,.boundary-grid article,.graph-node,.tabs button,.intent-grid article,.loop article,.job,.job:nth-child(3n),.job:nth-child(2n) { border-right:0; border-bottom:1px solid var(--line); }
+      .passport-anatomy { grid-template-columns:1fr; }
+      .passport-grid { grid-template-columns:1fr; }
+      .graph-node { min-height:100px; }
+      .graph-node b { display:none; }
+      .verdict-row { align-items:flex-start; flex-direction:column; gap:14px; }
+      .ledger div,.pilot-phases article { grid-template-columns:1fr; gap:10px; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      html { scroll-behavior:auto; }
+      *,*::before,*::after { transition-duration:.01ms!important; animation-duration:.01ms!important; animation-iteration-count:1!important; }
+    }
+  
+    @media print {
+      body { background:#fff; color:#000; }
+      .control, .control.inverse { border:1px solid #000; color:#000; background:#fff; }
+      header nav, .header-cta, .tabs { display:none; }
+      a[href^="#"] { text-decoration:none; color:inherit; }
+      section, article { break-inside:avoid; }
+    }
+  </style>
 </head>
 <body>
-
-  <div class="compare-strip"><span class="cs-note">// Parallel preview — nothing on the classic site is replaced</span><a href="/">View classic site →</a></div>
-
-  <header class="site-header">
-    <nav class="nav">
-      <a href="/marketing" class="brand">MIZOKI3</a>
-      <ul class="nav-links">
-        <li><a href="/marketing/engine">Engine</a></li>
-        <li><a href="/marketing/modules">Modules</a></li>
-        <li><a href="/marketing/simulator">Simulator</a></li>
-        <li><a href="/marketing/walkthrough">Walkthrough</a></li>
-        <li><a href="/marketing/governance">Governance</a></li>
-        <li><a href="/marketing/demo">Live Demos</a></li>
-        <li><a href="/marketing/pricing">Pricing</a></li>
-        <li><a href="/">Classic Site</a></li>
-      </ul>
+  <a class="skip" href="#marketing-main">Skip to content</a>
+  <header>
+    <a class="wordmark" href="#marketing-main" aria-label="MIZ OKI 3.5 — top of page">MIZ OKI <b>3.5</b></a>
+    <nav aria-label="Marketing page navigation">
+      <a href="#loops">Four loops</a><a href="#contract">Evidence contract</a><a href="#trace">Decision trace</a><a href="#frontiers">Frontiers</a><a href="#pilot">Pilot</a><a href="/animation">Animation</a><a href="https://decisionstudio.mizoki3.com/marketing">Decision Studio</a>
     </nav>
+    <a class="header-cta" href="/go/pilot?cta=marketing-header">Design a 90-day growth pilot ↗</a>
   </header>
 
-  <div class="domain-accent accent-signal"></div>
+  <main id="marketing-main">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow">MIZ OKI SIGNAL / CAUSAL GROWTH CONTROL</p>
+        <h1 id="hero-title">Know why performance moved.<br><em>Govern what happens next.</em></h1>
+        <p class="lede">Signal connects consented media, site, inventory, CRM, margin, creative, geo, and enterprise-policy evidence in a governed Growth Decision Graph. It ranks the most supportable causal hypothesis, separates forecasts from qualified incrementality, and prepares bounded moves—including no action—inside explicit evidence and authority gates.</p>
+        <div class="brand-lockup"><span><b>MIZ OKI</b> — Operating Knowledge Intelligence</span><span><b>Signal</b> — Causal Growth Control</span></div>
+        <div class="actions">
+          <a class="button primary" href="#trace">Run the CPA-spike scenario ↘</a>
+          <a class="button" href="/go/pilot?cta=marketing-hero">Design a 90-day growth pilot</a>
+          <a class="button" href="https://decisionstudio.mizoki3.com/marketing">Open the Decision Studio</a>
+        </div>
+        <p class="powered-note">Illustrative synthetic product experience · Status-aware build blueprint · Human authority remains required</p>
+      </div>
+      <aside class="decision-card" aria-label="Illustrative completed decision trace">
+        <div class="card-head"><span>ILLUSTRATIVE VALIDATIONPASSPORT / SIG-042</span><strong>BUILD TARGET</strong></div>
+        <div class="incident"><small>OBSERVED CHANGE</small><h2>CPA rises.<br>Media is not yet the cause.</h2><p>Cross-stack evidence points to a mobile checkout impairment while auction pressure remains stable.</p></div>
+        <div class="card-metrics"><div><small>HYPOTHESIS</small><strong>SUPPORTED</strong></div><div><small>CAUSAL GRADE</small><strong class="amber">EXPERIMENT PENDING</strong></div><div><small>AUTHORITY</small><strong>HUMAN GATE</strong></div></div>
+        <div class="plan"><small>GOVERNED PLAN</small><p>Hold the bid change. Repair checkout. Test recovery. Preserve current spend until qualified evidence arrives.</p></div>
+        <div class="verdict-row"><div><small>VERDICT</small><strong>RECOMMEND / NO MUTATION</strong></div><span>POLICY-GATED</span></div>
+      </aside>
+    </section>
 
-  <section class="domain-hero" style="--domain-glow: rgba(157, 123, 232, 0.12);">
-    <div class="container">
-      <div class="label" style="color: var(--accent-purple);">// MIZ OKI 3.5 — Operating Knowledge Intelligence · For High-Scale Media Buyers</div>
-      <h1>Stop Managing Dashboards. Start Governing Ad Growth.</h1>
-      <p class="mission">The first autonomous AI control plane built for high-scale media buyers. MIZ OKI connects your ad platforms, web stack, analytics, and inventory to catch cross-stack signals, diagnose true CPA drivers, and execute margin-safe campaign actions automatically.</p>
-      <p class="hero-addendum">Media buying is the <b>deepest build today</b> — the same governed loop runs <b>Capital, Risk, Counsel, Estate</b>, and whatever division you onboard next. This preview is the whole platform, translated into plain language.</p>
-      <div class="hero-cta" style="margin-top: 36px;">
-        <a href="#simulator" class="btn btn-primary">▶ Launch Live Decision Simulator</a>
-        <a href="#video" class="btn btn-ghost">Watch 90-Sec Platform Walkthrough</a>
-        <a href="/marketing/demo" class="btn btn-ghost">Live desks</a>
-      </div>
-      <div class="proof-strip">
-        <div class="proof-cell">
-          <div class="num">$100M+</div>
-          <span class="cap">Ad Spend Monitored</span>
-        </div>
-        <div class="proof-cell">
-          <div class="num">&lt;100ms</div>
-          <span class="cap">Signal Latency</span>
-        </div>
-        <div class="proof-cell">
-          <div class="num">100%</div>
-          <span class="cap">Policy Protection</span>
-        </div>
-      </div>
-      <p class="proof-note">Ad spend monitored is cumulative across connected accounts. Latency is the serving spec of the signal-scoring layer, and policy protection is structural — every action passes the Safety Guardrail Engine before dispatch, or it does not ship. These are architecture facts and design targets, not outcome promises.</p>
+    <div class="status" role="list" aria-label="Signal product boundaries">
+      <span role="listitem"><i></i>Current posture · Recommend-only</span><span role="listitem"><i class="warn"></i>MEASUREMENT_WRITEBACK · OFF</span><span role="listitem"><i class="warn"></i>NET_YIELD_WRITEBACK · OFF</span><span role="listitem"><i class="stop"></i>Intent evidence · Shadow / no action</span><span role="listitem"><i></i>O-1 privacy lock · Enforced</span>
     </div>
-  </section>
 
-  <section class="mb-section" id="divisions">
-    <div class="container">
-      <div class="mb-label">// Initial divisions — MVPs, not the map</div>
-      <h2>One decision loop. Any division.</h2>
-      <p class="lede">Media buying runs on the Signal division — the deepest build today. The five divisions below are the initial MVPs: proof the same 7-Stage Governed Decision System generalizes. MIZ OKI is not limited to them — any operating domain onboards as a new division on the same loop, with the same guardrails and the same memory. Every division page below is rewritten in the same transparent language as this one.</p>
-      <div class="div-grid">
-        <a class="div-card" href="/marketing/signal" style="--dc: var(--accent-purple);">
-          <span class="dc-name">Signal</span>
-          <span class="dc-role">Marketing &amp; media buying</span>
-          <p>Ad platforms, analytics, and intent — anticipatory signals with proof of causal lift. The division this simulator runs on.</p>
-        </a>
-        <a class="div-card" href="/marketing/capital" style="--dc: var(--accent-amber);">
-          <span class="dc-name">Capital</span>
-          <span class="dc-role">Treasury &amp; allocation</span>
-          <p>Allocation, covenants, and liquidity — every move checked against the covenant envelope before it executes.</p>
-        </a>
-        <a class="div-card" href="/marketing/risk" style="--dc: var(--accent-rose);">
-          <span class="dc-name">Risk</span>
-          <span class="dc-role">Exposure &amp; guardrails</span>
-          <p>Limits and exposure watched continuously — with vetoes that hold when the numbers say stop.</p>
-        </a>
-        <a class="div-card" href="/marketing/counsel" style="--dc: var(--accent-blue);">
-          <span class="dc-name">Counsel</span>
-          <span class="dc-role">Legal &amp; agreements</span>
-          <p>Contracts, obligations, and exposure — read, cross-checked, and escalated with the evidence attached.</p>
-        </a>
-        <a class="div-card" href="/marketing/estate" style="--dc: var(--accent-emerald);">
-          <span class="dc-name">Estate</span>
-          <span class="dc-role">Property &amp; operations</span>
-          <p>Every property, lease, and maintenance signal in one governed operating picture.</p>
-        </a>
-        <a class="div-card more" href="/marketing/modules" style="--dc: var(--accent-cyan);">
-          <span class="dc-name">+ Your division</span>
-          <span class="dc-role">Any operating domain</span>
-          <p>New divisions onboard as Channel Intelligence Modules on the same governed loop. The five here are where we started — not where it ends.</p>
-        </a>
+    <section class="section wrap" id="loops" aria-labelledby="loops-title">
+      <div class="section-head"><div><p class="kicker">00 / FOUR LOOPS · ONE CONTROLLER</p><h2 id="loops-title">Every signal enters a loop.<br>No loop outranks governance.</h2></div><p>Evidence, causal measurement, decision control, and independently observed outcomes converge inside the seven-stage SRPVDAL Decision Control Plane.</p></div>
+      <div class="four-grid">
+        <article><span class="number">L1</span><h3>Evidence + intent</h3><p>Consented first-party events, provenance, quality, identity boundaries, and expiring session evidence. Gate: consent fail-closed and O-1 privacy lock.</p></article>
+        <article><span class="number">L2</span><h3>Causal measurement</h3><p>Treatment assignment, qualified holdouts, CATE, refutation, uncertainty, and calibration. Forecasts never grade their own incremental effect.</p></article>
+        <article><span class="number">L3</span><h3>Decision + passport</h3><p>Ranked hypotheses, chosen and rejected plans, DEL gates, approval, rollback, dispatch or named veto—packaged as a ValidationPassport.</p></article>
+        <article><span class="number">L4</span><h3>Outcome + learning</h3><p>Predicted and independently realized outcomes reconcile into decision memory. Activation requires a registered holdout.</p></article>
       </div>
-      <div class="div-demoband">
-        <div>
-          <span class="db-k">Live demos — six desks</span>
-          <p>The production runtime, seeded and replayable — including the deliberate red veto most demos hide.</p>
-        </div>
-        <a class="btn btn-primary" href="/marketing/demo">▶ Open the demo hub</a>
-      </div>
-    </div>
-  </section>
+      <p class="contract-note"><strong>One controller:</strong> SENSE → REASON → PLAN → VALIDATE → DECIDE → ACT → LEARN. Prediction never grades itself. A registered holdout is required before activation. A score cannot skip Validate or Decide; no-action always remains eligible.</p>
+    </section>
 
-  <section class="mb-section" id="matrix">
-    <div class="container">
-      <div class="mb-label">// The problem, honestly stated</div>
-      <h2>Dashboards manage symptoms. Control planes govern outcomes.</h2>
-      <p class="lede">Your CPA spiked at 7 a.m. Every tool you own can show you <em>that</em> it spiked. None of them can tell you <em>why</em> — because the cause lives in a different system than the symptom.</p>
-      <div class="vs-grid">
-        <div class="vs-plate">
-          <h3>The dashboard stack</h3>
-          <div class="sub">Symptom management</div>
-          <div class="vs-row">
-            <span class="k">The CPA spike</span>
-            <p>Twelve charts confirm the spike. Zero of them explain it. Was it creative fatigue? The landing page? A tracking break? An out-of-stock SKU? <b>You guess.</b></p>
-          </div>
-          <div class="vs-row">
-            <span class="k">The diagnosis</span>
-            <p>Tab-hopping between the ads manager, analytics, the CMS, and the order system — screenshot forensics across tools that have never heard of each other.</p>
-          </div>
-          <div class="vs-row">
-            <span class="k">The fix</span>
-            <p>A budget cut made on instinct, hours or days late — often punishing a campaign that was never the problem.</p>
-          </div>
-          <div class="vs-row">
-            <span class="k">Next quarter</span>
-            <p>The lesson lives in one buyer's memory and evaporates when they go on holiday.</p>
-          </div>
-        </div>
-        <div class="vs-plate win">
-          <h3>MIZ OKI 3.5</h3>
-          <div class="sub">Root-Cause Intelligence</div>
-          <div class="vs-row">
-            <span class="k">The CPA spike</span>
-            <p>Every ad click, page load, inventory count, and margin figure arrives as <b>Structured Signal Evidence</b> — one format, full provenance, cross-checked at the source.</p>
-          </div>
-          <div class="vs-row">
-            <span class="k">The diagnosis</span>
-            <p>The <b>Cross-Stack Root Cause Engine</b> correlates ads, page speed, inventory, and profit margins — and names the driver with a confidence figure attached.</p>
-          </div>
-          <div class="vs-row">
-            <span class="k">The fix</span>
-            <p>A margin-safe plan checked against your budget caps, brand rules, and ROAS floors <b>before</b> anything moves — executed automatically or routed for one-click approval.</p>
-          </div>
-          <div class="vs-row">
-            <span class="k">Next quarter</span>
-            <p><b>Compounding ROI Memory</b> records the outcome, so the next decision starts smarter than the last — whoever is on shift.</p>
-          </div>
-        </div>
+    <section class="section wrap" id="jobs" aria-labelledby="jobs-title">
+      <div class="section-head"><div><p class="kicker">01 / THE BUYER JOB</p><h2 id="jobs-title">Four questions.<br>One accountable answer.</h2></div><p>Growth teams do not need another chart. They need a defensible path from a performance change to the next authorized move.</p></div>
+      <div class="four-grid">
+        <article><span class="number">01</span><h3>Diagnose</h3><p>Connect media, site, inventory, CRM, and margin evidence to rank what most plausibly explains the observed change.</p></article>
+        <article><span class="number">02</span><h3>Prove</h3><p>Measure incremental contribution instead of treating platform attribution as causal truth.</p></article>
+        <article><span class="number">03</span><h3>Decide</h3><p>Compare candidate moves against profit, risk, downstream effects, and no-action.</p></article>
+        <article><span class="number">04</span><h3>Govern</h3><p>Apply policy, authority, approval, rollback, and audit controls before dispatch.</p></article>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="mb-section" id="signal-grid">
-    <div class="container">
-      <div class="mb-label">// Full-stack signal grid</div>
-      <h2>Every layer of the stack. One evidence stream.</h2>
-      <p class="lede">MIZ OKI ingests telemetry from the four layers that actually move CPA — and normalizes every event into Structured Signal Evidence before it is allowed anywhere near a decision.</p>
-      <div class="sg-grid">
-        <div class="sg-plate">
-          <span class="sg-k">Ad networks</span>
-          <p>Meta · Google Ads — spend pacing, auction signals, creative delivery, conversion streams.</p>
+    <section class="section dark" id="graph" aria-labelledby="graph-title">
+      <div class="wrap">
+        <div class="section-head-dark"><div><p class="kicker">02 / GROWTH DECISION GRAPH</p><h2 id="graph-title">Connected data is context.<br><em>Connected decisions become memory.</em></h2></div><p>The Growth Decision Graph is the Signal application view of the same temporal-causal, policy-aware MIZ OKI Decision Graph.</p></div>
+        <div class="graph-chain" aria-label="Signal to outcome Decision Graph chain">
+          <div class="graph-node"><small>01</small><strong>Signal</strong><b aria-hidden="true">→</b></div><div class="graph-node"><small>02</small><strong>Entity</strong><b aria-hidden="true">→</b></div><div class="graph-node"><small>03</small><strong>Cause</strong><b aria-hidden="true">→</b></div><div class="graph-node"><small>04</small><strong>Objective</strong><b aria-hidden="true">→</b></div><div class="graph-node"><small>05</small><strong>Policy</strong><b aria-hidden="true">→</b></div><div class="graph-node"><small>06</small><strong>Action</strong><b aria-hidden="true">→</b></div><div class="graph-node"><small>07</small><strong>Outcome</strong></div>
         </div>
-        <div class="sg-plate">
-          <span class="sg-k">Infrastructure</span>
-          <p>Shopify · Cloud Run · edge servers — page latency, deploy events, error rates, pixel health.</p>
-        </div>
-        <div class="sg-plate">
-          <span class="sg-k">Inventory</span>
-          <p>Warehouse SKUs — stock levels, sell-through velocity, restock ETAs, dead-stock flags.</p>
-        </div>
-        <div class="sg-plate">
-          <span class="sg-k">Finance guardrails</span>
-          <p>Target ROAS floors · CPA caps · margin thresholds — the policy numbers every action is checked against.</p>
-        </div>
+        <p class="graph-map">Campaign → Landing page → SKU → Margin → Policy → Media action → Incremental outcome</p>
+        <div class="definitions"><article><span>EVIDENCE</span><p>Source, time, identity boundary, provenance, quality, consent, and confidence.</p></article><article><span>OPERATING CONTEXT</span><p>Campaign, landing page, SKU, margin, objective, constraint, policy, authority, and risk.</p></article><article><span>DECISION MEMORY</span><p>Hypothesis, counterfactual, plan, approval, action, rollback, observed outcome, and lesson.</p></article></div>
+        <p class="graph-note">A conventional graph explains what is connected. The MIZ OKI Decision Graph preserves why a decision was proposed, how it was governed, what was authorized, and what outcome was observed.</p>
       </div>
-      <div class="sg-bus">─▶ &nbsp;Structured Signal Evidence — one format, provenance attached, cross-checked at the source&nbsp; ─▶</div>
-    </div>
-  </section>
+    </section>
 
-  <section class="mb-section" id="translation">
-    <div class="container">
-      <div class="mb-label">// Plain English, by design</div>
-      <h2>The architecture, translated.</h2>
-      <p class="lede">The engineering underneath is serious — and you should never need its vocabulary to buy media with it. Here is the whole translation, on the record.</p>
-      <div class="xlate">
-        <div class="xlate-row">
-          <span class="from">Canonical Event Envelope</span>
-          <span class="arrow">─▶</span>
-          <span class="to">Structured Signal Evidence<span>Every event, from any system, in one verifiable format with provenance attached.</span></span>
+    <section class="section contract" id="contract" aria-labelledby="contract-title">
+      <div class="wrap">
+        <div class="section-head"><div><p class="kicker">03 / DECISION EVIDENCE CONTRACT</p><h2 id="contract-title">Ten questions before<br>any action.</h2></div><p>This is a decision-evidence lens applied after the versioned canonical event schema—not a replacement for that schema. It turns normalized evidence into an auditable decision record.</p></div>
+        <div class="contract-grid">
+          <article class="contract-item"><span class="number">01</span><h3>What changed?</h3><p>Record the observed physical, digital, or economic state change with source time and provenance.</p></article>
+          <article class="contract-item"><span class="number">02</span><h3>Which entities?</h3><p>Bind the affected campaign, landing page, SKU, system, and identity boundary without silent stitching.</p></article>
+          <article class="contract-item"><span class="number">03</span><h3>What may explain it?</h3><p>Rank a named, refutable causal hypothesis and preserve plausible alternatives and uncertainty.</p></article>
+          <article class="contract-item"><span class="number">04</span><h3>Which objective?</h3><p>Declare the financial or operating outcome, population, and time horizon before choosing a move.</p></article>
+          <article class="contract-item"><span class="number">05</span><h3>Which policy applies?</h3><p>Attach consent, authority, budget, margin, legal, security, and action-class constraints.</p></article>
+          <article class="contract-item"><span class="number">06</span><h3>What could we do?</h3><p>Generate a bounded candidate set that always includes hold, investigate, and no-action.</p></article>
+          <article class="contract-item"><span class="number">07</span><h3>What could go wrong?</h3><p>Expose downside, counterfactual uncertainty, blast radius, reversibility, and rollback readiness.</p></article>
+          <article class="contract-item"><span class="number">08</span><h3>What did we predict?</h3><p>Store the ex-ante outcome distribution, assumptions, model version, calibration, and abstention state.</p></article>
+          <article class="contract-item"><span class="number">09</span><h3>What occurred?</h3><p>Measure the ex-post outcome against the same definition, population, and horizon used before action.</p></article>
+          <article class="contract-item"><span class="number">10</span><h3>What must change?</h3><p>Update decision memory only from qualified evidence, retaining the prior trace and version history.</p></article>
         </div>
-        <div class="xlate-row">
-          <span class="from">Temporal-Causal Knowledge Base</span>
-          <span class="arrow">─▶</span>
-          <span class="to">Cross-Stack Root Cause Engine<span>Connects what happened across ads, web, inventory, and margins — and why, in order.</span></span>
+        <div class="eligibility-strip" aria-label="Minimum Decision Eligibility Layer checks">
+          <div><small>GATE 01</small><strong>Identity + signature</strong></div><div><small>GATE 02</small><strong>Policy alignment</strong></div><div><small>GATE 03</small><strong>Context sufficiency</strong></div><div><small>GATE 04</small><strong>Hard constraints</strong></div>
         </div>
-        <div class="xlate-row">
-          <span class="from">Domain Intelligence Cell</span>
-          <span class="arrow">─▶</span>
-          <span class="to">Channel Intelligence Modules<span>Specialist reasoning per channel — search, social, lifecycle, programmatic — under one governor.</span></span>
+        <p class="contract-note"><strong>Authority contract:</strong> a missing required check or hard failure routes to hold, veto, or human review. L0–L5 authority is certified per account and action class; this product experience remains RECOMMEND / NO MUTATION.</p>
+      </div>
+    </section>
+
+    <section class="section intent" id="intent" aria-labelledby="intent-title">
+      <div class="wrap">
+        <div class="section-head"><div><p class="kicker">04 / ANTICIPATORY INTENT EVIDENCE · PREVIEW · IN DEVELOPMENT</p><h2 id="intent-title">Recognize the sequence.<br>Do not invent a dossier.</h2></div><p><strong>Preview · in development.</strong> Intent Engine v2 is presented here as an intended, consented first-party evidence path for Sense and Reason. It never shortcuts Validate, policy authority, or controlled execution.</p></div>
+        <div class="intent-grid">
+          <article><header><span class="number">I-01</span><small>SESSION-END PURGE · EPHEMERAL</small></header><h3>PassiveAttentionSequence</h3><p>Consented, first-party viewport deceleration and coarse lifecycle events are normalized to the active-session baseline; raw sequence buffers purge when the session ends.</p></article>
+          <article><header><span class="number">I-02</span><small>ACTIVE SESSION ONLY · ADVISORY</small></header><h3>SessionOutcomeForecast</h3><p>An ordered event stream estimates a configured near-term outcome with calibration, drift, and abstention metadata; state ends with the active session.</p></article>
+          <article><header><span class="number">I-03</span><small>ASSET-LIFECYCLE RETENTION</small></header><h3>CreativeSemanticProfile</h3><p>Versioned asset representations expose bounded visual and semantic compatibility without inferring a psychological identity, and expire with the creative lifecycle.</p></article>
+          <article><header><span class="number">I-04</span><small>STRICT TTL · REVOCABLE</small></header><h3>IntentHypothesis</h3><p>Temporary graph bridges join provenance-bearing session evidence to a revocable hypothesis with explicit uncertainty, strict TTL, and erasure-cascade support.</p></article>
+          <article><header><span class="number">I-05</span><small>IN BUILD · TRACE PACKAGE</small></header><h3>ValidationPassport</h3><p>Validated consent, quality, calibration, policy, causal evidence, authority, rollback, and disposition fields feed the governed decision trace.</p></article>
         </div>
-        <div class="xlate-row">
-          <span class="from">SRPVDAL Loop</span>
-          <span class="arrow">─▶</span>
-          <span class="to">7-Stage Governed Decision System<span>Sense, Reason, Plan, Validate, Decide, Act, Learn — every decision walks the same auditable path.</span></span>
+        <div class="sequence" aria-label="Illustrative first-party intent evidence sequence">
+          <div><small>00:01.420</small><strong>CONTENT REGION</strong><span>session baseline</span></div><b aria-hidden="true">→</b><div><small>00:03.090</small><strong>VIEWPORT DECELERATION</strong><span>coarse region only</span></div><b aria-hidden="true">→</b><div><small>00:05.110</small><strong>TAB HIDDEN</strong><span>content-free event</span></div><b aria-hidden="true">→</b><div><small>00:08.760</small><strong>RETURN</strong><span>sequence restored</span></div><b aria-hidden="true">→</b><div class="hypothesis"><small>EXAMPLE TTL</small><strong>IntentHypothesis</strong><span>illustrative · expires</span></div>
         </div>
-        <div class="xlate-row">
-          <span class="from">Decision Control Plane / Eligibility Layer</span>
-          <span class="arrow">─▶</span>
-          <span class="to">Safety Guardrail Engine<span>The rules that decide what is allowed to act — budget caps, ROAS floors, brand rules — enforced before dispatch, not after.</span></span>
+        <div class="controls">
+          <article class="control"><p>O-1 / PRIVACY LOCK</p><h3>Keystroke dynamics are prohibited.</h3><span>Raw keys · text · cadence · dwell or flight time · typing profiles · audio · gaze · fine individual geolocation · sensitive-trait inference</span><code>DISALLOWED_KEYSTROKE_DYNAMICS</code></article>
+          <article class="control inverse"><p>VALIDATION PASSPORT</p><h3>Prediction is advisory. Authority remains gated.</h3><span>Consent failure means no processing. Sensitive-category inference is denied at ingest and hypothesis creation. Probabilistic identities do not enter causal-effect math.</span><code>SHADOW / NO ACTION</code></article>
         </div>
-        <div class="xlate-row">
-          <span class="from">Immutable Learning Ledger</span>
-          <span class="arrow">─▶</span>
-          <span class="to">Compounding ROI Memory<span>Outcomes are recorded permanently, so wins repeat and mistakes don't.</span></span>
-        </div>
-        <div class="xlate-row">
-          <span class="from">Tenant Isolation &amp; Boundary</span>
-          <span class="arrow">─▶</span>
-          <span class="to">Enterprise Privacy &amp; Security Shield<span>Your data, your memory, your keys — no cross-account bleed, by construction.</span></span>
-        </div>
-        <div class="xlate-row">
-          <span class="from">No-Action Counterfactual Baseline</span>
-          <span class="arrow">─▶</span>
-          <span class="to">"Do Nothing" Opportunity Cost Check<span>Every plan is scored against doing nothing — action has to beat inaction on the evidence.</span></span>
+        <p class="contract-note"><strong>Retention boundary:</strong> session buffers purge at termination; session forecast state is session-only; asset profiles expire on creative retirement; hypotheses expire by strict TTL; erasure cascades through every relevant store. No persistent psychological dossier is created.</p>
+      </div>
+    </section>
+
+    <section class="section wrap" id="trace" aria-labelledby="trace-title">
+      <div class="section-head"><div><p class="kicker">05 / GOVERNED DECISION TRACE</p><h2 id="trace-title">Do not punish the wrong campaign.</h2></div><p>Choose an illustrative incident. The trace changes, but the evidence and authority gates do not.</p></div>
+      <div class="tabs" role="tablist" aria-label="Illustrative growth scenarios">
+        <button id="tab-cpa" role="tab" aria-selected="true" aria-controls="scenario-panel" tabindex="0" data-scenario="cpa"><span>01</span>CPA spike</button>
+        <button id="tab-margin" role="tab" aria-selected="false" aria-controls="scenario-panel" tabindex="-1" data-scenario="margin"><span>02</span>Margin compression</button>
+        <button id="tab-creative" role="tab" aria-selected="false" aria-controls="scenario-panel" tabindex="-1" data-scenario="creative"><span>03</span>Creative fatigue</button>
+        <button id="tab-inventory" role="tab" aria-selected="false" aria-controls="scenario-panel" tabindex="-1" data-scenario="inventory"><span>04</span>Stock constraint</button>
+        <button id="tab-geo" role="tab" aria-selected="false" aria-controls="scenario-panel" tabindex="-1" data-scenario="geo"><span>05</span>Geo calibration</button>
+        <button id="tab-treasury" role="tab" aria-selected="false" aria-controls="scenario-panel" tabindex="-1" data-scenario="treasury"><span>06</span>Treasury guard</button>
+      </div>
+      <noscript><p class="disclosure">Scenario switching needs JavaScript. The CPA-spike trace below is fully rendered; the other five illustrative scenarios follow the same seven governed stages.</p></noscript>
+      <div class="console" id="scenario-panel" role="tabpanel" aria-labelledby="tab-cpa" aria-live="polite" tabindex="0">
+        <div class="trace-column"><p>OBSERVED INCIDENT</p><h3 id="scenario-incident">Acquisition cost rises while conversion falls.</h3><ul id="scenario-evidence"><li>Auction pressure remains stable</li><li>Mobile checkout completion weakens</li><li>Eligible inventory remains available</li></ul></div>
+        <div class="trace-column"><p>CAUSAL HYPOTHESIS</p><h3 id="scenario-hypothesis">Checkout latency explains more of the observed loss than bid inflation.</h3><span class="badge" id="scenario-confidence">SUPPORTED · EXPERIMENT PENDING</span></div>
+        <div class="trace-column"><p>GOVERNED PLAN</p><h3 id="scenario-plan">Hold media changes. Repair the mobile path and run a randomized recovery test.</h3><span class="badge veto" id="scenario-verdict">HUMAN APPROVAL REQUIRED</span></div>
+      </div>
+      <div class="loop" aria-label="Sense, Reason, Plan, Validate, Decide, Act, Learn governed trace">
+        <article><span class="number">01</span><h3>Sense</h3><p>Capture the selected incident and its provenance-bearing cross-stack evidence.</p></article>
+        <article><span class="number">02</span><h3>Reason</h3><p>Rank named causal hypotheses and expose uncertainty instead of assigning automatic blame.</p></article>
+        <article><span class="number">03</span><h3>Plan</h3><p>Compare hold, repair, reallocate, suppress, investigate, and no-action candidates.</p></article>
+        <article><span class="number">04</span><h3>Validate</h3><p>Check incrementality, economics, quality, consent, risk, policy, and rollback readiness.</p></article>
+        <article><span class="number">05</span><h3>Decide</h3><p>Approve, route to an operator, keep in shadow, or veto within explicit authority.</p></article>
+        <article><span class="number">06</span><h3>Act</h3><p>Dispatch only an exact, scoped, authorized mutation through the existing action pathway.</p></article>
+        <article><span class="number">07</span><h3>Learn</h3><p>Compare predicted and verified outcomes and write the complete trace to decision memory.</p></article>
+      </div>
+      <p class="disclosure">Illustrative composite scenarios—not production telemetry or customer results, and never a guaranteed outcome.</p>
+    </section>
+
+    <section class="section passport-anatomy wrap" id="passport" aria-labelledby="passport-title">
+      <div><p class="kicker">05B / VALIDATIONPASSPORT · IN BUILD</p><h2 id="passport-title">Every proposal carries its evidence, alternatives, authority, and outcome contract.</h2><p class="lede">The public example is synthetic. It shows the trace package being built—not live tenant data and not a fabricated realized outcome.</p><p class="contract-note"><strong>Hard rule:</strong> a DEL score never overrides a failed hard constraint. Missing evidence routes to hold, named veto, or human review.</p></div>
+      <div class="passport-grid">
+        <article><span>Identity</span><h3>Decision + job</h3><p><code>decision_id</code> · synthetic tenant · <code>loop_id</code> · <code>job_id</code></p></article>
+        <article><span>Evidence</span><h3>Signals + hypotheses</h3><p><code>signal_refs</code> · ranked hypotheses · provenance · confidence and uncertainty</p></article>
+        <article><span>Choice</span><h3>Selected + rejected plans</h3><p>Chosen option, bounded alternatives, no-action, and the explicit reason each option advanced or failed.</p></article>
+        <article><span>Governance</span><h3>DEL + authority</h3><p>Gate results, DEL breakdown, autonomy level, approval record, named constraint, and rollback reference.</p></article>
+        <article><span>Disposition</span><h3>Dispatch or veto</h3><p><code>action_dispatch_or_veto</code> records the governed ending; no silent mutation and no authority inferred from a model score.</p></article>
+        <article><span>Learning + integrity</span><h3>Prediction → independent outcome</h3><p>Measurement window, realized outcome when independently available, learning-update reference, and SHA-256 integrity.</p></article>
+      </div>
+    </section>
+
+    <section class="section dark" id="decision-jobs" aria-labelledby="decision-jobs-title">
+      <div class="wrap">
+        <div class="section-head-dark"><div><p class="kicker">06 / HIGH-VALUE DECISION JOBS</p><h2 id="decision-jobs-title">Make the decision contract<br><em>explicit before the model runs.</em></h2></div><p>Each job declares the signal, eligible decision, governing constraint, evidence required, and measurable outcome.</p></div>
+        <div class="jobs-grid">
+          <article class="job"><div class="job-title"><span>J-01</span><h3>Incrementality</h3></div><dl><div><dt>Signal</dt><dd>Attributed growth moves</dd></div><div><dt>Decision</dt><dd>Test contribution before reallocating</dd></div><div><dt>Constraint</dt><dd>Qualified support + holdout eligibility</dd></div><div><dt>Evidence</dt><dd>Treatment-effect estimate and refutation</dd></div><div><dt>Outcome</dt><dd>Incremental contribution</dd></div></dl></article>
+          <article class="job"><div class="job-title"><span>J-02</span><h3>Waste prevention</h3></div><dl><div><dt>Signal</dt><dd>CPA rises or conversion weakens</dd></div><div><dt>Decision</dt><dd>Hold, repair, suppress, or investigate</dd></div><div><dt>Constraint</dt><dd>No automatic campaign blame</dd></div><div><dt>Evidence</dt><dd>Cross-stack causal hypothesis</dd></div><div><dt>Outcome</dt><dd>Avoided inefficient spend</dd></div></dl></article>
+          <article class="job"><div class="job-title"><span>J-03</span><h3>Margin control</h3></div><dl><div><dt>Signal</dt><dd>Revenue and profit diverge</dd></div><div><dt>Decision</dt><dd>Model a margin-aware allocation</dd></div><div><dt>Constraint</dt><dd>Finance baseline + SKU eligibility</dd></div><div><dt>Evidence</dt><dd>Contribution economics</dd></div><div><dt>Outcome</dt><dd>Incremental contribution margin</dd></div></dl></article>
+          <article class="job"><div class="job-title"><span>J-04</span><h3>Learning stability</h3></div><dl><div><dt>Signal</dt><dd>Platform feedback becomes noisy</dd></div><div><dt>Decision</dt><dd>Stage or withhold a change</dd></div><div><dt>Constraint</dt><dd>Experiment integrity + rollback</dd></div><div><dt>Evidence</dt><dd>Calibration and drift record</dd></div><div><dt>Outcome</dt><dd>Reliable learning velocity</dd></div></dl></article>
+          <article class="job"><div class="job-title"><span>J-05</span><h3>Executive defensibility</h3></div><dl><div><dt>Signal</dt><dd>Competing reports disagree</dd></div><div><dt>Decision</dt><dd>Preserve one governed decision trace</dd></div><div><dt>Constraint</dt><dd>Evidence provenance + authority</dd></div><div><dt>Evidence</dt><dd>ValidationPassport + ledger</dd></div><div><dt>Outcome</dt><dd>Auditable investment rationale</dd></div></dl></article>
+          <article class="job"><div class="job-title"><span>J-06</span><h3>Team leverage</h3></div><dl><div><dt>Signal</dt><dd>Recurring analysis consumes operators</dd></div><div><dt>Decision</dt><dd>Automate evidence assembly, not authority</dd></div><div><dt>Constraint</dt><dd>Human approval + scoped capability</dd></div><div><dt>Evidence</dt><dd>Reusable graph and outcome memory</dd></div><div><dt>Outcome</dt><dd>Faster governed decisions</dd></div></dl></article>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="mb-section" id="control-loop">
-    <div class="container">
-      <div class="mb-label">// The 7-Stage Governed Decision System</div>
-      <h2>Sense · Reason · Plan · Validate · Decide · Act · Learn</h2>
-      <p class="lede">Every campaign action — from a $40 bid nudge to a full budget reallocation — walks the same seven stages. Open each stage to see what it does with your stack.</p>
-      <div class="stage-rail" id="stageRail" aria-hidden="true">
-        <div class="stage-pip lit" data-stage="0">Sense</div>
-        <div class="stage-pip" data-stage="1">Reason</div>
-        <div class="stage-pip" data-stage="2">Plan</div>
-        <div class="stage-pip" data-stage="3">Validate</div>
-        <div class="stage-pip" data-stage="4">Decide</div>
-        <div class="stage-pip" data-stage="5">Act</div>
-        <div class="stage-pip" data-stage="6">Learn</div>
+    <section class="section boundary" aria-labelledby="boundary-title">
+      <div class="wrap"><div class="section-head"><div><p class="kicker">07 / COMPETITIVE BOUNDARY</p><h2 id="boundary-title">More than measurement.<br>Less than reckless automation.</h2></div><p>Signal earns authority from evidence, not from a model score alone.</p></div>
+        <div class="boundary-grid"><article><i>+</i><h3>Beyond attribution alone</h3><p>Reporting describes credited performance. Signal also tests causal contribution and preserves the supporting evidence.</p></article><article><i>+</i><h3>Beyond isolated bidding alone</h3><p>Signal reasons across media, site, inventory, CRM, margin, and policy before an authorized platform action.</p></article><article><i>+</i><h3>Beyond profile unification alone</h3><p>Identity and activation plumbing do not replace a governed cross-stack decision record or outcome memory.</p></article><article><i>+</i><h3>Beyond personalization alone</h3><p>Message selection becomes one bounded input to incremental economics—not a psychological profile or direct actuator.</p></article></div>
+        <p class="claim">The defensible distinction: cross-stack causal diagnosis + incrementality evidence + policy-gated operational action + outcome memory.</p>
       </div>
-      <div class="mb-acc" id="stageAcc">
-        <div class="mb-acc-item open">
-          <button class="mb-acc-head" aria-expanded="true" data-stage="0">
-            <span class="idx">01</span><span class="stage">Sense</span>
-            <span class="gist">24/7 Full-Stack Radar</span><span class="tick">▶</span>
-          </button>
-          <div class="mb-acc-body"><div><div class="mb-acc-pane">
-            <p>Monitors Google Ads, Meta, Shopify, edge servers, and stock levels around the clock. Spend pacing, page latency, inventory counts, pixel health, and margin data all land as Structured Signal Evidence — one format, timestamped, source-verified.</p>
-            <p class="meta">watches <b>ad platforms · web stack · analytics · inventory · margins</b> · emits <b>Structured Signal Evidence</b></p>
-          </div></div></div>
+    </section>
+
+    <section class="section measurement wrap" aria-labelledby="credit-title">
+      <div class="measurement-copy"><p class="kicker">08 / CAUSAL CREDIT</p><h2 id="credit-title">Forecasting is not incrementality.</h2><p>Signal keeps three questions separate: what outcome may occur, who is likely to receive a treatment, and what the treatment changes. Only qualified treatment-effect evidence can support incremental-value claims.</p></div>
+      <div><div class="ledger"><div><span>SESSION OUTCOME FORECAST</span><strong>Advisory probability</strong><small>Calibration · drift · abstention</small></div><div><span>TREATMENT ASSIGNMENT</span><strong>Experiment eligibility</strong><small>Consent · exclusion · support</small></div><div><span>TREATMENT EFFECT</span><strong>Qualified incrementality</strong><small>Estimator selection · refutation · holdout</small></div><div class="no-action"><span>DECISION SET</span><strong>No-action remains eligible.</strong><small>Risk · budget · policy · authority</small></div></div>
+        <div class="measurement-stack" aria-label="Triangulated causal measurement stack">
+          <article><span>QUALIFIED EXPERIMENT</span><h3>Estimate one defined intervention.</h3><p>Use as an anchor only when assignment, power, contamination, and outcome integrity support the population and test window.</p></article>
+          <article><span>HETEROGENEOUS EFFECTS</span><h3>Estimate where effects may vary.</h3><p>Select S-, T-, X-, or doubly robust approaches by assignment, overlap, imbalance, sample support, and diagnostics. No learner is uniformly best.</p></article>
+          <article><span>AGGREGATE MIX MODEL</span><h3>Inform the longer allocation horizon.</h3><p>Calibrate aggregate channel estimates against qualified experiments where definitions align; never present MMM as user-level causal truth.</p></article>
         </div>
-        <div class="mb-acc-item">
-          <button class="mb-acc-head" aria-expanded="false" data-stage="1">
-            <span class="idx">02</span><span class="stage">Reason</span>
-            <span class="gist">Root Cause AI</span><span class="tick">▶</span>
-          </button>
-          <div class="mb-acc-body"><div><div class="mb-acc-pane">
-            <p>Connects cause and effect over time — distinguishing true creative fatigue from site lag or pixel sync delay — by correlating evidence across systems your tools treat as silos. The Cross-Stack Root Cause Engine names the driver and attaches a confidence figure.</p>
-            <p class="meta">answers <b>"why did CPA move?"</b> · output <b>named cause + confidence + evidence chain</b></p>
-          </div></div></div>
-        </div>
-        <div class="mb-acc-item">
-          <button class="mb-acc-head" aria-expanded="false" data-stage="2">
-            <span class="idx">03</span><span class="stage">Plan</span>
-            <span class="gist">Actionable Strategy</span><span class="tick">▶</span>
-          </button>
-          <div class="mb-acc-body"><div><div class="mb-acc-pane">
-            <p>Generates the specific move: bid shifts, negative keyword lists, spend reallocations, or campaign pauses — sized to the diagnosis, not to a hunch. Channel Intelligence Modules contribute the channel-specific tactics; the loop composes them into one strategy.</p>
-            <p class="meta">produces <b>bid shifts · budget reallocations · campaign pauses</b> · sized by <b>diagnosed impact</b></p>
-          </div></div></div>
-        </div>
-        <div class="mb-acc-item">
-          <button class="mb-acc-head" aria-expanded="false" data-stage="3">
-            <span class="idx">04</span><span class="stage">Validate</span>
-            <span class="gist">Safety Brakes</span><span class="tick">▶</span>
-          </button>
-          <div class="mb-acc-body"><div><div class="mb-acc-pane">
-            <p>The Safety Guardrail Engine checks every planned action against target ROAS floors, daily spend caps, brand rules, and margin thresholds — including the "Do Nothing" Opportunity Cost Check — before anything is allowed to move. A plan that fails is vetoed, and the veto is arithmetic against your own policy numbers, not an opinion.</p>
-            <p class="meta">gates on <b>budget limits · brand rules · margin thresholds · ROAS floors</b> · failure mode <b>veto, nothing executes</b></p>
-          </div></div></div>
-        </div>
-        <div class="mb-acc-item">
-          <button class="mb-acc-head" aria-expanded="false" data-stage="4">
-            <span class="idx">05</span><span class="stage">Decide</span>
-            <span class="gist">1-Click Approvals</span><span class="tick">▶</span>
-          </button>
-          <div class="mb-acc-body"><div><div class="mb-acc-pane">
-            <p>Low-risk tweaks inside your autonomy grants execute automatically. Bigger calls route to Slack or Teams for one-click approval — you commit the decision, with the full evidence chain in front of you.</p>
-            <p class="meta">low risk <b>auto-approve inside grants</b> · elevated <b>routed to Slack / Teams for 1-click</b></p>
-          </div></div></div>
-        </div>
-        <div class="mb-acc-item">
-          <button class="mb-acc-head" aria-expanded="false" data-stage="5">
-            <span class="idx">06</span><span class="stage">Act</span>
-            <span class="gist">Hands-Free Execution</span><span class="tick">▶</span>
-          </button>
-          <div class="mb-acc-body"><div><div class="mb-acc-pane">
-            <p>Pushes approved changes directly through the ad platform APIs — bids, budgets, statuses — with every dispatch logged against the decision that authorized it. No copy-paste, no 11 p.m. console sessions.</p>
-            <p class="meta">dispatch via <b>Google Ads API · Meta API · commerce APIs</b> · every call <b>logged to its decision</b></p>
-          </div></div></div>
-        </div>
-        <div class="mb-acc-item">
-          <button class="mb-acc-head" aria-expanded="false" data-stage="6">
-            <span class="idx">07</span><span class="stage">Learn</span>
-            <span class="gist">Compounding ROI Memory</span><span class="tick">▶</span>
-          </button>
-          <div class="mb-acc-body"><div><div class="mb-acc-pane">
-            <p>Remembers historical campaign results — what was decided, why, and what happened next — permanently. The outcome of every action feeds the next diagnosis, so future decisions get faster and smarter.</p>
-            <p class="meta">records <b>decision + rationale + outcome</b> · effect <b>each decision starts smarter than the last</b></p>
-          </div></div></div>
-        </div>
+        <p class="measurement-rule"><strong>Triangulation rule:</strong> align the treatment, outcome, population, and time horizon before reconciling results. Never average incompatible estimands. When qualified evidence conflicts, abstain and investigate.</p>
       </div>
-    </div>
-  </section>
+    </section>
 
-
-  <section class="mb-section" id="simulator">
-    <div class="container">
-      <div class="mb-label">// Interactive Scenario Simulator</div>
-      <h2>Break something. Watch the control plane catch it.</h2>
-      <p class="lede">Pick a failure every media buyer has lived through, drag the dials, and watch the 7-Stage Governed Decision System diagnose, validate, and execute — or veto — in front of you. The model recalculates live as you move each slider.</p>
-
-      <div class="sim-frame">
-        <div class="sim-col-controls">
-          <div class="sim-col-head">Interactive Controls</div>
-
-          <div class="sim-group" id="simScenarios">
-            <span class="sim-group-label">Scenario</span>
-            <div class="sim-scen">
-              <label class="on"><input type="radio" name="simScenario" value="latency" checked />
-                <span class="t">01 · Landing Page Latency Spike</span>
-                <span class="d">A deploy slows your landing page. Paid traffic keeps arriving.</span>
-              </label>
-              <label><input type="radio" name="simScenario" value="stock" />
-                <span class="t">02 · SKU Out-of-Stock Crisis</span>
-                <span class="d">Your hero SKU is running dry while its campaigns keep spending.</span>
-              </label>
-              <label><input type="radio" name="simScenario" value="pixel" />
-                <span class="t">03 · Pixel Attribution Drift</span>
-                <span class="d">Conversion fires drop. Demand didn't. Your reported ROAS is lying.</span>
-              </label>
-            </div>
-          </div>
-
-          <div class="sim-group">
-            <span class="sim-group-label">Parameters</span>
-            <div class="sim-slider" id="slLatency">
-              <div class="row"><span class="name">Page latency (p75 LCP)</span><span class="val" id="simLatencyVal">3.2s</span></div>
-              <input type="range" id="simLatency" min="0.5" max="6.0" step="0.1" value="3.2" aria-label="Page latency in seconds" />
-              <div class="scale"><span>0.5s</span><span>6.0s</span></div>
-            </div>
-            <div class="sim-slider" id="slInventory">
-              <div class="row"><span class="name">Stock level (hero SKU)</span><span class="val" id="simInventoryVal">140 units</span></div>
-              <input type="range" id="simInventory" min="0" max="1000" step="10" value="140" aria-label="Inventory units" />
-              <div class="scale"><span>0</span><span>1,000</span></div>
-            </div>
-            <div class="sim-slider" id="slBudget">
-              <div class="row"><span class="name">Daily spend</span><span class="val" id="simBudgetVal">$8,000</span></div>
-              <input type="range" id="simBudget" min="1000" max="20000" step="500" value="8000" aria-label="Daily budget in dollars" />
-              <div class="scale"><span>$1k</span><span>$20k</span></div>
-            </div>
-          </div>
-
-          <div class="sim-group">
-            <span class="sim-group-label">Safety Policy</span>
-            <label class="sim-toggle on" id="tgFloor">
-              <span class="tt">Target ROAS floor<span>2.2× — evaluated on verified evidence</span></span>
-              <input type="checkbox" id="simFloor" checked /><span class="sw"></span>
-            </label>
-            <label class="sim-toggle on" id="tgCap">
-              <span class="tt">Max auto-spend limit<span>$5,000 per action without human sign-off</span></span>
-              <input type="checkbox" id="simCap" checked /><span class="sw"></span>
-            </label>
-          </div>
-
-          <p class="sim-honesty">Illustrative scenario — a deterministic model of the decision loop, replayable from the same inputs. No live account data, no randomness. The <a href="/marketing/demo">live desks</a> run the production runtime end-to-end.</p>
-        </div>
-
-        <div class="sim-col-monitor">
-          <div class="term-topbar">
-            <span class="dot" id="simDot"></span>
-            <span id="simStatus">Execution Monitor · armed</span>
-            <span class="spacer"></span>
-            <span class="rid" id="simReplayId">replay MB-000000</span>
-          </div>
-          <div class="term-scroll" id="simTerminal">
-            <div class="ph" id="phSense">
-              <div class="ph-head"><span class="pnum">PHASE 1</span><span class="pname">SENSE</span><span class="pstat">—</span></div>
-              <div class="ph-body" id="bodySense"></div>
-            </div>
-            <div class="ph" id="phReason">
-              <div class="ph-head"><span class="pnum">PHASE 2</span><span class="pname">REASON</span><span class="pstat">—</span></div>
-              <div class="ph-body" id="bodyReason"></div>
-            </div>
-            <div class="ph" id="phPlan">
-              <div class="ph-head"><span class="pnum">PHASE 3</span><span class="pname">PLAN</span><span class="pstat">—</span></div>
-              <div class="ph-body" id="bodyPlan"></div>
-            </div>
-            <div class="ph" id="phValidate">
-              <div class="ph-head"><span class="pnum">PHASE 4</span><span class="pname">VALIDATE</span><span class="pstat">—</span></div>
-              <div class="ph-body" id="bodyValidate"></div>
-            </div>
-            <div class="ph" id="phDecide">
-              <div class="ph-head"><span class="pnum">PHASE 5</span><span class="pname">DECIDE</span><span class="pstat">—</span></div>
-              <div class="ph-body" id="bodyDecide"></div>
-            </div>
-            <div class="ph" id="phAct">
-              <div class="ph-head"><span class="pnum">PHASE 6</span><span class="pname">ACT</span><span class="pstat">—</span></div>
-              <div class="ph-body" id="bodyAct"></div>
-            </div>
-            <div class="ph" id="phLearn">
-              <div class="ph-head"><span class="pnum">PHASE 7</span><span class="pname">LEARN</span><span class="pstat">—</span></div>
-              <div class="ph-body" id="bodyLearn"></div>
-            </div>
-          </div>
-        </div>
+    <section class="section wrap" id="net-yield" aria-labelledby="net-yield-title">
+      <div class="section-head"><div><p class="kicker">08B / NET YIELD · IN BUILD</p><h2 id="net-yield-title">Revenue is not contribution.</h2></div><p><strong>Preview · in development.</strong> The economics layer is designed to preserve missingness instead of inventing profitability.</p></div>
+      <div class="net-yield" aria-label="Illustrative net contribution evidence ledger">
+        <div class="yield-row"><span>Observed revenue</span><b>→</b><small>Source transaction evidence with order and SKU lineage</small></div>
+        <div class="yield-row"><span>Refunds + observed returns</span><b>→</b><small>Actual-only until at least one observed return cycle exists per SKU</small></div>
+        <div class="yield-row"><span>Fulfillment + required costs</span><b>→</b><small>Missing required costs leave a row incomplete and excluded; costs are never invented</small></div>
+        <div class="yield-row"><span>Net contribution evidence</span><b>→</b><small>Recommendation input only · NET_YIELD_WRITEBACK remains OFF</small></div>
       </div>
-      <noscript><p class="sim-honesty" style="margin-top: 14px;">The simulator needs JavaScript. The <a href="/marketing/demo">live demo desks</a> show the same decision loop running on the production runtime.</p></noscript>
-    </div>
-  </section>
+      <p class="measurement-rule"><strong>Control boundary:</strong> no claim that the platform currently bids on net contribution. Writeback requires its own verified pilot and separate approval.</p>
+    </section>
 
-  <section class="mb-section" id="video">
-    <div class="container">
-      <div class="mb-label">// 90-second platform walkthrough</div>
-      <h2>The whole idea, in a minute and a half.</h2>
-      <p class="lede">A five-scene storyboard cut of the platform film — playable here, with the full transcript and scene-by-scene navigation. Press play, or jump to any scene.</p>
+    <section class="section evidence" id="evidence" aria-labelledby="evidence-title"><div class="wrap">
+      <div class="section-head"><div><p class="kicker">09 / EVIDENCE MATURITY</p><h2 id="evidence-title">Demonstrate the logic.<br>Validate the outcome.</h2></div><p>A polished scenario is not a customer result. Authority expands only when customer-specific evidence supports it.</p></div>
+      <div class="evidence-grid"><article><span class="number">GATE 01</span><h3>DEMONSTRABLE LOGIC</h3><p>Enter with synthetic or replayable scenarios. Exit only when schemas, deterministic traces, vetoes, abstention, and rollback behavior are reproducible.</p></article><article><span class="number">GATE 02</span><h3>PILOT VALIDATION</h3><p>Enter observe-only with customer-specific data. Exit only when data quality, causal design, calibration, contribution economics, and policy checks qualify.</p></article><article><span class="number">GATE 03</span><h3>GOVERNED EXPANSION</h3><p>Enter with qualified pilot evidence. Advance an account × action class only after security, authority, limits, approvals, monitoring, and rollback are proven.</p></article></div>
+      <p class="disclosure">Illustrative figures and scenarios demonstrate intended product logic—not production telemetry or customer results—and require customer-specific validation during implementation.</p>
+    </div></section>
 
-      <div class="vid-shell">
-        <div class="vid-plate" id="vidPlate">
-          <div class="vid-scene" id="vidScene">
-            <span class="sn" id="vidSceneKicker">Scene 1 of 5 · 0:00</span>
-            <h3 id="vidSceneTitle">The Media Buyer's Nightmare</h3>
-            <p id="vidSceneCopy">It's 7 a.m. CPA is up 40%. Twelve dashboards confirm the spike — none of them explain it. Press ▶ to play the storyboard.</p>
-          </div>
+    <section class="section roadmap" id="frontiers" aria-labelledby="roadmap-title">
+      <div class="wrap">
+        <div class="section-head-dark"><div><p class="kicker">10 / ADVANCED CONTROL FRONTIERS · IN BUILD</p><h2 id="roadmap-title">Five expansions.<br><em>Five different gates.</em></h2></div><p>These frontiers have advanced from roadmap to governed implementation. They are not live capabilities, customer results, permission to act, or evidence that an activation gate has cleared.</p></div>
+        <div class="roadmap-grid">
+          <article class="roadmap-card"><span>F1</span><small>IN BUILD · PROVISIONAL</small><h3>Creative component effects</h3><p>Embeddings describe promotion framing, layout, copy length, and imagery. Only randomized or otherwise qualified variation may identify causal effects.</p><b class="frontier-lock">Every estimate remains provisional until configured volume is met. Generated creative always requires human approval.</b></article>
+          <article class="roadmap-card"><span>F2</span><small>IN BUILD · DATA-GATED</small><h3>Multi-quarter value</h3><p>Balance immediate conversion against discounted contribution margin and repeat purchase across declared horizons.</p><b class="frontier-lock">Publish only with at least two observed quarters per cohort; otherwise return DATA_INSUFFICIENT.</b></article>
+          <article class="roadmap-card"><span>F3</span><small>IN BUILD · OBSERVE-ONLY</small><h3>Inventory + fulfillment</h3><p>Stock, safety thresholds, holding cost, and regional capacity may enter the graph as recommendation evidence.</p><b class="frontier-lock">No F3-originated action can reach a platform adapter, regardless of flags.</b></article>
+          <article class="roadmap-card"><span>F4</span><small>IN BUILD · PER-ACTION APPROVAL</small><h3>Micro-geo calibration</h3><p>Owner-configured aggregate geographies, exclusions, donors, and caps may support a bounded reservation proposal.</p><b class="frontier-lock">Every reservation halts for Level 2 approval. Two clean cycles plus an owner-approved config change are required before bounded-authority eligibility.</b></article>
+          <article class="roadmap-card"><span>F5</span><small>IN BUILD · CONFIG-DECLARED</small><h3>Treasury-gated spend</h3><p>Validated liquidity floors, covenant limits, and tightening curves may become named hard constraints in Validate and Decide.</p><b class="frontier-lock">Missing or invalid configuration means NOT_CONFIGURED—never an invented constraint or silent default.</b></article>
         </div>
-        <div class="vid-controls">
-          <button class="vid-play" id="vidPlay" aria-label="Play the storyboard">▶ PLAY</button>
-          <div class="vid-track"><div class="vid-bar" id="vidBar"></div></div>
-          <span class="vid-time" id="vidTime">0:00 / 1:30</span>
-        </div>
-        <div class="vid-chips" id="vidChips">
-          <button class="vid-chip lit" data-t="0"><b>0:00</b>The Media Buyer's Nightmare</button>
-          <button class="vid-chip" data-t="15"><b>0:15</b>Redefining Cross-Stack Signals</button>
-          <button class="vid-chip" data-t="35"><b>0:35</b>Finding the True Root Cause</button>
-          <button class="vid-chip" data-t="55"><b>0:55</b>1-Click Governed Approvals</button>
-          <button class="vid-chip" data-t="75"><b>1:15</b>Compounding Organizational Memory</button>
-        </div>
+        <p class="roadmap-note"><strong>Expansion workflow:</strong> merged artifact → registry verification → synthetic replay → qualified pilot → policy, security, and rollback review → separately approved account × action-class authority. MEASUREMENT_WRITEBACK and NET_YIELD_WRITEBACK remain OFF.</p>
       </div>
+    </section>
 
-      <button class="vid-trans-toggle" id="vidTransToggle" aria-expanded="false" aria-controls="vidTranscript">Full transcript ▾</button>
-      <div class="vid-transcript" id="vidTranscript">
-        <div class="vt-row">
-          <button data-t="0">0:00</button>
-          <div class="vt-body"><b>The Media Buyer's Nightmare</b>
-          <p>It's 7 a.m. and CPA is up forty percent. Was it creative fatigue? A slow landing page? A tracking break? Your dashboards show you twelve symptoms — and no cause. So you guess, and the spend keeps burning while you do.</p></div>
-        </div>
-        <div class="vt-row">
-          <button data-t="15">0:15</button>
-          <div class="vt-body"><b>Redefining Cross-Stack Signals</b>
-          <p>MIZ OKI reads your stack differently. Every ad click, page load, inventory count, and margin figure arrives as Structured Signal Evidence — one format, full provenance, cross-checked against its source system. Not more data. Better evidence.</p></div>
-        </div>
-        <div class="vt-row">
-          <button data-t="35">0:35</button>
-          <div class="vt-body"><b>Finding the True Root Cause</b>
-          <p>The Cross-Stack Root Cause Engine correlates across the systems your tools treat as silos: the 2 p.m. deploy slowed your landing page, conversion fell, CPA rose. A named cause with a confidence figure attached — in minutes, not at Monday's retro.</p></div>
-        </div>
-        <div class="vt-row">
-          <button data-t="55">0:55</button>
-          <div class="vt-body"><b>1-Click Governed Approvals</b>
-          <p>Then it acts — inside your rules. The Safety Guardrail Engine checks budget caps, brand rules, and margin floors before anything moves. Low-risk fixes execute hands-free; bigger calls route to Slack for one-click approval. And when a move fails the safety check, it is vetoed. Nothing executes.</p></div>
-        </div>
-        <div class="vt-row">
-          <button data-t="75">1:15</button>
-          <div class="vt-body"><b>Compounding Organizational Memory</b>
-          <p>Every outcome is recorded to Compounding ROI Memory — permanently. The next decision starts smarter than the last one finished. That's not another dashboard. That's a control plane for ad growth.</p></div>
-        </div>
-      </div>
-      <p class="vid-note">Storyboard cut — scenes and narration are the shipped 90-second script; the filmed version replaces this player when it lands.</p>
-    </div>
-  </section>
+    <section class="section pilot wrap" id="pilot" aria-labelledby="pilot-title" data-abtest-goal>
+      <div class="pilot-copy"><p class="kicker">11 / COMMERCIAL ENTRY</p><h2 id="pilot-title">A 90-day Causal Growth Control Pilot.</h2><p>One brand. Limited, agreed source systems. Two consequential decision classes. Media, site, inventory, CRM, and margin inputs as available. Customer-specific evidence and economic baselines.</p><p><strong>Begin observe-only.</strong> Advance to human-approved actions only after evidence quality, economics, and policy boundaries are validated. Make a separate expansion decision at completion.</p><p>Verified pilot numbers—not marketing copy—are what may later flip Preview labels. Real tenant selection, costs, treasury constraints, geo candidates and caps, creative volume, and holdout registration are owner inputs.</p><a class="button primary" href="/go/pilot?cta=marketing-pilot">Design a 90-day growth pilot ↗</a></div>
+      <div class="pilot-phases"><article><span>DAYS 01—30</span><h3>Observe</h3><p>Connect agreed sources and define two decision classes. Exit with provenance, consent, completeness, latency, and baseline economics documented—without mutation.</p></article><article><span>DAYS 31—60</span><h3>Validate</h3><p>Pre-register qualified tests, select estimators from assignment and support, calibrate forecasts, challenge policies, and reconcile contribution economics.</p></article><article><span>DAYS 61—90</span><h3>Recommend</h3><p>Surface human-approved proposals with ValidationPassport records, verified rollback paths, independently observed outcome comparisons, and an explicit expand, hold, or stop decision.</p></article></div>
+    </section>
 
-  <div class="reinforces-block">
-    <div class="container">
-      <div class="label">// Runs on the same spine as</div>
-      <div class="layers"><span>Signal</span> · <span>Capital</span> · <span>Risk</span> · <span>Counsel</span> · <span>Nexus</span></div>
-    </div>
-  </div>
+    <section class="section platform" aria-labelledby="platform-title">
+      <div><p class="kicker">BUILT ON MIZ OKI</p><h2 id="platform-title">MIZ OKI Signal is powered by the MIZ OKI Decision Graph and governed runtime.</h2><p>Signal is the first deeply productized commercial application. The platform operates above systems of record and shares temporal evidence, causal reasoning, policy authorization, action traces, and outcome memory across domains.</p></div>
+      <a class="button" href="#jobs">Explore the growth decision model ↗</a>
+    </section>
 
-  <section class="mb-close">
-    <div class="container">
-      <h2>Govern ad growth the way you'd govern capital.</h2>
-      <p>The simulator above is an illustrative model. The live desks run the production runtime — seeded, replayable, veto and all. Start there, then talk to us when it's worth an hour.</p>
-      <div class="hero-cta" style="justify-content: center;">
-        <a href="/marketing/demo" class="btn btn-primary">▶ Run the live desks</a>
-        <a href="/marketing/executive-briefing/" class="btn btn-ghost">Executive briefing</a>
-        <a href="/contact?source=marketing" class="btn btn-ghost">Talk about a pilot — no pressure</a>
-      </div>
-    </div>
-  </section>
+    <section class="final" aria-labelledby="final-title"><p class="kicker">MIZ OKI SIGNAL</p><h2 id="final-title">Build qualified evidence for why performance moved.<br><em>Govern the next move.</em></h2><p>Run one complete decision trace, define the evidence required, and start in observe-only mode.</p><div class="actions"><a class="button light" href="#trace">Explore a decision trace</a><a class="button outline" href="/go/pilot?cta=marketing-final">Design a 90-day growth pilot</a></div></section>
+  </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <div class="footer-brand">MIZOKI3</div>
-          <div class="footer-tag">// One intelligence. Many domains. Shared causal memory.</div>
-        </div>
-        <div class="footer-col">
-          <h5>Domains</h5>
-          <ul>
-            <li><a href="/marketing/counsel">Counsel</a></li>
-            <li><a href="/marketing/estate">Estate</a></li>
-            <li><a href="/marketing/capital">Capital</a></li>
-            <li><a href="/marketing/signal">Signal</a></li>
-            <li><a href="/marketing/risk">Risk</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h5>Marketing site</h5>
-          <ul>
-            <li><a href="/marketing/engine">The Engine</a></li>
-            <li><a href="/marketing/modules">Channel Modules</a></li>
-            <li><a href="/marketing/simulator">Scenario Simulator</a></li>
-            <li><a href="/marketing/walkthrough">90-sec walkthrough</a></li>
-            <li><a href="/marketing/governance">Governance &amp; Security</a></li>
-            <li><a href="/marketing/demo">Live demos</a></li>
-            <li><a href="/">Classic site</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>© MIZOKI3 · MediaIntelligence.ai</span>
-        <span>// Autonomous Decision Infrastructure</span>
-      </div>
-    </div>
-  </footer>
+  <footer><a class="wordmark" href="#marketing-main" aria-label="MIZ OKI 3.5 — top of page">MIZ OKI <b>3.5</b></a><p>Signal · Causal Growth Control</p><div><span>Qualified evidence</span><span>Policy-gated</span><span>Outcome memory</span><a href="/animation">Animation</a></div></footer>
 
-  <script src="/assets/js/media-sim.js?v=20260802" defer></script>
-  <script src="/assets/js/nav-mobile.js" defer></script>
+  <script>
+    (function () {
+      "use strict";
+      const scenarios = {
+        cpa: {
+          incident: "Acquisition cost rises while conversion falls.",
+          evidence: ["Auction pressure remains stable", "Mobile checkout completion weakens", "Eligible inventory remains available"],
+          hypothesis: "Checkout latency explains more of the observed loss than bid inflation.",
+          confidence: "SUPPORTED · EXPERIMENT PENDING",
+          plan: "Hold media changes. Repair the mobile path and run a randomized recovery test.",
+          verdict: "HUMAN APPROVAL REQUIRED"
+        },
+        margin: {
+          incident: "Revenue holds while contribution margin contracts.",
+          evidence: ["SKU mix shifts toward lower margin", "Fulfillment cost rises", "Attributed ROAS remains flat"],
+          hypothesis: "The apparent media efficiency masks a lower-margin product mix.",
+          confidence: "PROPOSED · FINANCE REVIEW",
+          plan: "Model a margin-aware allocation and preserve no-action as an eligible choice.",
+          verdict: "SHADOW / NO ACTION"
+        },
+        creative: {
+          incident: "Frequency increases while qualified response softens.",
+          evidence: ["Repeat exposure rises", "Holdout response softens", "Landing behavior remains stable"],
+          hypothesis: "Creative wear is a plausible driver inside the eligible audience slice.",
+          confidence: "F1 · PROVISIONAL EFFECT",
+          plan: "Propose an element-level creative test; keep generated-creative deployment behind human approval.",
+          verdict: "HUMAN APPROVAL REQUIRED"
+        },
+        inventory: {
+          incident: "Demand rises while a promoted SKU approaches its safety threshold.",
+          evidence: ["Available stock falls toward the owner-set floor", "A substitute SKU carries higher contribution margin", "Regional capacity remains uneven"],
+          hypothesis: "Continuing the current allocation increases avoidable stockout and fulfillment risk.",
+          confidence: "F3 · OBSERVE ONLY",
+          plan: "Recommend throttling the constrained SKU and model a shift toward eligible inventory.",
+          verdict: "RECOMMEND / NO DISPATCH"
+        },
+        geo: {
+          incident: "Channel estimates diverge and the next allocation decision lacks a current causal anchor.",
+          evidence: ["Candidate aggregate geos pass configured exclusions", "A donor pool meets pre-period fit checks", "The proposal remains inside the owner-set cap"],
+          hypothesis: "A bounded micro-geo holdout may reduce allocation uncertainty without granting blanket authority.",
+          confidence: "F4 · DESIGN QUALIFIED",
+          plan: "Package the candidate window, donor design, exclusions, and cap for Level 2 approval.",
+          verdict: "HALT AT APPROVAL"
+        },
+        treasury: {
+          incident: "A profitable media proposal arrives as liquidity approaches a declared operating floor.",
+          evidence: ["Cash position enters a configured tightening band", "The proposal exceeds the resulting cap", "The named synthetic covenant rule is active"],
+          hypothesis: "The proposal remains economically attractive but is ineligible under the declared synthetic constraint.",
+          confidence: "F5 · CONFIG-DECLARED",
+          plan: "Veto the spend increase, name the binding constraint, and route the exception to a human owner.",
+          verdict: "POLICY VETO"
+        }
+      };
+      const tabs = Array.from(document.querySelectorAll('[role="tab"][data-scenario]'));
+      const panel = document.getElementById("scenario-panel");
+      const evidenceList = document.getElementById("scenario-evidence");
+
+      function selectTab(tab, moveFocus) {
+        const scenario = scenarios[tab.dataset.scenario];
+        if (!scenario) return;
+        tabs.forEach(function (candidate) {
+          const selected = candidate === tab;
+          candidate.setAttribute("aria-selected", selected ? "true" : "false");
+          candidate.tabIndex = selected ? 0 : -1;
+        });
+        panel.setAttribute("aria-labelledby", tab.id);
+        document.getElementById("scenario-incident").textContent = scenario.incident;
+        document.getElementById("scenario-hypothesis").textContent = scenario.hypothesis;
+        document.getElementById("scenario-confidence").textContent = scenario.confidence;
+        document.getElementById("scenario-plan").textContent = scenario.plan;
+        document.getElementById("scenario-verdict").textContent = scenario.verdict;
+        evidenceList.replaceChildren();
+        scenario.evidence.forEach(function (item) {
+          const li = document.createElement("li");
+          li.textContent = item;
+          evidenceList.appendChild(li);
+        });
+        if (moveFocus) tab.focus();
+      }
+
+      tabs.forEach(function (tab, index) {
+        tab.addEventListener("click", function () { selectTab(tab, false); });
+        tab.addEventListener("keydown", function (event) {
+          let next = null;
+          if (event.key === "ArrowRight" || event.key === "ArrowDown") next = tabs[(index + 1) % tabs.length];
+          if (event.key === "ArrowLeft" || event.key === "ArrowUp") next = tabs[(index - 1 + tabs.length) % tabs.length];
+          if (event.key === "Home") next = tabs[0];
+          if (event.key === "End") next = tabs[tabs.length - 1];
+          if (next) { event.preventDefault(); selectTab(next, true); }
+        });
+      });
+    }());
+  </script>
+<script data-abtest="goal-beacon">
+/* A/B/C outcome tier 3 (pre-registered tertiary metric): fires once when the
+   pilot/briefing section becomes visible. Deterministic — no randomness, no
+   clock reads. Sends only {goal, page}; the server derives assignment context
+   from its own cookie parse, and nothing personal leaves the page. */
+(function () {
+  "use strict";
+  var target = document.querySelector("[data-abtest-goal]");
+  if (!target || !("IntersectionObserver" in window) || !navigator.sendBeacon) { return; }
+  var sent = false;
+  var observer = new IntersectionObserver(function (entries) {
+    for (var i = 0; i < entries.length; i += 1) {
+      if (entries[i].isIntersecting && !sent) {
+        sent = true;
+        observer.disconnect();
+        navigator.sendBeacon("/api/abtest/goal", new Blob(
+          [JSON.stringify({goal: "pilot-view", page: location.pathname})],
+          {type: "application/json"}));
+      }
+    }
+  });
+  observer.observe(target);
+}());
+</script>
 </body>
 </html>

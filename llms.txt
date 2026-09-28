@@ -1,0 +1,38 @@
+# MIZ OKI
+> Governed decision system for performance marketing and commerce: anticipatory intent with proof of causal lift, iROAS-driven budget decisions, and an autonomy ladder whose promotion gates are fixed and human-decided.
+
+Capability statements on this site carry LIVE / PARTIAL / IN BUILD / PROPOSED / ROADMAP labels; every performance figure carries a truth label (verified / benchmark / pilot / design target / illustrative).
+
+## Product
+
+- [Signal](https://mizoki3.com/signal): the Shopify-merchant growth control surface — thresholds, budget, creative, audiences, measurement.
+- [Signal thresholds](https://mizoki3.com/signal/thresholds): threshold-aware decisions.
+- [Signal budget](https://mizoki3.com/signal/budget): iROAS-driven reallocation.
+- [Signal creative](https://mizoki3.com/signal/creative): creative decisions under the same gates.
+- [Signal audiences](https://mizoki3.com/signal/audiences): audience decisions with holdouts.
+- [Signal measurement](https://mizoki3.com/signal/measurement): incrementality over platform attribution.
+- [Shopify](https://mizoki3.com/shopify): the Shopify-merchant homepage.
+- [Pricing](https://mizoki3.com/pricing): packaging and the 90-Day Growth Control Pilot.
+
+## Demos
+
+- [Demo hub](https://mizoki3.com/demo): guided demo surfaces.
+- [Signal demo](https://mizoki3.com/demo/signal): the Signal desk.
+- [Walkthrough](https://mizoki3.com/walkthrough): the executive walkthrough.
+- [Executive briefing](https://mizoki3.com/executive-briefing/): the briefing module.
+
+## Reference
+
+- [Docs](https://mizoki3.com/docs): the public documentation portal (generated from the repository's docs tree at deploy time).
+- [Journal](https://mizoki3.com/blog): founder letters, research and field notes.
+- [Privacy](https://mizoki3.com/privacy): privacy statement.
+- [Terms](https://mizoki3.com/terms): terms of service.
+
+## Optional
+
+- [Counsel](https://mizoki3.com/counsel), [Estate](https://mizoki3.com/estate), [Capital](https://mizoki3.com/capital), [Risk](https://mizoki3.com/risk): the other decision desks.
+
+<!-- The Learn section (the authority pages) is NOT hand-listed here. It is
+     appended at serve time from the page loader, and this file is only served
+     at all while the LEARN_PAGES flag is ON — so no authority-page link is
+     published while the flag is OFF (Lane 5 S4, 2026-09-02). -->

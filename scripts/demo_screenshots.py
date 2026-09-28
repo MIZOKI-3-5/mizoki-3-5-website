@@ -10,7 +10,11 @@ capture:
 - Boardroom mode on /demo/nexus
 - /walkthrough.html
 
-at 390 / 768 / 1440 px widths, into scripts/screenshots/.
+at 390 / 768 / 1440 px widths, into scripts/screenshots/ — plus the
+Executive Demo (/media/demo, r1.0, 2026-09-12): every act driven to its
+interactive state at 1440 px, Act 1 and Act 5 at 400 px, with a hard check
+that the 400 px layout has no horizontal scroll and the page logs no
+console/page errors.
 
 Review every image before committing; attach the 1440 px set to the PR.
 D1 shipped because this step didn't exist — it is now a merge gate.
@@ -46,6 +50,26 @@ PAGES = [
     ("nexus", "/demo/nexus", "#startBtn", "#startBtn", "#provenancePanel.on"),
     ("walkthrough", "/walkthrough.html", "h1", None, None),
 ]
+
+# Executive Demo r1.0: single-file presenter surface. Widths per the landing
+# prompt (1440 projector / 400 phone). Each act is driven to the state the
+# review checks — Act 1 table (bank view), Act 3 lift chart after the
+# refutation battery, Act 4 waterfall + dosage curve at a moved budget,
+# Act 5 DEL chart after an action + the three F4 HALTs.
+EXEC_PATH = "/media/demo"
+EXEC_WIDTHS = (1440, 400)
+EXEC_ACTS = (
+    # (slug, act index, [(selector, settle_ms), ...])
+    ("0-cover", 0, []),
+    ("1-the-lie", 1, [("#viewPlatform", 150), ("#viewBank", 300)]),
+    ("2-the-signals", 2, [("#playSession", 5300), ("#sendKeys", 400)]),
+    ("3-the-proof", 3, [("#registerBtn", 200), ("#refuteBtn", 2400)]),
+    ("4-the-profit", 4, []),
+    ("5-the-restraint", 5, [("#a1", 2700), ("#f4Btn", 1900)]),
+    ("6-the-90-days", 6, []),
+)
+EXEC_PHONE_ACTS = ("1-the-lie", "5-the-restraint")
+EXEC_FONT_HOSTS = ("fonts.googleapis.com", "fonts.gstatic.com")
 
 
 def boot_app() -> None:
@@ -113,7 +137,68 @@ def capture(out_dir: Path) -> list[Path]:
                     print(f"  captured {target}")
                     page.keyboard.press("Escape")
             context.close()
+        shots.extend(capture_executive(browser, out_dir))
         browser.close()
+    return shots
+
+
+def capture_executive(browser, out_dir: Path) -> list[Path]:
+    """Drive /media/demo act by act; fail on errors or phone overflow."""
+    shots: list[Path] = []
+    errors: list[str] = []
+    failed_requests: list[str] = []
+    for width in EXEC_WIDTHS:
+        context = browser.new_context(viewport={"width": width, "height": 900},
+                                      reduced_motion="reduce")
+        page = context.new_page()
+        page.on("pageerror", lambda e: errors.append(f"{width}px pageerror: {e}"))
+        # Resource-load failures are judged by URL below (requestfailed), so
+        # the console echo of one is not double-counted; every other console
+        # error is a real defect.
+        page.on("console", lambda m: errors.append(f"{width}px console: {m.text}")
+                if m.type == "error" and not m.text.startswith("Failed to load resource") else None)
+        page.on("requestfailed", lambda r: failed_requests.append(r.url))
+        page.goto(BASE_URL + EXEC_PATH, wait_until="networkidle")
+        page.wait_for_selector("#actRail", timeout=15000)
+        for slug, act, clicks in EXEC_ACTS:
+            if width == 400 and slug not in EXEC_PHONE_ACTS:
+                continue
+            page.evaluate(f'document.querySelector(\'#actRail [data-go="{act}"]\').click()')
+            page.wait_for_timeout(350)
+            for selector, settle in clicks:
+                page.click(selector)
+                page.wait_for_timeout(settle)
+            if slug == "4-the-profit":
+                page.fill("#budget", "8000")
+                page.dispatch_event("#budget", "input")
+                page.wait_for_timeout(300)
+            # The top bar is position:sticky; a full-page capture otherwise
+            # paints it wherever the last click scrolled to.
+            page.evaluate("window.scrollTo(0, 0)")
+            page.wait_for_timeout(150)
+            target = out_dir / f"executive-{slug}-{width}.png"
+            page.screenshot(path=str(target), full_page=True)
+            shots.append(target)
+            print(f"  captured {target}")
+        scroll_w = page.evaluate("document.documentElement.scrollWidth")
+        if scroll_w > width:
+            raise RuntimeError(f"/media/demo overflows at {width}px: scrollWidth={scroll_w}")
+        print(f"  /media/demo {width}px: scrollWidth={scroll_w} (no horizontal scroll)")
+        context.close()
+    # The page's only permitted egress is Google Fonts (the landing prompt's
+    # "fonts excepted"). A sandbox without egress resets that fetch and the
+    # page falls back to system fonts — tolerated, and said so; any OTHER
+    # failed request is a foreign dependency and fails the gate.
+    foreign = [u for u in failed_requests
+               if not any(h in u for h in EXEC_FONT_HOSTS)]
+    if foreign:
+        errors.append("foreign resource(s) requested: " + ", ".join(sorted(set(foreign))))
+    if errors:
+        raise RuntimeError("/media/demo logged errors:\n" + "\n".join(errors))
+    if failed_requests:
+        print("  note: font fetch failed here (no egress) — captures use fallback fonts: "
+              + ", ".join(sorted(set(failed_requests))))
+    print("  /media/demo: no console or page errors; no foreign resources")
     return shots
 
 

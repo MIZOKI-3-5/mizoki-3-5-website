@@ -7,7 +7,7 @@
 
 **B. Cold-start seeding — the "new store" answer.** Contrastive, seed-guided synthetic interaction data warm-starts the two-tower retrieval/ranking stack for new stores and new SKUs, replacing weeks of expensive platform "learning phase." Approach follows published work by Airbnb (LLM synthetic search data) and standard two-tower practice. Sales value: kills the "we don't have enough data for you" objection on day one.
 
-**C. Intention graphs (COSMO/RIG-style) — deepens ORACLE.** Session trajectories mapped to intention nodes with asynchronous/synchronous/causal edges — this slots directly into Cell 34's Neo4j design (SHOWED_INTEREST / PRECEDES) and strengthens the §Preview story. Same status as ORACLE: preview.
+**C. Intention graphs (COSMO/RIG-style) — deepens ORACLE.** Session trajectories mapped to intention nodes with asynchronous/synchronous/causal edges — this slots directly into Cell 35's intent-graph design (SHOWED_INTEREST / PRECEDES; corrected 2026-08-19 — plan-vintage copy said "Cell 34"/Neo4j, and the graph is Firestore-backed since the 2026-08-09 Neo4j retirement) and strengthens the §Preview story. Same status as ORACLE: preview.
 
 **D. The Shopify asymmetry frame — the emotional spine.** "Enterprise platforms have quant departments; you have dashboards that grade their own homework." This is the villain the whole spiel needed.
 
@@ -15,7 +15,8 @@
 
 | Claim | Status | How to say it |
 |---|---|---|
-| Caused-vs-anticipated ledger, holdouts, ghost bids, geo | Core design; demo live | Present tense, illustrative numbers |
+| Caused-vs-anticipated ledger, holdouts, geo | Core design; demo live | Present tense, illustrative numbers |
+| Ghost bids | **Registration shipped; execution path in development** | "In development" — never "on your spend". No live ghost-bid experiment has run against real ad spend (BUILD_DEBT GB-1) |
 | SRPVDAL 7-stage, DEL score, autonomy ladder | Live platform | Present tense |
 | Net-contribution bidding via CAPI / Value Rules | **Buildable now — not yet shipped** | "In development · preview" until first pilot |
 | 15-minute autonomous cycles; <1s streaming | Design targets | Label as design targets, never observed performance |
@@ -31,7 +32,7 @@
 
 **One-liner:** *Other tools optimize the number your ad platform reports. Mizoki optimizes the number your bank account reports.*
 
-**60-second version:** "Shopify merchants are competing against enterprises with quant departments, armed with dashboards that grade their own homework. Mizoki closes that gap in three moves. First, **prove**: we run the actual experiment — holdouts, ghost bids, matched cities — so you know which conversions your spend caused and which were coming anyway. Second, **profit**: we plug your real economics into the bidding loop — landed COGS, pick-and-pack, shipping, and the returns that quietly turn winning campaigns into losing ones — so the ad platforms optimize toward your net contribution, not your top line. Third, **anticipate** (in preview): an intention graph in the style of Amazon's COSMO reads where a shopper is heading before they say it — and by house rule, a prediction never claims credit without an experiment behind it. All of it runs on one governed loop that starts in observe-only and earns spend authority the way you'd let a new hire earn it."
+**60-second version:** "Shopify merchants are competing against enterprises with quant departments, armed with dashboards that grade their own homework. Mizoki closes that gap in three moves. First, **prove**: we run the actual experiment — holdouts and matched cities — so you know which conversions your spend caused and which were coming anyway. Second, **profit**: we plug your real economics into the bidding loop — landed COGS, pick-and-pack, shipping, and the returns that quietly turn winning campaigns into losing ones — so the ad platforms optimize toward your net contribution, not your top line. Third, **anticipate** (in preview): an intention graph in the style of Amazon's COSMO reads where a shopper is heading before they say it — and by house rule, a prediction never claims credit without an experiment behind it. All of it runs on one governed loop that starts in observe-only and earns spend authority the way you'd let a new hire earn it."
 
 **The three-beat structure for every surface:** PROVE → PROFIT → ANTICIPATE (preview). Profit moved to slot two deliberately: for SMB Shopify it converts harder than intent.
 

@@ -1,45 +1,202 @@
 {
   "posts": [
     {
+      "slug": "the-number-your-bank-account-reports",
+      "section": "journal",
+      "title": "The number your bank account reports",
+      "summary": "MIZ OKI connects causal evidence, contribution economics and decision authority so teams can govern the next dollar with a record they can inspect.",
+      "author": "Boris Mizhen",
+      "published": "2026-09-24",
+      "updated": "2026-09-24",
+      "tags": [
+        "founder-letters",
+        "decision-intelligence"
+      ],
+      "read_minutes": 3,
+      "image": "/og-image.png",
+      "series": "The Next Dollar",
+      "series_order": 1
+    },
+    {
+      "slug": "before-you-raise-bids-check-the-checkout",
+      "section": "journal",
+      "title": "Before you raise bids check the checkout",
+      "summary": "Follow a fictional acquisition-cost spike through evidence, causal qualification, contribution and approval in the MIZ OKI Decision Studio.",
+      "author": "Boris Mizhen",
+      "published": "2026-09-24",
+      "updated": "2026-09-24",
+      "tags": [
+        "founder-letters",
+        "decision-intelligence"
+      ],
+      "read_minutes": 3,
+      "image": "/og-image.png",
+      "series": "The Next Dollar",
+      "series_order": 2
+    },
+    {
       "slug": "doorman-problem",
-      "title": "The Doorman Problem: What Your Retargeting Dashboard Can't Tell You",
-      "summary": "A composite field note on the question platform ROAS never answers: which conversions did the ads actually cause — and which customers were already walking through the door?",
-      "author": "MIZ OKI Research",
+      "section": "journal",
+      "title": "The doorman problem",
+      "summary": "A retargeting conversion is not automatically an incremental conversion. Learn how holdouts, uncertainty and contribution change the budget decision.",
+      "author": "Boris Mizhen",
       "published": "2026-08-03",
-      "updated": "2026-08-03",
-      "tags": ["field-notes", "incrementality", "retargeting", "measurement"],
-      "read_minutes": 3
+      "updated": "2026-09-24",
+      "tags": [
+        "founder-letters",
+        "decision-intelligence"
+      ],
+      "read_minutes": 3,
+      "image": "/og-image.png",
+      "series": "The Next Dollar",
+      "series_order": 3
+    },
+    {
+      "slug": "when-your-best-seller-loses-money",
+      "section": "journal",
+      "title": "When your best seller loses money",
+      "summary": "See how a synthetic SKU can report strong ROAS while losing contribution, and why verified costs must precede profit-based advertising decisions.",
+      "author": "Boris Mizhen",
+      "published": "2026-09-24",
+      "updated": "2026-09-24",
+      "tags": [
+        "founder-letters",
+        "decision-intelligence"
+      ],
+      "read_minutes": 3,
+      "image": "/og-image.png",
+      "series": "The Next Dollar",
+      "series_order": 4
+    },
+    {
+      "slug": "what-the-system-refuses-to-learn",
+      "section": "journal",
+      "title": "What the system refuses to learn",
+      "summary": "MIZ OKI's intent design uses consented, limited signals and explicit exclusions. See why a forecast must earn evidence before it can influence action.",
+      "author": "Boris Mizhen",
+      "published": "2026-09-24",
+      "updated": "2026-09-24",
+      "tags": [
+        "founder-letters",
+        "decision-intelligence"
+      ],
+      "read_minutes": 3,
+      "image": "/og-image.png",
+      "series": "The Next Dollar",
+      "series_order": 5
+    },
+    {
+      "slug": "the-decision-to-do-nothing",
+      "section": "journal",
+      "title": "The decision to do nothing",
+      "summary": "A good recommendation still needs authority. Explore how MIZ OKI demonstrates policy checks, withheld actions and the limits of rollback.",
+      "author": "Boris Mizhen",
+      "published": "2026-09-24",
+      "updated": "2026-09-24",
+      "tags": [
+        "founder-letters",
+        "decision-intelligence"
+      ],
+      "read_minutes": 3,
+      "image": "/og-image.png",
+      "series": "The Next Dollar",
+      "series_order": 6
+    },
+    {
+      "slug": "your-business-should-remember-why",
+      "section": "journal",
+      "title": "Your business should remember why",
+      "summary": "MIZ OKI's Decision Graph design aims to preserve why choices were made, who approved them and what followed. Cross-domain learning remains on the roadmap.",
+      "author": "Boris Mizhen",
+      "published": "2026-09-24",
+      "updated": "2026-09-24",
+      "tags": [
+        "founder-letters",
+        "decision-intelligence"
+      ],
+      "read_minutes": 3,
+      "image": "/og-image.png",
+      "series": "The Next Dollar",
+      "series_order": 7
+    },
+    {
+      "slug": "when-media-becomes-a-business-decision",
+      "section": "journal",
+      "title": "When a media decision becomes a business decision",
+      "summary": "The Nexus demonstration follows one commercial shock across Signal, Capital, Risk, Counsel and Estate while preserving a shared decision trace.",
+      "author": "Boris Mizhen",
+      "published": "2026-09-24",
+      "updated": "2026-09-24",
+      "tags": [
+        "founder-letters",
+        "decision-intelligence"
+      ],
+      "read_minutes": 3,
+      "image": "/og-image.png",
+      "series": "The Next Dollar",
+      "series_order": 8
+    },
+    {
+      "slug": "autonomy-is-earned",
+      "section": "journal",
+      "title": "Autonomy is earned",
+      "summary": "MIZ OKI's pilot begins with observation, advances through reviewed recommendations and considers bounded actions only when the evidence and gates permit.",
+      "author": "Boris Mizhen",
+      "published": "2026-09-24",
+      "updated": "2026-09-24",
+      "tags": [
+        "founder-letters",
+        "decision-intelligence"
+      ],
+      "read_minutes": 3,
+      "image": "/og-image.png",
+      "series": "The Next Dollar",
+      "series_order": 9
     },
     {
       "slug": "adc-decision-framework",
+      "section": "research",
       "title": "How an Autonomous Decision Controller (ADC) Thinks",
       "summary": "A plain-English guide to the 7 alerts that power real intelligence. Learn how an ADC thinks through decisions the same way a disciplined human expert would.",
       "author": "MIZ OKI Research",
       "published": "2026-04-22",
       "updated": "2026-04-22",
-      "tags": ["decision-intelligence", "adc", "autonomy"],
-      "read_minutes": 9,
-      "image": "/assets/img/blog/adc-framework/og.png"
+      "tags": [
+        "decision-intelligence",
+        "adc",
+        "autonomy"
+      ],
+      "read_minutes": 9
     },
     {
       "slug": "decision-control-plane",
-      "title": "Why Agents Need a Decision Control Plane",
+      "section": "research",
+      "title": "Why Agents Need Decision Gates",
       "summary": "The architectural innovation that separates action proposal from authorization—and why it's essential for enterprise AI.",
       "author": "MIZ OKI Research",
       "published": "2026-03-14",
-      "updated": "2026-03-14",
-      "tags": ["architecture", "governance", "agentic-systems"],
-      "read_minutes": 11,
-      "image": "/assets/img/blog/dcp/og.png"
+      "updated": "2026-08-15",
+      "tags": [
+        "architecture",
+        "governance",
+        "agentic-systems"
+      ],
+      "read_minutes": 11
     },
     {
       "slug": "relu-lens-meta-algorithm",
+      "section": "research",
       "title": "Unlocking Meta's Ad Algorithm With the ReLU Lens",
       "summary": "A practical, image-driven playbook for threshold-aware media buying: why campaigns feel dead until they activate, how to build signal density, and how MIZ OKI 3.5 operationalizes those dynamics.",
       "author": "MIZ OKI Research",
       "published": "2026-01-28",
       "updated": "2026-01-28",
-      "tags": ["meta-ads", "media-buying", "relu", "playbook"],
+      "tags": [
+        "meta-ads",
+        "media-buying",
+        "relu",
+        "playbook"
+      ],
       "read_minutes": 14,
       "image": "/assets/img/blog/meta-relu/og_meta_relu_1200x627.png"
     }

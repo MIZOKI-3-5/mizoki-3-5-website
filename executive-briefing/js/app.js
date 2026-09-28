@@ -210,7 +210,7 @@
     return (
       '<footer class="mb-footer"><div class="mb-footer-inner">' +
       "<p>MIZ OKI 3.5 · Autonomous Decision Intelligence · mizoki3.com</p>" +
-      "<p>~9 minutes · domain-adaptive · Decision Control Plane</p>" +
+      "<p>~9 minutes · domain-adaptive · decision gates</p>" +
       "</div></footer>"
     );
   }
@@ -221,7 +221,7 @@
       "<div>" +
       '<p class="mb-kicker">Executive product demo</p>' +
       '<h1 class="mb-title mb-title-lg">A clear process for executives who need to know — in one sitting — if this belongs in the company.</h1>' +
-      '<p class="mb-lead">MIZ OKI 3.5 is verifiable autonomous BI. This briefing is not a feature tour. It is a structured path from your domain reality to a board-ready decision — marketing, legal, logistics, HR, finance, ops, CX, or supply chain — with the Decision Control Plane in the loop.</p>' +
+      '<p class="mb-lead">MIZ OKI 3.5 is verifiable autonomous BI. This briefing is not a feature tour. It is a structured path from your domain reality to a board-ready decision — marketing, legal, logistics, HR, finance, ops, CX, or supply chain — with the decision gates in the loop.</p>' +
       '<div class="mb-actions" style="justify-content:flex-start;margin-top:2rem">' +
       '<button type="button" class="mb-btn mb-btn-primary mb-btn-lg mb-btn-block mb-btn-block-sm" id="mb-start">' +
       "Begin executive briefing " +
@@ -425,7 +425,7 @@
         .join("") +
       '</div><p class="mb-text-subtle mb-mt-4" style="font-size:0.75rem;margin:1rem 0 0">Next you will resolve a live ' +
       d.short.toLowerCase() +
-      " scenario using those same signals — governed by DCP, not a slide deck.</p></section></div>" +
+      " scenario using those same signals — governed by the decision gates, not a slide deck.</p></section></div>" +
       navHTML("Run live scenario", false) +
       "</div>"
     );
@@ -532,7 +532,7 @@
       (!gate
         ? '<p class="mb-text-subtle mb-mt-6" style="font-size:0.875rem">Resolve at least the critical signal to unlock a decision-grade business case.</p>'
         : allDone
-          ? '<p class="mb-text-signal mb-mt-6" style="font-size:0.875rem">Scenario complete. You just ran the same loop MIZ OKI operationalizes every day — signal, VAL check, DCP-governed action, outcome.</p>'
+          ? '<p class="mb-text-signal mb-mt-6" style="font-size:0.875rem">Scenario complete. You just ran the same loop MIZ OKI operationalizes every day — signal, VAL check, gate-governed action, outcome.</p>'
           : '<p class="mb-text-signal mb-mt-6" style="font-size:0.875rem">Critical path secured. Optional: clear remaining signals for a fuller scorecard.</p>') +
       navHTML("Build the business case", !gate) +
       "</div>"
@@ -650,7 +650,7 @@
       '<h2 class="mb-title mb-title-md">Leave with no ambiguity</h2>' +
       '<p class="mb-lead">You have seen the cost of inaction in ' +
       d.name.toLowerCase() +
-      ", executed a live scenario under the Decision Control Plane, and modeled recovery for " +
+      ", executed a live scenario under the decision gates, and modeled recovery for " +
       escapeHtml(org) +
       ". The only open question is how you proceed — not whether the problem is real.</p>" +
       '<div class="mb-grid-2 mb-mt-8">' +
@@ -676,17 +676,7 @@
             "</span></li>"
         )
         .join("") +
-      '</ul><div class="mb-row mb-mt-6">' +
-      '<span class="mb-chip">' +
-      svg("shield") +
-      " SOC 2 Type II</span>" +
-      '<span class="mb-chip">' +
-      svg("shield") +
-      " SSO / SCIM</span>" +
-      '<span class="mb-chip">' +
-      svg("shield") +
-      " Data residency options</span>" +
-      "</div></section>" +
+      "</ul></section>" +
       "<section><p class=\"mb-section-title\">Choose your next step</p>" +
       '<p class="mb-hint">For a ' +
       escapeHtml(r.label) +
@@ -894,7 +884,7 @@
         } else {
           window.location.href =
             (window.MIZOKI_CONFIG && window.MIZOKI_CONFIG.contactUrl) ||
-            "https://mizoki3.com/#contact";
+            "/contact";
         }
       });
     }

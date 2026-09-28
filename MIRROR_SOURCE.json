@@ -1,0 +1,1399 @@
+{
+  "files": {
+    "01_relu_gate.png": {
+      "sha256": "4119cd916be8c519c0cdf449f036e28525d8eed26a494199ee45d85d56956814",
+      "source": "# MIZ OKI 3.5/01_relu_gate.png"
+    },
+    "ChatGPT Image May 13, 2026, 10_56_34 AM.png": {
+      "sha256": "5bc5cd9046dfef2603f0f1b81d0b4eb905e6053c10ccfafc92f5c64ca3bd3c06",
+      "source": "# MIZ OKI 3.5/ChatGPT Image May 13, 2026, 10_56_34 AM.png"
+    },
+    "ChatGPT Image May 13, 2026, 10_57_21 AM.png": {
+      "sha256": "c3d9fb749a2e1cf3b797920df1e391076ae350997a479f9975531d7591d9efa7",
+      "source": "# MIZ OKI 3.5/ChatGPT Image May 13, 2026, 10_57_21 AM.png"
+    },
+    "ChatGPT Image May 13, 2026, 10_57_27 AM.png": {
+      "sha256": "61f78ca533c68254674338b74f51a6505f46e93e3fb98aef428af333bb4175ba",
+      "source": "# MIZ OKI 3.5/ChatGPT Image May 13, 2026, 10_57_27 AM.png"
+    },
+    "ChatGPT Image May 13, 2026, 10_57_32 AM.png": {
+      "sha256": "1796307055689fe31838e0af582932384d458318dd804c189449b4eeefac7c45",
+      "source": "# MIZ OKI 3.5/ChatGPT Image May 13, 2026, 10_57_32 AM.png"
+    },
+    "ChatGPT Image May 13, 2026, 10_57_37 AM.png": {
+      "sha256": "dd49e356445ccde9c371dca0bc4bceea4b0fa38ac61fc7b0ab2cfe5739e974e9",
+      "source": "# MIZ OKI 3.5/ChatGPT Image May 13, 2026, 10_57_37 AM.png"
+    },
+    "ChatGPT Image May 13, 2026, 10_57_44 AM.png": {
+      "sha256": "e8cbf594cbf61f5df2ab8bcb0926115b40efb2d9720838ebff4c22657aa4c92e",
+      "source": "# MIZ OKI 3.5/ChatGPT Image May 13, 2026, 10_57_44 AM.png"
+    },
+    "ChatGPT Image May 13, 2026, 10_57_49 AM.png": {
+      "sha256": "9b82c33e9d3d40e1633b5aa30208dc807e764ed470130edc49c3f0121fbf8bf0",
+      "source": "# MIZ OKI 3.5/ChatGPT Image May 13, 2026, 10_57_49 AM.png"
+    },
+    "ChatGPT Image May 13, 2026, 10_57_55 AM.png": {
+      "sha256": "bc9fe91b8d83910195a356191ed73efe083cba60448758899490bb0d26512224",
+      "source": "# MIZ OKI 3.5/ChatGPT Image May 13, 2026, 10_57_55 AM.png"
+    },
+    "ChatGPT Image May 13, 2026, 10_58_01 AM.png": {
+      "sha256": "ad6dd6b51f4406993504d47fb9ec894555378f95de1d62700e9a0a4682e537e1",
+      "source": "# MIZ OKI 3.5/ChatGPT Image May 13, 2026, 10_58_01 AM.png"
+    },
+    "ChatGPT Image May 13, 2026, 10_58_08 AM.png": {
+      "sha256": "070e515354ba50eae08ef0a303e5486c7e1ecea60aa70b5b4001ba0c2062eee3",
+      "source": "# MIZ OKI 3.5/ChatGPT Image May 13, 2026, 10_58_08 AM.png"
+    },
+    "ChatGPT Image May 13, 2026, 10_58_13 AM.png": {
+      "sha256": "ca3b167fab81f4381a08b1b3c721a7e3e88231cf0c56c6f1f386e328848dcbc9",
+      "source": "# MIZ OKI 3.5/ChatGPT Image May 13, 2026, 10_58_13 AM.png"
+    },
+    "ChatGPT Image May 13, 2026, 10_58_21 AM.png": {
+      "sha256": "9c0b27f4e8ecc00a6a5bc01e6226f15e4a2e758ffdbce6b9516e2801346a1294",
+      "source": "# MIZ OKI 3.5/ChatGPT Image May 13, 2026, 10_58_21 AM.png"
+    },
+    "Dockerfile": {
+      "sha256": "0119f7590c1c2da83512426c5682de0d04bdf02dd57de8325aa58f2ba1936ca5",
+      "source": "# MIZ OKI 3.5/Dockerfile"
+    },
+    "LinkedIn_Meta_ReLU_Article.txt": {
+      "sha256": "d856d345160c1d88ee48bf26e3bf2e45077928ed6d67418e818cea95804868c6",
+      "source": "# MIZ OKI 3.5/LinkedIn_Meta_ReLU_Article.txt"
+    },
+    "MIZOKI Cannonical Lopp.png": {
+      "sha256": "1796307055689fe31838e0af582932384d458318dd804c189449b4eeefac7c45",
+      "source": "# MIZ OKI 3.5/MIZOKI Cannonical Lopp.png"
+    },
+    "README_Captions_AltText.txt": {
+      "sha256": "c71079d0c1a7138e41d4cd1e3802dd990b591475945f30e12a19f31254bccfb5",
+      "source": "# MIZ OKI 3.5/README_Captions_AltText.txt"
+    },
+    "_build_domains.py": {
+      "sha256": "be87cb0aa59ab97f2511d3b962082b2f89acd96c22a5439779c0103c33ec2ba9",
+      "source": "# MIZ OKI 3.5/_build_domains.py"
+    },
+    "adaptive-enterprise.html": {
+      "sha256": "c3edc0cf192a0c3aa77144415456f01776c92b41aa51d4fd6efc617ed1867780",
+      "source": "# MIZ OKI 3.5/adaptive-enterprise.html"
+    },
+    "app.js": {
+      "sha256": "fd2a50142fce56ac6d639ab287e30af3c3355497a024f62bf064aa68756555d5",
+      "source": "# MIZ OKI 3.5/app.js"
+    },
+    "app.py": {
+      "sha256": "d3156dacefcec9bee7a4c8612682df93a4c793671b352851b374b307cba2ef8a",
+      "source": "# MIZ OKI 3.5/app.py"
+    },
+    "assets/01-hero-system.png": {
+      "sha256": "076a3aafa30070f09acc237c640423a575abdac7f37f92b95ea2f26df8ca67a4",
+      "source": "# MIZ OKI 3.5/assets/01-hero-system.png"
+    },
+    "assets/02-editorial-overview.png": {
+      "sha256": "dae81eeaeb49821f93b36327263831f42c2db96bd40ebcd384be69fa6bf02eca",
+      "source": "# MIZ OKI 3.5/assets/02-editorial-overview.png"
+    },
+    "assets/03-canonical-loop.png": {
+      "sha256": "55117f70b73e0662d1154e9841b9c1cc9465e04eb503f7fc6a7df4c19d3a6075",
+      "source": "# MIZ OKI 3.5/assets/03-canonical-loop.png"
+    },
+    "assets/05-governance.png": {
+      "sha256": "84af505c137246cfb93d9b9cb4ce939defcbc7d81fac9bf976c07049442fec51",
+      "source": "# MIZ OKI 3.5/assets/05-governance.png"
+    },
+    "assets/06-knowledge-graph.png": {
+      "sha256": "8e820d05904b822e796bde66664a9612ff40abd4728e2907d3cd949c32a55fe2",
+      "source": "# MIZ OKI 3.5/assets/06-knowledge-graph.png"
+    },
+    "assets/07-legal-cell.png": {
+      "sha256": "2b933528be034259744def5afb48e842d444385f35ff4213f38932d1afc69644",
+      "source": "# MIZ OKI 3.5/assets/07-legal-cell.png"
+    },
+    "assets/08-estate-cell.png": {
+      "sha256": "4cce9806c1ffde1bec56e2f499fa53013dc8e01e09ef31926d0aa8aca8e14621",
+      "source": "# MIZ OKI 3.5/assets/08-estate-cell.png"
+    },
+    "assets/09-risk-cell.png": {
+      "sha256": "c2935107391ef0aa2c8bf607010f7e00a01cbbcdad14b0fcb8b86fafdd56f020",
+      "source": "# MIZ OKI 3.5/assets/09-risk-cell.png"
+    },
+    "assets/10-media-cell.png": {
+      "sha256": "a30de938e9da00c6cc463d6750a94768d5ee6d9344f151e3478e48fbe9afb859",
+      "source": "# MIZ OKI 3.5/assets/10-media-cell.png"
+    },
+    "assets/11-nexus.png": {
+      "sha256": "40b545f29405a57a964160fabad37a0756fb47c4ff047c27b2ef225d8044ad85",
+      "source": "# MIZ OKI 3.5/assets/11-nexus.png"
+    },
+    "assets/css/demo-extras.css": {
+      "sha256": "e8b4a935573116f4092214d266337be7f536fcad88283effb6e94debdcd8bcce",
+      "source": "# MIZ OKI 3.5/assets/css/demo-extras.css"
+    },
+    "assets/css/marketing.css": {
+      "sha256": "798a552685ce1ce8191fe8f3e25e7d431212da080355893b54d752a436a55761",
+      "source": "# MIZ OKI 3.5/assets/css/marketing.css"
+    },
+    "assets/css/styles.css": {
+      "sha256": "55dfa022834ebd21defd8d873458d234fffda6d4244d16b4f7da794dc053097c",
+      "source": "# MIZ OKI 3.5/assets/css/styles.css"
+    },
+    "assets/img/README.md": {
+      "sha256": "a4929a5161c7173245c22475c4e5e145ade9ca361a7320a993e94b1f1ecb169d",
+      "source": "# MIZ OKI 3.5/assets/img/README.md"
+    },
+    "assets/img/apple-touch-icon.png": {
+      "sha256": "e59eb1bfc4bb17134adedd8974c73ef23664bc5005f766df78322f77b93a0d10",
+      "source": "# MIZ OKI 3.5/assets/img/apple-touch-icon.png"
+    },
+    "assets/img/blog/meta-relu/01_relu_gate.png": {
+      "sha256": "4119cd916be8c519c0cdf449f036e28525d8eed26a494199ee45d85d56956814",
+      "source": "# MIZ OKI 3.5/assets/img/blog/meta-relu/01_relu_gate.png"
+    },
+    "assets/img/blog/meta-relu/02_nonlinear_activation_curve.png": {
+      "sha256": "04ec0fc04eb984e1e1311bc50a8c28d3ceffdb0bfcf4877e0a835a05283b3ca7",
+      "source": "# MIZ OKI 3.5/assets/img/blog/meta-relu/02_nonlinear_activation_curve.png"
+    },
+    "assets/img/blog/meta-relu/03_learning_50_events.png": {
+      "sha256": "86a5a98ad116dc3aa50ee1142b9bf0bf359a4660585b0f8772432b44479aef5e",
+      "source": "# MIZ OKI 3.5/assets/img/blog/meta-relu/03_learning_50_events.png"
+    },
+    "assets/img/blog/meta-relu/04_compounding_feedback_loop.png": {
+      "sha256": "113a11c9b7f52a789e2ec1ef112fcb278093e8e0b255aedd67dec73d197c3a81",
+      "source": "# MIZ OKI 3.5/assets/img/blog/meta-relu/04_compounding_feedback_loop.png"
+    },
+    "assets/img/blog/meta-relu/05_budget_dilution_vs_concentration.png": {
+      "sha256": "e6d3df739d192c32cfe5dcd8173f31797d7532a4e3127a30ffe0ac7cbf7e9ffa",
+      "source": "# MIZ OKI 3.5/assets/img/blog/meta-relu/05_budget_dilution_vs_concentration.png"
+    },
+    "assets/img/blog/meta-relu/og_meta_relu_1200x627.png": {
+      "sha256": "42ed6bebd6bac3bfbe0d9b3ec95009af43168230b09dc98ea5f253aef8f0ab62",
+      "source": "# MIZ OKI 3.5/assets/img/blog/meta-relu/og_meta_relu_1200x627.png"
+    },
+    "assets/img/favicon.ico": {
+      "sha256": "4379bbe7497231e6401d8726251f03ee464d58b9f8674dc3d7c544e2f0e7b982",
+      "source": "# MIZ OKI 3.5/assets/img/favicon.ico"
+    },
+    "assets/img/favicon.svg": {
+      "sha256": "cbe78206e896c7a7a4973ca5798c791efcdea757416b6a0a57d94d26f4d1a683",
+      "source": "# MIZ OKI 3.5/assets/img/favicon.svg"
+    },
+    "assets/img/mosaic-hero-1.png": {
+      "sha256": "0d8b0d91265d34e0da1400065817aa8257ba592b1080eb5d42f5c7b274b72c4f",
+      "source": "# MIZ OKI 3.5/assets/img/mosaic-hero-1.png"
+    },
+    "assets/img/mosaic-hero-2.png": {
+      "sha256": "c01f2997c8723d0326607bf8b70f128046f292cc5278595df15a5121b11f07f1",
+      "source": "# MIZ OKI 3.5/assets/img/mosaic-hero-2.png"
+    },
+    "assets/img/mosaic-hero-3.png": {
+      "sha256": "0ea5a8b75d42b61fa6f7ccec6af7b65c84738569f9ff7ef51a5aba90b0c174bd",
+      "source": "# MIZ OKI 3.5/assets/img/mosaic-hero-3.png"
+    },
+    "assets/img/mosaic-hero-4.png": {
+      "sha256": "2286afb84217330c71ce1cd8bd02fd33148d851a65d3a3c69e8d3a952043b1ed",
+      "source": "# MIZ OKI 3.5/assets/img/mosaic-hero-4.png"
+    },
+    "assets/img/og/demo-capital.svg": {
+      "sha256": "ec4b8131fa5d9663e5cfcefd333d6cb706218890a79ee108ae1adf918943c41a",
+      "source": "# MIZ OKI 3.5/assets/img/og/demo-capital.svg"
+    },
+    "assets/img/og/demo-counsel.svg": {
+      "sha256": "80a51f5229f60413d7593f1c39ad09036c69ea8ac419eabcdd7204eb4a443a49",
+      "source": "# MIZ OKI 3.5/assets/img/og/demo-counsel.svg"
+    },
+    "assets/img/og/demo-estate.svg": {
+      "sha256": "1ea22cd8f3efe369288357a7a089db86cd53bab98621d30235d29b0f0702447c",
+      "source": "# MIZ OKI 3.5/assets/img/og/demo-estate.svg"
+    },
+    "assets/img/og/demo-hub.svg": {
+      "sha256": "58f6b32cef49bf434a824f24a43248f2606794e3e0de1e5cdead554acbb51d20",
+      "source": "# MIZ OKI 3.5/assets/img/og/demo-hub.svg"
+    },
+    "assets/img/og/demo-nexus.svg": {
+      "sha256": "9f28e38070c802fdaf0f46380fbe60d10649f84f84abb13b666e2e780382799c",
+      "source": "# MIZ OKI 3.5/assets/img/og/demo-nexus.svg"
+    },
+    "assets/img/og/demo-risk.svg": {
+      "sha256": "77ea7ef873c24b18a01bb5f791fe693908bdddd9219a1a6aa4ee584eeeab0b57",
+      "source": "# MIZ OKI 3.5/assets/img/og/demo-risk.svg"
+    },
+    "assets/img/og/demo-signal.svg": {
+      "sha256": "f3acce45eb21cc3219b95398689f4f7bcd99b4ebe6a6254eb3573d70917554c0",
+      "source": "# MIZ OKI 3.5/assets/img/og/demo-signal.svg"
+    },
+    "assets/img/og/og-capital.svg": {
+      "sha256": "c5a9d3cb60a24d11f6dfe52895410a130f3637c790f42a0465a861e57ca1d0e6",
+      "source": "# MIZ OKI 3.5/assets/img/og/og-capital.svg"
+    },
+    "assets/img/og/og-counsel.svg": {
+      "sha256": "ebc57a8ed35d13f7b0b769fb39a8e8be8ceda374aa58171cd140b56aa7cdc011",
+      "source": "# MIZ OKI 3.5/assets/img/og/og-counsel.svg"
+    },
+    "assets/img/og/og-demo.svg": {
+      "sha256": "14d2d8568ae2365920ac078d90448abe1db1e74dd6bc898308ee0c531a57b395",
+      "source": "# MIZ OKI 3.5/assets/img/og/og-demo.svg"
+    },
+    "assets/img/og/og-estate.svg": {
+      "sha256": "3f5d84c779da10cb88384f43250e8f70760db158574938b02c69f243ed74c687",
+      "source": "# MIZ OKI 3.5/assets/img/og/og-estate.svg"
+    },
+    "assets/img/og/og-nexus.svg": {
+      "sha256": "f68c5e689117e6c5e16b0d7e4957798e09b6ec744d1421e2f9bd80ac9572ba56",
+      "source": "# MIZ OKI 3.5/assets/img/og/og-nexus.svg"
+    },
+    "assets/img/og/og-risk.svg": {
+      "sha256": "f5da154930a2e734a2afe3fd2046c14148ce02f6ea24c173e8a1405ab3d3bcf1",
+      "source": "# MIZ OKI 3.5/assets/img/og/og-risk.svg"
+    },
+    "assets/img/og/og-signal.svg": {
+      "sha256": "b0e6bcbb9aad6434e4f7247ab5743b5d1fc154ec02973b8720365b0a4a5017cc",
+      "source": "# MIZ OKI 3.5/assets/img/og/og-signal.svg"
+    },
+    "assets/img/preview.html": {
+      "sha256": "6bd6c4967532e1c75d5b9ba25b3bcb9f78326912c7b5e4dabce1ba2cb38b4c06",
+      "source": "# MIZ OKI 3.5/assets/img/preview.html"
+    },
+    "assets/img/relu-article/01_relu_gate.svg": {
+      "sha256": "f8596cd5a0707f811d2a661e95f5f8ce477987ad25b13c2bb6a64f4ad3911c03",
+      "source": "# MIZ OKI 3.5/assets/img/relu-article/01_relu_gate.svg"
+    },
+    "assets/img/relu-article/02_nonlinear_activation_curve.svg": {
+      "sha256": "539c634f1ce31c67aedad9c82c6549a0a7726def88bfddf1c73036f465da7fa2",
+      "source": "# MIZ OKI 3.5/assets/img/relu-article/02_nonlinear_activation_curve.svg"
+    },
+    "assets/img/relu-article/03_learning_50_events.svg": {
+      "sha256": "89370746105d35903fd934f8d0071b25a193662dae60a5c803df4a66d2309c38",
+      "source": "# MIZ OKI 3.5/assets/img/relu-article/03_learning_50_events.svg"
+    },
+    "assets/img/relu-article/04_compounding_feedback_loop.svg": {
+      "sha256": "0e3005529a38c51007f9b69b191d92051b4a4c38fb49ba0315735103b7a90ede",
+      "source": "# MIZ OKI 3.5/assets/img/relu-article/04_compounding_feedback_loop.svg"
+    },
+    "assets/img/relu-article/05_budget_dilution_vs_concentration.svg": {
+      "sha256": "3fcc9aa6a14f93eb0e8faecb6a76b35ebad5c8185895060a5153732686443329",
+      "source": "# MIZ OKI 3.5/assets/img/relu-article/05_budget_dilution_vs_concentration.svg"
+    },
+    "assets/img/relu-carousel/slide_01_cover.svg": {
+      "sha256": "6b62a4df8523d1750ad8aabf75bcc5ef19f032b4e1434b5f89dc910a2b700dbb",
+      "source": "# MIZ OKI 3.5/assets/img/relu-carousel/slide_01_cover.svg"
+    },
+    "assets/img/relu-carousel/slide_02_problem.svg": {
+      "sha256": "acfe5d4a45023e6f8f68beaa244546e95210353d0f410fd6bd277b8ed805cd14",
+      "source": "# MIZ OKI 3.5/assets/img/relu-carousel/slide_02_problem.svg"
+    },
+    "assets/img/relu-carousel/slide_03_relu_explained.svg": {
+      "sha256": "6d1f69ea0dc0615497cc6b1150ac1ff79f13833189c04ec1e4a2ef3dd0d6656a",
+      "source": "# MIZ OKI 3.5/assets/img/relu-carousel/slide_03_relu_explained.svg"
+    },
+    "assets/img/relu-carousel/slide_04_50_events.svg": {
+      "sha256": "529c01704fa003675041286ae1937317e73aa14be88fa1b59ae5f3175c0a6427",
+      "source": "# MIZ OKI 3.5/assets/img/relu-carousel/slide_04_50_events.svg"
+    },
+    "assets/img/relu-carousel/slide_05_consolidate.svg": {
+      "sha256": "dc93e4e2306704b921796e0047a75e3ddb52f8a107dd04b3dd3ba7ffb37c62e8",
+      "source": "# MIZ OKI 3.5/assets/img/relu-carousel/slide_05_consolidate.svg"
+    },
+    "assets/img/relu-carousel/slide_06_flywheel.svg": {
+      "sha256": "dee93125d07456ca8d26cd8ceb0712db19426c6e2fcb815c2ad2d5e51ced033b",
+      "source": "# MIZ OKI 3.5/assets/img/relu-carousel/slide_06_flywheel.svg"
+    },
+    "assets/img/relu-carousel/slide_07_checklist.svg": {
+      "sha256": "9306ad0dc2a4a3c55f4d5cee0947e916550b5b922e138b67b0ed1025404f21a0",
+      "source": "# MIZ OKI 3.5/assets/img/relu-carousel/slide_07_checklist.svg"
+    },
+    "assets/img/relu-carousel/slide_08_cta.svg": {
+      "sha256": "5a1f80d3283b4368b05933ed0e067dbfc0e948493549692a29ce624468c7420a",
+      "source": "# MIZ OKI 3.5/assets/img/relu-carousel/slide_08_cta.svg"
+    },
+    "assets/js/boss-docent.js": {
+      "sha256": "f73bc454582ec3e8bc624040b49cb1249a1b9d3008e34283d107be3220d183ea",
+      "source": "# MIZ OKI 3.5/assets/js/boss-docent.js"
+    },
+    "assets/js/demo-capital.js": {
+      "sha256": "94ff70440741a60f9ed70385988a0565c0679b14e9ac470fe2a6485953319a14",
+      "source": "# MIZ OKI 3.5/assets/js/demo-capital.js"
+    },
+    "assets/js/demo-counsel.js": {
+      "sha256": "b4fb75209c42d6ac6bbc8d9ecea2d80120054d8c6065fd8b50905584ea8c0c8f",
+      "source": "# MIZ OKI 3.5/assets/js/demo-counsel.js"
+    },
+    "assets/js/demo-estate.js": {
+      "sha256": "af5cb8e07023c03fc17fe18039f0de8c214daf14cde7959be68ee12a6a2c20ff",
+      "source": "# MIZ OKI 3.5/assets/js/demo-estate.js"
+    },
+    "assets/js/demo-extras.js": {
+      "sha256": "69f16eacdbf4dd6523b2d572e095e76d3d3e840a490b5e456966ef67369aeb3a",
+      "source": "# MIZ OKI 3.5/assets/js/demo-extras.js"
+    },
+    "assets/js/demo-nexus.js": {
+      "sha256": "9699930473c5eb2c9b307b60793a100fd101565e843d688811ce130f466761e0",
+      "source": "# MIZ OKI 3.5/assets/js/demo-nexus.js"
+    },
+    "assets/js/demo-pipeline.js": {
+      "sha256": "4006b3ac951f31512a1a625c7cdbc91e8a3e02f9459be53d8be69cef9720979e",
+      "source": "# MIZ OKI 3.5/assets/js/demo-pipeline.js"
+    },
+    "assets/js/demo-risk.js": {
+      "sha256": "5d0c5fea30cc8db285bac4ec62fb125c87b6a793e8f7ef0ba3ffd99e3a52d524",
+      "source": "# MIZ OKI 3.5/assets/js/demo-risk.js"
+    },
+    "assets/js/demo-signal.js": {
+      "sha256": "7331fa03bb88991dfc6ad02c21d6b6013bb47a3f6ba1accb120efdf0e2ec8a90",
+      "source": "# MIZ OKI 3.5/assets/js/demo-signal.js"
+    },
+    "assets/js/home-demo.js": {
+      "sha256": "4e75a9baf6e834fea9e6bb6bc87959555c71c5ca5c781b2b9f96372fc76a9c07",
+      "source": "# MIZ OKI 3.5/assets/js/home-demo.js"
+    },
+    "assets/js/main.js": {
+      "sha256": "081bd99029a06e9ca771b497de2d41d2ef1168e373ad61b3217f0685a6ef604c",
+      "source": "# MIZ OKI 3.5/assets/js/main.js"
+    },
+    "assets/js/media-sim.js": {
+      "sha256": "50e3989f72b69a8a9eea9bb26652a30fbeb73ba1d9110497f6c70cfa08bf7b4e",
+      "source": "# MIZ OKI 3.5/assets/js/media-sim.js"
+    },
+    "assets/js/mizuki3-simulator.js": {
+      "sha256": "9a96474d8b3bd224a9c7290f8c59e8f8d2f55b907edb6aa4827903c4f98bcc71",
+      "source": "# MIZ OKI 3.5/assets/js/mizuki3-simulator.js"
+    },
+    "assets/js/nav-mobile.js": {
+      "sha256": "c6e4289123e6aae70c9892a27af6d40fa4bd9ca83a0f30a925451b7e18511431",
+      "source": "# MIZ OKI 3.5/assets/js/nav-mobile.js"
+    },
+    "assets/js/nexus.js": {
+      "sha256": "bb2c1152871b29abd6412984bee4cd670d760a4f871dbe8e19e55c7ed2d23077",
+      "source": "# MIZ OKI 3.5/assets/js/nexus.js"
+    },
+    "assets/js/roi.js": {
+      "sha256": "15a9655370cd18b20091b2428f29751c581ae89a70cdc8c0f93851e9ed17c935",
+      "source": "# MIZ OKI 3.5/assets/js/roi.js"
+    },
+    "assets/pdf/investor-overview.pdf": {
+      "sha256": "6aec4fea14d1f097f9dca59145308b32540c2fff0afa6a9d7184d0c802cf505c",
+      "source": "# MIZ OKI 3.5/assets/pdf/investor-overview.pdf"
+    },
+    "assets/pdf/sales-one-pager.pdf": {
+      "sha256": "3606ef4c811be9ce07aa64e0587d696eb3ff38fbefaad8264ef774786888b5a0",
+      "source": "# MIZ OKI 3.5/assets/pdf/sales-one-pager.pdf"
+    },
+    "assets/pdf/sample-decision-logs.pdf": {
+      "sha256": "3bdfa27e6db166c43c0462a3094b8a80de58ffefcbf3a114c569d0c14efbb7a1",
+      "source": "# MIZ OKI 3.5/assets/pdf/sample-decision-logs.pdf"
+    },
+    "assets/pdf/security-compliance-brief.pdf": {
+      "sha256": "e74372273c1d523ecb5eee99e7676dea2ee005cd824dd8958fc09aed48c776ee",
+      "source": "# MIZ OKI 3.5/assets/pdf/security-compliance-brief.pdf"
+    },
+    "assets/svg/cognitive-loop.svg": {
+      "sha256": "a4f4177f52ff55da76ac20c43e885317b13fd3947e04fdc2dba0a8b0513ed8b8",
+      "source": "# MIZ OKI 3.5/assets/svg/cognitive-loop.svg"
+    },
+    "assets/svg/favicon.svg": {
+      "sha256": "eb4a28e3d37ba18e210a9586d14ab869c0cd3c8be177ef7cc45bd3fe644c1626",
+      "source": "# MIZ OKI 3.5/assets/svg/favicon.svg"
+    },
+    "assets/video/ecosystem-animation.mp4": {
+      "sha256": "5c03d319f5166274b415b02a06bcc38dc75934cafb5abc8d785b4b2822be800d",
+      "source": "# MIZ OKI 3.5/assets/video/ecosystem-animation.mp4"
+    },
+    "base.css": {
+      "sha256": "94473fb6ed8d3a547df87879309f3dee98ff0fa79d524f2d1b0a89af1cd2ce0a",
+      "source": "# MIZ OKI 3.5/base.css"
+    },
+    "blog/adc-decision-framework.html": {
+      "sha256": "b3e28b7b4d4f1f0f8ad999355aa575f9fe65768b92240d991e7755cb3c26856e",
+      "source": "# MIZ OKI 3.5/blog/adc-decision-framework.html"
+    },
+    "blog/autonomy-is-earned.html": {
+      "sha256": "589fc07d8787c3a9ec98da229365ce2dc394469a927dac0d695aeea3f0205fd8",
+      "source": "# MIZ OKI 3.5/blog/autonomy-is-earned.html"
+    },
+    "blog/before-you-raise-bids-check-the-checkout.html": {
+      "sha256": "67b86c484c29211e2ff67690655c8a32d7cf6acb239e2efe07de4774c3fc65f4",
+      "source": "# MIZ OKI 3.5/blog/before-you-raise-bids-check-the-checkout.html"
+    },
+    "blog/decision-control-plane.html": {
+      "sha256": "45cf32409e92f462aab3088c3799fe99f8fb6694f6c7e36481f2e90c1dac344f",
+      "source": "# MIZ OKI 3.5/blog/decision-control-plane.html"
+    },
+    "blog/doorman-problem.html": {
+      "sha256": "d8ae4532ea6075dd468560e88a06e312777afe49c4b90e5d5e1d0214cedb7dca",
+      "source": "# MIZ OKI 3.5/blog/doorman-problem.html"
+    },
+    "blog/index.html": {
+      "sha256": "9929f62df49ce9aa39dd0f5f45f9fb1a44dc65d3fd894dd79b7db3211fe49693",
+      "source": "# MIZ OKI 3.5/blog/index.html"
+    },
+    "blog/posts.json": {
+      "sha256": "1dc744dfe42df7cf7c3821807b8411ca9fbf29d8c800499b9c8ad7e3cc791aa8",
+      "source": "# MIZ OKI 3.5/blog/posts.json"
+    },
+    "blog/relu-lens-meta-algorithm.html": {
+      "sha256": "2c35c29a7a132bb3417e9af1df4e551833b52de105d9e669a1d9bdbcc3a7065c",
+      "source": "# MIZ OKI 3.5/blog/relu-lens-meta-algorithm.html"
+    },
+    "blog/the-decision-to-do-nothing.html": {
+      "sha256": "1da1d1b4a7e6c0351ed359cc014686fbecdfb703bf83ba89ea8fbc0c5411a620",
+      "source": "# MIZ OKI 3.5/blog/the-decision-to-do-nothing.html"
+    },
+    "blog/the-number-your-bank-account-reports.html": {
+      "sha256": "4815b3b20078cda9ceebd3c1c460037f5c1db66514de53196b68ef6fa3c8f328",
+      "source": "# MIZ OKI 3.5/blog/the-number-your-bank-account-reports.html"
+    },
+    "blog/what-the-system-refuses-to-learn.html": {
+      "sha256": "a4af862b3527af8d2c7186aaee197fa643e24d0625b57d49d44cc9b5daa5406a",
+      "source": "# MIZ OKI 3.5/blog/what-the-system-refuses-to-learn.html"
+    },
+    "blog/when-media-becomes-a-business-decision.html": {
+      "sha256": "51fb8b5a704cddc8d486594253fc5dc08be02fe07b466fafa1c1d8f0951f4b37",
+      "source": "# MIZ OKI 3.5/blog/when-media-becomes-a-business-decision.html"
+    },
+    "blog/when-your-best-seller-loses-money.html": {
+      "sha256": "1b8b39351baedb0a2613621f457fa0ae26adb39437be0b15e2408a805373232e",
+      "source": "# MIZ OKI 3.5/blog/when-your-best-seller-loses-money.html"
+    },
+    "blog/your-business-should-remember-why.html": {
+      "sha256": "3091a2e948f3aa39211720ee258fbcf852845820a2a099da6eba20dd4ccbacdc",
+      "source": "# MIZ OKI 3.5/blog/your-business-should-remember-why.html"
+    },
+    "blogs.html": {
+      "sha256": "120ba9f0ac361ec5bb7157995242d1ea152cfe5f3f244b3105f12d9b59a1d364",
+      "source": "# MIZ OKI 3.5/blogs.html"
+    },
+    "canon.lock.json": {
+      "sha256": "76a7791da82b15727e246dcbb4cdc5e41e2f86a0db83e8b64f1b101070866034",
+      "source": "# MIZ OKI 3.5/canon.lock.json"
+    },
+    "capital.html": {
+      "sha256": "e94c9bde1e8c1640a95a233699f3af313a2edbbe729c5d630f71e63601583090",
+      "source": "# MIZ OKI 3.5/capital.html"
+    },
+    "case-studies.html": {
+      "sha256": "53b0e8397418ebdff807739a568928ebe695b9d34ecf81d1b888c1ab8f23fea7",
+      "source": "# MIZ OKI 3.5/case-studies.html"
+    },
+    "counsel.html": {
+      "sha256": "8f8b077397232f12e14bdcd5a689a51497d37bafcf193af5c2fd29bed2923ce3",
+      "source": "# MIZ OKI 3.5/counsel.html"
+    },
+    "demo-capital.html": {
+      "sha256": "2fd149a4a737aa043b7767718c1aefef47f869e1b73355e35e000446c20b8729",
+      "source": "# MIZ OKI 3.5/demo-capital.html"
+    },
+    "demo-counsel.html": {
+      "sha256": "b6c9db707074bbfadd56250fe1b52caa08b6397f07fc7c9e60c77bc8c580a880",
+      "source": "# MIZ OKI 3.5/demo-counsel.html"
+    },
+    "demo-estate.html": {
+      "sha256": "f6f56df21a2f655d4374a2d4ad44e84c65cd8c7c6325201e8fe23f70070061bf",
+      "source": "# MIZ OKI 3.5/demo-estate.html"
+    },
+    "demo-nexus.html": {
+      "sha256": "1e0204c125a4caad134e5d87f6ed260a2598e0d0cd4777fdac200eae54420010",
+      "source": "# MIZ OKI 3.5/demo-nexus.html"
+    },
+    "demo-opener.html": {
+      "sha256": "047e1f3cd49bcd80b07f76deefed0ff01147aaa6e8fccae6cbb0b991b51fba95",
+      "source": "# MIZ OKI 3.5/demo-opener.html"
+    },
+    "demo-risk.html": {
+      "sha256": "00854e5bc4dd3ca46a96e1455b85be458f47c277b7dfa711d30791cab87f6dc7",
+      "source": "# MIZ OKI 3.5/demo-risk.html"
+    },
+    "demo-signal.html": {
+      "sha256": "55e40b91d5560a6055c83f5996451b5cf41ff6c357793cf8109fb39cdcf3654f",
+      "source": "# MIZ OKI 3.5/demo-signal.html"
+    },
+    "demo.html": {
+      "sha256": "f629ffc8976ced236cee728f5d196fc435bda140b0d3db43835ff535ed279bb9",
+      "source": "# MIZ OKI 3.5/demo.html"
+    },
+    "docs/DEMO_BUILD_PROMPT.md": {
+      "sha256": "71db95cdc52d0010b0ff7b413313e8f9c887f34e81c1bc0f152bd3470326ac5b",
+      "source": "# MIZ OKI 3.5/docs/DEMO_BUILD_PROMPT.md"
+    },
+    "docs/DEMO_FIX_PROMPT.md": {
+      "sha256": "1be2523bc988c99ea88efc8e4cb297250cb20956d8fdc7406ffdfb035f57dd01",
+      "source": "# MIZ OKI 3.5/docs/DEMO_FIX_PROMPT.md"
+    },
+    "docs/DEMO_V4_BUILD_NOTES.md": {
+      "sha256": "11d9ef1b5f840b71bf4cb32fef3a431ec4608a0d17e3f71c8ce7a0fb352ec7fd",
+      "source": "# MIZ OKI 3.5/docs/DEMO_V4_BUILD_NOTES.md"
+    },
+    "docs/DEPLOY_ROUTER_TEST.md": {
+      "sha256": "684b91ce592ffe792970ad538cbe452b728ee4a9644f95d5433fe7a70669fe5d",
+      "source": "# MIZ OKI 3.5/docs/DEPLOY_ROUTER_TEST.md"
+    },
+    "docs/DESIGN_CANON.md": {
+      "sha256": "e9621c526184dde58fd4d304b9d146f035bdbeb99bd045bedfeee1e9803d56b5",
+      "source": "# MIZ OKI 3.5/docs/DESIGN_CANON.md"
+    },
+    "docs/GUIDE_AGENT_SPEC.md": {
+      "sha256": "fd3d5d9b239acbec1d1f199824bdcd8a6ae6d1e04f2c778a6e87c8f6abdad4f2",
+      "source": "# MIZ OKI 3.5/docs/GUIDE_AGENT_SPEC.md"
+    },
+    "docs/HOMEPAGE_MERGE_PLAN_2026-07.md": {
+      "sha256": "20867eab4a6977beaaed4aeb012c2b4ebc26e10ce6dec5854509e5e7a7240e8f",
+      "source": "# MIZ OKI 3.5/docs/HOMEPAGE_MERGE_PLAN_2026-07.md"
+    },
+    "docs/LANDING_REMIX_ADOPTION_NOTES.md": {
+      "sha256": "cf85501d5dfddba71a453711f6a557cad9a67209c64ad98c88caca1a651e8937",
+      "source": "# MIZ OKI 3.5/docs/LANDING_REMIX_ADOPTION_NOTES.md"
+    },
+    "docs/MEDIA_SITE_LAUNCH_2026-08-04.md": {
+      "sha256": "9beba542900cb37ce3229ca8dd6a56ac4812a73156022e9ff045b25b12037c92",
+      "source": "# MIZ OKI 3.5/docs/MEDIA_SITE_LAUNCH_2026-08-04.md"
+    },
+    "docs/PRODUCTION_SECRETS_SETUP.md": {
+      "sha256": "660accba5b2332a823df97be36c2b81e45efaf6e617bdd472f930cc01effe525",
+      "source": "# MIZ OKI 3.5/docs/PRODUCTION_SECRETS_SETUP.md"
+    },
+    "docs/SIGNAL_INTELLIGENCE_ORACLE_CAPABILITIES.md": {
+      "sha256": "86e08d40175d6a792e8e31021b0f33699d03bb7a77892f4e8d791c7c56b2ce30",
+      "source": "# MIZ OKI 3.5/docs/SIGNAL_INTELLIGENCE_ORACLE_CAPABILITIES.md"
+    },
+    "docs/WEBSITE_CANON_v1.5_SESSION_RECORD.md": {
+      "sha256": "1df6700cfeee9f7a7fc74fd7517b868ed98922c67a1b40775f9b160b93d13297",
+      "source": "# MIZ OKI 3.5/docs/WEBSITE_CANON_v1.5_SESSION_RECORD.md"
+    },
+    "docs/marketing/mizoki-shopify-democratizing-decision-intelligence.md": {
+      "sha256": "1d5c12cb536bdc130aab1d90ccc1a967ed3b372c57c5b9ea38a1a4e8ab580486",
+      "source": "# MIZ OKI 3.5/docs/marketing/mizoki-shopify-democratizing-decision-intelligence.md"
+    },
+    "docs/marketing/mizoki-shopify-net-yield-positioning.md": {
+      "sha256": "97d61a3db923436a17f94217296ea18e8196307df5184e107f278779acc0c311",
+      "source": "# MIZ OKI 3.5/docs/marketing/mizoki-shopify-net-yield-positioning.md"
+    },
+    "docs/marketing/shopify-app-listing-copy.md": {
+      "sha256": "50666e75aaf486978c60e844c3b3cc19d4acdb726ddb5c11359533de912b3f11",
+      "source": "# MIZ OKI 3.5/docs/marketing/shopify-app-listing-copy.md"
+    },
+    "docs/marketing/signal-story-bank.md": {
+      "sha256": "59ae828d7f41c159d06021bab3757bc0ec72b76638105cb90881c8a9d8c84e3f",
+      "source": "# MIZ OKI 3.5/docs/marketing/signal-story-bank.md"
+    },
+    "ecosystem-animation-standalone.html": {
+      "sha256": "72e6734eb9b8f234f014da0ba6bfea3e2c800528a228f71d0e593af3549cda59",
+      "source": "# MIZ OKI 3.5/ecosystem-animation-standalone.html"
+    },
+    "ecosystem-vo-v1.mp3": {
+      "sha256": "609865fd94dd0bbe3c8eb381ad7fddc2198f1ec011837bd2b5de6cc511c6eb2f",
+      "source": "# MIZ OKI 3.5/ecosystem-vo-v1.mp3"
+    },
+    "ecosystem-vo-v1.wav": {
+      "sha256": "c116eb4163edc8b86ff14c5ad6d6031a1fe8580910870353f597274fef920790",
+      "source": "# MIZ OKI 3.5/ecosystem-vo-v1.wav"
+    },
+    "estate.html": {
+      "sha256": "51df30265cc4a0d70fcf282499420296900b8e4b81801268f35c8a520b192357",
+      "source": "# MIZ OKI 3.5/estate.html"
+    },
+    "executive-briefing/INTEGRATION.md": {
+      "sha256": "2633885c29492113aab5f0a60094d6a58443bdf5be34eb827da48abe3792d1fb",
+      "source": "# MIZ OKI 3.5/executive-briefing/INTEGRATION.md"
+    },
+    "executive-briefing/css/briefing.css": {
+      "sha256": "1f2115296c64a41002cefcaf1aaf6f4abbc89e674140867aec1bfabf34235855",
+      "source": "# MIZ OKI 3.5/executive-briefing/css/briefing.css"
+    },
+    "executive-briefing/index.html": {
+      "sha256": "255e76d92f6d8412a2f0ed0d00c13724028d17518ff58fba2ad94cdd9b3192be",
+      "source": "# MIZ OKI 3.5/executive-briefing/index.html"
+    },
+    "executive-briefing/js/app.js": {
+      "sha256": "596a943dc7a46ffc321cdea822504ba060e7a8c79b4799103387495992a64413",
+      "source": "# MIZ OKI 3.5/executive-briefing/js/app.js"
+    },
+    "executive-briefing/js/data.js": {
+      "sha256": "0e2e18113cfc91458be504864bd5f3d700d79d29417ce8d46fa2b0252490a12c",
+      "source": "# MIZ OKI 3.5/executive-briefing/js/data.js"
+    },
+    "executive-briefing/js/guide.js": {
+      "sha256": "c3ad44af0150db3131c4c41e76bb7483cf66849bfe678b6c0a18a2d454e4e732",
+      "source": "# MIZ OKI 3.5/executive-briefing/js/guide.js"
+    },
+    "favicon-16.png": {
+      "sha256": "9b559c1bdf94f6918d962b966ef59b640aecf1d8691233d9c79d23143148e03d",
+      "source": "# MIZ OKI 3.5/favicon-16.png"
+    },
+    "favicon-32.png": {
+      "sha256": "c8c7ce05612ce7fb3d1ef0626c5ec432ce2e9601522fba1a00aed46d94528bec",
+      "source": "# MIZ OKI 3.5/favicon-32.png"
+    },
+    "favicon-512.png": {
+      "sha256": "2c552315b9d32a3a3c07a583d997e7ead81c3513e6a9b8cd9cd2763bae70978a",
+      "source": "# MIZ OKI 3.5/favicon-512.png"
+    },
+    "how-it-works.html": {
+      "sha256": "4842455a91009b8649e687d3be35e6b1c7356bbcfdc26430a69816b6cd83c739",
+      "source": "# MIZ OKI 3.5/how-it-works.html"
+    },
+    "index.html": {
+      "sha256": "100eeacbe6ec5f17d174e0cb9617105143aa7ab5e084a6a6a40d5994253a6318",
+      "source": "# MIZ OKI 3.5/index.html"
+    },
+    "industries.html": {
+      "sha256": "af0126c09680ea635ba3efca67c53fa84b2eb2ac33f9eb40b8645ff8a9b038d2",
+      "source": "# MIZ OKI 3.5/industries.html"
+    },
+    "intent-site/README.md": {
+      "sha256": "d85dcaa106ad96dbc2e10df9099c2b060f222fa63ed40f4efd2408f123eec210",
+      "source": "# MIZ OKI 3.5/intent-site/README.md"
+    },
+    "intent-site/index.html": {
+      "sha256": "bc29487ec596c876df05297f2038a3ba5cadf85b45d8d628580fa9fd68b3e827",
+      "source": "# MIZ OKI 3.5/intent-site/index.html"
+    },
+    "intent-site/package-lock.json": {
+      "sha256": "1b553cc19225124a52928d9761d5bbd41cd1350662778522509655ac62c54b5b",
+      "source": "# MIZ OKI 3.5/intent-site/package-lock.json"
+    },
+    "intent-site/package.json": {
+      "sha256": "fac142db6bb44e207785676a2473dc059ffa1eb1a3527bf2cc45ade03652a1ac",
+      "source": "# MIZ OKI 3.5/intent-site/package.json"
+    },
+    "intent-site/src/Home.tsx": {
+      "sha256": "616fc1f7202e6d1f793b3cbdf30313375310a46457a7bd650611c6781867880f",
+      "source": "# MIZ OKI 3.5/intent-site/src/Home.tsx"
+    },
+    "intent-site/src/main.tsx": {
+      "sha256": "4fcf23d47dfa406152835ae43f2884a2501601b06a0a55ecdda6133bc110ca71",
+      "source": "# MIZ OKI 3.5/intent-site/src/main.tsx"
+    },
+    "intent-site/src/styles.css": {
+      "sha256": "dcfc0816af39658b519e9236d9dd37780898c70c0e35eac8b83121a94adbff49",
+      "source": "# MIZ OKI 3.5/intent-site/src/styles.css"
+    },
+    "intent-site/tests/build.test.mjs": {
+      "sha256": "aa42b5db55c386b146eb578edccb2c4701b2aa072f0f0a979336c1d182f06ef0",
+      "source": "# MIZ OKI 3.5/intent-site/tests/build.test.mjs"
+    },
+    "intent-site/vite.config.ts": {
+      "sha256": "8c0784bec9ad855c622df905af4ef47557d978b2a281c32d2eb953ded2e7697d",
+      "source": "# MIZ OKI 3.5/intent-site/vite.config.ts"
+    },
+    "investor.html": {
+      "sha256": "8f30660c0aa356ef6b24e023764ea9d9c5e77adc17561a8e230be881588aa9a3",
+      "source": "# MIZ OKI 3.5/investor.html"
+    },
+    "learn_pages/agent-originated-conversions.md": {
+      "sha256": "ba631d1978c51ff51978ec0b62307483d7b9912c68efdb52ccbb3262aade67d0",
+      "source": "docs/marketing/aeo/agent-originated-conversions.md"
+    },
+    "learn_pages/brier-auc-promotion-gates.md": {
+      "sha256": "65a9c24e1d28abd9f1a8b66d2067c457eeb7acc6d7bfb69edb78df9c8b4f9e45",
+      "source": "docs/marketing/aeo/brier-auc-promotion-gates.md"
+    },
+    "learn_pages/decision-control-plane.md": {
+      "sha256": "18602aee5aef661e7e577b276f437bcf4e2ffd003ae72c593d864abbd87d47a8",
+      "source": "docs/marketing/aeo/decision-control-plane.md"
+    },
+    "learn_pages/del-score.md": {
+      "sha256": "77d9002c8692c961ae8f11ae00eb123ebda48980221e722861b912fa3deb3909",
+      "source": "docs/marketing/aeo/del-score.md"
+    },
+    "learn_pages/ghost-bids-and-holdouts.md": {
+      "sha256": "3da842305d65d0f457a39e3e53e352f19c45cab2f23b1096350084b7b8493a7c",
+      "source": "docs/marketing/aeo/ghost-bids-and-holdouts.md"
+    },
+    "learn_pages/governed-ad-autonomy.md": {
+      "sha256": "adb58583009c34553778e9bfe95b81318265a79a50862318173f5ec607617a05",
+      "source": "docs/marketing/aeo/governed-ad-autonomy.md"
+    },
+    "learn_pages/incrementality-vs-platform-roas.md": {
+      "sha256": "f44d7414913b56a719043c1983f234a38aa2a720d7b12742566bae553c7164ec",
+      "source": "docs/marketing/aeo/incrementality-vs-platform-roas.md"
+    },
+    "learn_pages/validation-passport.md": {
+      "sha256": "a23cd0d1ec5b11d7d11b942d522a7c3495a3f5ee54932fc88c8f84382ffb284c",
+      "source": "docs/marketing/aeo/validation-passport.md"
+    },
+    "llms.txt": {
+      "sha256": "cb0ff6f8faa4c8dce4f5a65dce150d66072662f4df688af8c6ac5267d66c5015",
+      "source": "# MIZ OKI 3.5/llms.txt"
+    },
+    "login.html": {
+      "sha256": "db41bacc2e2c9d94d67dcd0e399f78ad1f9fd2805e7c38badbe06c79f96340bc",
+      "source": "# MIZ OKI 3.5/login.html"
+    },
+    "marketing/capital.html": {
+      "sha256": "3e4946a1c90fbdfc41f1169b378c90df05ba7e59d94144df14edf26052b3506a",
+      "source": "# MIZ OKI 3.5/marketing/capital.html"
+    },
+    "marketing/counsel.html": {
+      "sha256": "9c969db7dde1d5cb6e2e469e8bb59c22ec98152a9e7e2bcbb5052e2216486cbc",
+      "source": "# MIZ OKI 3.5/marketing/counsel.html"
+    },
+    "marketing/engine.html": {
+      "sha256": "450c8a1b2978fd1e7c4b5f22cbd368a7724b8e92f560ecfe0d94f1aab93091b1",
+      "source": "# MIZ OKI 3.5/marketing/engine.html"
+    },
+    "marketing/estate.html": {
+      "sha256": "7777d9fb1a035f7faf3b95d4df66a92119b8a2afb373ec0c3a55c728555bb890",
+      "source": "# MIZ OKI 3.5/marketing/estate.html"
+    },
+    "marketing/governance.html": {
+      "sha256": "072b70d21a6ef9c390a2dd9e995a40a0b5f3b1c81595d7f4aabca09cd9b1bafb",
+      "source": "# MIZ OKI 3.5/marketing/governance.html"
+    },
+    "marketing/index.html": {
+      "sha256": "2223308512be01cda4009d0bd26ee116e4f356bdcdf82fc5a74acc8b5e008f07",
+      "source": "# MIZ OKI 3.5/marketing/index.html"
+    },
+    "marketing/modules.html": {
+      "sha256": "d2ac93de974d90be7517a6a47dad4d6238328b967435f03d3b94b3fc001b704c",
+      "source": "# MIZ OKI 3.5/marketing/modules.html"
+    },
+    "marketing/pricing.html": {
+      "sha256": "668e0cb6a48d7ac314ac1d6f30adfd7a0ff72686618e1a031267d98279c5f0c3",
+      "source": "# MIZ OKI 3.5/marketing/pricing.html"
+    },
+    "marketing/risk.html": {
+      "sha256": "018d997afc5c39b2d3a881e880d9dd8eeea5b1cb883faff7cd40670f0d7f60ba",
+      "source": "# MIZ OKI 3.5/marketing/risk.html"
+    },
+    "marketing/signal.html": {
+      "sha256": "0f70cb66c0125ad75b8ca06a493ab00a6ee11c6109ed7e2d685cad553ba24aca",
+      "source": "# MIZ OKI 3.5/marketing/signal.html"
+    },
+    "marketing/simulator.html": {
+      "sha256": "4ec8a30d9ebd2dc51c000ca85f37d052b46ebb9de169e03dcd11c8df12379986",
+      "source": "# MIZ OKI 3.5/marketing/simulator.html"
+    },
+    "marketing/walkthrough.html": {
+      "sha256": "9b04c6d599c820e66e9dfa0c74a06cbf859f89e6166c2efd67a1604b45de125c",
+      "source": "# MIZ OKI 3.5/marketing/walkthrough.html"
+    },
+    "media/assets/media.css": {
+      "sha256": "a209ae631834dce5d38ef47e2fca2b5b46d36e3b3c019fff176b79b45333f6f1",
+      "source": "# MIZ OKI 3.5/media/assets/media.css"
+    },
+    "media/assets/mizoki-media-architecture.svg": {
+      "sha256": "05e97a7ad9a07fdaef2849a9defe7553f75ee128e2e7082ce59aa97b89bdbba3",
+      "source": "# MIZ OKI 3.5/media/assets/mizoki-media-architecture.svg"
+    },
+    "media/assets/mizoki-media-decision-graph-overview.html": {
+      "sha256": "baed4312020c130faf1b874b65036d7d3fe2aa8265d9d58e1fae0085e2ec93db",
+      "source": "# MIZ OKI 3.5/media/assets/mizoki-media-decision-graph-overview.html"
+    },
+    "media/assets/mizoki-media-executive-summary.html": {
+      "sha256": "4902995c94e393b6fbfc1c99c1de2fbed2e322c357f0f958b914d9ac897af3dd",
+      "source": "# MIZ OKI 3.5/media/assets/mizoki-media-executive-summary.html"
+    },
+    "media/assets/mizoki-media-pilot-guide.html": {
+      "sha256": "188ae6ab27c71241185f7e58a3209d007709e94e4b41b8768546ae5c6972c5c6",
+      "source": "# MIZ OKI 3.5/media/assets/mizoki-media-pilot-guide.html"
+    },
+    "media/assets/mizoki-media-product-overview.html": {
+      "sha256": "0857523934d430fe7ee5e40f7bfc1f723adf2fada3124a2addb42004772ff2e5",
+      "source": "# MIZ OKI 3.5/media/assets/mizoki-media-product-overview.html"
+    },
+    "media/assets/mizoki-media-transcript.html": {
+      "sha256": "6056b7ae370fb51bd68afe353d16a42330d5e5eb0d1c004bf7141b11ca322795",
+      "source": "# MIZ OKI 3.5/media/assets/mizoki-media-transcript.html"
+    },
+    "media/assets/mizoki-signal-preview.png": {
+      "sha256": "b82028a8910fe2bb648196328ade3c21b40a66e8e13df0bdd4b0604739f29df3",
+      "source": "# MIZ OKI 3.5/media/assets/mizoki-signal-preview.png"
+    },
+    "media/assets/mizoki-signal-storyboard.png": {
+      "sha256": "f0c0b34a0f0ef811d2f961ba9326526e8e757b0db7a0658f9839b3a651cc89b2",
+      "source": "# MIZ OKI 3.5/media/assets/mizoki-signal-storyboard.png"
+    },
+    "media/contact.html": {
+      "sha256": "52154b073e42af08d12a5b9671bad428fd03ab3acd2676022184e598680f6bc2",
+      "source": "# MIZ OKI 3.5/media/contact.html"
+    },
+    "media/decision-graph.html": {
+      "sha256": "41e53e2318e3384514a708cc7ef2e54b24fa270bac38e78bc41b59b2e5b94aaa",
+      "source": "# MIZ OKI 3.5/media/decision-graph.html"
+    },
+    "media/demo.html": {
+      "sha256": "16f560a166c530a616555c4951269b1c56df696aa4c5a90cd5bb7b7f1120d07c",
+      "source": "# MIZ OKI 3.5/media/demo.html"
+    },
+    "media/how-it-works.html": {
+      "sha256": "20ef5eb897bddafb8b1b15ca32eb8fbb65eb4cc01cf44d9831dfabf292107f1d",
+      "source": "# MIZ OKI 3.5/media/how-it-works.html"
+    },
+    "media/index.html": {
+      "sha256": "291b2f4e0c94b2191f2ca51aa2663cfcefb6287c14bf69697dafb716281c9184",
+      "source": "# MIZ OKI 3.5/media/index.html"
+    },
+    "media/pilot.html": {
+      "sha256": "30ab28e9f74027791057bafd31d13703c2145d0a3b30db4f0d0c83f27ac40509",
+      "source": "# MIZ OKI 3.5/media/pilot.html"
+    },
+    "media/platform.html": {
+      "sha256": "780ebc4f0f4dd976a7cfa55ba1c0d03b30312fc74bd7a9be00e265fb03e30e8d",
+      "source": "# MIZ OKI 3.5/media/platform.html"
+    },
+    "media/resources.html": {
+      "sha256": "ccc9983af2ed7989f6a76582628570406ee5479fc93a7eec61dd75e0860eea1f",
+      "source": "# MIZ OKI 3.5/media/resources.html"
+    },
+    "media/trust.html": {
+      "sha256": "746043d56b200d333f5ec42e1452c9b6cc0189e2dd1f707fc7ffa114b2c1ad32",
+      "source": "# MIZ OKI 3.5/media/trust.html"
+    },
+    "media/use-cases.html": {
+      "sha256": "d025c40fd9852ac64edfb31ad4e8bf45ae138a952120a21913aa0d4d6e065dcf",
+      "source": "# MIZ OKI 3.5/media/use-cases.html"
+    },
+    "media/video/mizoki-signal-explainer.mp4": {
+      "sha256": "d15e44694c41e3f36e605376380120a3f8866139e2a6919ef854d2b607b98a75",
+      "source": "# MIZ OKI 3.5/media/video/mizoki-signal-explainer.mp4"
+    },
+    "mizoki3-site/console/index.html": {
+      "sha256": "de71431353bc41c1f3e1b69da59292b3461439f0c2c42a3d0854a2e7c77dc53e",
+      "source": "# MIZ OKI 3.5/mizoki3-site/console/index.html"
+    },
+    "mizoki3-site/infrastructure/main.tf": {
+      "sha256": "078fff555b175be13d98ec734719d47ada460fc87c79e21da33a912e8e09bb9b",
+      "source": "# MIZ OKI 3.5/mizoki3-site/infrastructure/main.tf"
+    },
+    "mizoki_runtime/__init__.py": {
+      "sha256": "357958d1bb120afdfb0d5a4010b072022690bac13f659b9e76d391a745f0d9fe",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/__init__.py"
+    },
+    "mizoki_runtime/abtest.py": {
+      "sha256": "eaa95245493ed128768ca4a1d15507ef4580fa7d63aa5a2219f6d418afb92db6",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/abtest.py"
+    },
+    "mizoki_runtime/briefing_guide.py": {
+      "sha256": "a22314f55d07e04d3b48dae0a5a44d45ba48a7a18ffddec341e641c55e69f1c7",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/briefing_guide.py"
+    },
+    "mizoki_runtime/connections.py": {
+      "sha256": "6baa85fa30f8e352f4d3b014d8ba30035e63b83a0993a92a5b78e3c25743aca4",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/connections.py"
+    },
+    "mizoki_runtime/demo_capital.py": {
+      "sha256": "1dcc4682991a4177eb1f55174d8498c0f895e6fe08c8c42a8c687114b582bed3",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/demo_capital.py"
+    },
+    "mizoki_runtime/demo_counsel.py": {
+      "sha256": "d51a81daea509db4962dbadfbe499912c9257ff945204bf15c4a1211e6a68d21",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/demo_counsel.py"
+    },
+    "mizoki_runtime/demo_estate.py": {
+      "sha256": "a3b685f709cfa77c20d2d40752122d8454498abffe95bce9e8aff8c17e424015",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/demo_estate.py"
+    },
+    "mizoki_runtime/demo_narrator.py": {
+      "sha256": "01b66c6fd9cf4e7d64a7b1eb3f6c3e5b920034be188c11f97145a97621c96af0",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/demo_narrator.py"
+    },
+    "mizoki_runtime/demo_nexus.py": {
+      "sha256": "9c9f84ff6c457ab686627be42d0f4ee15d25abc7363a9d8ddabf43d927a0e324",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/demo_nexus.py"
+    },
+    "mizoki_runtime/demo_risk.py": {
+      "sha256": "54a9d4403f1adff654629f9d5026f861c13a73de114323fc3945bca6760bc692",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/demo_risk.py"
+    },
+    "mizoki_runtime/demo_signal.py": {
+      "sha256": "d55c417c57e6a33a06f25e8849c6bc7b6c7ef08e0e1e11608365e16b20e0e4eb",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/demo_signal.py"
+    },
+    "mizoki_runtime/demo_telemetry.py": {
+      "sha256": "0fe6bd09809aba0837f44796448cbfcfd6a8d887789a43e1e3215379501c7dab",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/demo_telemetry.py"
+    },
+    "mizoki_runtime/design_partner_pipeline/__init__.py": {
+      "sha256": "d05fb5f5327b2e39a86aa96b7fd2dbdaebe1403bb05523301cbcf3c25edbd4dd",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/design_partner_pipeline/__init__.py"
+    },
+    "mizoki_runtime/design_partner_pipeline/digest.py": {
+      "sha256": "af9a49716cd477563ef25c8864ab1d21d60fd88dee6c69dc5d0c3b220cd8c9ec",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/design_partner_pipeline/digest.py"
+    },
+    "mizoki_runtime/design_partner_pipeline/flags.py": {
+      "sha256": "65b7edd0df69a4ef4c19acf2d79d0d677234ded2bbc95c6b19d291f4d3c4c00b",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/design_partner_pipeline/flags.py"
+    },
+    "mizoki_runtime/design_partner_pipeline/intake.py": {
+      "sha256": "93ab234967e813f621e5fb5fcbc0dd26bcf6d0b16e502b32c975792616a46257",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/design_partner_pipeline/intake.py"
+    },
+    "mizoki_runtime/design_partner_pipeline/milestones.py": {
+      "sha256": "1fc8800700a228ed929e2f7cf1d6b0f34983aa302a3c18804826323fc036f97d",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/design_partner_pipeline/milestones.py"
+    },
+    "mizoki_runtime/design_partner_pipeline/models.py": {
+      "sha256": "c55ba8c17a629a1883dffe3969f229c0961427ca5138dca2d65f636182bac812",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/design_partner_pipeline/models.py"
+    },
+    "mizoki_runtime/design_partner_pipeline/stages.py": {
+      "sha256": "9810347291546e335e1d97362c5b525199dcb4cd0b42f036b2597571548caa8b",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/design_partner_pipeline/stages.py"
+    },
+    "mizoki_runtime/design_partner_pipeline/store.py": {
+      "sha256": "4b4e2148d302e4a7a997122fef962a7dd5d590e7c621edbcc29ed1c6aadadb4a",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/design_partner_pipeline/store.py"
+    },
+    "mizoki_runtime/design_partner_pipeline/targets.py": {
+      "sha256": "47901fb73233be1cc8a6329dd74b352faf9cb705b5f212ff6f794409a2991554",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/design_partner_pipeline/targets.py"
+    },
+    "mizoki_runtime/envelope.py": {
+      "sha256": "903fa4efad7189bf9a0d81e4e0a50e071b75fab6347039e9c12d9f4487dbb3eb",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/envelope.py"
+    },
+    "mizoki_runtime/google_ads_gaql.py": {
+      "sha256": "f9942089aba01c6e462aec6716c55aacb09f20801d3799908625e7658ee1e934",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/google_ads_gaql.py"
+    },
+    "mizoki_runtime/identity.py": {
+      "sha256": "107fc9b78f475b8c70201dc73431a38d9b006942c65a9a764a3121c61d8cdcbb",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/identity.py"
+    },
+    "mizoki_runtime/journey.py": {
+      "sha256": "e22da51b50fb09bdc1ff8549903595000c589fdb094532fd287318b5c8f36dcf",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/journey.py"
+    },
+    "mizoki_runtime/journey_gemini.py": {
+      "sha256": "b8e2fb8d524f89999db22fef484f39f393cc19571b8c6b2f6c7bc34176400ece",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/journey_gemini.py"
+    },
+    "mizoki_runtime/journey_sinks.py": {
+      "sha256": "e103367eddec2cf96a99a5957f1ae66151952cf87b44717e1a7e2febe61ed0f7",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/journey_sinks.py"
+    },
+    "mizoki_runtime/learn_pages.py": {
+      "sha256": "a29ce930a0c192b18822282ab2ef1d2471d2739b48146703adc7e0c0dc92a54c",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/learn_pages.py"
+    },
+    "mizoki_runtime/pilot_requests.py": {
+      "sha256": "c2ece35244fa6292d0116914f9d7e774b0211a06c2e8c8183dc3a7791ffa8fc3",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/pilot_requests.py"
+    },
+    "mizoki_runtime/runtime.py": {
+      "sha256": "caf7570dc4c83468758cd1f5849eb037bd2597a56eb206f49c141aaf85d789e8",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/runtime.py"
+    },
+    "mizoki_runtime/site_events.py": {
+      "sha256": "b0b848d554837284fecd113ce8fae4e2cd0297c47da5e41a140b571fada5f0d5",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/site_events.py"
+    },
+    "mizoki_runtime/site_flags.py": {
+      "sha256": "af37fa8d636f112092739cf61e9efea6867c411fd3c4e8c923bf8b1f21386eef",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/site_flags.py"
+    },
+    "mizoki_runtime/virtuoso.py": {
+      "sha256": "195f11d64cf12c6b41f4859c8ae91fddd23698ff9b7051fd0097062e92165e91",
+      "source": "# MIZ OKI 3.5/mizoki_runtime/virtuoso.py"
+    },
+    "mizuki3.html": {
+      "sha256": "ab670f4937cdd306a3d5af1ec31544abbe489f50124e6bff9ca438553f302fc5",
+      "source": "# MIZ OKI 3.5/mizuki3.html"
+    },
+    "nginx.conf": {
+      "sha256": "805a0c29fdc7df191a96ff0533ea49d685ca2bb507118eb5cc12d88b3402822f",
+      "source": "# MIZ OKI 3.5/nginx.conf"
+    },
+    "og-image.png": {
+      "sha256": "b8d8ab41044c2ba931da93d1b22673b1fb361c4a826e9c6fcfafa44c88266e59",
+      "source": "# MIZ OKI 3.5/og-image.png"
+    },
+    "platform.html": {
+      "sha256": "306c589a25ef6b7bbd95ac133bab951bda7c5ca664fc4f4303ebc6e0fd671c43",
+      "source": "# MIZ OKI 3.5/platform.html"
+    },
+    "pricing.html": {
+      "sha256": "f96934fc376c62b5f40568ae571491869441005f984ae1c6e3b78e418d663114",
+      "source": "# MIZ OKI 3.5/pricing.html"
+    },
+    "privacy.html": {
+      "sha256": "9c6af0c028bf2cedc0db2a3c0b87a20dca99baf06b44db4ede830b826579cf0d",
+      "source": "# MIZ OKI 3.5/privacy.html"
+    },
+    "requirements-docs.lock": {
+      "sha256": "4f4668d7e28b8989ca0d5ecdac2ae209023ea5f464bfb93f0e4b1996771ef38b",
+      "source": "# MIZ OKI 3.5/requirements-docs.lock"
+    },
+    "requirements.txt": {
+      "sha256": "cce2afd56cb74119d4ce2219e0b6694246a2776a11df34d38cf6993222c00cd8",
+      "source": "# MIZ OKI 3.5/requirements.txt"
+    },
+    "resources.html": {
+      "sha256": "d10a2a62e456774a1f2d221f85f7dba76e36193340a23e1090ee19937ecd30a5",
+      "source": "# MIZ OKI 3.5/resources.html"
+    },
+    "risk.html": {
+      "sha256": "8d47b1fe977b257a328c10fc7ffed5f51d14173aca1d99d977055c4371d5507e",
+      "source": "# MIZ OKI 3.5/risk.html"
+    },
+    "roi.html": {
+      "sha256": "9cd14d86ae09299db28c64090961d7aa04433841e436356bd9568a547b1b08f0",
+      "source": "# MIZ OKI 3.5/roi.html"
+    },
+    "sales-one-pager.html": {
+      "sha256": "46380721787426132cdcc66dc374a1f0b2dff202e27ae622b986079ee1b6c2cc",
+      "source": "# MIZ OKI 3.5/sales-one-pager.html"
+    },
+    "schemas/canonical-event-envelope.json": {
+      "sha256": "c8daa565c306ebb51423730eb04991cdd161172aeb4ad9f080ab648c48806479",
+      "source": "# MIZ OKI 3.5/schemas/canonical-event-envelope.json"
+    },
+    "schemas/journey-event.bigquery.sql": {
+      "sha256": "4f99efbc10cbb47197dcbeb7f9db98b935dfb13a949e24a0f88cdaff7338f2d4",
+      "source": "# MIZ OKI 3.5/schemas/journey-event.bigquery.sql"
+    },
+    "schemas/journey-event.json": {
+      "sha256": "4e8fe8f82cdb3d52006644c6e06497c75448258cb53be3fc2341bbd6ff5bd2d5",
+      "source": "# MIZ OKI 3.5/schemas/journey-event.json"
+    },
+    "scripts/abtest_stats.py": {
+      "sha256": "34ff0b49ad0c637a5c1ea231642f692cee4c8cb013548cdd242cd240cb6aaaa4",
+      "source": "# MIZ OKI 3.5/scripts/abtest_stats.py"
+    },
+    "scripts/build_site_docs.py": {
+      "sha256": "94ebf7b1809cab2c64afc42ae411eeb6dfe8a16c286b42fd21e98e8a9470677c",
+      "source": "# MIZ OKI 3.5/scripts/build_site_docs.py"
+    },
+    "scripts/check_design_canon.py": {
+      "sha256": "2d48142ea8b6177e513d6c3215581f9f3f963add8e026180cf62d70c3f2b1103",
+      "source": "# MIZ OKI 3.5/scripts/check_design_canon.py"
+    },
+    "scripts/check_marketing_surfaces.py": {
+      "sha256": "1b1ce9572a44dd99c4038e0c9fa288bd63776b6e96cfa7897dec8f7535ecfc43",
+      "source": "# MIZ OKI 3.5/scripts/check_marketing_surfaces.py"
+    },
+    "scripts/check_runtime_corpus.py": {
+      "sha256": "e0efbe22f60bc5effad13abb7fbe79ff283582e758403296c35a4c550c1e8c16",
+      "source": "# MIZ OKI 3.5/scripts/check_runtime_corpus.py"
+    },
+    "scripts/content_qa.py": {
+      "sha256": "8567d47be750a8b87912008e3e378b5db8e2ec73ae8fa3da35c723de93d47f58",
+      "source": "# MIZ OKI 3.5/scripts/content_qa.py"
+    },
+    "scripts/demo_screenshots.py": {
+      "sha256": "9a9df89898f192aabac57a642151491f9d95e4a11c54dba7309ac7d209990ec5",
+      "source": "# MIZ OKI 3.5/scripts/demo_screenshots.py"
+    },
+    "scripts/generate_favicon.py": {
+      "sha256": "b2f13d6dfbb504b1d4427925660cca8bb24ea91d3360f5501b60977258550496",
+      "source": "# MIZ OKI 3.5/scripts/generate_favicon.py"
+    },
+    "scripts/screenshots/capital-1440.png": {
+      "sha256": "44f5241c7b538e1f173036730a491d3dfcd36cbb58428640af83952ffd69d50f",
+      "source": "# MIZ OKI 3.5/scripts/screenshots/capital-1440.png"
+    },
+    "scripts/screenshots/counsel-1440.png": {
+      "sha256": "2bd511ee38a6593d09471459e6a73c67821238b57b134ec832701e55ab7018ef",
+      "source": "# MIZ OKI 3.5/scripts/screenshots/counsel-1440.png"
+    },
+    "scripts/screenshots/estate-1440.png": {
+      "sha256": "4c4fa05140b40872c0c990d31068430564842ea52c3af23a7d5b3b9452d8df16",
+      "source": "# MIZ OKI 3.5/scripts/screenshots/estate-1440.png"
+    },
+    "scripts/screenshots/executive-0-cover-1440.png": {
+      "sha256": "91e62f0523f0f37914972e3bd7791d9c1117bed8b484d5649f6e9b0a0b930d9c",
+      "source": "# MIZ OKI 3.5/scripts/screenshots/executive-0-cover-1440.png"
+    },
+    "scripts/screenshots/executive-1-the-lie-1440.png": {
+      "sha256": "e95ad84bf5e3da6acaf35bcc2ddae642df19a07d79e753e61cc99c47e0dff7a3",
+      "source": "# MIZ OKI 3.5/scripts/screenshots/executive-1-the-lie-1440.png"
+    },
+    "scripts/screenshots/executive-1-the-lie-400.png": {
+      "sha256": "2f8c4accd176d1a624e825c2d32236ac1758857742d86d40335ade0d9111b0c3",
+      "source": "# MIZ OKI 3.5/scripts/screenshots/executive-1-the-lie-400.png"
+    },
+    "scripts/screenshots/executive-2-the-signals-1440.png": {
+      "sha256": "a9a0d6d64a39cfced726358c4151e4aa2968016577672df6d53a4445061829db",
+      "source": "# MIZ OKI 3.5/scripts/screenshots/executive-2-the-signals-1440.png"
+    },
+    "scripts/screenshots/executive-3-the-proof-1440.png": {
+      "sha256": "414f1753bb9e57f1d4093ae9a879f3e91fb53754830b5595a3bba367bdc1268b",
+      "source": "# MIZ OKI 3.5/scripts/screenshots/executive-3-the-proof-1440.png"
+    },
+    "scripts/screenshots/executive-4-the-profit-1440.png": {
+      "sha256": "a18a74ad540c3d8e08ac7af003ae4f40846a63be53d1194835e58ab4c5e216bd",
+      "source": "# MIZ OKI 3.5/scripts/screenshots/executive-4-the-profit-1440.png"
+    },
+    "scripts/screenshots/executive-5-the-restraint-1440.png": {
+      "sha256": "cde2d68e9960b00c1a82f5b502ea66ecdfb05eeecc0bb0ea1fad09e4a0ec7b5c",
+      "source": "# MIZ OKI 3.5/scripts/screenshots/executive-5-the-restraint-1440.png"
+    },
+    "scripts/screenshots/executive-5-the-restraint-400.png": {
+      "sha256": "e896b29471081bf9108330713992ed2b3ce838aa3683dc696ff0ecfa3723a6e1",
+      "source": "# MIZ OKI 3.5/scripts/screenshots/executive-5-the-restraint-400.png"
+    },
+    "scripts/screenshots/executive-6-the-90-days-1440.png": {
+      "sha256": "2c8b6016e6c31043818917e1b6cf2513bcd18b3d0e46e569051117eaecb0a235",
+      "source": "# MIZ OKI 3.5/scripts/screenshots/executive-6-the-90-days-1440.png"
+    },
+    "scripts/screenshots/homepage-divisions-1440.png": {
+      "sha256": "e5ee63caeef9d73ab26859bff77a2ac2008a227d6e8b7e3f1580fc50498bbb2e",
+      "source": "# MIZ OKI 3.5/scripts/screenshots/homepage-divisions-1440.png"
+    },
+    "scripts/screenshots/hub-1440.png": {
+      "sha256": "f707f89d324c3520066e1ebfb04842271fb6d72af9a0ba730a9758262885c827",
+      "source": "# MIZ OKI 3.5/scripts/screenshots/hub-1440.png"
+    },
+    "scripts/screenshots/nexus-1440.png": {
+      "sha256": "0525c89c53956e1150f9ef214e5ba52a5e56d8e4a9f59b1e87b6904108ceee74",
+      "source": "# MIZ OKI 3.5/scripts/screenshots/nexus-1440.png"
+    },
+    "scripts/screenshots/nexus-boardroom-1440.png": {
+      "sha256": "68c412eec12162490532a8259aab658351af230276f48ea1e24488e0ddb29c12",
+      "source": "# MIZ OKI 3.5/scripts/screenshots/nexus-boardroom-1440.png"
+    },
+    "scripts/screenshots/risk-1440.png": {
+      "sha256": "6c351e797f797345e9d6f92a8cee1e24a8b1381bc0bf9f97b57aaaa8b34671c4",
+      "source": "# MIZ OKI 3.5/scripts/screenshots/risk-1440.png"
+    },
+    "scripts/screenshots/signal-1440.png": {
+      "sha256": "5db5e18f018ed41d60be8b98a555fbdd3d5dbf0d8662f1f8343f79c4ca66afba",
+      "source": "# MIZ OKI 3.5/scripts/screenshots/signal-1440.png"
+    },
+    "scripts/screenshots/walkthrough-1440.png": {
+      "sha256": "c493c6fb576043fb80377f538cc7a6e5681e2441c18b2031c234792e0f7adb99",
+      "source": "# MIZ OKI 3.5/scripts/screenshots/walkthrough-1440.png"
+    },
+    "scripts/stat_attribution_baseline.json": {
+      "sha256": "c987ced2d0576bf8683b0ba6cc4b234972090a07ed51fd1d0146f0e62b5fd5cc",
+      "source": "# MIZ OKI 3.5/scripts/stat_attribution_baseline.json"
+    },
+    "security.html": {
+      "sha256": "2ddcca0a502cee99f7e408d49da17ffe8cbe00937d4d57116d7b9d93ef44b3bc",
+      "source": "# MIZ OKI 3.5/security.html"
+    },
+    "shopify.html": {
+      "sha256": "a71b61d5ae6c584870d8ca6ac2944912b8542c30e6413cd5b3c3def3c1a5bf58",
+      "source": "# MIZ OKI 3.5/shopify.html"
+    },
+    "signal-audiences.html": {
+      "sha256": "21c5631b0d2b9206cc2b3202e6a8c31a8c349ad003c1f4b2d2893fbcaf4b6d08",
+      "source": "# MIZ OKI 3.5/signal-audiences.html"
+    },
+    "signal-budget.html": {
+      "sha256": "acaa7aa0d23cb796a73112d598b9361099904dc09bb47c11551fa616d3e95972",
+      "source": "# MIZ OKI 3.5/signal-budget.html"
+    },
+    "signal-creative.html": {
+      "sha256": "1bca56626d9525b004645c86482ebbd9bf7a522f1ab686655a8e062ae48ec4b2",
+      "source": "# MIZ OKI 3.5/signal-creative.html"
+    },
+    "signal-measurement.html": {
+      "sha256": "27b01f5391164e4b815fb05efa894cfae4370a9b35ac193fae5d095e38f57230",
+      "source": "# MIZ OKI 3.5/signal-measurement.html"
+    },
+    "signal-thresholds.html": {
+      "sha256": "cb4571bfcf0ada1285d27a8cbe8a11ec598d20424ae7db1583e4c780f61fd48c",
+      "source": "# MIZ OKI 3.5/signal-thresholds.html"
+    },
+    "signal.html": {
+      "sha256": "57675d3d51ec8398b9550c7b25ab37016ef62569d4e2359a0c7ae10b1ee4a594",
+      "source": "# MIZ OKI 3.5/signal.html"
+    },
+    "style.css": {
+      "sha256": "a8f88ddb6d43b3dcf69941d43abc8ea4ce46109752b8e891f133ae0c8df36347",
+      "source": "# MIZ OKI 3.5/style.css"
+    },
+    "templates/admin_connections.html": {
+      "sha256": "3f29a0100ddbecf3dbec165ab4216e142757fb09f5793045d133c68cbc7f78ff",
+      "source": "# MIZ OKI 3.5/templates/admin_connections.html"
+    },
+    "templates/admin_dashboard.html": {
+      "sha256": "2c57b2a1aca3bf95901ab92a3ae14049ff4a98e37e16d4bd6611909422025ddf",
+      "source": "# MIZ OKI 3.5/templates/admin_dashboard.html"
+    },
+    "templates/admin_login.html": {
+      "sha256": "1db5fb86fe8525a104365a4ccbce88cb6910aa1db1942eb4f02b597944516c29",
+      "source": "# MIZ OKI 3.5/templates/admin_login.html"
+    },
+    "templates/contact.html": {
+      "sha256": "687c9b1dea9ba1bb3050541f56e765bf3e8ca9f46d85afd51ffd8a2a8c5eecf5",
+      "source": "# MIZ OKI 3.5/templates/contact.html"
+    },
+    "templates/index.html": {
+      "sha256": "7980535262154b5f7b22fce1aa939be5d2daa7f984dda7fc55d9cbb8c836fc1e",
+      "source": "# MIZ OKI 3.5/templates/index.html"
+    },
+    "templates/intelligence.html": {
+      "sha256": "d89d1808f1d326f438fa07d3bd6b279394cc75a125352a42b7d1756f38e63e18",
+      "source": "# MIZ OKI 3.5/templates/intelligence.html"
+    },
+    "templates/vision.html": {
+      "sha256": "7573517159f7b839796b608ab4d3d83cb9d202286bf65ff8c2d399e09a7f1fd6",
+      "source": "# MIZ OKI 3.5/templates/vision.html"
+    },
+    "terms.html": {
+      "sha256": "55c50727aa88f1d56bbbf8d664eec740af4a8bd32e3b3fe05da9a0ba54af2d1e",
+      "source": "# MIZ OKI 3.5/terms.html"
+    },
+    "tests/__init__.py": {
+      "sha256": "6baf6c4cd99ff7988ccfed302542ae775337fe9b2840cad6be898d62fb03c8a0",
+      "source": "# MIZ OKI 3.5/tests/__init__.py"
+    },
+    "tests/test_abc_decision.py": {
+      "sha256": "24c27ea9d720e3c765dab8165d99e5af1f79b01fb27f072c3ef40f93117d6835",
+      "source": "# MIZ OKI 3.5/tests/test_abc_decision.py"
+    },
+    "tests/test_abtest.py": {
+      "sha256": "65ba672674884beefed60ea6e043540cd5c3249bb2a1ecc71d97d9535368cc48",
+      "source": "# MIZ OKI 3.5/tests/test_abtest.py"
+    },
+    "tests/test_app.py": {
+      "sha256": "3e8f737f8ad7c837ebe0b99c46dccac625e79d61cdf95d1dfa89fb82aa89dbfd",
+      "source": "# MIZ OKI 3.5/tests/test_app.py"
+    },
+    "tests/test_blog_series.py": {
+      "sha256": "0f1016cbdaecb182a0f8510598bf331fb9e5954099cc566bf6482d9985f577aa",
+      "source": "# MIZ OKI 3.5/tests/test_blog_series.py"
+    },
+    "tests/test_boss_docent.py": {
+      "sha256": "9fe4e08694aacdfbd55a61ee9ae47b1577553e1752ee404879fa52a20b76ea31",
+      "source": "# MIZ OKI 3.5/tests/test_boss_docent.py"
+    },
+    "tests/test_briefing_guide.py": {
+      "sha256": "d21a430b9ce308c921117b737bc0ea3b6b2607f8a2e2034ed23a67ce5b735ba3",
+      "source": "# MIZ OKI 3.5/tests/test_briefing_guide.py"
+    },
+    "tests/test_connections.py": {
+      "sha256": "84410fc1f18e2c8491f240abbd6685996ec662e1b983a4b2acba17adfed679fa",
+      "source": "# MIZ OKI 3.5/tests/test_connections.py"
+    },
+    "tests/test_content_qa.py": {
+      "sha256": "a1a84580d302f7d05b51beca820d076902af455472c0fc4b4e811f62a86f1ef5",
+      "source": "# MIZ OKI 3.5/tests/test_content_qa.py"
+    },
+    "tests/test_decision_studio_links.py": {
+      "sha256": "88bf13fcd446f4ad391c8d037d5b7a9ea406a417f64cca3894b3068964383460",
+      "source": "# MIZ OKI 3.5/tests/test_decision_studio_links.py"
+    },
+    "tests/test_demo_capital.py": {
+      "sha256": "2d55571abec723f15228382af7100c10a1c577d18433bc257b8439bf70ecc5b4",
+      "source": "# MIZ OKI 3.5/tests/test_demo_capital.py"
+    },
+    "tests/test_demo_counsel.py": {
+      "sha256": "c59ce76d368f45c6417dd66cd2479d3b66d2752f3f39a3bca83239b1db079e2d",
+      "source": "# MIZ OKI 3.5/tests/test_demo_counsel.py"
+    },
+    "tests/test_demo_estate.py": {
+      "sha256": "8d4e579908941dec42af8abce04cfde62a50fff8d7644e36dce7002a6a86b7ee",
+      "source": "# MIZ OKI 3.5/tests/test_demo_estate.py"
+    },
+    "tests/test_demo_executive.py": {
+      "sha256": "0243f4092158c7063a8f881933ee275bda6259aee57f38e2622189e8814b9e7b",
+      "source": "# MIZ OKI 3.5/tests/test_demo_executive.py"
+    },
+    "tests/test_demo_narrator.py": {
+      "sha256": "a546b9c84fc250c95e8674f2f925ce122a25734f07ea3add085a7c9c9dc09bdb",
+      "source": "# MIZ OKI 3.5/tests/test_demo_narrator.py"
+    },
+    "tests/test_demo_nexus.py": {
+      "sha256": "08cfad412f448be8404a6274d05094f3cf72d4d321410de8a37b9de8afe86e3a",
+      "source": "# MIZ OKI 3.5/tests/test_demo_nexus.py"
+    },
+    "tests/test_demo_platform.py": {
+      "sha256": "28187fca75c4201fa424c175038ba821328307c5a1dc5949c7b844b8cb9d9a22",
+      "source": "# MIZ OKI 3.5/tests/test_demo_platform.py"
+    },
+    "tests/test_demo_risk.py": {
+      "sha256": "f11a31c07400a6a543f4652f27f08bbd59539943cbe486d9da61f4649f2e02e4",
+      "source": "# MIZ OKI 3.5/tests/test_demo_risk.py"
+    },
+    "tests/test_demo_signal.py": {
+      "sha256": "ba4f3389aa0bb142633dd64bd4e32a4b3b45a88580928caed8822fc6750da970",
+      "source": "# MIZ OKI 3.5/tests/test_demo_signal.py"
+    },
+    "tests/test_executive_briefing.py": {
+      "sha256": "c2d7c1db00b3573e014ea23e5d2f65972e63989ec6e18a9db18bb96c517e7f75",
+      "source": "# MIZ OKI 3.5/tests/test_executive_briefing.py"
+    },
+    "tests/test_google_ads_gaql.py": {
+      "sha256": "83b0d098679caeb0ce4f52e88eae1f4b8e996d27ced6f9cdda4e08bae4c6a9dc",
+      "source": "# MIZ OKI 3.5/tests/test_google_ads_gaql.py"
+    },
+    "tests/test_homepage_act991.py": {
+      "sha256": "c0b1c836ba8b4a9466688c38931d7fa35cf8f2537c1fcdc5a94ecb54aadac948",
+      "source": "# MIZ OKI 3.5/tests/test_homepage_act991.py"
+    },
+    "tests/test_homepage_v2.py": {
+      "sha256": "ca415bfde2e46c9b437e3ada10a34d12b0d553e2cf4b9e9d7a3233c354563c27",
+      "source": "# MIZ OKI 3.5/tests/test_homepage_v2.py"
+    },
+    "tests/test_intent_page.py": {
+      "sha256": "b7183c0da499bce90afd876c5ef58d5f28e8a8b1b47573b823401187ddeed88e",
+      "source": "# MIZ OKI 3.5/tests/test_intent_page.py"
+    },
+    "tests/test_journal_name.py": {
+      "sha256": "ff3ab7831f71f1f7b47023b2e25c615ef1a5df4eafd01f61ac5ee836cb2d6338",
+      "source": "# MIZ OKI 3.5/tests/test_journal_name.py"
+    },
+    "tests/test_learn_pages.py": {
+      "sha256": "a3a3fa82744122f3cbbe09335fe61094a3f2e3941b234e43b8c27949445550ae",
+      "source": "# MIZ OKI 3.5/tests/test_learn_pages.py"
+    },
+    "tests/test_marketing_site.py": {
+      "sha256": "0d134fd045675cfb1cf38ff8aaa16a2a5e4d52eae19f54be09663b2beb16aadb",
+      "source": "# MIZ OKI 3.5/tests/test_marketing_site.py"
+    },
+    "tests/test_media_page.py": {
+      "sha256": "b16aa16569171b2100f6042fc9ff9439d84c458626eefb91accb79d3a71e7fb0",
+      "source": "# MIZ OKI 3.5/tests/test_media_page.py"
+    },
+    "tests/test_mizuki3_landing.py": {
+      "sha256": "942fcd2c9cc561f98f840da5d1ed19f8c6a87e091b122127499ed1e1a8d79181",
+      "source": "# MIZ OKI 3.5/tests/test_mizuki3_landing.py"
+    },
+    "tests/test_no_egress.py": {
+      "sha256": "59fec68571e088e08265829811551dee10d1bc386bf4d42563796ff302692331",
+      "source": "# MIZ OKI 3.5/tests/test_no_egress.py"
+    },
+    "tests/test_pilot_sourced_hook.py": {
+      "sha256": "2480cf25d48ab465469b096386b105aae69ed68ac3debe9f08a792cd938d173e",
+      "source": "# MIZ OKI 3.5/tests/test_pilot_sourced_hook.py"
+    },
+    "tests/test_runtime.py": {
+      "sha256": "8fac438ab4a897a1274b7f8e00c31e75f1f22091e2c87a374ac6c2dd0c232a95",
+      "source": "# MIZ OKI 3.5/tests/test_runtime.py"
+    },
+    "tests/test_runtime_corpus_attestations.py": {
+      "sha256": "c977b72400b235bf26e81c688cf0a7e766d80693ba20426e336b5397f595840e",
+      "source": "# MIZ OKI 3.5/tests/test_runtime_corpus_attestations.py"
+    },
+    "tests/test_signal_capability_site.py": {
+      "sha256": "ccc80e213c2639ae6b1c4fae4f6a7f66a10a4134660bbc66d42d8bd3f00c521f",
+      "source": "# MIZ OKI 3.5/tests/test_signal_capability_site.py"
+    },
+    "tests/test_site_docs_internal_gate.py": {
+      "sha256": "90895ba20e46788a3841cd9acced66ad4c2542f4da2669b1ae4023563d4d44f9",
+      "source": "# MIZ OKI 3.5/tests/test_site_docs_internal_gate.py"
+    },
+    "tests/test_site_docs_tabular_gate.py": {
+      "sha256": "178597fa74777583c4a6b3ac67f1be66bec38b79b710fc65b9aa6dd03f366b83",
+      "source": "# MIZ OKI 3.5/tests/test_site_docs_tabular_gate.py"
+    },
+    "tests/test_site_events_and_pilot.py": {
+      "sha256": "1762756016cfe0dfb0121385e09907de2446aab54d5c58cb2c310e47e0fc3230",
+      "source": "# MIZ OKI 3.5/tests/test_site_events_and_pilot.py"
+    },
+    "tests/test_site_flags.py": {
+      "sha256": "eb2de847ed3663c31904fd3f4d22cedb5565cc020109b1b14eea1ad24a3f71c0",
+      "source": "# MIZ OKI 3.5/tests/test_site_flags.py"
+    },
+    "tests/test_site_wordmark.py": {
+      "sha256": "c53ca80cfa35e4c038c0297b9873550a022dbbe7c3a436013a4c83f189521bca",
+      "source": "# MIZ OKI 3.5/tests/test_site_wordmark.py"
+    },
+    "tests/test_substrate.py": {
+      "sha256": "73c0f4cc5c444bf8eb8083ba0127c75484e87abd09ecffaa7a835d6e78e02fe6",
+      "source": "# MIZ OKI 3.5/tests/test_substrate.py"
+    },
+    "tests/test_wo33_pilot_intake_callback.py": {
+      "sha256": "0e238e5082e2dcbdb29cab119c01c8187334a3938e8e40c7dbacea2fc47fbc7b",
+      "source": "# MIZ OKI 3.5/tests/test_wo33_pilot_intake_callback.py"
+    },
+    "walkthrough.html": {
+      "sha256": "d0de2a28e7f44c3b3c58e5c9ad737238d8e4e97e3ff8fc8f3977cee7a1e86cba",
+      "source": "# MIZ OKI 3.5/walkthrough.html"
+    }
+  },
+  "schema": 1,
+  "source_repository": "MIZOKI-3-5/MIZOKICloudRun",
+  "source_sha": "0178487f325ff4a8cf685f60fe4a493a9a934650"
+}

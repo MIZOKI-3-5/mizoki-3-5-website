@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>MIZOKI3 — Decision Control Plane</title>
-<meta name="description" content="MIZOKI3 Operations Terminal — the Decision Control Plane. Governed autonomy in the act of governing." />
+<title>MIZ OKI 3.5 — Operations Terminal</title>
+<meta name="description" content="MIZ OKI 3.5 Operations Terminal — governed autonomy in the act of governing, every action through the decision gates." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -371,7 +371,7 @@ body::before{
 .tl .ly.counsel{color:var(--azure);}
 .tl .ly.capital{color:var(--amber);}
 .tl .ly.risk{color:var(--crimson);}
-.tl .ly.nexus,.tl .ly.dcp{color:var(--violet-hot);}
+.tl .ly.nexus,.tl .ly.gates{color:var(--violet-hot);}
 .tl .ac{color:var(--ink-2);}
 .tl .ms{color:var(--ink-2);}
 .tl.veto .ms{color:var(--crimson);font-weight:600;}
@@ -401,7 +401,7 @@ body::before{
 <aside class="sidebar">
   <div class="sb-brand">
     <span class="mark"></span>
-    <span class="name">MIZOKI<span class="t">3</span></span>
+    <span class="name">MIZ OKI <span class="t">3.5</span></span>
   </div>
 
   <div class="sb-section">
@@ -620,7 +620,7 @@ body::before{
     {ly:'RISK',   ac:'ARBITRATE',ms:'VETO — causal inconsistency detected.', cls:'veto', d:800},
     {cont:true,ms:'└─ $7M liquidity violates AMEND-842 minimum ($10M).', cls:'veto', d:420},
     {gap:true,d:220},
-    {ly:'DCP',    ac:'DECIDE',   ms:'Decision Control Plane — autonomous action REJECTED.', cls:'reject', d:750},
+    {ly:'GATES',    ac:'DECIDE',   ms:'Decision gates — autonomous action REJECTED.', cls:'reject', d:750},
     {ly:'NEXUS',  ac:'LEARN',    ms:'Arbitration logic written to shared memory.', d:1100}
   ];
   const out = document.getElementById('termOut');
@@ -628,7 +628,7 @@ body::before{
     const n=new Date(), p=(x,l=2)=>String(x).padStart(l,'0');
     return `${p(n.getHours())}:${p(n.getMinutes())}:${p(n.getSeconds())}.${p(n.getMilliseconds(),3).slice(0,3)}`;
   }
-  function lc(l){const k=l.toLowerCase();return ['counsel','capital','risk','nexus','dcp'].includes(k)?k:'nexus';}
+  function lc(l){const k=l.toLowerCase();return ['counsel','capital','risk','nexus','gates'].includes(k)?k:'nexus';}
   function render(d){
     const el=document.createElement('div');
     el.className='tl'+(d.cls?' '+d.cls:'');

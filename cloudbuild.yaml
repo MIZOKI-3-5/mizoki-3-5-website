@@ -1,26 +1,6 @@
-# Build + push ONLY. The Cloud Run deploy happens in
-# .github/workflows/deploy-homepage.yml from the Actions runner, because the
-# Cloud Build service account lacks permission to attach Secret Manager
-# secrets (--set-secrets) while the github-actions deployer SA has it.
-#
-# _TAG defaults to "latest" so a manual `gcloud builds submit` (where the built-in
-# $COMMIT_SHA is empty) still yields a valid image reference. The deploy workflow
-# overrides _TAG with the commit SHA for traceable, rollback-friendly image tags.
-substitutions:
-  _TAG: latest
-
 steps:
-  # Build the container image
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/mizoki-website:${_TAG}', '.']
-
-  # Push the container image to Container Registry
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/mizoki-website:${_TAG}']
-
-images:
-  - 'gcr.io/$PROJECT_ID/mizoki-website:${_TAG}'
-
-options:
-  logging: CLOUD_LOGGING_ONLY
-# fleet-relaunch 2026-06-19T06:58:00Z
+  - name: bash
+    entrypoint: bash
+    args:
+      - -c
+      - echo "Mirror only. Build and deploy from MIZOKICloudRun." >&2; exit 1

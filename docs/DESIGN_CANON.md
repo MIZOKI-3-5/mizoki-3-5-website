@@ -72,6 +72,51 @@ this site: the workflow no longer declares `push` paths, so the Router skips it.
 
 **Approved re-pins on v1.5** (canon version unchanged; homepage untouched):
 
+- 2026-09-14 — **Executive Demo review-thread fixes** (`media/demo.html`, bytes
+  change; still not canon-pinned, `canon.lock.json` unchanged): the close slide
+  no longer cites the fallback scorer's one-seed AUC 0.6884 as the gating result —
+  it says the gate is unscored (zero admissible forward labels), per
+  `docs/reports/LII_BACKTEST_MODEL_QUALITY_2026-08-16.md` recommendation 1; and
+  `runDCP` clears `lastDCP` on start so a floor change mid-run cannot re-settle
+  the previous action.
+- 2026-09-14 — **Executive Demo canonical slug `/media/demo`** (owner call in
+  session): `media/executive-demo.html` moved byte-identical to
+  `media/demo.html`; `/media/demo` is the canonical URL and the r1.1 slug
+  `/media/executive-demo` (plus its `.html` form) 308s into it; every `/media`
+  nav, hero and pilot link follows. Still `noindex`, still not sitemapped, not
+  canon-pinned; `canon.lock.json` unchanged.
+- 2026-09-14 — **Executive Demo r1.1 finalize** (operator prompt r1.1, inside the
+  2026-09-13 placement ruling): `media/executive-demo.html` keeps `noindex` and
+  carries NO canonical link (the waiver is pinned by
+  `test_media_contract_waivers_are_explicit`; corrected 2026-09-14, #1035 thread),
+  and gains the `r1.1` rail line and root-relative `/media/pilot` /
+  `/media/decision-graph` links; every `/media/*` page's shared nav gains a
+  `Demo` entry and the pilot close a secondary CTA; `/media/demo` 308s to the
+  page. Inherits the site tokens, single-theme dark by design; no canon-pinned
+  file touched, `canon.lock.json` unchanged.
+- 2026-09-13 — **Executive Demo r1.1 — placed under `/media` only** (owner ruling
+  in session: the demo is part of mizoki3.com/media and nothing else; the
+  standing rule that the classic site and the A/B/C arms never link into
+  `/media` stays in place, and the demo hub keeps only the division demos).
+  `demo-executive.html` moved byte-identical to `media/executive-demo.html`,
+  served at `/media/executive-demo` (still `noindex`, still not sitemapped, not
+  canon-pinned); the `/demo/executive` route and root filename are gone (404,
+  test-pinned). The 09-12 hub banner is removed: `demo.html` is back to its
+  v1.5 pinned bytes (the deployed revision's), so `canon.lock.json` returns to
+  that pin in the same commit. Only the `/media/index.html` hero CTA links the
+  page. Awaiting a human `APPROVED` dispatch to ship.
+- 2026-09-12 — **Executive Demo r1.0** (explicit owner instruction, operator
+  prompt `CLAUDE_CODE_LAND_EXEC_DEMO_r1.0`): new `demo-executive.html`, served at
+  `/demo/executive` (robots `noindex`, not sitemapped, not canon-pinned — a
+  presenter surface, reached by link). It inherits the site tokens — Instrument
+  Serif / DM Sans / JetBrains Mono; evidence cyan `#3FDCF2`, intent purple
+  `#9D7BE8`, pass green `#41D695`, pending amber `#D9A83C`, veto red `#FF6B7C`,
+  blue `#5FA0DC` — and is **single-theme dark by design** (boardroom projection;
+  every colour painted explicitly, no light variant). The demo hub `demo.html`
+  gained the featured "Executive Demo — Media & Signals" banner above the
+  division cards → re-pinned in the same commit. `/media/index.html` gained the
+  "Run the executive demo →" hero CTA (not canon-pinned). Awaiting a human
+  `APPROVED` dispatch to ship.
 - 2026-07-31 — **Decision Concierge** (explicit owner instruction): the
   Executive Briefing gained its guided-by-default Guide Agent
   (`executive-briefing/js/guide.js`, NEW canon surface — the manifest is now

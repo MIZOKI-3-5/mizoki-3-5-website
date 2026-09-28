@@ -4,3 +4,9 @@ gunicorn==22.0.0
 # Authenticates via the Cloud Run service account (ADC) — no API key. The extractor
 # stays dormant until MIZOKI_GEMINI_PROJECT / GOOGLE_CLOUD_PROJECT is set.
 google-genai==2.10.0
+# Optional: the SITE_EVENTS sink (mizoki_runtime/site_events.py) lazily imports the
+# BigQuery client; without it the flag answers 503 not_configured. Bounded per
+# .claude/rules/03-dependency-reproducibility.md (client library, moving remote API).
+# Authenticates via the Cloud Run service account (ADC); write access on
+# unified.site_events_agg is an operator grant (OPEN_ITEMS S4-5).
+google-cloud-bigquery>=3.27.0,<4

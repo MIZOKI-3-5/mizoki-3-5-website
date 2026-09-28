@@ -380,35 +380,35 @@
         .feature-item .icon { color: var(--accent-green); font-size: 1.1rem; }
         .feature-item span { font-size: 0.9rem; color: var(--text-secondary); }
 
-        .dcp-highlight {
+        .gate-highlight {
             background: linear-gradient(135deg, rgba(63, 220, 242, 0.1), rgba(95, 160, 220, 0.1));
             border: 1px solid rgba(63, 220, 242, 0.3);
             border-radius: 12px;
             padding: 2rem;
             margin: 3rem 0;
         }
-        .dcp-highlight h4 {
+        .gate-highlight h4 {
             font-size: 1.2rem;
             margin-bottom: 1rem;
             color: var(--accent-cyan);
         }
-        .dcp-highlight p {
+        .gate-highlight p {
             color: var(--text-secondary);
             margin-bottom: 1rem;
         }
-        .dcp-highlight ul {
+        .gate-highlight ul {
             list-style: none;
             display: grid;
             gap: 0.5rem;
         }
-        .dcp-highlight li {
+        .gate-highlight li {
             display: flex;
             align-items: center;
             gap: 0.5rem;
             color: var(--text-secondary);
             font-size: 0.95rem;
         }
-        .dcp-highlight li::before {
+        .gate-highlight li::before {
             content: '→';
             color: var(--accent-cyan);
         }
@@ -446,7 +446,7 @@
                 <a href="industries.html">Industries</a>
                 <a href="pricing.html">Pricing</a>
                 <a href="case-studies.html">Case Studies</a>
-                <a href="/blog/">Blog</a>
+                <a href="/blog/">Journal</a>
             </div>
             <div class="nav-cta">
                 <a href="/login" class="btn btn-ghost">Login</a>
@@ -642,23 +642,23 @@
                 <div class="stage-header">
                     <div class="stage-icon">⚡</div>
                     <div>
-                        <h3>DECIDE <span class="tag">Decision Control Plane</span></h3>
+                        <h3>DECIDE <span class="tag">Decision Gates</span></h3>
                     </div>
                 </div>
                 <div class="stage-content">
-                    <p>The Decision Control Plane (DCP) is the centralized authority that receives all proposed actions and determines whether to authorize, modify, defer, reject, or escalate them. <strong>This is the critical architectural constraint: agents cannot bypass the DCP.</strong></p>
+                    <p>The decision gates are the centralized authority that receives all proposed actions and determines whether to authorize, modify, defer, reject, or escalate them. <strong>This is the critical architectural constraint: agents cannot bypass the gates.</strong></p>
 
-                    <div class="dcp-highlight">
-                        <h4>The DCP Authorization Algorithm</h4>
+                    <div class="gate-highlight">
+                        <h4>The Authorization Decision</h4>
                         <div class="formula-box" style="margin: 1rem 0;">
-                            <code>Authorization_Score = α(Causal_Confidence) + β(Validation_Agreement) + γ(Simulation_Delta) + δ(Policy_Compliance) + ε(Historical_Performance)</code>
+                            <code>Authorize ⟺ Identity ∧ Policy_Alignment ∧ Context_Sufficiency ∧ Hard_Constraints — all gates must pass</code>
                         </div>
-                        <p>Where α, β, γ, δ, and ε are learned weights that adapt based on outcome feedback. Authorization proceeds when the score exceeds the dynamic threshold.</p>
+                        <p>Evaluation is per gate and deterministic — any single breach vetoes the action regardless of how strong the other gates are. Causal confidence, validation agreement, simulation results, and historical performance are the evidence the gates read; they never blend into a tradeable score.</p>
                         <ul>
                             <li><strong>Approve:</strong> Execute as proposed when all thresholds are met</li>
                             <li><strong>Modify:</strong> Adjust parameters to bring within acceptable bounds</li>
                             <li><strong>Defer:</strong> Await additional validation or simulation</li>
-                            <li><strong>Reject:</strong> Block proposals that fail confidence or policy thresholds</li>
+                            <li><strong>Reject:</strong> Block proposals that fail a deterministic gate</li>
                             <li><strong>Escalate:</strong> Route to human review for high-risk or novel situations</li>
                         </ul>
                     </div>

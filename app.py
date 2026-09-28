@@ -23,8 +23,17 @@ from flask import (
     url_for,
 )
 from functools import wraps
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from mizoki_runtime import BossRuntime, create_runtime
+from mizoki_runtime import abtest
+from mizoki_runtime import learn_pages, pilot_requests, site_events, site_flags
+# WO-33 (#1003): vendored design-partner pipeline (byte-identical to
+# src/shared/design_partner_pipeline — the site runtime never imports src/shared);
+# only `flags`, `intake` and `store` are used, all behind DESIGN_PARTNER_PIPELINE.
+from mizoki_runtime.design_partner_pipeline import flags as dpp_flags
+from mizoki_runtime.design_partner_pipeline import intake as dpp_intake
+from mizoki_runtime.design_partner_pipeline import store as dpp_store
 from mizoki_runtime import connections
 from mizoki_runtime import (
     demo_capital,
@@ -40,6 +49,7 @@ from mizoki_runtime import briefing_guide
 
 
 BASE_DIR = Path(__file__).resolve().parent
+INTENT_DIST_DIR = BASE_DIR / "intent-dist"
 CANONICAL_HOST = "mizoki3.com"
 CANONICAL_BASE_URL = f"https://{CANONICAL_HOST}"
 # D3 fix: both URLs are env-tunable and default to on-site destinations —
@@ -128,7 +138,7 @@ def _render_rss(posts: list[dict], base_url: str) -> str:
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n'
         "  <channel>\n"
-        "    <title>MIZ OKI 3.5 Blog</title>\n"
+        "    <title>MIZ OKI 3.5 Journal</title>\n"
         f"    <link>{_xml_escape(base_url)}/blog</link>\n"
         f"    <atom:link href=\"{_xml_escape(base_url)}/blog/feed.xml\" rel=\"self\" type=\"application/rss+xml\" />\n"
         "    <description>Research and field notes on threshold-aware media buying, decision intelligence, and causal autonomous systems.</description>\n"
@@ -138,6 +148,38 @@ def _render_rss(posts: list[dict], base_url: str) -> str:
         "  </channel>\n"
         "</rss>\n"
     )
+
+
+# werkzeug hashes are always `<method>:<params...>$<salt>$<hash>` — a bare
+# operator-typed demo password practically never takes that shape, which is
+# what lets `_normalize_demo_users` tell "already hashed" apart from "still
+# plaintext, needs upgrading" without a separate marker field.
+_HASH_PREFIXES = ("pbkdf2:", "scrypt:")
+
+# PBKDF2 rather than werkzeug's scrypt default: scrypt needs `hashlib.scrypt`,
+# which some OpenSSL/LibreSSL builds (observed on this machine's Python) lack
+# entirely, and a hashing method that only sometimes exists is not a
+# reproducible dependency (`.claude/rules/03-dependency-reproducibility.md`).
+# PBKDF2-HMAC-SHA256 has no such gap, and 600,000 iterations is the current
+# OWASP-recommended floor for it.
+_DEMO_PASSWORD_HASH_METHOD = "pbkdf2:sha256:600000"
+
+
+def _normalize_demo_users(raw: dict[str, str]) -> dict[str, str]:
+    """Return `raw` with every value guaranteed to be a werkzeug hash.
+
+    `MIZOKI_DEMO_USERS_JSON` is meant to carry pre-hashed values (see
+    `docs/PRODUCTION_SECRETS_SETUP.md`), but a value that is not already in
+    werkzeug's hash format is hashed here, once, at load time — so no plain
+    password ever sits in process memory past this point, and every stored
+    credential is verified through the same `check_password_hash` path
+    regardless of how the secret was populated.
+    """
+    return {
+        email: value if value.startswith(_HASH_PREFIXES)
+        else generate_password_hash(value, method=_DEMO_PASSWORD_HASH_METHOD)
+        for email, value in raw.items()
+    }
 
 
 def _load_demo_users() -> dict[str, str]:
@@ -158,24 +200,132 @@ def _load_demo_users() -> dict[str, str]:
         if not isinstance(email, str) or not isinstance(password, str):
             raise RuntimeError("All MIZOKI_DEMO_USERS_JSON keys and values must be strings.")
         users[email.strip().lower()] = password
-    return users
+    return _normalize_demo_users(users)
+
+
+# A password-shaped constant hashed and compared against when the submitted
+# email is not registered. Its only job is to make the unknown-email path do
+# the same work as the known-email path, so response time never answers "does
+# this address exist?". It is never a valid credential: `_check_demo_credentials`
+# returns False on the unknown-email branch regardless of what the hash check
+# said. Hashed once at import time — the whole point is that both branches
+# pay the same, real hashing cost, not the cheaper cost of a raw comparison.
+_ABSENT_USER_PLACEHOLDER = "x" * 32
+_ABSENT_USER_PLACEHOLDER_HASH = generate_password_hash(
+    _ABSENT_USER_PLACEHOLDER, method=_DEMO_PASSWORD_HASH_METHOD
+)
+
+
+def _check_demo_credentials(demo_users: dict[str, str], email: str, password: str) -> bool:
+    """Constant-time, hash-based credential check that does not leak which emails exist.
+
+    `demo_users` values are always werkzeug hashes (`_normalize_demo_users`
+    guarantees it), so passwords are never compared or stored in the clear.
+    Two separate leaks are closed here, same as before hashing replaced the
+    raw comparison:
+
+    * `check_password_hash` verifies via `hmac.compare_digest` against the
+      derived hash, not the plaintext, so it takes the same time regardless
+      of how much of the password was correct.
+    * `email in demo_users and ...` would skip the (expensive) hash check
+      entirely for an unknown address, so a wrong email would answer
+      measurably faster than a wrong password for a real one — an oracle for
+      enumerating valid operator addresses. Every branch now runs one real
+      `check_password_hash` call, known account or not.
+    """
+    stored_hash = demo_users.get(email)
+    expected_hash = _ABSENT_USER_PLACEHOLDER_HASH if stored_hash is None else stored_hash
+    matched = check_password_hash(expected_hash, password)
+    return matched and stored_hash is not None
+
+
+# ----- CSRF for the sign-in form -------------------------------------------
+# The session cookie is SameSite=Lax, which stops a cross-site POST from
+# CARRYING an existing session — but login CSRF does not need the victim's
+# cookie, it plants one: a forged cross-site POST signs the victim's browser
+# into an account the attacker controls, and everything the victim then reads
+# through /admin or /docs/internal is attacker-framed. A per-session token in
+# the form closes it, with no new dependency.
+_CSRF_SESSION_KEY = "_csrf_token"
+_CSRF_FORM_FIELD = "csrf_token"
+
+
+def _issue_csrf_token() -> str:
+    """Return this session's CSRF token, minting one on first use."""
+    token = session.get(_CSRF_SESSION_KEY)
+    if not token:
+        token = secrets.token_urlsafe(32)
+        session[_CSRF_SESSION_KEY] = token
+    return token
+
+
+def _csrf_token_valid(submitted: str | None) -> bool:
+    """Constant-time check of a submitted token against the session's."""
+    expected = session.get(_CSRF_SESSION_KEY)
+    if not expected or not submitted:
+        return False
+    return secrets.compare_digest(expected, submitted)
 
 
 class DemoRateLimiter:
     """Stdlib in-memory token bucket keyed by client IP (first XFF hop).
 
     Buckets start with ``per_min`` tokens and refill at ``per_min``/minute;
-    ``burst`` extra capacity accumulates only while a client is idle, so a
-    cold client gets exactly ``per_min`` weighted requests in its first
-    minute (the 31st weight-1 request 429s at the defaults). Telemetry has
-    its own, separate bucket. All knobs are env-tunable so launch tuning
-    needs no deploy.
+    ``burst`` extra capacity accumulates only while a client is idle. Telemetry
+    and ``login`` each have their own, separate bucket. All knobs are
+    env-tunable so launch tuning needs no deploy.
+
+    THE BUDGET IS PER WORKER PROCESS, NOT PER SERVICE — measured, not assumed.
+    ``_buckets`` is plain process memory and the image runs
+    ``gunicorn --workers 2``, so each worker keeps its own counts and the
+    effective per-IP ceiling is ``workers x per_min``. Measured against
+    production 2026-08-22 on rev 00171-n6l, ``login_per_min=5``: 16 rapid POSTs
+    from one IP to /admin/login returned exactly 10x302 then 6x429, the two
+    workers exhausting in round-robin. An earlier 7-request probe saw no 429
+    and was misread as "the limiter does not fire" — it was simply under the
+    10-request effective threshold. Size the knob against ``workers x per_min``
+    and re-measure if the worker count changes; a docstring that quotes a
+    single-process number invites exactly that misreading.
+
+    The ``login`` bucket is deliberately the tightest and takes NO burst
+    credit: a human signing in needs two or three attempts, and every
+    additional one is a guess. See ``_login_rate_limit`` for why the gate
+    exists at all.
+
+    SCOPE OF THE IP KEY — what is known, and what is NOT. ``client_key``
+    reads the FIRST X-Forwarded-For hop. Measured 2026-08-22: for ordinary
+    traffic through the load balancer that hop is STABLE — the probe above
+    accumulated into one bucket per worker, which it could not have done had
+    the key varied, and the LB logged a single remoteIp for all of it. What is
+    still NOT measured is whether a caller who SETS the header can displace
+    that hop and mint themselves a fresh bucket:
+
+    * this service has two live ingress paths — the external HTTPS load
+      balancer (mizoki3.com) and the direct *.run.app URL — and they do not
+      necessarily present the same X-Forwarded-For shape;
+    * if either path APPENDS the true client address instead of replacing the
+      header, then the first hop is client-supplied and a caller who rotates a
+      forged value gets a fresh bucket every time.
+
+    So claim only this much: the gate ends unlimited full-speed guessing from
+    an ordinary client, which is the state it was written to fix. Do not cite
+    it as a defense against an attacker who sets the header. Measuring both
+    ingress paths and keying on a trusted address is recorded as follow-up —
+    deliberately not guessed at here, because a limiter believed to be
+    stronger than it is, is worse than one whose limits are written down.
     """
 
-    def __init__(self, per_min: int, burst: int, telemetry_per_min: int) -> None:
+    def __init__(
+        self,
+        per_min: int,
+        burst: int,
+        telemetry_per_min: int,
+        login_per_min: int = 5,
+    ) -> None:
         self.per_min = max(1, per_min)
         self.burst = max(0, burst)
         self.telemetry_per_min = max(1, telemetry_per_min)
+        self.login_per_min = max(1, login_per_min)
         self._lock = threading.Lock()
         self._buckets: dict[tuple[str, str], list[float]] = {}
 
@@ -189,6 +339,10 @@ class DemoRateLimiter:
         if bucket == "telemetry":
             start = capacity = float(self.telemetry_per_min)
             refill = self.telemetry_per_min / 60.0
+        elif bucket == "login":
+            # No burst credit: capacity == the per-minute allowance.
+            start = capacity = float(self.login_per_min)
+            refill = self.login_per_min / 60.0
         else:
             start = float(self.per_min)
             capacity = float(self.per_min + self.burst)
@@ -207,6 +361,10 @@ class DemoRateLimiter:
 def _demo_rate_weight(path: str) -> tuple[float, str]:
     """Weight + bucket for a /api/demo/* request (closed decision #3)."""
     if path == "/api/demo/telemetry":
+        return 1.0, "telemetry"
+    if path.startswith("/api/abtest/"):
+        # A/B/C outcome beacons ride the telemetry bucket — same public-write
+        # abuse posture as the demo telemetry endpoint.
         return 1.0, "telemetry"
     if path.endswith("/stream"):
         return 3.0, "demo"
@@ -291,6 +449,39 @@ DEMO_PAGE_FILES: dict[str, str] = {
 }
 
 
+# --- Run 1 item 1.F: flag-ON-only injected fragments ------------------------
+# Rendered ONLY when the flag is on (tests pin flag-OFF byte parity). The
+# script is same-origin fetch only, sends the closed event vocabulary, and
+# carries no identifier; keepalive lets pagehide deliver the last beacon.
+SITE_EVENTS_SCRIPT = (
+    '<script data-mizoki="site-events">(function(){var P=location.pathname,'
+    'V=(document.cookie.match(/(?:^|; )mv=([abc])\\./)||[])[1]||"none";'
+    'function s(n){try{fetch("/event",{method:"POST",keepalive:true,credentials:"same-origin",'
+    'headers:{"Content-Type":"application/json"},body:JSON.stringify({event_name:n,path:P,'
+    'variant:V,ts:new Date().toISOString()})})}catch(e){}}'
+    's("page_view");document.addEventListener("click",function(e){var a=e.target&&e.target.closest'
+    '&&e.target.closest("a,button");if(!a)return;if(a.dataset&&a.dataset.event){s(a.dataset.event);return}'
+    'var h=a.getAttribute&&a.getAttribute("href")||"";if(/^https?:\\/\\//.test(h)&&h.indexOf(location.host)<0)'
+    's("outbound_click")},true);window.mizokiCalculatorComplete=function(){s("calculator_complete")}})();'
+    '</script>\n'
+)
+assert len(SITE_EVENTS_SCRIPT.encode("utf-8")) <= 1024, "site-events client script must stay <= 1 KB"
+
+PILOT_FORM_HTML = (
+    '<section id="pilot-request"><div class="wrap">'
+    '<p class="mark sec-mark">§07 · Request a pilot conversation</p>'
+    '<h2>Two fields. No forms first, no follow-up sequence.</h2>'
+    '<form method="post" action="/shopify/pilot-request" class="cta-row" data-mizoki="pilot-form">'
+    '<label>Work email <input type="email" name="email" required maxlength="254" autocomplete="email"></label>'
+    '<label>Store URL <input type="text" name="store" required maxlength="253" placeholder="yourstore.myshopify.com"></label>'
+    '<button class="btn" type="submit" data-event="pilot_cta_click">Request a pilot conversation</button>'
+    '</form>'
+    '<p class="note">We store your email and store URL once, to reply. Nothing else — no cookies, no tracking pixel, '
+    'no third-party analytics. See the <a href="/docs/marketing/privacy_statement_pilot.html">pilot privacy statement</a>.</p>'
+    '</div></section>\n'
+)
+
+
 def create_app(runtime: BossRuntime | None = None) -> Flask:
     app = Flask(__name__, static_folder="assets", static_url_path="/assets")
     app.config.update(
@@ -332,11 +523,18 @@ def create_app(runtime: BossRuntime | None = None) -> Flask:
         "DEMO_TELEMETRY_RATE_PER_MIN",
         int(os.environ.get("MIZOKI_DEMO_TELEMETRY_RATE_PER_MIN", "10")),
     )
+    # Sign-in attempt budget per IP per minute (MIZ-SEC 2026-08-22). Tunable
+    # without a deploy because the right number is an operations question: too
+    # tight locks out a fat-fingered operator, too loose is not a gate.
+    app.config.setdefault(
+        "LOGIN_RATE_PER_MIN", int(os.environ.get("MIZOKI_LOGIN_RATE_PER_MIN", "5"))
+    )
     app.extensions["boss_runtime"] = runtime or create_runtime(BASE_DIR)
     app.extensions["demo_rate_limiter"] = DemoRateLimiter(
         per_min=app.config["DEMO_RATE_PER_MIN"],
         burst=app.config["DEMO_RATE_BURST"],
         telemetry_per_min=app.config["DEMO_TELEMETRY_RATE_PER_MIN"],
+        login_per_min=app.config["LOGIN_RATE_PER_MIN"],
     )
 
     @app.before_request
@@ -352,12 +550,53 @@ def create_app(runtime: BossRuntime | None = None) -> Flask:
         target = CANONICAL_BASE_URL + request.path + (f"?{query}" if query else "")
         return redirect(target, code=308)
 
+    # Every path that compares a password. `/login` keeps no form of its own
+    # (its GET redirects away) but its POST still checks credentials, so it is
+    # the same guessing surface and is limited identically — a gate that
+    # covers one of two doors is not a gate.
+    _LOGIN_POST_PATHS = frozenset({"/admin/login", "/login"})
+
+    @app.before_request
+    def _login_rate_limit():
+        """Throttle sign-in attempts per IP.
+
+        WHY. This form is unauthenticated, public, and — since the 2026-08-21
+        internal-docs directive — the only thing standing in front of
+        /docs/internal, which carries production infrastructure identifiers
+        and build instructions. Before this hook it accepted unlimited
+        attempts at full speed.
+
+        Bypassed under TESTING unless a test opts in, matching the demo
+        limiter directly below: the suite POSTs to /admin/login many times
+        across unrelated cases, and a limiter that silently ate the 6th of
+        them would make those tests flaky for a reason nobody would look for.
+        """
+        if request.method != "POST" or request.path not in _LOGIN_POST_PATHS:
+            return None
+        if app.config.get("TESTING") and not app.config.get("LOGIN_RATE_LIMIT_ENFORCE_IN_TESTS"):
+            return None
+        limiter: DemoRateLimiter = app.extensions["demo_rate_limiter"]
+        allowed, retry_after = limiter.check(limiter.client_key(), 1.0, "login")
+        if allowed:
+            return None
+        app.logger.warning(
+            "Sign-in rate limit hit for %s on %s", limiter.client_key(), request.path
+        )
+        # 429 rather than a redirect: the status is the signal an operator or
+        # an uptime check can actually see. The form is re-rendered so a human
+        # who simply typed too fast gets a page instead of a bare error.
+        response = render_template(
+            "admin_login.html", csrf_token=_issue_csrf_token(),
+            rate_limited=True, retry_after=retry_after,
+        )
+        return response, 429, {"Retry-After": str(retry_after)}
+
     @app.before_request
     def _demo_api_rate_limit():
         # One decorator's worth of limiting for the whole public demo API.
         # Bypassed under TESTING except when a test opts in explicitly.
         path = request.path
-        if not path.startswith("/api/demo/"):
+        if not (path.startswith("/api/demo/") or path.startswith("/api/abtest/")):
             return None
         if app.config.get("TESTING") and not app.config.get("DEMO_RATE_LIMIT_ENFORCE_IN_TESTS"):
             return None
@@ -432,6 +671,105 @@ def create_app(runtime: BossRuntime | None = None) -> Flask:
     def serve_page(filename: str):
         return send_from_directory(BASE_DIR, filename)
 
+    # ===== Site A/B/C test (SITE A/B/C TEST — DESIGN FIX r1.0) ==========
+    # /signal is the ONE canonical, indexable landing; /marketing and /media
+    # stay directly reachable (the owner's side-by-side comparison directive
+    # stands) but their files carry canonical→/signal + noindex,follow.
+    # Randomized variant serving at /signal is DARK until MIZOKI_ABTEST_MODE=on
+    # (a reviewed deploy-workflow env change + owner-dispatched deploy); dark
+    # mode serves variant A to everyone with no cookie and no assignment
+    # events, while the outcome instrumentation (/go/pilot + /api/abtest/goal)
+    # collects the baseline rates the pre-registration's power arithmetic
+    # needs. Pre-registration (declared BEFORE any data collection):
+    # docs/marketing/abtest-preregistration-signal-landing.md
+
+    def _abtest_client() -> tuple[str, str, bool]:
+        user_agent = request.headers.get("User-Agent", "")
+        ip = (request.headers.get("X-Forwarded-For") or "").split(",")[0].strip() \
+            or (request.remote_addr or "unknown")
+        return ip, user_agent, abtest.is_bot(user_agent)
+
+    def _abtest_assigned() -> str | None:
+        # A stale cookie from an earlier live window is not an assignment
+        # while the test is dark — mode off means no arm is live.
+        parsed = abtest.parse_cookie(request.cookies.get(abtest.COOKIE_NAME))
+        return parsed[0] if (parsed and abtest.mode_on()) else None
+
+    def _abtest_ref() -> str:
+        return abtest.classify_referrer(request.referrer, CANONICAL_HOST)
+
+    def _abtest_mode() -> str:
+        return "on" if abtest.mode_on() else "off"
+
+    def _abtest_offpath_exposure(page_variant: str, page_path: str) -> None:
+        ip, user_agent, bot = _abtest_client()
+        abtest.log_event(
+            "exposure", page=page_path, variant=page_variant,
+            assigned=_abtest_assigned(), visitor=abtest.visitor_key(ip, user_agent),
+            bot=bot, ref=_abtest_ref(), mode=_abtest_mode())
+
+    @app.route("/go/pilot")
+    def go_pilot():
+        # Tracked CTA redirect (spec §3.3): logs the click, then 302s to the
+        # variant's own mailto destination with an "[ref X]" subject token so
+        # arriving inquiries identify their arm. Destinations come ONLY from
+        # the closed registry — the request cannot steer the redirect.
+        cta_key = request.args.get("cta", "")
+        entry = abtest.CTA_REGISTRY.get(cta_key)
+        if entry is None:
+            abort(404)
+        ip, user_agent, bot = _abtest_client()
+        assigned = _abtest_assigned()
+        abtest.log_event(
+            "cta_click", cta=cta_key, page=abtest.VARIANT_PATHS[entry["page"]],
+            variant=entry["page"], assigned=assigned,
+            visitor=abtest.visitor_key(ip, user_agent), bot=bot,
+            ref=_abtest_ref(), mode=_abtest_mode())
+        response = redirect(abtest.cta_location(cta_key, assigned), code=302)
+        response.headers["Cache-Control"] = "private, no-store"
+        return response
+
+    @app.route("/api/abtest/goal", methods=["POST"])
+    def abtest_goal():
+        # Tier-3 outcome beacon (scroll past the pilot section). Tiny JSON
+        # body, closed goal/page vocabulary, telemetry-rate-limited.
+        if request.content_length and request.content_length > 512:
+            abort(400, description="Beacon payload too large.")
+        payload = request.get_json(silent=True, force=True)
+        if not isinstance(payload, dict):
+            abort(400, description="Beacon must be a JSON object.")
+        page = abtest.normalize_goal_page(payload.get("page"))
+        if payload.get("goal") != abtest.GOAL_NAME or page is None:
+            abort(400, description="Unknown goal or page.")
+        ip, user_agent, bot = _abtest_client()
+        assigned = _abtest_assigned()
+        if page == "/signal":
+            # At the canonical URL the rendered content is the assigned arm
+            # while the test is live, and variant A while it is dark.
+            variant = assigned or "a"
+        else:
+            variant = {"/marketing": "b", "/media": "c"}[page]
+        abtest.log_event(
+            "goal", goal=abtest.GOAL_NAME, page=page, variant=variant,
+            assigned=assigned, visitor=abtest.visitor_key(ip, user_agent),
+            bot=bot, ref=_abtest_ref(), mode=_abtest_mode())
+        return "", 204
+
+    @app.route("/api/abtest/state")
+    def abtest_state():
+        counts = abtest.counters_snapshot()
+        return jsonify({
+            "mode": _abtest_mode(),
+            "canonical": abtest.CANONICAL_PATH,
+            "variants": abtest.VARIANT_FILES,
+            "assignments_this_instance": counts,
+            "srm": abtest.srm_check(counts),
+            "caveat": (
+                "per-instance counters since boot — authoritative arm counts "
+                "come from the assignment log in Cloud Logging "
+                "(scripts/abtest_stats.py srm)"),
+        })
+
     @app.route("/")
     def home():
         return serve_page("index.html")
@@ -458,7 +796,34 @@ def create_app(runtime: BossRuntime | None = None) -> Flask:
     @app.route("/signal")
     @app.route("/signal.html")
     def signal():
-        return serve_page("signal.html")
+        # A/B/C canonical landing: serve the assigned variant's file with the
+        # serving-truth head posture (canonical=/signal, index,follow) so a
+        # variant file's own baked noindex can never leak onto the canonical
+        # URL. Dark mode (default) pins variant A for everyone.
+        ip, user_agent, bot = _abtest_client()
+        res = abtest.resolve(request.cookies.get(abtest.COOKIE_NAME), ip,
+                             user_agent, abtest.mode_on(), bot)
+        html = (BASE_DIR / abtest.VARIANT_FILES[res.variant]).read_text(
+            encoding="utf-8")
+        html = abtest.apply_head_posture(html, abtest.CANONICAL_URL,
+                                         "index,follow")
+        response = app.response_class(html, mimetype="text/html")
+        response.headers["Cache-Control"] = "private, no-store"
+        response.headers["Vary"] = "Cookie"
+        if res.set_cookie:
+            response.set_cookie(
+                abtest.COOKIE_NAME,
+                abtest.cookie_value(res.variant, res.visitor),
+                max_age=abtest.COOKIE_MAX_AGE, samesite="Lax", httponly=True,
+                secure=app.config["SESSION_COOKIE_SECURE"], path="/")
+        if res.first_exposure and not bot:
+            abtest.count_assignment(res.variant)
+        abtest.log_event(
+            "assignment" if res.first_exposure else "exposure",
+            page="/signal", variant=res.variant, assigned=res.assigned,
+            visitor=res.visitor, bot=bot, ref=_abtest_ref(),
+            mode=_abtest_mode())
+        return response
 
     # Signal capability site (2026-08-02): /signal is the hub of a multi-page
     # surface. Each capability page follows the site's dual-route convention.
@@ -492,7 +857,159 @@ def create_app(runtime: BossRuntime | None = None) -> Flask:
     @app.route("/shopify", strict_slashes=False)
     @app.route("/shopify.html")
     def shopify():
-        return serve_page("shopify.html")
+        # Run 1 item 1.F (2026-09-02): with BOTH flags OFF (the default) the
+        # file bytes are served unchanged — pinned byte-identical by
+        # tests/test_site_events_and_pilot.py. Injection happens only flag-ON, so no
+        # static file is edited and no site-visible change ships dark.
+        if not (site_flags.site_events_enabled() or site_flags.pilot_form_enabled()):
+            return serve_page("shopify.html")
+        html = (BASE_DIR / "shopify.html").read_text(encoding="utf-8")
+        if site_flags.pilot_form_enabled():
+            html = html.replace("</main>", PILOT_FORM_HTML + "</main>", 1)
+        if site_flags.site_events_enabled():
+            html = html.replace("</body>", SITE_EVENTS_SCRIPT + "</body>", 1)
+        response = app.response_class(html, mimetype="text/html")
+        response.headers["Cache-Control"] = "private, no-store"
+        return response
+
+    # ===== Measurement without egress (Run 1 item 1.F; flags default OFF) =====
+    # /event and /shopify/event store {event_name, path, variant, ts_bucket_1h,
+    # referrer_class} — nothing else — to BigQuery unified.site_events_agg.
+    # SITE_EVENTS OFF → 204, nothing written. ON but sink unconfigured → 503
+    # not_configured (never a healthy stub). Same-origin fetch only; the client
+    # script is rendered only flag-ON.
+
+    def _site_events_sink():
+        sink = app.extensions.get("site_events_sink")
+        if sink is None:
+            sink = site_events.BigQuerySiteEventsSink(
+                table=os.environ.get("SITE_EVENTS_TABLE", site_events.DEFAULT_TABLE))
+            app.extensions["site_events_sink"] = sink
+        return sink
+
+    def _site_event():
+        if not site_flags.site_events_enabled():
+            return "", 204
+        if request.content_length and request.content_length > site_events.MAX_BODY_BYTES:
+            abort(400, description="Event payload too large.")
+        fields, error = site_events.validate(request.get_json(silent=True, force=True))
+        if error:
+            abort(400, description=error)
+        sink = _site_events_sink()
+        if not sink.configured():
+            return jsonify({"status": "not_configured", "flag": site_flags.SITE_EVENTS_ENV}), 503
+        row = site_events.build_row(fields, request.headers.get("Referer"), CANONICAL_HOST)
+        outcome = sink.write(row)
+        if outcome == "written":
+            return "", 204
+        return jsonify({"status": outcome}), 503
+
+    @app.route("/event", methods=["POST"])
+    def site_event():
+        return _site_event()
+
+    @app.route("/shopify/event", methods=["POST"])
+    def shopify_site_event():
+        return _site_event()
+
+    def _design_partner_store():
+        """WO-33 (#1003): the design-partner intake store, resolved ONLY when
+        ``DESIGN_PARTNER_PIPELINE`` is on (default ``"false"`` — flag OFF is
+        byte-identical to the pre-WO-33 site). Tests inject
+        ``app.extensions["design_partner_store"]``; otherwise the vendored
+        package's ``resolve_store()`` builds the Firestore store from the
+        environment. ``None`` means the pipeline is off."""
+        if not dpp_flags.pipeline_enabled():
+            return None
+        store = app.extensions.get("design_partner_store")
+        if store is None:
+            store = dpp_store.resolve_store()
+            app.extensions["design_partner_store"] = store
+        return store
+
+    def _design_partner_configured() -> bool:
+        """Flag ON with no resolvable store is NOT a healthy stub (Part 0 rule
+        6): the pilot endpoint answers 503 ``not_configured`` and health says so."""
+        store = _design_partner_store()
+        if store is None:
+            return False
+        try:
+            if hasattr(store, "_resolve"):
+                store._resolve()
+        except Exception:  # noqa: BLE001 — missing client library / credentials
+            return False
+        return True
+
+    def _design_partner_hook():
+        """The ``on_sourced`` callback for ``PilotRequestService``: a newly
+        created pilot request becomes a SOURCED partner, idempotent on
+        ``sha256(email|store)`` (``intake.source_from_pilot_request``). Flag
+        OFF → ``None`` (the service stays inert, exactly as before)."""
+        store = _design_partner_store()
+        if store is None:
+            return None
+
+        def _on_sourced(document):
+            record = dpp_intake.source_from_pilot_request(document, store)
+            if record is None:
+                raise ValueError("pilot request document did not produce a partner record")
+            return record
+
+        return _on_sourced
+
+    def _pilot_service():
+        svc = app.extensions.get("pilot_request_service")
+        if svc is None:
+            # WO-33: the sourced hook is wired here, behind DESIGN_PARTNER_PIPELINE.
+            svc = pilot_requests.PilotRequestService(
+                store=app.extensions.get("pilot_request_store"),
+                notifier=app.extensions.get("pilot_request_notifier"),
+                on_sourced=_design_partner_hook(),
+            )
+            app.extensions["pilot_request_service"] = svc
+        return svc
+
+    @app.route("/shopify/pilot-request", methods=["POST"])
+    def shopify_pilot_request():
+        if not site_flags.pilot_form_enabled():
+            abort(404)
+        if request.content_length and request.content_length > pilot_requests.MAX_BODY_BYTES:
+            abort(400, description="Payload too large.")
+        payload = request.get_json(silent=True, force=True)
+        if payload is None and request.form:
+            payload = {"email": request.form.get("email", ""), "store": request.form.get("store", "")}
+        fields, error = pilot_requests.validate(payload)
+        if error:
+            abort(400, description=error)
+        svc = _pilot_service()
+        if not svc.configured():
+            return jsonify({"status": "not_configured", "flag": site_flags.PILOT_FORM_ENV}), 503
+        # WO-33: pipeline flag ON without a resolvable intake store fails closed
+        # BEFORE anything is persisted — never a request that silently skips
+        # the intake it was promised.
+        pipeline_on = dpp_flags.pipeline_enabled()
+        if pipeline_on and not _design_partner_configured():
+            return jsonify({"status": "not_configured", "flag": dpp_flags.DESIGN_PARTNER_PIPELINE_ENV}), 503
+        result = svc.submit(fields, source="/shopify")
+        if result["store"] not in ("created", "duplicate"):
+            return jsonify({"status": "failed"}), 503
+        # Confidential: the response never echoes the email or store.
+        if result["notify"] not in ("sent", "already_sent"):
+            # Persisted, but the owner was NOT notified: say so and invite the
+            # retry that re-sends it (the document remembers notify=failed).
+            return jsonify({"status": "notify_failed", "request_id": result["request_id"],
+                            "retry": True}), 503
+        payload = {"status": "received", "request_id": result["request_id"],
+                   "duplicate": result["store"] == "duplicate"}
+        if pipeline_on:
+            # WO-33: the intake leg's outcome is surfaced (sourced | skipped |
+            # failed) — a failed hook is never a silent drop. Flag OFF keeps the
+            # response byte-identical to the pre-WO-33 shape.
+            payload["pipeline"] = result.get("pipeline", "skipped")
+            if payload["pipeline"] == "failed":
+                app.logger.warning("design-partner intake failed for request_id=%s (persisted + notified)",
+                                   result["request_id"])
+        return jsonify(payload), 202
 
     @app.route("/risk")
     @app.route("/risk.html")
@@ -526,10 +1043,129 @@ def create_app(runtime: BossRuntime | None = None) -> Flask:
             abort(404)
         return send_from_directory(base, filename)
 
+    # ===== Documentation portal (/docs) ==============================
+    # Static pages generated from the repository's docs/ tree by
+    # scripts/build_site_docs.py at deploy time (owner directive
+    # 2026-08-20: mizoki3.com/docs is public and carries all of docs/).
+    # The generator runs AFTER the marketing content gates, so raw
+    # engineering docs never enter the truth-discipline scan's scope, and
+    # its secret gate withholds any file carrying a live credential.
+    _SITE_DOCS = BASE_DIR / "site_docs"
+
+    @app.route("/docs", strict_slashes=False)
+    def docs_index():
+        if not (_SITE_DOCS / "index.html").is_file():
+            abort(404)
+        return send_from_directory(_SITE_DOCS, "index.html")
+
+    # Documents carrying production infrastructure identifiers or build
+    # instructions are rendered into a SEPARATE tree and served only to a
+    # signed-in session — the same `login_required` gate the rest of the front
+    # end uses (owner directive 2026-08-21). Two properties make this safe:
+    #   * physical separation — the public handler resolves inside _SITE_DOCS and
+    #     therefore CANNOT reach _SITE_DOCS_INTERNAL, whatever path is requested;
+    #   * fail-closed — with MIZOKI_DEMO_USERS_JSON unset no session can ever be
+    #     established, so the internal tree is unreachable rather than open.
+    _SITE_DOCS_INTERNAL = BASE_DIR / "site_docs_internal"
+
+    @app.route("/docs/internal", strict_slashes=False)
+    @login_required
+    def docs_internal_index():
+        if not (_SITE_DOCS_INTERNAL / "index.html").is_file():
+            abort(404)
+        return send_from_directory(_SITE_DOCS_INTERNAL, "index.html")
+
+    @app.route("/docs/internal/<path:filename>")
+    @login_required
+    def docs_internal_asset(filename: str):
+        base = _SITE_DOCS_INTERNAL.resolve()
+        target = (base / filename).resolve()
+        if not str(target).startswith(str(base) + "/"):
+            abort(404)
+        if target.is_dir():
+            target = target / "index.html"
+        if not target.is_file():
+            abort(404)
+        return send_from_directory(base, str(target.relative_to(base)))
+
+    @app.route("/docs/<path:filename>")
+    def docs_asset(filename: str):
+        base = _SITE_DOCS.resolve()
+        target = (base / filename).resolve()
+        if not str(target).startswith(str(base) + "/"):
+            abort(404)
+        if target.is_dir():
+            target = target / "index.html"
+        if not target.is_file():
+            abort(404)
+        return send_from_directory(base, str(target.relative_to(base)))
+
+    # ===== AEO/GEO authority pages (/learn) + /llms.txt — LEARN_PAGES ======
+    # Lane 5 S4 (2026-09-02). Content: the repository's docs/marketing/aeo/*.md,
+    # loaded, expiry-checked and rendered by mizoki_runtime.learn_pages (a
+    # dependency-free markdown subset — the build-time `markdown` library is
+    # not in the runtime image). Flag OFF → 404 on every path here, so the
+    # served route table answers exactly as it did before this block existed.
+    # Flag ON with no pages directory → 503 not_configured, never a healthy
+    # stub. A page past its `expires` date is WITHHELD (404), never served
+    # stale, and the index lists only current pages. /llms.txt is an explicit
+    # rule so the top-level static catch-all never serves the file while OFF.
+    def _learn_pages_or_none() -> list | None:
+        directory = learn_pages.pages_dir()
+        if directory is None:
+            return None
+        return learn_pages.load_pages(directory)
+
+    def _learn_not_configured():
+        return jsonify({"status": "not_configured", "flag": site_flags.LEARN_PAGES_ENV}), 503
+
+    @app.route("/learn", strict_slashes=False)
+    def learn_index():
+        if not site_flags.learn_pages_enabled():
+            abort(404)
+        pages = _learn_pages_or_none()
+        if pages is None:
+            return _learn_not_configured()
+        current = [p for p in pages if not learn_pages.is_overdue(p)]
+        return app.response_class(learn_pages.render_index(current, CANONICAL_BASE_URL), mimetype="text/html")
+
+    @app.route("/learn/<slug>")
+    def learn_page(slug: str):
+        if not site_flags.learn_pages_enabled():
+            abort(404)
+        if not learn_pages.SLUG.match(slug):
+            abort(404)
+        pages = _learn_pages_or_none()
+        if pages is None:
+            return _learn_not_configured()
+        page = next((p for p in pages if p.slug == slug), None)
+        if page is None or learn_pages.is_overdue(page):
+            abort(404)
+        return app.response_class(learn_pages.render_page(page, CANONICAL_BASE_URL), mimetype="text/html")
+
+    @app.route("/llms.txt")
+    def llms_txt():
+        if not site_flags.learn_pages_enabled():
+            abort(404)
+        static = BASE_DIR / "llms.txt"
+        if not static.is_file():
+            abort(404)
+        pages = _learn_pages_or_none() or []
+        current = [p for p in pages if not learn_pages.is_overdue(p)]
+        body = learn_pages.render_llms_txt(static.read_text(encoding="utf-8"), current, CANONICAL_BASE_URL)
+        return app.response_class(body, mimetype="text/plain")
+
     @app.route("/pricing")
     @app.route("/pricing.html")
     def pricing():
         return serve_page("pricing.html")
+
+    # Media-buyer landing: plain-English platform story + the client-side
+    # Decision Control Simulator (deterministic, no backend engine needed).
+    @app.route("/mizuki3")
+    @app.route("/mizuki3.html")
+    def mizuki3():
+        return serve_page("mizuki3.html")
 
     # ===== Marketing parallel site (/marketing/*) ====================
     # The proposed media-buyer experience runs as a complete parallel site so
@@ -539,7 +1175,13 @@ def create_app(runtime: BossRuntime | None = None) -> Flask:
 
     @app.route("/marketing", strict_slashes=False)
     def marketing_home():
-        return send_from_directory(BASE_DIR / "marketing", "index.html")
+        # Variant B's own URL: byte passthrough of the file (its canonical →
+        # /signal + noindex,follow posture is baked in), logged as an
+        # off-protocol exposure for the A/B/C analysis.
+        _abtest_offpath_exposure("b", "/marketing")
+        response = send_from_directory(BASE_DIR / "marketing", "index.html")
+        response.headers["Cache-Control"] = "private, no-store"
+        return response
 
     @app.route("/marketing/simulator", strict_slashes=False)
     def marketing_simulator():
@@ -576,7 +1218,12 @@ def create_app(runtime: BossRuntime | None = None) -> Flask:
 
     @app.route("/media", strict_slashes=False)
     def media_home():
-        return send_from_directory(BASE_DIR / "media", "index.html")
+        # Variant C's own URL — same posture-in-file + exposure-log pattern
+        # as /marketing above.
+        _abtest_offpath_exposure("c", "/media")
+        response = send_from_directory(BASE_DIR / "media", "index.html")
+        response.headers["Cache-Control"] = "private, no-store"
+        return response
 
     # The standalone /media product site's sub-pages (owner spec Part 3).
     # Same convention as the /marketing division routes: clean extensionless
@@ -585,10 +1232,30 @@ def create_app(runtime: BossRuntime | None = None) -> Flask:
     # 404, and the classic site remains untouched.
     @app.route(
         "/media/<any('platform', 'decision-graph', 'how-it-works',"
-        " 'use-cases', 'pilot', 'trust', 'resources', 'contact'):page>",
+        " 'use-cases', 'pilot', 'trust', 'resources', 'contact',"
+        # Executive Demo r1.1 (2026-09-13, owner placement ruling): the
+        # single-file presenter surface lives in the /media namespace only —
+        # media/demo.html at /media/demo (slug renamed 2026-09-14, owner call;
+        # the former /media/executive-demo 308s here). No engine run,
+        # no /api/ call, no telemetry; robots noindex; deliberately absent
+        # from sitemap_xml(). Nothing outside /media links to it (owner ruling
+        # 2026-09-13, second reading: the standing rule holds — the classic
+        # site and the A/B/C arms never link into /media; the demo hub keeps
+        # only the division demos). Reached from the /media hero CTA.
+        " 'demo'):page>",
         strict_slashes=False)
     def media_subpage(page: str):
         return send_from_directory(BASE_DIR / "media", f"{page}.html")
+
+    # Executive Demo slug rename (2026-09-14, owner call): /media/demo is the
+    # canonical URL (served by media_subpage above); the r1.1 slug and its
+    # filename form are permanent redirects into it so links already shared
+    # keep resolving. Still inside the /media namespace (owner ruling
+    # 2026-09-13), still noindex and unlisted; one canonical URL.
+    @app.route("/media/executive-demo", strict_slashes=False)
+    @app.route("/media/executive-demo.html")
+    def media_executive_demo_legacy_slug():
+        return redirect("/media/demo", code=308)
 
     @app.route("/media/<path:filename>")
     def media_assets(filename: str):
@@ -598,10 +1265,37 @@ def create_app(runtime: BossRuntime | None = None) -> Flask:
         # and can never fall through to an HTML handler.
         base = (BASE_DIR / "media").resolve()
         target = (base / filename).resolve()
-        allowed = {".html", ".css", ".js", ".svg", ".png", ".jpg", ".webp", ".mp4", ".webm", ".vtt"}
+        allowed = {".html", ".css", ".js", ".svg", ".png", ".jpg", ".webp", ".mp4", ".webm", ".vtt", ".mp3", ".wav"}
         if not str(target).startswith(str(base) + "/") or not target.is_file() or target.suffix.lower() not in allowed:
             abort(404)
         return send_from_directory(base, filename)
+
+    # Standalone Ecosystem Animation interactive player (40s product loop)
+    @app.route("/animation", strict_slashes=False)
+    @app.route("/animation.html")
+    @app.route("/ecosystem-animation", strict_slashes=False)
+    @app.route("/media/ecosystem", strict_slashes=False)
+    def ecosystem_animation():
+        response = send_from_directory(BASE_DIR, "ecosystem-animation-standalone.html")
+        response.headers["Cache-Control"] = "public, max-age=3600"
+        return response
+
+    @app.route("/animation/audio", strict_slashes=False)
+    @app.route("/animation/ecosystem-vo-v1.mp3")
+    @app.route("/media/assets/ecosystem-vo-v1.mp3")
+    def ecosystem_animation_audio():
+        response = send_from_directory(BASE_DIR, "ecosystem-vo-v1.mp3", mimetype="audio/mpeg")
+        response.headers["Cache-Control"] = "public, max-age=86400"
+        response.headers["Accept-Ranges"] = "bytes"
+        return response
+
+    @app.route("/animation/ecosystem-vo-v1.wav")
+    @app.route("/media/assets/ecosystem-vo-v1.wav")
+    def ecosystem_animation_wav():
+        response = send_from_directory(BASE_DIR, "ecosystem-vo-v1.wav", mimetype="audio/wav")
+        response.headers["Cache-Control"] = "public, max-age=86400"
+        response.headers["Accept-Ranges"] = "bytes"
+        return response
 
     # --- Full-site mirror under /marketing ---------------------------------
     # Owner requirement: browse the ENTIRE site inside the /marketing prefix,
@@ -678,6 +1372,21 @@ def create_app(runtime: BossRuntime | None = None) -> Flask:
 
     # ===== Live product demos (public) ==============================
 
+    @app.route("/intent", strict_slashes=False)
+    def intent_experience():
+        """Serve the isolated Anticipatory Intelligence application shell."""
+        response = send_from_directory(INTENT_DIST_DIR, "index.html")
+        response.headers["Cache-Control"] = "no-cache"
+        return response
+
+    @app.route("/intent/<path:filename>")
+    def intent_experience_assets(filename: str):
+        """Serve only files produced by the dedicated /intent build."""
+        response = send_from_directory(INTENT_DIST_DIR, filename)
+        if filename.startswith("assets/"):
+            response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
+        return response
+
     def serve_demo_page(demo_key: str):
         """Serve a demo page, embedding sanitized ?scenario=&seed= params as
         data attributes on <body> so the page's JS can autorun a shared,
@@ -733,6 +1442,11 @@ def create_app(runtime: BossRuntime | None = None) -> Flask:
     @app.route("/demo-nexus.html")
     def demo_nexus_page():
         return serve_demo_page("nexus")
+
+    # Executive Demo: served ONLY under /media (media_subpage above,
+    # /media/demo; the r1.1 slug /media/executive-demo 308s there) — owner
+    # placement ruling 2026-09-13. The /demo
+    # namespace does not reference it: the hub keeps the division demos only.
 
     # D2 fix: the walkthrough is a real page again (was 301-swallowed).
     @app.route("/walkthrough")
@@ -791,26 +1505,39 @@ def create_app(runtime: BossRuntime | None = None) -> Flask:
     def sitemap_xml():
         # The demos are the marketing asset — index them (closed decision #2).
         pages = [
-            "/", "/counsel", "/estate", "/capital", "/signal", "/risk",
+            "/", "/counsel", "/estate", "/capital", "/signal", "/intent", "/risk",
             "/signal/thresholds", "/signal/budget", "/signal/creative",
             "/signal/audiences", "/signal/measurement", "/shopify",
-            "/pricing", "/executive-briefing/",
-            "/marketing", "/marketing/engine", "/marketing/modules",
+            "/pricing", "/mizuki3", "/executive-briefing/",
+            # The /marketing LANDING is deliberately absent: it is variant B
+            # of the /signal A/B/C test — noindex,follow with canonical →
+            # /signal (a noindexed URL in the sitemap would be a
+            # contradictory signal). The /marketing sub-pages are not test
+            # variants and stay listed. /media (variant C) was never listed.
+            "/marketing/engine", "/marketing/modules",
             "/marketing/simulator", "/marketing/walkthrough",
             "/marketing/governance", "/marketing/counsel", "/marketing/estate",
             "/marketing/capital", "/marketing/signal", "/marketing/risk",
             "/marketing/pricing",
             "/demo", "/demo/signal", "/demo/counsel", "/demo/estate",
             "/demo/capital", "/demo/risk", "/demo/nexus",
+            # /media/demo is deliberately absent: the page ships
+            # robots=noindex (presenter surface, reached by link). Listing it
+            # would be the same contradictory signal as /marketing above. To
+            # index it later, drop the robots meta AND add it here in one PR.
             "/walkthrough.html", "/blog",
         ]
         posts = _load_blog_manifest()
-        blog_lastmod = posts[0].get("updated", posts[0].get("published", "")) if posts else ""
+        blog_lastmod = max(
+            (p.get("updated", p.get("published", "")) for p in posts), default=""
+        )
         # Pages the Signal v2 rollout changed (2026-08-03): the hub, the five
         # capability pages, the demo surfaces that gained the doorman framing,
         # and the briefing whose signal pack was extended.
         rollout_lastmod = {
-            "/signal": "2026-08-03",
+            # /signal became the A/B/C canonical landing (index,follow +
+            # rel=canonical) in the 2026-08-22 test-design fix.
+            "/signal": "2026-08-22",
             "/signal/thresholds": "2026-08-03",
             "/signal/budget": "2026-08-03",
             "/signal/creative": "2026-08-03",
@@ -822,6 +1549,30 @@ def create_app(runtime: BossRuntime | None = None) -> Flask:
             # Shopify-merchant homepage (owner-directed standalone surface).
             "/shopify": "2026-08-07",
         }
+        # Publish every manifest-backed article at the same canonical URL
+        # used by the Journal and feeds, including revisions of older posts.
+        for post in posts:
+            path = f"/blog/{post['slug']}"
+            pages.append(path)
+            rollout_lastmod[path] = post.get("updated", post.get("published", ""))
+        # /learn (S4-1 owner ruling 2026-09-15): the index plus every CURRENT
+        # authority page, derived from the loader exactly as /llms.txt is —
+        # never hand-listed. Listed ONLY while LEARN_PAGES is on and the pages
+        # directory resolves: with the flag off every /learn path answers 404,
+        # and a sitemap URL that 404s is the same contradictory signal the
+        # /marketing and /media/demo comments above refuse. A page past its
+        # `expires` is withheld by the loader and therefore absent here too.
+        # lastmod = the page's last_reviewed (the claim-review date).
+        if site_flags.learn_pages_enabled():
+            learn_dir = learn_pages.pages_dir()
+            if learn_dir is not None:
+                current_learn = [p for p in learn_pages.load_pages(learn_dir) if not learn_pages.is_overdue(p)]
+                if current_learn:
+                    pages.append("/learn/")
+                    rollout_lastmod["/learn/"] = max(p.last_reviewed for p in current_learn).isoformat()
+                    for page in current_learn:
+                        pages.append(f"/learn/{page.slug}")
+                        rollout_lastmod[f"/learn/{page.slug}"] = page.last_reviewed.isoformat()
         entries = []
         for path in pages:
             stamp = blog_lastmod if path == "/blog" else rollout_lastmod.get(path, "")
@@ -939,7 +1690,7 @@ def create_app(runtime: BossRuntime | None = None) -> Flask:
             })
         return jsonify({
             "version": "https://jsonfeed.org/version/1.1",
-            "title": "MIZ OKI 3.5 Blog",
+            "title": "MIZ OKI 3.5 Journal",
             "home_page_url": f"{base}/blog",
             "feed_url": f"{base}/blog/feed.json",
             "description": "Research and field notes on threshold-aware media buying, decision intelligence, and causal autonomous systems.",
@@ -954,6 +1705,11 @@ def create_app(runtime: BossRuntime | None = None) -> Flask:
 
     @app.route("/blog/<path:filename>")
     def blog_post(filename: str):
+        slug = filename.rstrip("/").removesuffix(".html")
+        if any(post["slug"] == slug for post in _load_blog_manifest()):
+            if filename != slug:
+                return redirect(f"/blog/{slug}", code=301)
+            return send_from_directory(BASE_DIR / "blog", f"{slug}.html")
         return send_from_directory(BASE_DIR / "blog", filename)
 
     @app.route("/11/")
@@ -992,6 +1748,12 @@ def create_app(runtime: BossRuntime | None = None) -> Flask:
 
     @app.route("/login", methods=["POST"])
     def login():
+        # No template posts here — `login_page` (GET) redirects away — so this
+        # handler carries no CSRF token to check and is left as-is on that
+        # axis. It IS rate-limited and IS constant-time, because it compares
+        # the same passwords as /admin/login. Retiring it outright is the real
+        # fix and is recorded as follow-up, not done here: removing a live
+        # route is a behaviour change beyond a security patch.
         email = request.form.get("email", "").strip().lower()
         password = request.form.get("password", "")
         demo_users = app.config["MIZOKI_DEMO_USERS"]
@@ -1000,8 +1762,11 @@ def create_app(runtime: BossRuntime | None = None) -> Flask:
             flash("Local demo login is disabled. Redirecting to the command center login.", "info")
             return redirect(EXTERNAL_LOGIN_URL)
 
-        if email in demo_users and demo_users[email] == password:
+        if _check_demo_credentials(demo_users, email, password):
             session.permanent = True
+            # Drop any pre-auth CSRF token so the authenticated session does
+            # not keep a value an attacker may have fixed before sign-in.
+            session.pop(_CSRF_SESSION_KEY, None)
             session["user"] = email
             return redirect(EXTERNAL_DASHBOARD_URL)
 
@@ -1061,10 +1826,22 @@ def create_app(runtime: BossRuntime | None = None) -> Flask:
     def admin_login_page():
         if "user" in session:
             return redirect(url_for("admin_home"))
-        return render_template("admin_login.html")
+        return render_template("admin_login.html", csrf_token=_issue_csrf_token())
 
     @app.route("/admin/login", methods=["POST"])
     def admin_login_post():
+        # CSRF first: reject a forged cross-site sign-in before the credential
+        # is even looked at. Bypassed under TESTING unless a test opts in —
+        # same convention as the rate limiter, and pinned in both directions
+        # by AdminLoginCsrfTestCase.
+        enforce_csrf = not app.config.get("TESTING") or app.config.get(
+            "LOGIN_CSRF_ENFORCE_IN_TESTS"
+        )
+        if enforce_csrf and not _csrf_token_valid(request.form.get(_CSRF_FORM_FIELD)):
+            app.logger.warning("Rejected sign-in with missing/invalid CSRF token.")
+            flash("Your sign-in form expired. Please try again.", "error")
+            return redirect(url_for("admin_login_page"))
+
         email = request.form.get("email", "").strip().lower()
         password = request.form.get("password", "")
         demo_users = app.config.get("MIZOKI_DEMO_USERS", {})
@@ -1076,8 +1853,12 @@ def create_app(runtime: BossRuntime | None = None) -> Flask:
             )
             return redirect(url_for("admin_login_page"))
 
-        if email in demo_users and demo_users[email] == password:
+        if _check_demo_credentials(demo_users, email, password):
             session.permanent = True
+            # Rotate away the pre-auth CSRF token (session fixation): the
+            # token a caller may have planted before sign-in must not survive
+            # into the authenticated session.
+            session.pop(_CSRF_SESSION_KEY, None)
             session["user"] = email
             return redirect(url_for("admin_home"))
 
@@ -1155,6 +1936,20 @@ def create_app(runtime: BossRuntime | None = None) -> Flask:
             abort(404)
         return render_template(filename)
 
+    def _unconfigured_enabled_flags() -> list[str]:
+        """Flags that are ON without their sink — the fail-closed state both
+        health surfaces report (#899 review, Codex P1: /health said "healthy"
+        while /api/health said not_configured). Flags OFF contribute nothing."""
+        flags = site_flags.snapshot()
+        missing: list[str] = []
+        if flags["site_events"] and not _site_events_sink().configured():
+            missing.append(site_flags.SITE_EVENTS_ENV)
+        if flags["pilot_form"] and not _pilot_service().configured():
+            missing.append(site_flags.PILOT_FORM_ENV)
+        if dpp_flags.pipeline_enabled() and not _design_partner_configured():
+            missing.append(dpp_flags.DESIGN_PARTNER_PIPELINE_ENV)
+        return missing
+
     @app.route("/api/health")
     def api_health():
         snapshot = get_runtime().health_snapshot()
@@ -1162,10 +1957,30 @@ def create_app(runtime: BossRuntime | None = None) -> Flask:
         # detect an empty/missing MIZOKI_DEMO_USERS_JSON secret without probing
         # the login form.
         snapshot["admin_login_enabled"] = bool(app.config.get("MIZOKI_DEMO_USERS"))
+        # Run 1 item 1.F: flag state as booleans, and "not_configured" when a
+        # flag is ON without its sink — never a healthy stub (Part 0 rule 6).
+        flags = site_flags.snapshot()
+        snapshot["site_events"] = (
+            "off" if not flags["site_events"]
+            else ("configured" if _site_events_sink().configured() else "not_configured"))
+        snapshot["pilot_form"] = (
+            "off" if not flags["pilot_form"]
+            else ("configured" if _pilot_service().configured() else "not_configured"))
+        # WO-33: the design-partner intake leg, same tri-state (never a secret value).
+        snapshot["design_partner_pipeline"] = (
+            "off" if not dpp_flags.pipeline_enabled()
+            else ("configured" if _design_partner_configured() else "not_configured"))
         return jsonify(snapshot)
 
     @app.route("/health")
     def health():
+        # The operational probe (deploy verification, uptime) carries the same
+        # fail-closed state as /api/health: a flag ON without its sink is not
+        # a healthy revision. With both flags OFF (the default) this answers
+        # exactly as before.
+        missing = _unconfigured_enabled_flags()
+        if missing:
+            return "not_configured: " + ",".join(missing), 503
         return "healthy", 200
 
     @app.route("/api/mcp/tools", methods=["GET"])

@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MIZOKI3 — Signal · Measurement Foundations</title>
+<title>MIZ OKI 3.5 — Signal · Measurement Foundations</title>
 <meta name="description" content="One clock, one identity, one ledger: unified attribution windows across platforms, privacy-safe identity stitching, server-side conversion plumbing, and the incrementality engine that grades every claim.">
 <meta name="theme-color" content="#0A1418">
-<meta property="og:title" content="MIZOKI3 — Signal · Measurement Foundations">
+<meta property="og:title" content="MIZ OKI 3.5 — Signal · Measurement Foundations">
 <meta property="og:description" content="One clock, one identity, one ledger: unified attribution windows across platforms, privacy-safe identity stitching, server-side conversion plumbing, and the incrementality engine that grades every claim.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://mizoki3.com/signal/measurement">
@@ -189,7 +189,7 @@ body.sig{margin:0;background:var(--ink);color:var(--paper);font-family:var(--san
 
 <div class="strip">
   <div class="wrap">
-    <a class="brand" href="/">MIZOKI3</a>
+    <a class="brand" href="/">MIZ OKI 3.5</a>
     <nav aria-label="Signal capabilities">
       <a href="/signal">Signal</a>
       <a href="/signal/thresholds">Thresholds</a>
@@ -198,6 +198,7 @@ body.sig{margin:0;background:var(--ink);color:var(--paper);font-family:var(--san
       <a href="/signal/audiences">Audiences</a>
       <a href="/signal/measurement" style="color:var(--seam)" aria-current="page">Measurement</a>
       <a href="/demo/signal">Factory</a>
+      <a href="https://decisionstudio.mizoki3.com/signal">Decision Studio</a>
     </nav>
   </div>
 </div>
@@ -223,16 +224,16 @@ body.sig{margin:0;background:var(--ink);color:var(--paper);font-family:var(--san
     <div class="grid g2">
       <div class="cell">
         <h3>One clock</h3>
-        <p>Every conversion is re-attributed under a single house standard — 7-day click, 1-day view — regardless of which platform reported it, with empirical lag profiles per source and a nightly recompute. Cross-platform numbers become comparable for the first time.</p>
+        <p>Every conversion is re-attributed under a single house standard — 7-day click, 1-day view — regardless of which platform reported it, with empirical lag profiles per source and a recompute job the operator schedules nightly. Cross-platform numbers become comparable for the first time.</p>
       </div>
       <div class="cell">
         <h3>One identity</h3>
-        <p>Identities stitch across platforms through salted SHA-256 hashes of first-party identifiers — matching without exposure. Raw identifiers never leave the boundary; deterministic identity is required for causal math.</p>
+        <p>Identities stitch across platforms through SHA-256 hashes of first-party identifiers — matching without exposure. The outbound match key is deliberately unsalted, because Google and Meta both match on the SHA-256 of the normalized value and a salt would silently zero the match rate. Anything this platform stores or returns is keyed by a <em>peppered</em> SHA-256 instead — a held-back pepper, not a per-record salt. Raw identifiers never leave the boundary; deterministic identity is required for causal math.</p>
       </div>
     </div>
     <ul class="spec">
       <li>Drift monitor — alerts when platform-reported and model-attributed revenue diverge past 20% for three consecutive days (operating default)</li>
-      <li>Weight back-propagation — corrected attribution flows to Meta and Google bid systems, so their optimizers learn from honest numbers</li>
+      <li>Weight back-propagation — the corrected value of every conversion is computed against what Meta and Google reported, and the difference is built into a platform-ready correction. The rail is hard-gated and recommend-only today: it constructs and logs the correction, it never sends it. Turning the send path on is an owner decision made per engagement, not a default</li>
     </ul>
   </div>
 </section>
@@ -258,13 +259,41 @@ body.sig{margin:0;background:var(--ink);color:var(--paper);font-family:var(--san
     <p class="mark sec-mark">§03 · The incrementality engine</p>
     <h2>Every number faces <em>the experiment.</em></h2>
     <ol class="steps">
-      <li>Design registered before the first impression — randomized holdout, ghost bids that log the auctions a control customer would have won, or matched control geographies. Minimum detectable effect declared up front.</li>
-      <li>Heterogeneous effects estimated per segment and region with meta-learner models — who was actually persuadable, not just whether the average moved.</li>
-      <li>Automated refutation tries to break the result: placebo treatments must collapse the effect, random confounders must not move it, subset re-runs must agree. A result that fails is flagged, never shipped.</li>
-      <li>Each conversion is classified caused or anticipated, with lift and a confidence interval, and written to the immutable ledger — the exhibit on the <a href="/signal">Signal overview</a>.</li>
+      <li>Design registered before the first impression — randomized holdout, ghost bids that log the auctions a control customer would have won, or matched control geographies. Minimum detectable effect declared up front. Registration is shipped for all three; the ghost-bid execution path — the auction logger itself — is <em>in development</em>.</li>
+      <li>Heterogeneous effects estimated per segment and region with meta-learner models — who was actually persuadable, not just whether the average moved. The shipped estimator is the DR-Learner with CUPED; the wider learner family is research-grade and <em>in development</em>.</li>
+      <li>Automated refutation tries to break the result: placebo treatments must collapse the effect, random confounders must not move it, subset re-runs must agree. A result that fails is flagged, never shipped. The battery is built and test-pinned, but wiring it into the shipped report path is <em>in development</em> — until it lands, refutation is run deliberately, not automatically.</li>
+      <li>Each conversion is classified caused or anticipated — against the holdout's baseline rate and the treatment rate it was measured beside — and written to the immutable ledger, the exhibit on the <a href="/signal">Signal overview</a>. The row carries those two rates and their unit counts, plus the classifier version and a hash of its inputs, so any row can be re-derived. Effect size and interval estimation are not in the shipped ledger — <em>design target</em>.</li>
     </ol>
     <p class="lede">Incremental return — not platform-reported return — is what the <a href="/signal/budget">budget engine</a> is allowed to read. That single wiring decision is most of the product.</p>
-    <p class="note"><strong>Stated plainly:</strong> mechanisms on this page are operating machinery, and the windows and thresholds shown are operating defaults — not promised outcomes. Ledger figures shown anywhere on this site are illustrative until they are your own — produced by your experiments, on your data, with the confidence intervals printed.</p>
+    <p class="mark" style="margin-top:30px">Field notes — composite scenarios · illustrative numbers</p>
+    <div class="grid g2">
+      <div class="story">
+        <p class="q">Streaming TV is our biggest bet and our least measurable one. Finance wants to cut it. Prove it works — or lose it.</p>
+        <dl>
+          <dt>The test</dt>
+          <dd>The campaign ran in some markets and deliberately not in their statistical twins — the design registered before the first impression.</dd>
+          <dt>The ledger</dt>
+          <dd>Real lift in nine of fourteen markets, nothing defensible in the other five — each read against its own matched control.</dd>
+          <dt>The change</dt>
+          <dd>Doubled down on nine, cut five. The budget came out smaller and unkillable, because every remaining dollar had a receipt.</dd>
+        </dl>
+        <p class="verdict">"Prove it or lose it" stopped being a threat and became the operating procedure.</p>
+      </div>
+      <div class="story">
+        <p class="mark">Net yield · Preview · in development</p>
+        <p class="q">Our $180 bundle is the best seller. Why is cash down while revenue is up?</p>
+        <dl>
+          <dt>The test</dt>
+          <dd>Every order priced at what it truly nets — components, packing, dimensional shipping, payment fees, and the returns coming back.</dd>
+          <dt>The ledger</dt>
+          <dd>The hero bundle netted between −$2 and $16 an order once a third of them boomeranged. The boring single SKU netted $31 and almost never returned.</dd>
+          <dt>The change</dt>
+          <dd>When the net-yield capability ships, the bidding signal switches from checkout revenue to net contribution — so the platforms hunt buyers who keep what they buy.</dd>
+        </dl>
+        <p class="verdict">The dashboard applauded the bundle; the bank account preferred the boring one.</p>
+      </div>
+    </div>
+    <p class="note"><strong>Stated plainly:</strong> mechanisms on this page are operating machinery <em>except where a step says "in development" or "design target"</em> — those are built and tested but not yet wired into the shipped path, and they are marked in place rather than left to read as live. The windows and thresholds shown are operating defaults, not promised outcomes. Rails ship flag-gated and dry-run first; live posting to ad platforms is enabled per engagement. Ledger figures shown anywhere on this site are illustrative until they are your own — produced by your experiments, on your data.</p>
   </div>
 </section>
 
@@ -286,7 +315,7 @@ body.sig{margin:0;background:var(--ink);color:var(--paper);font-family:var(--san
 <footer>
   <div class="wrap">
     <div>
-      <p class="mark">MIZOKI3 · Signal</p>
+      <p class="mark">MIZ OKI 3.5 · Signal</p>
       <p style="max-width:34ch;color:var(--paper-dim);font-size:.9rem;margin:10px 0 0">
         Causal acquisition intelligence on one governed loop. Proof, not attribution theatre.</p>
     </div>

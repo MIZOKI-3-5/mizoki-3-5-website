@@ -5,11 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MIZ OKI Media | Causal Growth Control</title>
 <meta name="description" content="MIZ OKI Media connects commercial signals, causal reasoning, policy, human authority, action, and outcome learning through the MIZ OKI Decision Graph.">
-<link rel="canonical" href="https://mizoki3.com/media">
+<link rel="canonical" href="https://mizoki3.com/signal">
+<!-- Variant C of the /signal A/B/C test (SITE A/B/C TEST — DESIGN FIX r1.0):
+     SEO canonical is /signal; at its own /media URL this page serves
+     noindex,follow (the /signal route replaces the tags below with the
+     canonical serving posture). Pre-registration:
+     docs/marketing/abtest-preregistration-signal-landing.md -->
+<meta name="robots" content="noindex,follow">
 <meta property="og:title" content="MIZ OKI Media — Causal Growth Control">
 <meta property="og:description" content="Know why performance moved. Put the next dollar where it creates profit.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://mizoki3.com/media">
+<meta property="og:url" content="https://mizoki3.com/signal">
 <meta property="og:image" content="https://mizoki3.com/media/assets/mizoki-signal-preview.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
@@ -477,10 +483,13 @@ html.mzm-js .mzm-reveal { opacity: 1; transform: none; }
       <a href="/media/platform">Platform</a>
       <a href="/media/decision-graph">Decision Graph</a>
       <a href="/media/how-it-works">How It Works</a>
+      <a href="/media/demo">Demo</a>
       <a href="/media/use-cases">Use Cases</a>
       <a href="/media/pilot">Pilot</a>
       <a href="/media/trust">Trust</a>
       <a href="/media/resources">Resources</a>
+      <a href="/animation">Animation</a>
+      <a href="https://decisionstudio.mizoki3.com/media">Decision Studio</a>
       <a class="mzm-nav-cta" href="/media/contact">Contact</a>
     </div>
   </div>
@@ -499,6 +508,8 @@ html.mzm-js .mzm-reveal { opacity: 1; transform: none; }
       <p class="mzm-support">MIZ OKI Media connects media, commerce, customer experience, inventory, product economics, and policy into one governed decision pathway.</p>
       <div class="mzm-hero-ctas">
         <a class="mzm-btn primary" href="#pilot">Explore the 90-Day Pilot</a>
+        <a class="mzm-btn" href="/media/demo">Run the executive demo →</a>
+        <a class="mzm-btn" href="https://decisionstudio.mizoki3.com/media">Open the Decision Studio →</a>
         <a class="mzm-btn" href="#film">Watch the Explainer</a>
       </div>
       <p class="mzm-platform-note">MIZ OKI Media is a focused commercial application powered by the broader MIZ OKI Operating Knowledge Intelligence platform — one product surface on the same governed decision infrastructure, not a separate company.</p>
@@ -915,7 +926,7 @@ html.mzm-js .mzm-reveal { opacity: 1; transform: none; }
     <div class="mzm-wrap">
       <p class="mzm-kicker">The explainer film</p>
       <h2 id="film-h">Watch the decision pathway unfold</h2>
-      <p class="mzm-lede">Seven scenes, one pathway — from the first moved signal to the recorded outcome. The current cut is a silent preview render; the final narrated film is in production. <span class="mzm-label illus">Preview render</span></p>
+      <p class="mzm-lede">Seven scenes, one governed pathway. A signal moves. The graph finds the cause. Policy applies. The right person authorizes. The bounded action dispatches. The outcome is written to memory. Watch it happen.</p>
       <div class="mzm-film-frame">
         <video
           controls
@@ -924,13 +935,13 @@ html.mzm-js .mzm-reveal { opacity: 1; transform: none; }
           poster="/media/assets/mizoki-signal-preview.png"
           aria-label="MIZ OKI Media explainer film: the causal growth control decision pathway"
         >
-          <source src="/media/video/mizoki-signal-explainer.mp4?v=20260803" type="video/mp4">
+          <source src="/media/video/mizoki-signal-explainer.mp4?v=20260830" type="video/mp4">
           Your browser does not support embedded video.
           <a href="/media/video/mizoki-signal-explainer.mp4">Download the explainer film (MP4)</a>.
         </video>
         <div class="mzm-film-caption">
-          <span>This film demonstrates how MIZ OKI Media transforms fragmented commercial signals into governed business decisions.</span>
-          <span class="mono"><a href="/media/assets/mizoki-media-transcript.html">Read the transcript</a> · MP4 · plays inline</span>
+          <span>From moved signal to recorded outcome — every stage traced, every constraint enforced, every decision accountable.</span>
+          <span class="mono"><a href="/animation">Launch interactive animation player</a> · <a href="/media/assets/mizoki-media-transcript.html">Read the transcript</a> · MP4 · plays inline</span>
         </div>
       </div>
     </div>
@@ -1112,13 +1123,13 @@ html.mzm-js .mzm-reveal { opacity: 1; transform: none; }
   </section>
 
   <!-- ================= 12 · FINAL CTA ================= -->
-  <section class="mzm-final mzm-reveal" aria-labelledby="cta-h">
+  <section class="mzm-final mzm-reveal" aria-labelledby="cta-h" data-abtest-goal>
     <div class="mzm-wrap">
       <p class="mzm-kicker">Next step</p>
       <h2 id="cta-h">Ready to know why — and act on it?</h2>
       <p>Tell us about your stack and the decision that costs you the most when it goes ungoverned. We'll scope a 90-day pilot around it.</p>
       <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
-        <a class="mzm-btn primary" href="mailto:contact@mizoki3.com?subject=MIZ%20OKI%20Media%20Pilot">Discuss a MIZ OKI Media Pilot</a>
+        <a class="mzm-btn primary" href="/go/pilot?cta=media-final">Discuss a MIZ OKI Media Pilot</a>
         <a class="mzm-btn" href="/media/contact">The contact page — what to include</a>
       </div>
     </div>
@@ -1127,7 +1138,7 @@ html.mzm-js .mzm-reveal { opacity: 1; transform: none; }
   <footer>
     <div class="mzm-wrap mzm-foot-inner">
       <span>MIZ OKI Media — a focused commercial application powered by the broader MIZ OKI Operating Knowledge Intelligence platform.</span>
-      <span><a href="https://mizoki3.com/">mizoki3.com</a> · <a href="mailto:contact@mizoki3.com?subject=MIZ%20OKI%20Media%20Pilot">contact@mizoki3.com</a></span>
+      <span><a href="/animation">Animation</a> · <a href="https://mizoki3.com/">mizoki3.com</a> · <a href="/go/pilot?cta=media-footer">contact@mizoki3.com</a></span>
     </div>
   </footer>
 
@@ -1182,6 +1193,30 @@ html.mzm-js .mzm-reveal { opacity: 1; transform: none; }
     });
   }
 })();
+</script>
+<script data-abtest="goal-beacon">
+/* A/B/C outcome tier 3 (pre-registered tertiary metric): fires once when the
+   pilot/briefing section becomes visible. Deterministic — no randomness, no
+   clock reads. Sends only {goal, page}; the server derives assignment context
+   from its own cookie parse, and nothing personal leaves the page. */
+(function () {
+  "use strict";
+  var target = document.querySelector("[data-abtest-goal]");
+  if (!target || !("IntersectionObserver" in window) || !navigator.sendBeacon) { return; }
+  var sent = false;
+  var observer = new IntersectionObserver(function (entries) {
+    for (var i = 0; i < entries.length; i += 1) {
+      if (entries[i].isIntersecting && !sent) {
+        sent = true;
+        observer.disconnect();
+        navigator.sendBeacon("/api/abtest/goal", new Blob(
+          [JSON.stringify({goal: "pilot-view", page: location.pathname})],
+          {type: "application/json"}));
+      }
+    }
+  });
+  observer.observe(target);
+}());
 </script>
 </body>
 </html>

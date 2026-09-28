@@ -29,7 +29,7 @@ REQUIRED = {
     "assets/css/marketing.css": "compare-strip",
     "assets/js/media-sim.js": "Wasted Spend Prevented",
     "tests/test_marketing_site.py": "MARKETING_PAGES",
-    "marketing/index.html": "Stop Managing Dashboards. Start Governing Ad Growth.",
+    "marketing/index.html": "Know why performance moved.",
     "marketing/signal.html": 'id="acquisition"',
     # /media (owner-approved 2026-08-03) rides the same guard: a parity copy
     # once dropped its routes — never again.

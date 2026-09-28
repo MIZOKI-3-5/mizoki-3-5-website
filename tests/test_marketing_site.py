@@ -1,19 +1,12 @@
-"""Marketing parallel site (/marketing/*) — the master-prompt contracts.
+"""Marketing site contracts.
 
-The proposed media-buyer experience runs as a complete parallel site (landing
-+ /marketing/simulator + /marketing/walkthrough) so the classic canon site and
-the new direction can be compared live before anything is retired.
-
-Locks in: the mandated hero copy, the vocabulary translation key (plain-English
-terms everywhere; engineering terms appear exactly once, in the on-page
-translation ledger), the 7-stage Decision Control System accordion, the
-Interactive Scenario Simulator control surface (exact slider ranges and policy
-values), the 90-second storyboard's five scenes, deterministic-engine rules
-(no randomness), the /media-buying → /marketing redirect, and the site-wide
-hygiene contracts (root-absolute assets, favicon trio, canonical/OG, claim
-discipline, the parallel-preview compare strip).
+The /marketing landing is a self-contained Causal Growth Control page. The
+existing /marketing/* pages remain the parallel multi-page experience. This
+suite locks the landing's exact route, isolation, accessibility, truth, and
+governance boundaries without weakening coverage for any nested surface.
 """
 
+from html.parser import HTMLParser
 import re
 import tempfile
 import unittest
@@ -28,14 +21,46 @@ PAGE_FILE = REPO_ROOT / "marketing" / "index.html"
 ENGINE_FILE = REPO_ROOT / "assets" / "js" / "media-sim.js"
 CSS_FILE = REPO_ROOT / "assets" / "css" / "marketing.css"
 
-MARKETING_PAGES = ("/marketing", "/marketing/engine", "/marketing/modules",
-                   "/marketing/simulator", "/marketing/walkthrough",
-                   "/marketing/governance", "/marketing/counsel",
-                   "/marketing/estate", "/marketing/capital",
-                   "/marketing/signal", "/marketing/risk", "/marketing/pricing")
+MARKETING_LANDING = "/marketing"
+MARKETING_SUBPAGES = ("/marketing/engine", "/marketing/modules",
+                      "/marketing/simulator", "/marketing/walkthrough",
+                      "/marketing/governance", "/marketing/counsel",
+                      "/marketing/estate", "/marketing/capital",
+                      "/marketing/signal", "/marketing/risk",
+                      "/marketing/pricing")
+MARKETING_PAGES = (MARKETING_LANDING,) + MARKETING_SUBPAGES
 
 DIVISION_PAGES = ("/marketing/counsel", "/marketing/estate",
                   "/marketing/capital", "/marketing/signal", "/marketing/risk")
+
+
+class _LandingHTMLParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.ids: list[str] = []
+        self.hrefs: list[str] = []
+        self.h1_count = 0
+        self.scripts: list[dict[str, str | None]] = []
+        self.links: list[dict[str, str | None]] = []
+        self.resource_sources: list[tuple[str, str]] = []
+        self.tags: list[tuple[str, dict[str, str | None]]] = []
+
+    def handle_starttag(self, tag: str,
+                        attrs: list[tuple[str, str | None]]) -> None:
+        values = dict(attrs)
+        self.tags.append((tag, values))
+        if values.get("id"):
+            self.ids.append(values["id"])
+        if values.get("href") is not None:
+            self.hrefs.append(values["href"])
+        if tag == "h1":
+            self.h1_count += 1
+        if tag == "script":
+            self.scripts.append(values)
+        if tag == "link":
+            self.links.append(values)
+        if tag in {"img", "iframe", "video", "audio", "source"} and values.get("src"):
+            self.resource_sources.append((tag, values["src"]))
 
 
 class _AppTestCase(unittest.TestCase):
@@ -68,8 +93,13 @@ class RoutingTestCase(_AppTestCase):
 
     def test_sitemap_lists_the_site_not_the_redirect(self) -> None:
         body = self.client.get("/sitemap.xml").get_data(as_text=True)
-        for path in MARKETING_PAGES:
+        # A/B/C test-design fix (2026-08-22): the /marketing LANDING is
+        # noindex,follow with canonical → /signal, so listing it would be a
+        # contradictory signal — the sub-pages (not test variants) stay.
+        for path in MARKETING_SUBPAGES:
             self.assertIn(f"https://mizoki3.com{path}</loc>", body, path)
+        self.assertNotIn("https://mizoki3.com/marketing</loc>", body)
+        self.assertIn("https://mizoki3.com/signal</loc>", body)
         self.assertNotIn("/media-buying", body)
 
     def test_shared_assets_are_served(self) -> None:
@@ -78,154 +108,465 @@ class RoutingTestCase(_AppTestCase):
 
 
 class ParallelPreviewTestCase(_AppTestCase):
-    """The whole point: side-by-side comparison, nothing replaced."""
+    """Nested pages remain the side-by-side parallel experience."""
 
-    def test_compare_strip_on_every_marketing_page(self) -> None:
-        for path in MARKETING_PAGES:
+    def test_compare_strip_on_every_nested_marketing_page(self) -> None:
+        for path in MARKETING_SUBPAGES:
             body = self.page(path)
             self.assertIn('class="compare-strip"', body, path)
             self.assertIn("nothing on the classic site is replaced", body, path)
             self.assertIn('<a href="/">View classic site →</a>', body, path)
 
-    def test_marketing_nav_cross_links_all_pages(self) -> None:
-        for path in MARKETING_PAGES:
+    def test_marketing_nav_cross_links_nested_pages(self) -> None:
+        for path in MARKETING_SUBPAGES:
             body = self.page(path)
             self.assertIn('href="/marketing/simulator"', body, path)
             self.assertIn('href="/marketing/walkthrough"', body, path)
             self.assertIn('href="/marketing/demo"', body, path)
             self.assertIn('href="/marketing/pricing"', body, path)
-            self.assertIn('class="brand">MIZOKI3</a>', body, path)
+            self.assertIn('class="brand">MIZ OKI 3.5</a>', body, path)
 
-    def test_no_root_surface_is_modified(self) -> None:
-        # The parallel site is additive: the canon-pinned homepage still
-        # serves and never links into /marketing (comparison stays one-way).
+    def test_homepage_links_marketing_but_variants_stay_isolated(self) -> None:
+        # Baseline moved with the owner-approved unified product experience
+        # (#836, 2026-08-25; serving via dispatch run #107): the homepage now
+        # deliberately links /marketing from its product nav. What survives of
+        # the old one-way rule is A/B/C arm hygiene — the experiment variants
+        # (/signal is arm A) and /demo never link into /marketing, so a
+        # visitor cannot hop arms from inside the experiment surface.
         home = self.client.get("/").get_data(as_text=True)
-        self.assertNotIn("/marketing", home)
+        self.assertIn('href="/marketing"', home)
+        for path in ("/signal", "/demo"):
+            body = self.client.get(path).get_data(as_text=True)
+            self.assertNotIn('href="/marketing"', body, path)
+            self.assertNotIn('href="/marketing/', body, path)
 
 
-class HeroMandateTestCase(_AppTestCase):
-    """Section 1 of the master prompt — copy is verbatim, not paraphrased."""
+class MarketingLandingTestCase(_AppTestCase):
+    """The standalone /marketing landing is isolated, honest, and operable."""
 
-    def test_badge_headline_and_subheadline(self) -> None:
-        body = self.page()
-        self.assertIn("MIZ OKI 3.5 — Operating Knowledge Intelligence", body)
-        self.assertIn("Stop Managing Dashboards. Start Governing Ad Growth.", body)
-        self.assertIn(
-            "The first autonomous AI control plane built for high-scale media "
-            "buyers. MIZ OKI connects your ad platforms, web stack, analytics, "
-            "and inventory to catch cross-stack signals, diagnose true CPA "
-            "drivers, and execute margin-safe campaign actions automatically.",
-            body,
+    def setUp(self) -> None:
+        super().setUp()
+        self.body = self.page()
+        self.parser = _LandingHTMLParser()
+        self.parser.feed(self.body)
+        self.parser.close()
+
+    def test_exact_route_serves_the_authenticated_file(self) -> None:
+        response = self.client.get(MARKETING_LANDING)
+        self.assertEqual(200, response.status_code)
+        self.assertEqual("text/html", response.mimetype)
+        self.assertEqual(PAGE_FILE.read_bytes(), response.get_data())
+
+        slash_response = self.client.get("/marketing/")
+        self.assertEqual(200, slash_response.status_code)
+        self.assertEqual(response.get_data(), slash_response.get_data())
+
+    def test_canonical_and_http_destinations_are_declared_only(self) -> None:
+        # A/B/C test-design fix (2026-08-22): this landing is variant B of the
+        # /signal test — its canonical and og:url point at the test's ONE
+        # indexed URL, its own URL serves noindex,follow, and every CTA rides
+        # the tracked /go/pilot redirect (bare mailto: is no longer a legal
+        # destination here; the redirect resolves to the approved mailto).
+        canonical = "https://mizoki3.com/signal"
+        self.assertIn(f'<link rel="canonical" href="{canonical}">', self.body)
+        self.assertIn(f'<meta property="og:url" content="{canonical}">', self.body)
+        self.assertIn('<meta name="robots" content="noindex,follow">', self.body)
+        self.assertNotIn(f'{canonical}/"', self.body)
+
+        http_urls = re.findall(r'https?://[^\s"\'<>]+', self.body)
+        self.assertTrue(http_urls)
+        # Owner directive 2026-09-16: the public Decision Studio's /marketing page is
+        # the one sanctioned off-site destination (exact URL, nav + hero link).
+        studio = "https://decisionstudio.mizoki3.com/marketing"
+        self.assertEqual({canonical, studio}, set(http_urls))
+
+        for href in self.parser.hrefs:
+            allowed = (
+                href == canonical
+                or href == studio
+                or href == "/animation"
+                or href.startswith("#")
+                or href.startswith("/go/pilot?cta=marketing-")
+            )
+            self.assertTrue(allowed, f"forbidden landing destination: {href}")
+
+    def test_self_contained_page_has_no_network_or_route_side_effects(self) -> None:
+        self.assertFalse(
+            [script for script in self.parser.scripts if script.get("src")],
+            "landing scripts must stay inline",
+        )
+        self.assertFalse(
+            [link for link in self.parser.links
+             if "stylesheet" in (link.get("rel") or "").split()],
+            "landing styles must stay inline",
+        )
+        self.assertFalse(self.parser.resource_sources)
+        self.assertFalse(
+            [attrs for tag, attrs in self.parser.tags
+             if tag == "form" and attrs.get("action")],
+            "landing forms must not submit to any route",
+        )
+        for marker in (
+            "fetch(", "XMLHttpRequest", "WebSocket",
+            "EventSource", "localStorage", "sessionStorage", "serviceWorker",
+            "document.cookie", "indexedDB", "window.location",
+        ):
+            self.assertNotIn(marker, self.body, marker)
+        # A/B/C test-design fix (2026-08-22): the page carries EXACTLY ONE
+        # declared network side effect — the tier-3 goal beacon posting to
+        # /api/abtest/goal (cross-file byte parity pinned in test_abtest).
+        # Everything else above stays forbidden.
+        self.assertEqual(
+            1, self.body.count('navigator.sendBeacon("/api/abtest/goal"'))
+        self.assertEqual(1, self.body.count('"/api/abtest/goal"'))
+        self.assertIn('<script data-abtest="goal-beacon">', self.body)
+        self.assertNotRegex(
+            self.body,
+            r'(?:href|src|action)=["\']/(?:signal|media|marketing/|demo|api|admin)',
         )
 
-    def test_both_ctas_present_and_wired(self) -> None:
-        body = self.page()
-        self.assertIn("Launch Live Decision Simulator", body)
-        self.assertIn('href="#simulator"', body)
-        self.assertIn("Watch 90-Sec Platform Walkthrough", body)
-        self.assertIn('href="#video"', body)
+    def test_landmarks_fragments_and_tabs_are_accessible(self) -> None:
+        self.assertEqual(1, self.parser.h1_count)
+        self.assertEqual(len(self.parser.ids), len(set(self.parser.ids)))
+        self.assertIn("marketing-main", self.parser.ids)
+        self.assertIn('href="#marketing-main"', self.body)
 
-    def test_social_proof_metrics_with_honesty_note(self) -> None:
-        body = self.page()
-        for marker in ("$100M+", "Ad Spend Monitored", "&lt;100ms",
-                       "Signal Latency", "100%", "Policy Protection"):
-            self.assertIn(marker, body, marker)
-        # The strip is labeled for what it is — architecture facts and design
-        # targets, never outcome promises (claims governance).
-        self.assertIn("not outcome promises", body)
+        for href in self.parser.hrefs:
+            if href.startswith("#"):
+                self.assertIn(href[1:], self.parser.ids, href)
 
-    def test_problem_vs_solution_matrix(self) -> None:
-        body = self.page()
-        self.assertIn("Symptom management", body)
-        self.assertIn("Root-Cause Intelligence", body)
+        tabs = [
+            attrs for tag, attrs in self.parser.tags
+            if tag == "button" and attrs.get("role") == "tab"
+        ]
+        panels = [
+            attrs for tag, attrs in self.parser.tags
+            if attrs.get("role") == "tabpanel"
+        ]
+        self.assertEqual(6, len(tabs))
+        self.assertEqual(1, len(panels))
+        self.assertEqual("scenario-panel", tabs[0].get("aria-controls"))
+        self.assertEqual("0", panels[0].get("tabindex"))
+        for key in (
+            "ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp", "Home", "End",
+        ):
+            self.assertIn(key, self.body)
+
+    def test_decision_graph_loop_and_jobs_preserve_the_product_contract(self) -> None:
+        for marker in ("Diagnose", "Prove", "Decide", "Govern"):
+            self.assertIn(f"<h3>{marker}</h3>", self.body, marker)
+
+        graph = ("Signal", "Entity", "Cause", "Objective",
+                 "Policy", "Action", "Outcome")
+        graph_positions = [
+            self.body.index(f"<strong>{marker}</strong>") for marker in graph
+        ]
+        self.assertEqual(graph_positions, sorted(graph_positions))
+
+        loop = ("Sense", "Reason", "Plan", "Validate", "Decide", "Act", "Learn")
+        loop_positions = [
+            self.body.index(f"<h3>{marker}</h3>",
+                            self.body.index('class="loop"'))
+            for marker in loop
+        ]
+        self.assertEqual(loop_positions, sorted(loop_positions))
+        self.assertEqual(6, self.body.count('<article class="job">'))
+
+        for marker in (
+            "SESSION OUTCOME FORECAST", "TREATMENT ASSIGNMENT",
+            "TREATMENT EFFECT", "No-action remains eligible.",
+        ):
+            self.assertIn(marker, self.body)
+
+    def test_intent_privacy_claims_and_authority_stay_bounded(self) -> None:
+        for marker in (
+            "Preview · in development",
+            "DISALLOWED_KEYSTROKE_DYNAMICS",
+            "Keystroke dynamics are prohibited.",
+            "SHADOW / NO ACTION",
+            "RECOMMEND / NO MUTATION",
+            "HUMAN APPROVAL REQUIRED",
+            "rollback",
+            "Illustrative composite scenarios",
+            "never a guaranteed outcome",
+            "A 90-day Causal Growth Control Pilot.",
+        ):
+            self.assertIn(marker, self.body, marker)
+
+    def test_six_scenarios_are_deterministic_and_keyboard_wired(self) -> None:
+        # v1.3 grew the trace to six governed scenarios (the F3/F4/F5
+        # frontiers each demonstrate their gate through one).
+        for scenario in ("cpa", "margin", "creative", "inventory", "geo", "treasury"):
+            self.assertIn(f'data-scenario="{scenario}"', self.body)
+            self.assertRegex(self.body, rf"\b{scenario}:\s*\{{")
+        for marker in (
+            "scenario-incident", "scenario-evidence", "scenario-hypothesis",
+            "scenario-confidence", "scenario-plan", "scenario-verdict",
+        ):
+            self.assertIn(f'id="{marker}"', self.body)
+        self.assertNotIn("Math.random", self.body)
+        self.assertNotIn("Date.now", self.body)
 
 
-class VocabularyKeyTestCase(_AppTestCase):
-    """The MANDATORY vocabulary translation key, enforced structurally."""
+POSTURE_RAIL_LABELS = (
+    "Current posture · Recommend-only",
+    "MEASUREMENT_WRITEBACK · OFF",
+    "NET_YIELD_WRITEBACK · OFF",
+    "Intent evidence · Shadow / no action",
+    "O-1 privacy lock · Enforced",
+)
 
-    TRANSLATIONS = {
-        "Canonical Event Envelope": "Structured Signal Evidence",
-        "Temporal-Causal Knowledge Base": "Cross-Stack Root Cause Engine",
-        "Domain Intelligence Cell": "Channel Intelligence Modules",
-        "SRPVDAL": "7-Stage Governed Decision System",
-        "Decision Control Plane": "Safety Guardrail Engine",
-        "Immutable Learning Ledger": "Compounding ROI Memory",
-        "Tenant Isolation": "Enterprise Privacy &amp; Security Shield",
-        "No-Action Counterfactual": "&quot;Do Nothing&quot; Opportunity Cost Check",
-    }
+TEN_QUESTIONS = (
+    "What changed?", "Which entities?", "What may explain it?",
+    "Which objective?", "Which policy applies?", "What could we do?",
+    "What could go wrong?", "What did we predict?", "What occurred?",
+    "What must change?",
+)
 
-    def test_translated_terms_are_the_working_vocabulary(self) -> None:
-        body = self.page()
-        for translated in self.TRANSLATIONS.values():
-            needle = translated.replace("&amp;", "&").replace("&quot;", '"')
-            self.assertTrue(
-                translated in body or needle in body,
-                f"missing translated term: {needle}",
-            )
-        # The flagship terms carry the page, not one-off mentions.
-        self.assertGreaterEqual(body.count("Structured Signal Evidence"), 3)
-        self.assertGreaterEqual(body.count("Compounding ROI Memory"), 3)
+FRONTIER_STATUSES = (
+    "IN BUILD · PROVISIONAL",
+    "IN BUILD · DATA-GATED",
+    "IN BUILD · OBSERVE-ONLY",
+    "IN BUILD · PER-ACTION APPROVAL",
+    "IN BUILD · CONFIG-DECLARED",
+)
 
-    def test_engineering_terms_confined_to_the_translation_ledger(self) -> None:
-        body = self.page()
-        for raw in self.TRANSLATIONS:
-            self.assertEqual(
-                1, body.count(raw),
-                f"engineering term '{raw}' must appear exactly once — "
-                "in the on-page translation ledger",
-            )
+PASSPORT_FIELDS = (
+    "decision_id", "loop_id", "job_id", "signal_refs",
+    "action_dispatch_or_veto",
+)
 
-    def test_sub_pages_carry_no_raw_jargon_at_all(self) -> None:
-        for path in [p for p in MARKETING_PAGES if p != "/marketing"]:
-            body = self.page(path)
-            for raw in self.TRANSLATIONS:
-                self.assertNotIn(raw, body, f"{raw} on {path}")
+# The remaining §6.6 passport fields appear on the page as reader-facing
+# prose rather than snake_case tokens — pinned in that form (verifier
+# finding 1, 2026-08-19).
+PASSPORT_FIELDS_PROSE = (
+    "ranked hypotheses", "Selected + rejected plans", "Gate results",
+    "DEL breakdown", "autonomy level", "approval record",
+    "rollback reference", "Measurement window", "realized outcome",
+    "learning-update reference", "tenant",
+)
 
-    def test_meta_tags_use_translated_vocabulary(self) -> None:
-        body = self.page()
-        head = body.split("</head>")[0]
-        self.assertIn("Structured Signal Evidence", head)
-        self.assertIn("Cross-Stack Root Cause Engine", head)
-        for raw in ("Canonical Event Envelope", "SRPVDAL",
-                    "Immutable Learning Ledger", "Tenant Isolation",
-                    "No-Action Counterfactual"):
-            self.assertNotIn(raw, head, f"raw jargon in meta tags: {raw}")
+O1_DENIAL_LINE = ("Raw keys · text · cadence · dwell or flight time · typing "
+                  "profiles · audio · gaze · fine individual geolocation · "
+                  "sensitive-trait inference")
 
 
-class ControlLoopTestCase(_AppTestCase):
-    """The SRPVDAL interactive section — translated, all 7 stages."""
+def _v13_contract_violations(body: str) -> list[str]:
+    """Named invariant checks for the v1.3 landing, used in BOTH directions:
+    the real page must return [], and each seeded §8.2 mutation must return
+    its named violation — an invariant proven in only one direction is an
+    invariant nobody has checked."""
+    violations: list[str] = []
+    urls = set(re.findall(r'https?://[^\s"\'<>]+', body))
+    # A/B/C test-design fix (2026-08-22): the landing is variant B of the
+    # /signal test, so its one permitted absolute URL is the test's canonical
+    # (rel=canonical + og:url → /signal). Owner directive 2026-09-16 adds ONE
+    # sanctioned destination: the public Decision Studio's own /marketing page,
+    # exact URL. Anything else still fires (the seeded cdn.example.com proves it).
+    if urls - {"https://mizoki3.com/signal", "https://decisionstudio.mizoki3.com/marketing"}:
+        violations.append("external-or-noncanonical-url")
+    if re.search(r'(?:href|src|action)=["\']/(?:signal|media|marketing/|demo|api|admin)',
+                 body) or 'href="/"' in body:
+        violations.append("internal-route-link")
+    for flag in ("MEASUREMENT_WRITEBACK · OFF", "NET_YIELD_WRITEBACK · OFF"):
+        if flag not in body:
+            violations.append(f"writeback-not-visibly-off:{flag.split(' ')[0]}")
+    if O1_DENIAL_LINE not in body or "DISALLOWED_KEYSTROKE_DYNAMICS" not in body:
+        violations.append("o1-denial-missing")
+    if "No F3-originated action can reach a platform adapter" not in body:
+        violations.append("f3-dispatch-guard-missing")
+    if "Every reservation halts for Level 2 approval" not in body:
+        violations.append("f4-approval-guard-missing")
+    if "DATA_INSUFFICIENT" not in body:
+        violations.append("f2-data-gate-missing")
+    if "NOT_CONFIGURED" not in body:
+        violations.append("f5-config-gate-missing")
+    # Copy checks run on VISIBLE text only — CSS is full of "100%" and the
+    # reader never sees a stylesheet (same reduction content_qa applies).
+    visible = re.sub(r"<!--.*?-->", " ", body, flags=re.S)
+    visible = re.sub(r"<style\b.*?</style>", " ", visible, flags=re.S | re.I)
+    visible = re.sub(r"<script\b.*?</script>", " ", visible, flags=re.S | re.I)
+    visible = re.sub(r"<[^>]+>", " ", visible)
+    # Affirmative outcome promises: negated forms ("never a guaranteed
+    # outcome" — the discipline itself) stay legal; anything else is not.
+    for m in re.finditer(r"\bguarantee(?:s|d)?\b", visible, re.I):
+        if not re.search(r"(?:never a|not|no)\s*$",
+                         visible[max(0, m.start() - 12):m.start()]):
+            violations.append("affirmative-guarantee")
+            break
+    # Bare performance figures: the visible copy carries ZERO digit-adjacent
+    # %/×/$ figures by design — a customer-results number can only arrive as
+    # a regression, so any at all is a violation on this surface.
+    if re.search(r"\d+(?:\.\d+)?\s?(?:%|×(?!\d))|\$\s?\d", visible):
+        violations.append("bare-performance-figure")
+    return violations
 
-    STAGE_GISTS = (
-        "24/7 Full-Stack Radar",
-        "Root Cause AI",
-        "Actionable Strategy",
-        "Safety Brakes",
-        "1-Click Approvals",
-        "Hands-Free Execution",
-        "Compounding ROI Memory",
+
+class GrowthControlV13ContractTestCase(_AppTestCase):
+    """The v1.3 growth-control landing contract (master prompt §8.2)."""
+
+    def setUp(self) -> None:
+        super().setUp()
+        self.body = self.page()
+
+    def test_version_comment_and_resilience_blocks_present(self) -> None:
+        self.assertIn("marketing-growth-control-v1.3", self.body)
+        self.assertIn("@media print", self.body)
+        self.assertIn("<noscript>", self.body)
+        self.assertIn("prefers-reduced-motion", self.body)
+        self.assertIn(":focus-visible", self.body)
+        self.assertIn("@media (max-width", self.body)
+
+    def test_posture_rail_renders_all_five_exact_labels(self) -> None:
+        for label in POSTURE_RAIL_LABELS:
+            self.assertIn(label, self.body, label)
+
+    def test_required_hero_and_four_loops(self) -> None:
+        self.assertIn("Know why performance moved.", self.body)
+        self.assertIn("Govern what happens next.", self.body)
+        self.assertIn("ranks the most supportable causal hypothesis", self.body)
+        for loop in ("Evidence + intent", "Causal measurement",
+                     "Decision + passport", "Outcome + learning"):
+            self.assertIn(loop, self.body, loop)
+
+    def test_ten_event_contract_questions_in_order(self) -> None:
+        positions = [self.body.index(q) for q in TEN_QUESTIONS]
+        self.assertEqual(positions, sorted(positions))
+
+    def test_five_frontiers_carry_their_exact_gates(self) -> None:
+        for status in FRONTIER_STATUSES:
+            self.assertIn(status, self.body, status)
+        for gate in (
+            "at least two observed quarters per cohort",
+            "No F3-originated action can reach a platform adapter",
+            "Every reservation halts for Level 2 approval",
+            "Two clean cycles",
+            "NOT_CONFIGURED",
+            "DATA_INSUFFICIENT",
+            "Generated creative always requires human approval.",
+        ):
+            self.assertIn(gate, self.body, gate)
+
+    def test_scenario_traces_end_in_governed_states(self) -> None:
+        # §6.5: the frontier scenarios must end exactly where their gates
+        # say — recommend, halt, or veto; never a dispatched action.
+        for outcome in ("RECOMMEND / NO DISPATCH", "HALT AT APPROVAL",
+                        "POLICY VETO"):
+            self.assertIn(outcome, self.body, outcome)
+
+    def test_no_fabricated_social_proof(self) -> None:
+        for banned in ("testimonial", "Trusted by", "as seen in"):
+            self.assertNotRegex(self.body, re.compile(re.escape(banned), re.I),
+                                banned)
+
+    def test_validation_passport_is_canonical_and_complete(self) -> None:
+        self.assertIn("ValidationPassport", self.body)
+        self.assertNotIn("DecisionProof", self.body)
+        for field in PASSPORT_FIELDS + PASSPORT_FIELDS_PROSE:
+            self.assertIn(field, self.body, field)
+        self.assertIn("SHA-256", self.body)
+        self.assertIn("a DEL score never overrides a failed hard constraint",
+                      self.body)
+
+    def test_intent_engine_modules_retention_and_o1(self) -> None:
+        for module in ("PassiveAttentionSequence", "SessionOutcomeForecast",
+                       "CreativeSemanticProfile", "IntentHypothesis"):
+            self.assertIn(module, self.body, module)
+        for marker in (
+            "I-01", "I-02", "I-03", "I-04", "I-05",
+            "purge when the session ends",
+            "strict TTL", "erasure",
+            "Consent failure means no processing",
+            "Sensitive-category inference is denied at ingest and hypothesis "
+            "creation",
+            "Probabilistic identities do not enter causal-effect math",
+            O1_DENIAL_LINE,
+            "No persistent psychological dossier is created.",
+        ):
+            self.assertIn(marker, self.body, marker)
+
+    def test_measurement_honesty_and_activation_gates(self) -> None:
+        for marker in (
+            "Forecasting is not incrementality",
+            "Prediction never grades itself",
+            "registered holdout",
+            "Missing required costs leave a row incomplete",
+            "at least one observed return cycle",
+            "no claim that the platform currently bids on net contribution",
+            "Verified pilot numbers—not marketing copy—are what may later "
+            "flip Preview labels",
+            "ILLUSTRATIVE VALIDATIONPASSPORT",
+            "BUILD TARGET",
+        ):
+            self.assertIn(marker, self.body, marker)
+
+    def test_contract_invariants_hold_and_each_seeded_mutation_fires(self) -> None:
+        self.assertEqual([], _v13_contract_violations(self.body))
+        seeds = (
+            ("external-or-noncanonical-url",
+             self.body.replace("</body>",
+                               '<img src="https://cdn.example.com/x.png"></body>')),
+            ("internal-route-link",
+             self.body.replace("</body>", '<a href="/signal">Signal</a></body>')),
+            ("writeback-not-visibly-off:NET_YIELD_WRITEBACK",
+             self.body.replace("NET_YIELD_WRITEBACK · OFF",
+                               "NET_YIELD_WRITEBACK · ON")),
+            ("writeback-not-visibly-off:MEASUREMENT_WRITEBACK",
+             self.body.replace("MEASUREMENT_WRITEBACK · OFF",
+                               "MEASUREMENT_WRITEBACK · ON")),
+            ("o1-denial-missing",
+             self.body.replace("DISALLOWED_KEYSTROKE_DYNAMICS", "")),
+            ("f3-dispatch-guard-missing",
+             self.body.replace(
+                 "No F3-originated action can reach a platform adapter",
+                 "F3 actions dispatch directly to platform adapters")),
+            ("f4-approval-guard-missing",
+             self.body.replace("Every reservation halts for Level 2 approval",
+                               "Reservations execute automatically")),
+            ("f2-data-gate-missing",
+             self.body.replace("DATA_INSUFFICIENT", "extrapolated")),
+            ("f5-config-gate-missing",
+             self.body.replace("NOT_CONFIGURED", "always active")),
+            ("affirmative-guarantee",
+             self.body.replace("</body>",
+                               "<p>We guarantee the lift.</p></body>")),
+            ("bare-performance-figure",
+             self.body.replace("</body>",
+                               "<p>Customers see a 34% lift.</p></body>")),
+            ("bare-performance-figure",  # the $ form (verifier finding 1)
+             self.body.replace("</body>",
+                               "<p>Saves $50,000 per quarter.</p></body>")),
+        )
+        for expected, mutated in seeds:
+            self.assertIn(expected, _v13_contract_violations(mutated),
+                          f"seeded mutation not caught: {expected}")
+
+
+class NestedVocabularyTestCase(_AppTestCase):
+    """The unchanged nested pages retain their translated vocabulary."""
+
+    RAW_TERMS = (
+        "Canonical Event Envelope",
+        "Temporal-Causal Knowledge Base",
+        "Domain Intelligence Cell",
+        "SRPVDAL",
+        "Decision Control Plane",
+        "Immutable Learning Ledger",
+        "Tenant Isolation",
+        "No-Action Counterfactual",
     )
 
-    def test_all_seven_stages_with_mandated_descriptors(self) -> None:
-        body = self.page()
-        for stage in ("Sense", "Reason", "Plan", "Validate", "Decide", "Act", "Learn"):
-            self.assertIn(f'<span class="stage">{stage}</span>', body, stage)
-        for gist in self.STAGE_GISTS:
-            self.assertIn(gist, body, gist)
-        self.assertIn("Google Ads, Meta, Shopify", body)
-        self.assertIn("Slack or Teams", body)
-
-    def test_accordion_is_interactive_markup(self) -> None:
-        body = self.page()
-        self.assertEqual(
-            7, len(re.findall(r'class="mb-acc-head" aria-expanded=', body)),
-            "every accordion button carries expansion state",
-        )
+    def test_sub_pages_carry_no_raw_jargon_at_all(self) -> None:
+        for path in MARKETING_SUBPAGES:
+            body = self.page(path)
+            for raw in self.RAW_TERMS:
+                self.assertNotIn(raw, body, f"{raw} on {path}")
 
 
 class SimulatorContractTestCase(_AppTestCase):
-    """The DemoWidget spec — on the landing AND the dedicated page."""
+    """The legacy DemoWidget remains pinned on its dedicated page."""
 
-    SIM_PAGES = ("/marketing", "/marketing/simulator")
+    SIM_PAGES = ("/marketing/simulator",)
 
     def test_layout_columns_and_height_spec(self) -> None:
         css = CSS_FILE.read_text(encoding="utf-8")
@@ -286,7 +627,7 @@ class EngineDisciplineTestCase(unittest.TestCase):
 
     def test_engine_exists_and_pages_load_it(self) -> None:
         self.assertTrue(ENGINE_FILE.is_file())
-        for name in ("index.html", "simulator.html", "walkthrough.html"):
+        for name in ("simulator.html", "walkthrough.html"):
             page = (REPO_ROOT / "marketing" / name).read_text(encoding="utf-8")
             self.assertIn('src="/assets/js/media-sim.js', page, name)
 
@@ -326,7 +667,7 @@ class EngineDisciplineTestCase(unittest.TestCase):
             r"don'?t miss",
         ]
         surfaces = {"engine strings": self.strings}
-        for name in ("index.html", "simulator.html", "walkthrough.html"):
+        for name in ("simulator.html", "walkthrough.html"):
             surfaces[name] = (REPO_ROOT / "marketing" / name).read_text(encoding="utf-8")
         for label, text in surfaces.items():
             for pattern in banned:
@@ -337,9 +678,9 @@ class EngineDisciplineTestCase(unittest.TestCase):
 
 
 class StoryboardTestCase(_AppTestCase):
-    """The 90-second walkthrough — on the landing AND the dedicated page."""
+    """The 90-second walkthrough remains pinned on its dedicated page."""
 
-    VID_PAGES = ("/marketing", "/marketing/walkthrough")
+    VID_PAGES = ("/marketing/walkthrough",)
 
     SCENES = (
         ("0:00", "The Media Buyer's Nightmare", "0"),
@@ -372,10 +713,10 @@ class StoryboardTestCase(_AppTestCase):
 
 
 class HygieneTestCase(_AppTestCase):
-    """Site-wide contracts every served surface must honor — all 3 pages."""
+    """Shared-shell contracts remain enforced on the nested pages."""
 
     def test_root_absolute_assets_only(self) -> None:
-        for path in MARKETING_PAGES:
+        for path in MARKETING_SUBPAGES:
             body = self.page(path)
             self.assertIn('href="/assets/css/styles.css"', body, path)
             self.assertNotIn('href="assets/', body, path)
@@ -383,7 +724,9 @@ class HygieneTestCase(_AppTestCase):
             self.assertIsNone(re.search(r'href="[a-z][a-z0-9-]*\.html', body), path)
 
     def test_icon_set_canonical_and_og(self) -> None:
-        canonical = {path: f"https://mizoki3.com{path}" for path in MARKETING_PAGES}
+        canonical = {
+            path: f"https://mizoki3.com{path}" for path in MARKETING_SUBPAGES
+        }
         for path, url in canonical.items():
             body = self.page(path)
             self.assertIn('href="/assets/img/favicon.svg"', body, path)
@@ -393,7 +736,7 @@ class HygieneTestCase(_AppTestCase):
             self.assertIn('property="og:title"', body, path)
 
     def test_nav_and_shared_scripts(self) -> None:
-        for path in MARKETING_PAGES:
+        for path in MARKETING_SUBPAGES:
             body = self.page(path)
             self.assertIn('src="/assets/js/nav-mobile.js"', body, path)
             self.assertIn('class="nav-links"', body, path)
@@ -411,14 +754,6 @@ class HygieneTestCase(_AppTestCase):
             self.assertEqual(200, response.status_code, path)
             self.assertIn("MIZ OKI", response.get_data(as_text=True), path)
 
-    def test_soft_sell_discipline_single_contact_cta(self) -> None:
-        body = self.page()
-        self.assertEqual(1, body.count("/contact?source=marketing"))
-        self.assertIn("no pressure", body)
-        self.assertIn('href="/marketing/demo"', body)
-        self.assertIn('href="/marketing/executive-briefing/"', body)
-
-
 class FullSiteMirrorTestCase(_AppTestCase):
     """The ENTIRE site is browsable inside /marketing — mirrored from the
     same canon files on disk (never modified), links rewritten to stay in
@@ -429,32 +764,6 @@ class FullSiteMirrorTestCase(_AppTestCase):
         "/marketing/demo/estate", "/marketing/demo/capital",
         "/marketing/demo/risk", "/marketing/demo/nexus",
     )
-
-    def test_homepage_fronts_the_whole_platform(self) -> None:
-        body = self.page()
-        for division in ("counsel", "estate", "capital", "signal", "risk"):
-            self.assertIn(f'href="/marketing/{division}"', body, division)
-        self.assertIn('id="divisions"', body)
-        self.assertIn("One decision loop. Any division.", body)
-        self.assertIn('href="/marketing/demo"', body)
-
-    def test_divisions_framed_as_initial_mvps_not_limits(self) -> None:
-        # Owner: "5 divisions are only showcased here as initial mvps.
-        # Miz oki is not limited to others so it's not just 5."
-        body = self.page()
-        self.assertIn("initial MVPs", body)
-        self.assertIn("MIZ OKI is not limited to them", body)
-        self.assertIn("+ Your division", body)
-        self.assertIn("Any operating domain", body)
-        self.assertEqual(6, body.count('class="div-card'), "5 MVPs + your-division card")
-
-    def test_full_stack_signal_grid_on_homepage(self) -> None:
-        body = self.page()
-        self.assertIn('id="signal-grid"', body)
-        for layer in ("Ad networks", "Infrastructure", "Inventory",
-                      "Finance guardrails"):
-            self.assertIn(layer, body, layer)
-        self.assertIn("Target ROAS floors · CPA caps", body)
 
     def test_every_mirror_serves(self) -> None:
         for path in self.MIRROR_PAGES + ("/marketing/executive-briefing/",):
@@ -543,8 +852,11 @@ class FullSitePagesTestCase(_AppTestCase):
 
     def test_sitemap_lists_all_six_marketing_pages(self) -> None:
         sitemap = self.client.get("/sitemap.xml").get_data(as_text=True)
-        for path in MARKETING_PAGES:
+        # Sub-pages only: the landing left the sitemap with the A/B/C
+        # test-design fix (2026-08-22) — see RoutingTestCase's sitemap test.
+        for path in MARKETING_SUBPAGES:
             self.assertIn(f"https://mizoki3.com{path}</loc>", sitemap, path)
+        self.assertNotIn("https://mizoki3.com/marketing</loc>", sitemap)
 
 
 class DivisionRedesignTestCase(_AppTestCase):
@@ -591,20 +903,11 @@ class DivisionRedesignTestCase(_AppTestCase):
         for marker in ("Priced by autonomy, not by seats.", "Core Intelligence",
                        "Operational Autonomy", "Full Governance Suite",
                        "Observe Mode", "Bounded Autonomy", "Full Autonomy",
-                       "mailto:hello@mizoki3.com"):
+                       "mailto:briefing@mediaintelligence.ai"):
             self.assertIn(marker, body, marker)
         # The classic pricing page's engineering terms must not leak in.
         for raw in ("SRPVDAL", "Decision Control Plane", "ReLU"):
             self.assertNotIn(raw, body, raw)
-
-    def test_homepage_leads_with_the_platform_not_the_signals_story(self) -> None:
-        # Owner: "still only reflects the signals page." The divisions section
-        # must come before the media-buying matrix, and the hero must name the
-        # other divisions explicitly.
-        body = self.page()
-        self.assertLess(body.index('id="divisions"'), body.index('id="matrix"'))
-        self.assertIn("Capital, Risk, Counsel, Estate", body)
-        self.assertIn("whole platform, translated into plain language", body)
 
 class AcquisitionShowcaseTestCase(_AppTestCase):
     """Owner mandate: every number on the acquisition pages is a software

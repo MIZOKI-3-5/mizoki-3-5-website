@@ -1,509 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MIZOKI3 — Signal · Causal Acquisition Intelligence</title>
-<meta name="description" content="Signal proves which marketing spend caused the customer — and which merely claimed credit. Incrementality-grade acquisition intelligence on the governed SRPVDAL loop.">
-<meta name="theme-color" content="#0A1418">
-<meta property="og:title" content="MIZOKI3 — Signal · Causal Acquisition Intelligence">
-<meta property="og:description" content="Platform dashboards grade their own homework. Signal runs the experiment: caused vs. anticipated, with confidence intervals.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="MIZ OKI 3.5 ORACLE — anticipatory intent with proof of causal lift. Consent-gated pre-conversion signals, calibrated hypotheses, governed decisions, auditable learning.">
+<meta name="robots" content="index,follow"><!-- /signal is the ONE indexed canonical landing of the A/B/C test (SITE A/B/C TEST — DESIGN FIX r1.0; pre-registration: docs/marketing/abtest-preregistration-signal-landing.md). The former IN BUILD noindex flips here at the owner-dispatched deploy of that fix — merges alone never ship this surface. -->
+<meta property="og:title" content="MIZ OKI 3.5 — ORACLE Pre-Conversion Intent">
+<meta property="og:description" content="Anticipatory intent with proof of causal lift. Verifiable. Reversible. Governed.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://mizoki3.com/signal">
 <meta property="og:image" content="https://mizoki3.com/assets/img/og/og-signal.svg">
-<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
-<link rel="alternate icon" href="/assets/img/favicon.ico" sizes="16x16 32x32 48x48">
-<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<meta property="og:url" content="https://mizoki3.com/signal">
 <link rel="canonical" href="https://mizoki3.com/signal">
+<title>MIZ OKI 3.5 — ORACLE | Anticipatory intent with proof of causal lift</title>
 <style>
-:root{
-  --ink:#0A1418;        /* dossier ground */
-  --ink-2:#0E1B20;      /* raised panel */
-  --rule:#1B2E34;       /* hairline */
-  --seam:#3FD8D0;       /* Signal Factory cyan seam */
-  --caution:#E4A34A;    /* vetoed / anticipated */
-  --paper:#DCE6E6;      /* body text */
-  --paper-dim:#7E9599;  /* captions */
-  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
-  --sans:"Helvetica Neue",Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-}
-*{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body.sig{margin:0;background:var(--ink);color:var(--paper);font-family:var(--sans);
-  font-size:17px;line-height:1.6;letter-spacing:-.005em;
-  background-image:linear-gradient(180deg,#0C171C 0%,var(--ink) 60%)}
-.sig .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
-.sig a{color:inherit}
-.sig h1,.sig h2,.sig h3{letter-spacing:-.03em;line-height:1.08;margin:0;font-weight:600}
-.sig h1{font-size:clamp(2.4rem,5.6vw,4.05rem)}
-.sig h2{font-size:clamp(1.65rem,3.3vw,2.5rem)}
-.sig h3{font-size:1.06rem;letter-spacing:-.01em}
-.sig em{font-style:italic;color:var(--seam)}
-
-/* ---- filing marks: the site's dossier grammar ---- */
-.sig .mark{font-family:var(--mono);font-size:.66rem;letter-spacing:.20em;
-  text-transform:uppercase;color:var(--paper-dim)}
-.sig .sec-mark{display:flex;align-items:center;gap:14px;margin-bottom:22px}
-.sig .sec-mark::after{content:"";flex:1;height:1px;background:var(--rule)}
-
-/* ---- masthead ---- */
-.sig .strip{border-bottom:1px solid var(--rule);background:rgba(10,20,24,.92);
-  position:sticky;top:0;z-index:20;backdrop-filter:blur(9px)}
-.sig .strip .wrap{display:flex;align-items:center;justify-content:space-between;
-  gap:18px;height:56px;flex-wrap:wrap}
-.sig .brand{font-family:var(--mono);font-size:.82rem;letter-spacing:.24em;
-  text-decoration:none;font-weight:600}
-.sig nav{display:flex;gap:20px;flex-wrap:wrap}
-.sig nav a{font-family:var(--mono);font-size:.66rem;letter-spacing:.17em;
-  text-transform:uppercase;color:var(--paper-dim);text-decoration:none}
-.sig nav a:hover,.sig nav a:focus-visible{color:var(--seam)}
-
-/* ---- sections ---- */
-.sig section{padding:86px 0;border-bottom:1px solid var(--rule)}
-.sig .lede{font-size:1.16rem;color:var(--paper-dim);max-width:60ch;margin-top:22px}
-
-/* ---- hero ---- */
-.sig .hero{padding:96px 0 78px}
-.sig .hero h1{margin-bottom:6px}
-.sig .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:38px}
-.sig .btn{display:inline-block;font-family:var(--mono);font-size:.7rem;letter-spacing:.15em;
-  text-transform:uppercase;text-decoration:none;padding:14px 22px;border:1px solid var(--seam);
-  color:var(--seam);transition:background .18s,color .18s}
-.sig .btn:hover,.sig .btn:focus-visible{background:var(--seam);color:var(--ink)}
-.sig .btn.ghost{border-color:var(--rule);color:var(--paper-dim)}
-.sig .btn.ghost:hover,.sig .btn.ghost:focus-visible{border-color:var(--paper-dim);
-  background:transparent;color:var(--paper)}
-
-/* ---- SIGNATURE: the evidence ledger ---- */
-.sig .ledger{margin-top:56px;border:1px solid var(--rule);background:var(--ink-2)}
-.sig .ledger-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
-  padding:12px 18px;border-bottom:1px solid var(--rule)}
-.sig .bar{display:flex;height:74px}
-.sig .bar div{display:flex;align-items:center;justify-content:center;font-family:var(--mono);
-  font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;text-align:center;padding:0 10px}
-.sig .bar .caused{flex:0 0 31%;background:rgba(63,216,208,.16);color:var(--seam);
-  border-right:1px solid var(--rule)}
-.sig .bar .anticipated{flex:1;background:rgba(228,163,74,.09);color:var(--caution)}
-.sig .ledger-foot{padding:13px 18px;border-top:1px solid var(--rule)}
-
-/* ---- grids ---- */
-.sig .grid{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:34px}
-.sig .g2{grid-template-columns:repeat(2,1fr)}
-.sig .g3{grid-template-columns:repeat(3,1fr)}
-.sig .cell{background:var(--ink);padding:26px 24px}
-.sig .cell h3{margin-bottom:9px}
-.sig .cell p{margin:0;font-size:.94rem;color:var(--paper-dim)}
-.sig ul.spec{list-style:none;margin:14px 0 0;padding:0}
-.sig ul.spec li{font-size:.93rem;color:var(--paper-dim);padding:7px 0 7px 17px;position:relative}
-.sig ul.spec li::before{content:"";position:absolute;left:0;top:16px;width:6px;height:1px;
-  background:var(--seam)}
-
-/* ---- stage sequence (real order: it's a pipeline) ---- */
-.sig ol.stages{list-style:none;counter-reset:s;margin:34px 0 0;padding:0;
-  display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule)}
-.sig ol.stages li{counter-increment:s;background:var(--ink);padding:24px;
-  display:grid;grid-template-columns:56px 1fr;gap:18px;align-items:start}
-.sig ol.stages li::before{content:"0" counter(s);font-family:var(--mono);font-size:.74rem;
-  letter-spacing:.1em;color:var(--seam);padding-top:3px}
-.sig ol.stages p{margin:7px 0 0;font-size:.94rem;color:var(--paper-dim)}
-
-/* ---- status tag: truth discipline ---- */
-.sig .tag{display:inline-block;font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;
-  text-transform:uppercase;padding:4px 9px;border:1px solid var(--caution);
-  color:var(--caution);vertical-align:middle;margin-left:10px}
-.sig .note{margin-top:26px;padding:16px 18px;border-left:2px solid var(--caution);
-  background:rgba(228,163,74,.05);font-size:.9rem;color:var(--paper-dim)}
-
-/* ---- autonomy ladder ---- */
-.sig .ladder{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--rule);
-  border:1px solid var(--rule);margin-top:34px}
-.sig .rung{background:var(--ink);padding:19px 15px}
-.sig .rung.on{background:rgba(63,216,208,.09)}
-.sig .rung .lv{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;color:var(--paper-dim)}
-.sig .rung.on .lv{color:var(--seam)}
-.sig .rung .nm{font-size:.87rem;margin-top:5px}
-
-/* ---- close ---- */
-.sig footer{padding:56px 0 72px}
-.sig footer .wrap{display:flex;justify-content:space-between;gap:26px;flex-wrap:wrap}
-.sig footer a{color:var(--paper-dim);text-decoration:none;font-size:.9rem;display:block;padding:4px 0}
-.sig footer a:hover,.sig footer a:focus-visible{color:var(--seam)}
-
-/* ---- field notes: story cards ---- */
-.sig .story{background:var(--ink);padding:30px 26px;display:flex;flex-direction:column;gap:14px}
-.sig .story .q{font-size:1.14rem;line-height:1.45;letter-spacing:-.015em;color:var(--paper)}
-.sig .story .q::before{content:"“ ";color:var(--seam)}
-.sig .story .q::after{content:" ”";color:var(--seam)}
-.sig .story dl{margin:0;display:grid;grid-template-columns:96px 1fr;row-gap:9px;column-gap:14px}
-.sig .story dt{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--seam);padding-top:3px}
-.sig .story dd{margin:0;font-size:.93rem;color:var(--paper-dim)}
-.sig .story .verdict{border-top:1px solid var(--rule);padding-top:12px;font-size:.95rem;color:var(--paper)}
-@media (max-width:560px){.sig .story dl{grid-template-columns:1fr}.sig .story dt{padding-top:6px}}
-
-.sig a:focus-visible,.sig .btn:focus-visible{outline:2px solid var(--seam);outline-offset:3px}
-@media (max-width:820px){
-  .sig .g2,.sig .g3{grid-template-columns:1fr}
-  .sig .ladder{grid-template-columns:repeat(2,1fr)}
-  .sig section{padding:62px 0}
-  .sig .bar{height:auto;flex-direction:column}
-  .sig .bar .caused{flex:none;height:64px;border-right:none;border-bottom:1px solid var(--rule)}
-  .sig .bar .anticipated{flex:none;height:64px}
-}
-@media (prefers-reduced-motion:reduce){.sig *{transition:none!important;animation:none!important}}
+  :root{
+    --bg:#0a0d12; --bg2:#0f141c; --panel:#131a24; --line:#1f2937;
+    --ink:#e6ebf2; --ink-dim:#94a3b8; --ink-faint:#64748b;
+    --accent:#4fd1c5; --accent2:#7aa2f7; --warn:#f6ad55; --veto:#fc8181;
+    --mono:"SF Mono",ui-monospace,"Cascadia Code",Consolas,Menlo,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    --radius:10px; --maxw:1080px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+       font-size:clamp(1rem,.9rem + .3vw,1.125rem);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .skip-link{position:absolute;left:-9999px;top:0;background:var(--accent);color:#04211d;padding:.5rem 1rem;z-index:99}
+  .skip-link:focus{left:0}
+  a{color:var(--accent)} a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  .wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(1rem,4vw,2rem)}
+  header.site{position:sticky;top:0;z-index:10;background:rgba(10,13,18,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  header.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:.8rem}
+  .brand{font-family:var(--mono);font-weight:700;letter-spacing:.06em;color:var(--ink);text-decoration:none;font-size:.95rem}
+  .brand small{color:var(--accent);font-weight:500}
+  nav.primary{display:flex;gap:1.4rem;flex-wrap:wrap}
+  nav.primary a{color:var(--ink-dim);text-decoration:none;font-size:.85rem;letter-spacing:.04em;text-transform:uppercase}
+  nav.primary a:hover{color:var(--ink)}
+  .ribbon{background:#1a2332;border-bottom:1px solid var(--line);text-align:center;
+          font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;color:var(--warn);padding:.45rem 1rem}
+  .hero{padding-block:clamp(3.5rem,9vw,6.5rem) clamp(2.5rem,6vw,4rem)}
+  .kicker{font-family:var(--mono);font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin:0 0 1rem}
+  h1{font-size:clamp(2.1rem,1.4rem + 3.4vw,3.6rem);line-height:1.08;margin:0 0 1.1rem;letter-spacing:-.015em}
+  .lede{color:var(--ink-dim);max-width:46ch;margin:0 0 1.8rem}
+  .cta-row{display:flex;gap:.9rem;flex-wrap:wrap;margin-bottom:2.2rem}
+  .btn{display:inline-block;padding:.8rem 1.5rem;border-radius:var(--radius);text-decoration:none;
+       font-weight:600;font-size:.95rem;border:1px solid transparent;min-height:44px}
+  .btn-primary{background:var(--accent);color:#04211d}
+  .btn-ghost{border-color:var(--line);color:var(--ink)}
+  .principle{border-inline-start:3px solid var(--accent);padding:.55rem 1rem;background:var(--bg2);
+             border-radius:0 var(--radius) var(--radius) 0;font-family:var(--mono);font-size:.86rem;color:var(--ink-dim);max-width:60ch}
+  .principle strong{color:var(--ink)}
+  section{padding-block:clamp(2.8rem,7vw,4.5rem);border-top:1px solid var(--line)}
+  .secno{font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;color:var(--accent2);text-transform:uppercase;margin:0 0 .6rem}
+  h2{font-size:clamp(1.55rem,1.15rem + 1.8vw,2.3rem);line-height:1.15;margin:0 0 .9rem;letter-spacing:-.01em}
+  h2 em{color:var(--accent);font-style:normal}
+  .sub{color:var(--ink-dim);max-width:62ch;margin:0 0 2rem}
+  .grid{display:grid;gap:1.1rem;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1.25rem 1.3rem}
+  .card h3{margin:0 0 .5rem;font-size:1.02rem}
+  .card .tag{display:inline-block;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+             color:var(--accent);border:1px solid var(--line);border-radius:999px;padding:.15rem .6rem;margin-bottom:.7rem}
+  .card p{margin:0;color:var(--ink-dim);font-size:.92rem}
+  .trace{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-top:2rem}
+  .trace-head{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:center;
+              padding:.8rem 1.2rem;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:.72rem;letter-spacing:.1em}
+  .trace-head .label{color:var(--ink-faint);text-transform:uppercase}
+  .trace-head .flag{color:var(--warn)}
+  table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:.8rem}
+  caption{text-align:left;padding:.7rem 1.2rem .2rem;color:var(--ink-faint);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
+  th{text-align:left;color:var(--ink-faint);font-weight:500;text-transform:uppercase;letter-spacing:.08em;font-size:.68rem}
+  th,td{padding:.55rem 1.2rem;border-top:1px solid var(--line)}
+  td{color:var(--ink-dim)} td:first-child{color:var(--ink)}
+  .ok{color:var(--accent)} .pend{color:var(--warn)} .veto{color:var(--veto)} .dim{color:var(--ink-faint)}
+  ol.stages{list-style:none;counter-reset:stage;margin:0;padding:0;display:grid;gap:.9rem}
+  ol.stages li{counter-increment:stage;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+               padding:1rem 1.2rem 1rem 3.6rem;position:relative}
+  ol.stages li::before{content:"0" counter(stage);position:absolute;left:1.1rem;top:1.05rem;
+               font-family:var(--mono);font-size:.78rem;color:var(--accent2)}
+  ol.stages h3{margin:0 0 .25rem;font-size:.98rem;font-family:var(--mono);letter-spacing:.06em}
+  ol.stages p{margin:0;color:var(--ink-dim);font-size:.9rem}
+  .cols2{display:grid;gap:1.1rem;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  ul.plain{list-style:none;margin:.6rem 0 0;padding:0;font-family:var(--mono);font-size:.82rem}
+  ul.plain li{padding:.32rem 0;border-top:1px solid var(--line);color:var(--ink-dim)}
+  ul.plain li::before{content:"✓  ";color:var(--accent)}
+  ul.plain.rej li::before{content:"✕  ";color:var(--veto)}
+  .footer-cta{padding-block:clamp(3rem,8vw,5rem);text-align:center;border-top:1px solid var(--line)}
+  footer.site{border-top:1px solid var(--line);padding-block:1.6rem;color:var(--ink-faint);font-size:.82rem}
+  footer.site .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:center}
+  .attrs{font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;font-size:.7rem}
+  .note{font-size:.78rem;color:var(--ink-faint);font-family:var(--mono);margin-top:1.2rem}
+  @media (prefers-reduced-motion:no-preference){
+    .card,ol.stages li{transition:border-color .2s}
+    .card:hover,ol.stages li:hover{border-color:#2d3f55}
+  }
 </style>
 </head>
-<body class="sig">
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
 
-<div class="strip">
+<header class="site">
   <div class="wrap">
-    <a class="brand" href="/">MIZOKI3</a>
-    <nav aria-label="Primary">
-      <a href="/#pipeline">§02 Engine</a>
-      <a href="/#control">§03 Control</a>
-      <a href="/#divisions">§04 Domains</a>
-      <a href="#capabilities">Capabilities</a>
-      <a href="/demo/signal">Signal Factory</a>
-      <a href="/executive-briefing/">Briefing</a>
+    <a class="brand" href="#top">MIZ&nbsp;OKI&nbsp;3.5 <small>/ ORACLE</small></a>
+    <nav class="primary" aria-label="Primary">
+      <a href="#system">System</a>
+      <a href="#loop">SRPVDAL</a>
+      <a href="#intent">Intent</a>
+      <a href="#control">Control</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#briefing">Briefing</a>
+      <a href="/animation">Animation</a>
+      <a href="https://decisionstudio.mizoki3.com/signal">Decision Studio</a>
     </nav>
   </div>
-</div>
+</header>
 
-<!-- ═══ HERO ═══ -->
-<section class="hero">
-  <div class="wrap">
-    <p class="mark">§ SIGNAL / CAUSAL ACQUISITION INTELLIGENCE / FILED 2026</p>
-    <h1>Prove which spend <em>caused</em> the customer.</h1>
-    <p class="lede">Every ad platform reports the conversions that happened after its own ads. None of them tell you which ones would have happened anyway. Signal runs the experiment — holdouts, ghost bids, matched geographies — and returns a number you can defend in a board meeting.</p>
+<div class="ribbon" role="status">PRE-CONVERSION ENGINE: IN BUILD — PREVIEW · IN DEVELOPMENT — ALL TRACES ON THIS PAGE ARE ILLUSTRATIVE, NOT LIVE OUTPUT</div>
+<div class="ribbon" role="status">AGENT-ORIGINATED CONVERSIONS: IN BUILD — origin dimension on the canonical event schema; shadow classification, flag OFF; no live output</div>
+
+<main id="main">
+
+  <!-- HERO -->
+  <div class="hero wrap" id="top">
+    <p class="kicker">Verifiable Autonomous Decision Intelligence</p>
+    <h1>A nervous system for your business.</h1>
+    <p class="lede">MIZ OKI 3.5 turns consented first-party signals into calibrated hypotheses, governed decisions, and auditable learning — anticipatory intent, with proof of causal lift.</p>
     <div class="cta-row">
-      <a class="btn" href="/demo/signal">Run the Signal Factory ▸</a>
-      <a class="btn ghost" href="mailto:hello@mizoki3.com?subject=MIZOKI3%20Signal%20Briefing">Executive briefing</a>
+      <a class="btn btn-primary" href="#loop">Explore the loop</a>
+      <a class="btn btn-ghost" href="#control">Open the control plane</a>
     </div>
+    <p class="principle"><strong>Governing principle:</strong> Signals may propose. Causal evidence must qualify. Policy gates authority.</p>
 
-    <!-- SIGNATURE ELEMENT -->
-    <div class="ledger">
-      <div class="ledger-head">
-        <span class="mark">Exhibit S — Causal Credit Ledger · Q3 paid search</span>
-        <span class="mark">Illustrative</span>
+    <div class="trace">
+      <div class="trace-head">
+        <span class="label">Illustrative shadow-map demo trace</span>
+        <span class="flag">SHADOW MODE · NO EXECUTION AUTHORITY</span>
       </div>
-      <div class="bar" role="img" aria-label="Illustrative split: 31 percent of conversions proven caused by marketing, 69 percent anticipated demand that would likely have converted anyway.">
-        <div class="caused">Caused · 31%</div>
-        <div class="anticipated">Anticipated — would likely have converted anyway · 69%</div>
-      </div>
-      <div class="ledger-foot">
-        <span class="mark">Every conversion classified · lift with confidence intervals · refutation tested</span>
-      </div>
+      <table>
+        <caption>Demo trace — every value illustrative</caption>
+        <thead><tr><th scope="col">Component</th><th scope="col">Type</th><th scope="col">Status</th></tr></thead>
+        <tbody>
+          <tr><td>ENVELOPE</td><td>Evidence</td><td class="ok">consented</td></tr>
+          <tr><td>SESSION</td><td>Sequence</td><td class="dim">ephemeral</td></tr>
+          <tr><td>HORIZON</td><td>Forecast</td><td class="dim">illustrative · 0.74 ± 0.09</td></tr>
+          <tr><td>HYPOTHESIS</td><td>Intent (TTL-bound)</td><td class="dim">illustrative · supported</td></tr>
+          <tr><td>VALIDATION</td><td>Passport</td><td class="pend">causal gate closed</td></tr>
+          <tr><td>DECISION</td><td>Action</td><td class="veto">WITHHOLD / NO ACTION</td></tr>
+        </tbody>
+      </table>
     </div>
-    <p class="lede" style="margin-top:20px;font-size:.95rem">This is the split your dashboard reports as one number. The left bar is what your budget actually bought. Figures are illustrative — yours come from your own experiments.</p>
+    <p class="note">Every edge carries provenance. Every hypothesis expires.</p>
   </div>
-</section>
 
-<!-- ═══ THE GAP ═══ -->
-<section>
+  <!-- 01 THE SYSTEM -->
+  <section id="system">
+    <div class="wrap">
+      <p class="secno sec-mark">§01 · The system</p>
+      <h2>Know what changed. Test why. <em>Act within policy.</em></h2>
+      <p class="sub">Not an AI assistant. A governed Decision Control Plane that turns fragmented signals into decisions an enterprise can inspect, reverse, and defend.</p>
+      <div class="grid">
+        <div class="card"><span class="tag">01</span><h3>Causal credit</h3><p>Incrementality before attribution. X-Learner / DR-Learner estimation with automated DoWhy refutation and ghost-ad holdouts where supported.</p></div>
+        <div class="card"><span class="tag">02</span><h3>Calibrated confidence</h3><p>Forecast quality is measured, never proclaimed. Promotion gates: Brier ≤ 0.20, AUC ≥ 0.72, stable across ≥ 2 purchase cycles.</p></div>
+        <div class="card"><span class="tag">03</span><h3>Governed authority</h3><p>Every decision traceable and permissioned. Observe-only by default; autonomy is certified per account and action class — never a global switch.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 SRPVDAL -->
+  <section id="loop">
+    <div class="wrap">
+      <p class="secno sec-mark">§02 · SRPVDAL</p>
+      <h2>From signal to governed action.</h2>
+      <p class="sub">One closed control loop. Seven accountable stages. No shortcut from prediction to execution.</p>
+      <ol class="stages">
+        <li><h3>SENSE</h3><p>Capture consented, provenance-bearing first-party interaction telemetry. No consent, no event.</p></li>
+        <li><h3>REASON</h3><p>Forecast defined outcomes and form temporary, uncertainty-bearing intent hypotheses.</p></li>
+        <li><h3>PLAN</h3><p>Generate message, creative, timing, or no-action candidates — never direct activation.</p></li>
+        <li><h3>VALIDATE</h3><p>Test consent, quality, policy, calibration, causality, risk, and rollback. Non-bypassable.</p></li>
+        <li><h3>DECIDE</h3><p>Compare expected incremental value, uncertainty, budget, and downside risk. iROAS, not platform ROAS.</p></li>
+        <li><h3>ACT</h3><p>Execute only through the Decision Control Plane's governed execution adapters, after every gate passes and the exact mutation is authorized.</p></li>
+        <li><h3>LEARN</h3><p>Reconcile verified outcomes, recalibrate, expire hypotheses, preserve evidence.</p></li>
+      </ol>
+
+      <div class="trace">
+        <div class="trace-head">
+          <span class="label">Illustrative shadow trace · TRACE / ACT-991</span>
+          <span class="flag">PREDICTION IS ADVISORY · AUTHORITY REMAINS GATED</span>
+        </div>
+        <table>
+          <caption>Signals tracked (illustrative): viewport deceleration · return visit · technical-creative dwell</caption>
+          <thead><tr><th scope="col">Stage</th><th scope="col">Status</th><th scope="col">Detail</th></tr></thead>
+          <tbody>
+            <tr><td>SENSE</td><td class="ok">Complete</td><td>Consent + provenance verified</td></tr>
+            <tr><td>FORECAST</td><td class="ok">Complete</td><td>Evaluation hypothesis · example 0.74</td></tr>
+            <tr><td>CANDIDATE</td><td class="ok">Complete</td><td>Surface risk-reduction evidence</td></tr>
+            <tr><td>CAUSAL</td><td class="pend">Pending</td><td>Experiment required</td></tr>
+            <tr><td>VERDICT</td><td class="veto">SHADOW / NO ACTION</td><td>Withhold execution</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 ORACLE PRE-CONVERSION INTENT -->
+  <section id="intent">
+    <div class="wrap">
+      <p class="secno sec-mark">§03 · ORACLE pre-conversion intent — in build</p>
+      <h2>See interaction patterns emerge — <em>before the click.</em></h2>
+      <p class="sub">Session-level inference recognizes changing patterns without converting identity, biometrics, or raw input into a durable profile. Behavior becomes a sequence — not a dossier.</p>
+      <div class="grid">
+        <div class="card"><span class="tag">A1 · signal ingest — Cell 33</span><h3>Passive attention</h3><p>Viewport deceleration normalized against the active session baseline across declared page regions. Behavioral proxy — not physiology.</p></div>
+        <div class="card"><span class="tag">A2 · intent scoring — Cell 34</span><h3>Session sequence forecast</h3><p>Ordered, privacy-minimized events estimate a configurable near-term outcome horizon. Sequence-aware, calibration-gated, explanation-bearing.</p></div>
+        <div class="card"><span class="tag">A3 · creative alignment</span><h3>Creative-semantic alignment</h3><p>Versioned multimodal asset representations produce bounded creative-compatibility signals. Asset-level — not psychological profiling.</p></div>
+        <div class="card"><span class="tag">A4 · intent graph — Cell 35</span><h3>Latent intent bridges</h3><p>Temporary graph links connect session evidence to a revocable intent hypothesis with explicit TTL. Provenance, uncertainty, expiry — corroborated by governed external evidence (Cell 37).</p></div>
+      </div>
+
+      <div class="trace">
+        <div class="trace-head">
+          <span class="label">Illustrative shadow session</span>
+          <span class="flag">ILLUSTRATIVE INFERENCE ONLY</span>
+        </div>
+        <table>
+          <caption>Timeline — example values</caption>
+          <thead><tr><th scope="col">T+</th><th scope="col">Event</th><th scope="col">Detail</th></tr></thead>
+          <tbody>
+            <tr><td>00:01.420</td><td>CONTENT REGION</td><td>Session baseline established</td></tr>
+            <tr><td>00:03.000</td><td>VDI SIGNAL</td><td>Technical diagram · deceleration vs. baseline</td></tr>
+            <tr><td>00:05.110</td><td>TAB HIDDEN</td><td>Content-free lifecycle event</td></tr>
+            <tr><td>00:08.760</td><td>RETURN</td><td>Price-region dwell</td></tr>
+            <tr><td>—</td><td class="ok">EVALUATION HYPOTHESIS</td><td>illustrative · 0.74</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Cell bindings resolve from the live registry — never hard-coded. Incrementality is measured by the causal battery (Cell 36) before any capability claim. Preview · in development.</p>
+    </div>
+  </section>
+
+  <!-- 04 DECISION CONTROL PLANE -->
+  <section id="control">
+    <div class="wrap">
+      <p class="secno sec-mark">§04 · Decision Control Plane</p>
+      <h2>Every recommendation carries its evidence.</h2>
+      <p class="sub">The ValidationPassport binds evidence, consent, uncertainty, model versions, policy checks, approvals, and rollback into one inspectable record.</p>
+      <div class="trace">
+        <div class="trace-head">
+          <span class="label">Validation passport VP-00491 · immutable trace (illustrative)</span>
+          <span class="flag">REVERSIBLE · AUDIT LOGGED</span>
+        </div>
+        <table>
+          <caption>Checks</caption>
+          <thead><tr><th scope="col">Check</th><th scope="col">Result</th></tr></thead>
+          <tbody>
+            <tr><td>CONSENT</td><td class="ok">PASS</td></tr>
+            <tr><td>DATA QUALITY</td><td class="ok">PASS</td></tr>
+            <tr><td>CALIBRATION</td><td class="ok">PASS</td></tr>
+            <tr><td>POLICY</td><td class="ok">PASS</td></tr>
+            <tr><td>CAUSAL EVIDENCE</td><td class="pend">EXPERIMENT REQUIRED</td></tr>
+            <tr><td>ELIGIBILITY</td><td class="veto">WITHHOLD EXECUTION</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Methods: X- / DR-Learner · DoWhy refutation · ghost-ad holdouts where supported · calibration gates (Brier ≤ 0.20, AUC ≥ 0.72).</p>
+    </div>
+  </section>
+
+  <!-- 05 AUTHORIZED ROLLOUT -->
+  <section id="rollout">
+    <div class="wrap">
+      <p class="secno sec-mark">§05 · Authorized rollout</p>
+      <h2>Two gates. No hidden third.</h2>
+      <div class="cols2">
+        <div class="card">
+          <span class="tag">Gate 01 · DARK</span>
+          <h3>Safe additive integration</h3>
+          <p>Backward-compatible implementation. Evidence-backed tests. Kill switches. Immutable image. Zero traffic-changing authority.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Gate 02 · SHADOW</span>
+          <h3>Narrowly allowlisted evaluation</h3>
+          <p>Consented scope. Strict isolation. Shadow comparison. Guardrails, audit, verified rollback. No customer-impacting mutation.</p>
+        </div>
+      </div>
+      <div class="card" style="margin-top:1.1rem">
+        <span class="tag">Outside current authority</span>
+        <h3>Production activation</h3>
+        <p>Activation runs only through the Decision Control Plane's governed execution adapters, and requires: separate explicit owner approval per gate; a passing ValidationPassport; qualified causal evidence from a pre-registered holdout; successful experiment and guardrail results; an exact, authorized mutation; and verified rollback.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- O-1 PRIVACY -->
+  <section id="privacy">
+    <div class="wrap">
+      <p class="secno">O-1 · Privacy locked</p>
+      <h2>What the system refuses to learn <em>matters.</em></h2>
+      <p class="sub">Keystroke dynamics are excluded from ingestion permanently — alongside the standing bright lines: no audio, no gaze, no real-time location. Rejection happens at the schema, not in policy documents.</p>
+      <div class="cols2">
+        <div class="card">
+          <span class="tag">Permitted · content-free lifecycle only</span>
+          <ul class="plain">
+            <li>form_started</li>
+            <li>field_focused</li>
+            <li>form_completed</li>
+            <li>form_abandoned</li>
+          </ul>
+          <p style="margin-top:.8rem">Field references are coarse, allowlisted, and non-sensitive. Sensitive field classes emit nothing.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Rejected · collector and ingestion · DISALLOWED_KEYSTROKE_DYNAMICS</span>
+          <ul class="plain rej">
+            <li>Raw keyboard, input, or composition events</li>
+            <li>Entered text, key identity, or edit history</li>
+            <li>Dwell / flight time, cadence, repeat, or pressure</li>
+            <li>Typing profiles, embeddings, fingerprints, baselines</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="footer-cta" id="briefing" data-abtest-goal>
+    <div class="wrap">
+      <p class="secno">The operating advantage</p>
+      <h2>Move earlier. <em>Act only when the evidence permits.</em></h2>
+      <p class="sub" style="margin-inline:auto">Faster decision velocity without surrendering qualified causal evidence, operator control, or enterprise governance. Pre-conversion intent: Preview · in development.</p>
+      <a class="btn btn-primary" href="/go/pilot?cta=signal-briefing">Schedule an executive briefing</a>
+      <a class="btn btn-ghost" href="https://decisionstudio.mizoki3.com/signal">Open Signal in the Decision Studio</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
   <div class="wrap">
-    <p class="mark sec-mark">§01 · The measurement gap</p>
-    <h2>Reported ROAS is a claim. <em>Incremental ROAS is a finding.</em></h2>
-    <div class="grid g2">
-      <div class="cell">
-        <h3>What platforms report</h3>
-        <p>A conversion that followed an impression. The platform selected the audience, served the ad, and then graded its own work. Brand search and retargeting look strongest here precisely because they reach people who were already coming.</p>
-      </div>
-      <div class="cell">
-        <h3>What Signal measures</h3>
-        <p>The difference between customers who saw the ad and statistically identical customers who did not. That difference is the only part of the number your budget created — and it is routinely a fraction of what was reported.</p>
-      </div>
-    </div>
-    <p class="lede">Correlation-based intent vendors have the same problem in a different coat: a surge score tells you an account is researching. It cannot tell you whether your response changed the outcome.</p>
-  </div>
-</section>
-
-<!-- ═══ PROOF ENGINE ═══ -->
-<section>
-  <div class="wrap">
-    <p class="mark sec-mark">§02 · The proof engine</p>
-    <h2>Four stages between a hunch <em>and a finding.</em></h2>
-    <p class="lede">Signal does not score attribution and stop. It designs the experiment, estimates the effect, then actively tries to break its own conclusion before that conclusion is allowed to move money.</p>
-    <ol class="stages">
-      <li>
-        <div><h3>Design the counterfactual</h3>
-        <p>Register the experiment before the first impression: a randomized holdout, ghost bids that log the auctions a control customer would have won, or matched control geographies for channels that can't be held out per person. Minimum detectable effect is declared up front, not discovered afterward.</p></div>
-      </li>
-      <li>
-        <div><h3>Estimate who was actually persuadable</h3>
-        <p>Uplift modeling separates customers your marketing moved from customers who were always going to convert — and from those it annoyed. Effects are estimated per segment and per region, because a channel that works in one market often does nothing in another.</p></div>
-      </li>
-      <li>
-        <div><h3>Try to break the result</h3>
-        <p>Every estimate faces automated refutation: swap the real treatment for a placebo and the effect must collapse; inject a random confounder and the estimate must not move; re-run on data subsets. A result that survives is reportable. A result that fails is flagged, not shipped.</p></div>
-      </li>
-      <li>
-        <div><h3>Write the ledger</h3>
-        <p>Each conversion is classified caused or anticipated, with lift and a confidence interval, and written to the immutable audit trail. Budget reallocation reads from this ledger — never from platform-reported ROAS alone.</p></div>
-      </li>
-    </ol>
-  </div>
-</section>
-
-<!-- ═══ CAPABILITY STACK ═══ -->
-<section id="capabilities">
-  <div class="wrap">
-    <p class="mark sec-mark">§03 · The capability stack</p>
-    <h2>Five disciplines, <em>one governed loop.</em></h2>
-    <p class="lede">Signal is a complete media-buying intelligence system, not a single trick. Each discipline below runs on the same seven-stage SRPVDAL loop, passes the same Decision Control Plane gates, and answers to the same causal credit ledger. Each has its own dossier.</p>
-    <div class="grid g3">
-      <div class="cell">
-        <h3>Threshold Intelligence</h3>
-        <p>Delivery algorithms are threshold machines — below the activation point, spend buys noise. Structured discovery finds the line; concentration keeps you above it.</p>
-        <p style="margin-top:12px"><a class="mark" href="/signal/thresholds" style="color:var(--seam);text-decoration:none">Open the dossier ▸</a></p>
-      </div>
-      <div class="cell">
-        <h3>Budget Intelligence</h3>
-        <p>Reallocation gated by rectified-linear scoring: only positive, confident, well-sampled uplift can move money — paced inside clamps, with a permanent holdout.</p>
-        <p style="margin-top:12px"><a class="mark" href="/signal/budget" style="color:var(--seam);text-decoration:none">Open the dossier ▸</a></p>
-      </div>
-      <div class="cell">
-        <h3>Creative Intelligence</h3>
-        <p>Fatigue detected statistically before performance sags — decay triggers, decline forecasts, and four rotation strategies with the swap itself measured.</p>
-        <p style="margin-top:12px"><a class="mark" href="/signal/creative" style="color:var(--seam);text-decoration:none">Open the dossier ▸</a></p>
-      </div>
-      <div class="cell">
-        <h3>Audience Intelligence</h3>
-        <p>Uplift quadrants: spend on persuadables, stop paying for sure things, go quiet on sleeping dogs. Suppression is a first-class capability.</p>
-        <p style="margin-top:12px"><a class="mark" href="/signal/audiences" style="color:var(--seam);text-decoration:none">Open the dossier ▸</a></p>
-      </div>
-      <div class="cell">
-        <h3>Measurement Foundations</h3>
-        <p>One clock, one identity, one ledger: unified windows, privacy-safe stitching, server-side plumbing, and the incrementality engine that grades every claim.</p>
-        <p style="margin-top:12px"><a class="mark" href="/signal/measurement" style="color:var(--seam);text-decoration:none">Open the dossier ▸</a></p>
-      </div>
-      <div class="cell">
-        <h3>See it run</h3>
-        <p>The Signal Factory desk runs the full loop live — raw events to gated decision, including one deliberate guardrail block caught in red.</p>
-        <p style="margin-top:12px"><a class="mark" href="/demo/signal" style="color:var(--seam);text-decoration:none">Run the factory ▸</a></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ FIELD NOTES ═══ -->
-<section>
-  <div class="wrap">
-    <p class="mark sec-mark">§04 · Field notes — composite scenarios · illustrative numbers</p>
-    <h2>The questions marketers arrive with — <em>and what the ledger said.</em></h2>
-    <p class="lede">These are the situations Signal is built for, told the way they actually happen. Details are composites of common deployments; the numbers are illustrative. Yours come from your own experiments — that's the point.</p>
-
-    <div class="grid g2">
-
-      <!-- STORY 1 — the retargeting money pit -->
-      <div class="story">
-        <p class="q">Retargeting is our best channel. The dashboard says 8x. So why does growth feel stuck?</p>
-        <dl>
-          <dt>The test</dt>
-          <dd>Signal quietly kept the ads away from a small slice of identical shoppers and watched what they did anyway.</dd>
-          <dt>The ledger</dt>
-          <dd>Most of them bought regardless. The real return was closer to 1.4x — the dashboard had been counting people who were already on their way back.</dd>
-          <dt>The change</dt>
-          <dd>Retargeting budget cut by a third and moved to finding new customers. Revenue held. Growth didn't feel stuck anymore.</dd>
-        </dl>
-        <p class="verdict">You were paying a doorman to open a door people were already walking through. Now the doorman works the doors that were actually closed.</p>
-      </div>
-
-      <!-- STORY 2 — paying for your own name -->
-      <div class="story">
-        <p class="q">The CFO wants to know why we pay Google every time someone searches our own brand name.</p>
-        <dl>
-          <dt>The test</dt>
-          <dd>Brand-search ads switched off in a set of matched cities, left on in their statistical twins. Six weeks. No opinions, just registers.</dd>
-          <dt>The ledger</dt>
-          <dd>In the dark cities, roughly four out of five of those clicks simply moved to the free listing one inch below. The paid ad caused a sliver, not the number on the report.</dd>
-          <dt>The change</dt>
-          <dd>Brand-search spend rightsized to what it actually causes. The CFO got a finding instead of a turf war.</dd>
-        </dl>
-        <p class="verdict">The most expensive fights in marketing are the ones where both sides are guessing. This one ended in a meeting, with a confidence interval on the slide.</p>
-      </div>
-
-      <!-- STORY 3 — the discount that wasn't needed -->
-      <div class="story">
-        <p class="q">Our email discounts drive half our orders. But margins keep shrinking and unsubscribes keep climbing.</p>
-        <dl>
-          <dt>The test</dt>
-          <dd>Signal sorted customers by what the message actually changed — not who converted, but who converted <em>because of it</em>.</dd>
-          <dt>The ledger</dt>
-          <dd>About a fifth of every discount send went to people who were buying anyway — pure margin given away. A smaller group was actively being pushed toward the unsubscribe button.</dd>
-          <dt>The change</dt>
-          <dd>Sure-buyers stopped getting coupons for things already in their cart. The annoyed got quiet. Margin recovered without sending a single extra email.</dd>
-        </dl>
-        <p class="verdict">The question was never "did they convert after the email?" It was "would they have converted without it?" Those are different customers, and now they're treated differently.</p>
-      </div>
-
-      <!-- STORY 4 — defending the brand budget -->
-      <div class="story">
-        <p class="q">Streaming TV is our biggest bet and our least measurable one. Finance wants to cut it. Prove it works — or lose it.</p>
-        <dl>
-          <dt>The test</dt>
-          <dd>The campaign ran in some markets and deliberately not in their statistical twins — the honest way to measure a channel you can't track click by click.</dd>
-          <dt>The ledger</dt>
-          <dd>Real lift in nine of fourteen test markets. In the other five, nothing the data could defend.</dd>
-          <dt>The change</dt>
-          <dd>Doubled down where it worked, cut where it didn't. The budget survived — smaller, and unkillable, because every dollar left had a receipt.</dd>
-        </dl>
-        <p class="verdict">"Prove it or lose it" stopped being a threat. It became the operating procedure — and the brand team's best defense.</p>
-      </div>
-
-    </div>
-
-    <p class="lede" style="margin-top:30px">A fifth kind of question — <em>"can you tell us who's about to be in-market before they raise their hand?"</em> — belongs to the anticipatory intent capability in §06 — Preview · in development — and it's marked that way for a reason: we don't narrate capabilities as finished until they are. When it ships, it plays by the same rule as everything above — a prediction never claims credit without an experiment behind it.</p>
-  </div>
-</section>
-
-<!-- ═══ INPUTS / OUTPUTS ═══ -->
-<section>
-  <div class="wrap">
-    <p class="mark sec-mark">§05 · Inputs and outputs</p>
-    <h2>One canonical event. <em>Every acquisition surface.</em></h2>
-    <div class="grid g2">
-      <div class="cell">
-        <p class="mark">Consumes — via governed connectors</p>
-        <ul class="spec">
-          <li>Google Ads — search acquisition signals</li>
-          <li>Meta Ads — Facebook &amp; Instagram delivery</li>
-          <li>The Trade Desk — programmatic display &amp; video</li>
-          <li>Klaviyo — email &amp; lifecycle marketing</li>
-          <li>Shopify — commerce, orders &amp; revenue</li>
-          <li>CRM records, pipeline &amp; closed-won outcomes</li>
-          <li>Journey telemetry &amp; consented engagement events</li>
-          <li>BigQuery warehoused facts · Neo4j relationships</li>
-        </ul>
-      </div>
-      <div class="cell">
-        <p class="mark">Produces — into the shared graph</p>
-        <ul class="spec">
-          <li>Incremental ROAS per channel, campaign and region</li>
-          <li>Caused vs. anticipated credit ledger, with intervals</li>
-          <li>Budget reallocation proposals, gated before execution</li>
-          <li>Segment-level uplift — who is genuinely persuadable</li>
-          <li>Geo experiment design &amp; matched-market readouts</li>
-          <li>Churn and lifetime-value forecasts</li>
-          <li>Activation thresholds and saturation points</li>
-          <li>Journey maps across the whole acquisition path</li>
-        </ul>
-      </div>
-    </div>
-    <p class="lede">Each source emits the same canonical business event, so Signal reasons over evidence rather than reconciling eight vendor exports. Findings reinforce Capital, Risk and Counsel through one shared causal memory.</p>
-  </div>
-</section>
-
-<!-- ═══ ORACLE — LABELED PREVIEW ═══ -->
-<section>
-  <div class="wrap">
-    <p class="mark sec-mark">§06 · On the roadmap</p>
-    <h2>Anticipatory intent <span class="tag">Preview · in development</span></h2>
-    <p class="lede">Signal is being extended to read emerging intent from consented behavioral signals — the same candidate-generation and ranking architecture the major platforms use — and to classify where a customer sits on the path from awareness to purchase-imminent.</p>
-    <div class="grid g3">
-      <div class="cell">
-        <h3>Predicted next interest</h3>
-        <p>Calibrated probabilities, not affinity labels. A 70% prediction is designed to be right about 70% of the time, and is measured for that (illustrative figure).</p>
-      </div>
-      <div class="cell">
-        <h3>Explainable by construction</h3>
-        <p>Every prediction returns the path through the interest graph that produced it. No score is delivered without its reasoning.</p>
-      </div>
-      <div class="cell">
-        <h3>Married to the ledger</h3>
-        <p>Predicted intent never claims credit on its own. Acting on it requires a registered holdout, so anticipation is never mistaken for causation.</p>
-      </div>
-    </div>
-    <p class="note"><strong>Stated plainly:</strong> this is anticipatory modeling of consented behavior, not mind-reading, and it is in development rather than deployed. Signal uses no microphone or audio signals of any kind — not now, not on the roadmap.</p>
-  </div>
-</section>
-
-<!-- ═══ GOVERNANCE ═══ -->
-<section>
-  <div class="wrap">
-    <p class="mark sec-mark">§07 · Governance</p>
-    <h2>The constraints are <em>the product.</em></h2>
-    <div class="grid g2">
-      <div class="cell">
-        <h3>Consent decides ingestion</h3>
-        <p>Behavioral signals without a matching consent scope are never stored. The check runs before persistence, and it fails closed.</p>
-      </div>
-      <div class="cell">
-        <h3>No audio. Ever.</h3>
-        <p>Microphone and voice-derived targeting is refused at the schema level. It is not a setting an operator can switch on.</p>
-      </div>
-      <div class="cell">
-        <h3>Sensitive categories are refused</h3>
-        <p>Health, sexuality, religion, financial distress and minors are excluded from inference, storage and activation — regardless of model confidence.</p>
-      </div>
-      <div class="cell">
-        <h3>Your customers keep their rights</h3>
-        <p>Intent scoring — Preview · in development — is profiling under GDPR and is treated that way: access, correction, objection and erasure that cascades through every store.</p>
-      </div>
-    </div>
-    <p class="lede">Marketing organizations increasingly have to answer for how a number was produced. Signal is built so the answer is short.</p>
-  </div>
-</section>
-
-<!-- ═══ AUTONOMY ═══ -->
-<section>
-  <div class="wrap">
-    <p class="mark sec-mark">§08 · Delegation</p>
-    <h2>Acquisition starts at <em>observe.</em></h2>
-    <p class="lede">Signal ships at the conservative end of the platform's autonomy ladder. Spend authority is granted deliberately, and only after measured calibration and stable lift across at least two purchase cycles — never on the strength of a demo.</p>
-    <div class="ladder">
-      <div class="rung on"><div class="lv">L0</div><div class="nm">Observe</div></div>
-      <div class="rung on"><div class="lv">L1</div><div class="nm">Recommend</div></div>
-      <div class="rung"><div class="lv">L2</div><div class="nm">Approval flow</div></div>
-      <div class="rung"><div class="lv">L3</div><div class="nm">Act in limits</div></div>
-      <div class="rung"><div class="lv">L4</div><div class="nm">Self-correct</div></div>
-      <div class="rung"><div class="lv">L5</div><div class="nm">Autonomous</div></div>
-    </div>
-    <p class="lede" style="font-size:.95rem">Highlighted rungs are where Signal begins. Every proposal above L1 passes the Decision Control Plane — identity, policy alignment, context sufficiency and constraint gates — before it can touch a budget.</p>
-  </div>
-</section>
-
-<!-- ═══ CLOSE ═══ -->
-<section>
-  <div class="wrap">
-    <p class="mark sec-mark">§09 · See it run</p>
-    <h2>Don't take the page's word for it. <em>Run the factory.</em></h2>
-    <p class="lede">The Signal Factory desk is live on the production runtime. Raw connector events arrive, normalize into canonical events, face the gate, and travel all seven SRPVDAL stages — including one deliberate guardrail block you'll watch get caught in red. No signup, no sales call.</p>
-    <div class="cta-row">
-      <a class="btn" href="/demo/signal">Open the Signal Factory ▸</a>
-      <a class="btn ghost" href="/demo">All six desks</a>
-      <a class="btn ghost" href="/executive-briefing/">Executive briefing · ~9 min</a>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap">
-    <div>
-      <p class="mark">MIZOKI3 · Signal</p>
-      <p style="max-width:34ch;color:var(--paper-dim);font-size:.9rem;margin:10px 0 0">
-        Causal acquisition intelligence on one governed loop. Proof, not attribution theatre.</p>
-    </div>
-    <div>
-      <p class="mark">Domains</p>
-      <a href="/counsel">Counsel</a><a href="/capital">Capital</a>
-      <a href="/risk">Risk</a><a href="/estate">Estate</a>
-    </div>
-    <div>
-      <p class="mark">Capabilities</p>
-      <a href="/signal/thresholds">Thresholds</a><a href="/signal/budget">Budget</a>
-      <a href="/signal/creative">Creative</a><a href="/signal/audiences">Audiences</a>
-      <a href="/signal/measurement">Measurement</a>
-    </div>
-    <div>
-      <p class="mark">Platform</p>
-      <a href="/#pipeline">Decision engine</a><a href="/#control">Control plane</a>
-      <a href="/demo">Live demo</a><a href="/pricing">Pricing</a>
-    </div>
-  </div>
-  <div class="wrap" style="margin-top:34px;padding-top:20px;border-top:1px solid var(--rule)">
-    <p class="mark">© 2026 MIZOKI3 · MediaIntelligence.ai · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p>
+    <span class="brand">MIZ&nbsp;OKI&nbsp;3.5 <small>/ ORACLE</small> — a nervous system for your business.</span>
+    <span class="attrs">Verifiable · Reversible · Governed · <a href="/animation" style="color:inherit;text-decoration:none;">Animation</a></span>
   </div>
 </footer>
-
+<script data-abtest="goal-beacon">
+/* A/B/C outcome tier 3 (pre-registered tertiary metric): fires once when the
+   pilot/briefing section becomes visible. Deterministic — no randomness, no
+   clock reads. Sends only {goal, page}; the server derives assignment context
+   from its own cookie parse, and nothing personal leaves the page. */
+(function () {
+  "use strict";
+  var target = document.querySelector("[data-abtest-goal]");
+  if (!target || !("IntersectionObserver" in window) || !navigator.sendBeacon) { return; }
+  var sent = false;
+  var observer = new IntersectionObserver(function (entries) {
+    for (var i = 0; i < entries.length; i += 1) {
+      if (entries[i].isIntersecting && !sent) {
+        sent = true;
+        observer.disconnect();
+        navigator.sendBeacon("/api/abtest/goal", new Blob(
+          [JSON.stringify({goal: "pilot-view", page: location.pathname})],
+          {type: "application/json"}));
+      }
+    }
+  });
+  observer.observe(target);
+}());
+</script>
 </body>
 </html>
